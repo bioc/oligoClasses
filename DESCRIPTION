@@ -1,0 +1,18 @@
+Package: oligoClasses
+Version: 0.0.1
+Date: 2007-08-14
+Title: Classes for high-throughput SNP arrays
+Author: Benilton Carvalho <bcarvalho@jhsph.edu> and  Robert Scharpf <rscharpf@jhsph.edu>
+Maintainer: Benilton Carvalho <bcarvalho@jhsph.edu> 
+Depends: R (>= 2.6.0), Biobase
+Suggests: 
+Description: This package contains class definitions, validity checks, and
+             initialization methods for both feature- and SNP-level
+             data
+License: GPL version 2 or newer
+LazyLoad: yes	     
+Collate:  AllClasses.R
+	  AllGenerics.R
+	  initialize-methods.R
+	  assayData-methods.R
+biocViews: infrastructure

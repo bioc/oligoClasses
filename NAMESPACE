@@ -1,0 +1,30 @@
+import(Biobase)
+
+##Feature-level Classes
+exportClasses(PDInfo,
+              DBPDInfo,
+              SNPPDInfo,
+              SNPCNVPDInfo,
+              AffySNPCNVPDInfo,
+              platformDesign,
+              FeatureSet,
+              QuantificationSet,
+              ExpressionFeatureSet,
+              SnpFeatureSet,
+              SnpCnvFeatureSet,
+              TilingFeatureSet,
+              ExonFeatureSet,
+              SnpQSet,
+              SnpCnvQSet)
+
+##SNP-level Classes
+exportClasses(SnpCallSet,
+              SnpCopyNumberSet,
+              oligoSnpSet)
+
+##SNP-level methods
+exportMethods(calls, "calls<-",
+              callsConfidence, "callsConfidence<-",
+              copyNumber, "copyNumber<-",
+              cnConfidence, "cnConfidence<-",
+              initialize, "initialize<-")
