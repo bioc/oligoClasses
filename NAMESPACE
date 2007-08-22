@@ -27,4 +27,4 @@ exportMethods(calls, "calls<-",
               callsConfidence, "callsConfidence<-",
               copyNumber, "copyNumber<-",
               cnConfidence, "cnConfidence<-",
-              initialize, "initialize<-")
+              initialize)
