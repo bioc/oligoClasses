@@ -40,19 +40,13 @@ setMethod("initialize", "oligoSnpSet",
           })
 
 setValidity("SnpCallSet", function(object) {
-    msg <- validMsg(NULL, isValidVersion(object, "SnpCallSet"))
-    msg <- validMsg(msg, assayDataValidMembers(assayData(object), c("calls", "callsConfidence")))
-    if (is.null(msg)) TRUE else msg
+  assayDataValidMembers(assayData(object), c("calls", "callsConfidence"))
 })
 
 setValidity("SnpCopyNumberSet", function(object) {
-    msg <- validMsg(NULL, isValidVersion(object, "SnpCopyNumberSet"))
-    msg <- validMsg(msg, assayDataValidMembers(assayData(object), c("copyNumber", "cnConfidence")))
-    if (is.null(msg)) TRUE else msg
+  assayDataValidMembers(assayData(object), c("copyNumber", "cnConfidence"))
 })
 
 setValidity("oligoSnpSet", function(object) {
-    msg <- validMsg(NULL, isValidVersion(object, "oligoSnpSet"))
-    msg <- validMsg(msg, assayDataValidMembers(assayData(object), c("calls", "callsConfidence", "copyNumber", "cnConfidence")))
-    if (is.null(msg)) TRUE else msg
+  assayDataValidMembers(assayData(object), c("calls", "callsConfidence", "copyNumber", "cnConfidence"))
 })

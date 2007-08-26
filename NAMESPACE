@@ -18,7 +18,8 @@ exportClasses(PDInfo,
               SnpCnvQSet)
 
 ##SNP-level Classes
-exportClasses(SnpCallSet,
+exportClasses(SnpLevelSet,
+              SnpCallSet,
               SnpCopyNumberSet,
               oligoSnpSet)
 
