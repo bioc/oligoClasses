@@ -5,6 +5,7 @@ exportClasses(PDInfo,
               DBPDInfo,
               SNPPDInfo,
               SNPCNVPDInfo,
+              AffySNPPDInfo,
               AffySNPCNVPDInfo,
               platformDesign,
               FeatureSet,
@@ -15,11 +16,11 @@ exportClasses(PDInfo,
               TilingFeatureSet,
               ExonFeatureSet,
               SnpQSet,
-              SnpCnvQSet)
+              SnpCnvQSet,
+              SnpLevelSet)
 
 ##SNP-level Classes
-exportClasses(SnpLevelSet,
-              SnpCallSet,
+exportClasses(SnpCallSet,
               SnpCopyNumberSet,
               oligoSnpSet)
 
