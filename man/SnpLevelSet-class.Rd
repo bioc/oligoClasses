@@ -1,6 +1,14 @@
 \name{SnpLevelSet-class}
 \docType{class}
 \alias{SnpLevelSet-class}
+\alias{copyNumber,SnpLevelSet-method}
+\alias{copyNumber<-,SnpLevelSet,matrix-method}
+\alias{cnConfidence,SnpLevelSet-method}
+\alias{cnConfidence<-,SnpLevelSet,matrix-method}
+\alias{calls,SnpLevelSet-method}
+\alias{calls<-,SnpLevelSet,matrix-method}
+\alias{callsConfidence,SnpLevelSet-method}
+\alias{callsConfidence<-,SnpLevelSet,matrix-method}
 \title{SnpLevelSet class}
 \description{Virtual class for SNP-level data}
 \keyword{classes}
