@@ -1,6 +1,7 @@
 \name{oligoSnpSet-methods}
 \docType{methods}
 \alias{oligoSnpSet-class}
+\alias{initialize,oligoSnpSet-method}
 \alias{copyNumber,oligoSnpSet-method}
 \alias{copyNumber<-,oligoSnpSet,matrix-method}
 \alias{calls,oligoSnpSet-method}
