@@ -19,10 +19,10 @@ Objects can be created by calls of the form \code{new("SnpCnvQSet", assayData, p
   }
 }
 \section{Extends}{
-Class \code{"\linkS4class{QuantificationSet}"}, directly.
-Class \code{"\linkS4class{eSet}"}, by class "QuantificationSet", distance 2.
-Class \code{"\linkS4class{VersionedBiobase}"}, by class "QuantificationSet", distance 3.
-Class \code{"\linkS4class{Versioned}"}, by class "QuantificationSet", distance 4.
+Class \code{\linkS4class{QuantificationSet}}, directly.
+Class \code{\linkS4class{eSet}}, by class "QuantificationSet", distance 2.
+Class \code{\linkS4class{VersionedBiobase}}, by class "QuantificationSet", distance 3.
+Class \code{\linkS4class{Versioned}}, by class "QuantificationSet", distance 4.
 }
 \section{Methods}{
 No methods defined with class "SnpCnvQSet" in the signature.
