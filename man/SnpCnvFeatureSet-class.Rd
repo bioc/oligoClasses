@@ -2,7 +2,7 @@
 \docType{class}
 \alias{SnpCnvFeatureSet-class}
 
-\title{Class "SnpCnvFeatureSet" ~~~ }
+\title{Class "SnpCnvFeatureSet"}
 \description{A class to store feature-level intensities from arrays that
 contain both SNP and CNV probes.}
 \section{Objects from the Class}{

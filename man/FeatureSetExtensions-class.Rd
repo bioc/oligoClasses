@@ -24,21 +24,25 @@ Objects can be created by calls of the form \code{new("ExonFeatureSet", assayDat
 }
 \section{Extends}{
 Class \code{\linkS4class{FeatureSet}}, directly.
-Class \code{\linkS4class{eSet}}, by class "FeatureSet", distance 2.
-Class \code{\linkS4class{VersionedBiobase}}, by class "FeatureSet", distance 3.
-Class \code{\linkS4class{Versioned}}, by class "FeatureSet", distance 4.
+Class \code{\link[Biobase:class.eSet]{eSet}}, by class "FeatureSet", distance 2.
+Class \code{\link[Biobase:class.VersionedBiobase]{VersionedBiobase}}, by class "FeatureSet", distance 3.
+Class \code{\link[Biobase:class.Versioned]{Versioned}}, by class "FeatureSet", distance 4.
 }
 \section{Methods}{
 No methods defined with class "ExonFeatureSet" in the signature.
 }
 \references{}
-\author{}
+\author{Benilton Carvalho}
 \note{}
 
 
-\seealso{\code{\linkS4class{eSet}}, \code{\linkS4class{VersionedBiobase}}, \code{\linkS4class{Versioned}}}
+\seealso{\code{\link[Biobase:class.eSet]{eSet}}, \code{\link[Biobase:class.VersionedBiobase]{VersionedBiobase}}, \code{\link[Biobase:class.Versioned]{Versioned}}}
 
 \examples{
-##---- Should be DIRECTLY executable !! ----
+set.seed(1)
+tmp <- 2^matrix(rnorm(100), ncol=4)
+rownames(tmp) <- 1:25
+colnames(tmp) <- paste("sample", 1:4, sep="")
+efs <- new("ExpressionFeatureSet", exprs=tmp)
 }
 \keyword{classes}
