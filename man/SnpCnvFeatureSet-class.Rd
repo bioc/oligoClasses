@@ -23,9 +23,9 @@ Objects can be created by calls of the form \code{new("SnpCnvFeatureSet", assayD
 \section{Extends}{
 Class \code{"\linkS4class{SnpFeatureSet}"}, directly.
 Class \code{"\linkS4class{FeatureSet}"}, by class "SnpFeatureSet", distance 2.
-Class \code{"\linkS4class{eSet}"}, by class "SnpFeatureSet", distance 3.
-Class \code{"\linkS4class{VersionedBiobase}"}, by class "SnpFeatureSet", distance 4.
-Class \code{"\linkS4class{Versioned}"}, by class "SnpFeatureSet", distance 5.
+Class \code{\link[Biobase:class.eSet]{eSet}}, by class "SnpFeatureSet", distance 3.
+Class \code{\link[Biobase:class.VersionedBiobase]{VersionedBiobase}}, by class "SnpFeatureSet", distance 4.
+Class \code{\link[Biobase:class.Versioned]{Versioned}}, by class "SnpFeatureSet", distance 5.
 }
 \section{Methods}{
 No methods defined with class "SnpCnvFeatureSet" in the signature.
