@@ -9,6 +9,57 @@ setMethod("initialize", "SnpCallSet",
                            callsConfidence=callsConfidence, ...)
           })
 
+setMethod("initialize", "SnpCallSetPlus",
+          function(.Object,
+                   phenoData, featureData,
+                   calls=new("matrix"),
+                   callsConfidence=new("matrix"),
+                   antisenseThetaA=new("matrix"),
+                   antisenseThetaB=new("matrix"),
+                   senseThetaA=new("matrix"),
+                   senseThetaB=new("matrix"), ... ){
+            ad <- assayDataNew("lockedEnvironment",
+                               calls=calls,
+                               callsConfidence=callsConfidence,
+                               antisenseThetaA=antisenseThetaA,
+                               antisenseThetaB=antisenseThetaB,
+                               senseThetaA=senseThetaA,
+                               senseThetaB=senseThetaB)
+            
+            assayData(.Object) <- ad
+            if (missing(phenoData))
+              phenoData(.Object) <- annotatedDataFrameFrom(calls, byrow=FALSE)
+            if (missing(featureData))
+              featureData(.Object) <- annotatedDataFrameFrom(calls, byrow=TRUE)
+            .Object
+          })
+
+setMethod("initialize", "SnpCnvCallSetPlus",
+          function(.Object,
+                   phenoData, featureData,
+                   calls=new("matrix"),
+                   callsConfidence=new("matrix"),
+                   antisenseThetaA,
+                   antisenseThetaB,
+                   senseThetaA,
+                   senseThetaB,
+                   thetaA,
+                   thetaB, ... ){
+            ad <- assayDataNew("lockedEnvironment",
+                               calls=calls,
+                               callsConfidence=callsConfidence,
+                               thetaA=thetaA,
+                               thetaB=thetaB)
+            assayData(.Object) <- ad
+            if (missing(phenoData))
+              phenoData(.Object) <- annotatedDataFrameFrom(calls, byrow=FALSE)
+            if (missing(featureData))
+              featureData(.Object) <- annotatedDataFrameFrom(calls, byrow=TRUE)
+            .Object
+          })
+
+
+
 setMethod("initialize", "SnpCopyNumberSet",
           function(.Object,
                    copyNumber=new("matrix"),
@@ -50,3 +101,4 @@ setValidity("SnpCopyNumberSet", function(object) {
 setValidity("oligoSnpSet", function(object) {
   assayDataValidMembers(assayData(object), c("calls", "callsConfidence", "copyNumber", "cnConfidence"))
 })
+

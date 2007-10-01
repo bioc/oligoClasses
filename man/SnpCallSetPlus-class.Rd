@@ -1,0 +1,44 @@
+\name{SnpCallSetPlus-class}
+\docType{class}
+\alias{SnpCallSetPlus-class}
+
+\title{Class "SnpCallSetPlus"}
+\description{Description for Genotyping}
+\section{Objects from the Class}{
+  Objects of this class are unions of Quantification and Calls.
+}
+\section{Slots}{
+	 \describe{
+    \item{\code{assayData}:}{Object of class \code{"AssayData"} ~~ }
+    \item{\code{phenoData}:}{Object of class \code{"AnnotatedDataFrame"} ~~ }
+    \item{\code{featureData}:}{Object of class \code{"AnnotatedDataFrame"} ~~ }
+    \item{\code{experimentData}:}{Object of class \code{"MIAME"} ~~ }
+    \item{\code{annotation}:}{Object of class \code{"character"} ~~ }
+    \item{\code{.__classVersion__}:}{Object of class \code{"Versions"} ~~ }
+  }
+}
+\section{Extends}{
+Class \code{"\linkS4class{SnpQSet}"}, directly.
+Class \code{"\linkS4class{SnpCnvQSet}"}, directly.
+Class \code{"\linkS4class{SnpCallSet}"}, directly.
+Class \code{"\linkS4class{QuantificationSet}"}, by class "SnpQSet", distance 2.
+Class \code{"\linkS4class{eSet}"}, by class "SnpQSet", distance 3.
+Class \code{"\linkS4class{VersionedBiobase}"}, by class "SnpQSet", distance 4.
+Class \code{"\linkS4class{Versioned}"}, by class "SnpQSet", distance 5.
+Class \code{"\linkS4class{QuantificationSet}"}, by class "SnpCnvQSet", distance 2.
+Class \code{"\linkS4class{eSet}"}, by class "SnpCnvQSet", distance 3.
+Class \code{"\linkS4class{VersionedBiobase}"}, by class "SnpCnvQSet", distance 4.
+Class \code{"\linkS4class{Versioned}"}, by class "SnpCnvQSet", distance 5.
+Class \code{"\linkS4class{SnpLevelSet}"}, by class "SnpCallSet", distance 2.
+Class \code{"\linkS4class{eSet}"}, by class "SnpCallSet", distance 3.
+Class \code{"\linkS4class{VersionedBiobase}"}, by class "SnpCallSet", distance 4.
+Class \code{"\linkS4class{Versioned}"}, by class "SnpCallSet", distance 5.
+}
+\section{Methods}{
+No methods defined with class "SnpCallSetPlus" in the signature.
+}
+
+\examples{
+showClass("SnpCallSetPlus")
+}
+\keyword{classes}

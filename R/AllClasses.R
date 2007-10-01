@@ -63,3 +63,6 @@ setClass("SnpLevelSet", representation("VIRTUAL"), contains="eSet")
 setClass("SnpCopyNumberSet", contains = "SnpLevelSet")
 setClass("SnpCallSet", contains = "SnpLevelSet")
 setClass("oligoSnpSet", contains="SnpLevelSet")
+
+setClass("SnpCallSetPlus", contains=c("SnpQSet",  "SnpCallSet"))
+setClass("SnpCnvCallSetPlus", contains=c("SnpCnvQSet", "SnpCallSet"))

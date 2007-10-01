@@ -22,7 +22,9 @@ exportClasses(PDInfo,
 ##SNP-level Classes
 exportClasses(SnpCallSet,
               SnpCopyNumberSet,
-              oligoSnpSet)
+              oligoSnpSet,
+              SnpCallSetPlus,
+              SnpCnvCallSetPlus)
 
 ##SNP-level methods
 exportMethods(calls, "calls<-",
