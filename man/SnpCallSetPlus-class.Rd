@@ -1,6 +1,7 @@
 \name{SnpCallSetPlus-class}
 \docType{class}
 \alias{SnpCallSetPlus-class}
+\alias{SnpCnvCallSetPlus-class}
 
 \title{Class "SnpCallSetPlus"}
 \description{Description for Genotyping}
@@ -9,12 +10,12 @@
 }
 \section{Slots}{
 	 \describe{
-    \item{\code{assayData}:}{Object of class \code{"AssayData"} ~~ }
-    \item{\code{phenoData}:}{Object of class \code{"AnnotatedDataFrame"} ~~ }
-    \item{\code{featureData}:}{Object of class \code{"AnnotatedDataFrame"} ~~ }
-    \item{\code{experimentData}:}{Object of class \code{"MIAME"} ~~ }
-    \item{\code{annotation}:}{Object of class \code{"character"} ~~ }
-    \item{\code{.__classVersion__}:}{Object of class \code{"Versions"} ~~ }
+    \item{\code{assayData}:}{Object of class \code{"AssayData"}}
+    \item{\code{phenoData}:}{Object of class \code{"AnnotatedDataFrame"}}
+    \item{\code{featureData}:}{Object of class \code{"AnnotatedDataFrame"}}
+    \item{\code{experimentData}:}{Object of class \code{"MIAME"}}
+    \item{\code{annotation}:}{Object of class \code{"character"}}
+    \item{\code{.__classVersion__}:}{Object of class \code{"Versions"}}
   }
 }
 \section{Extends}{
