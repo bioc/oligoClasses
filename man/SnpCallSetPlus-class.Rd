@@ -2,6 +2,8 @@
 \docType{class}
 \alias{SnpCallSetPlus-class}
 \alias{SnpCnvCallSetPlus-class}
+\alias{initialize,SnpCallSetPlus-method}
+\alias{initialize,SnpCnvCallSetPlus-method}
 
 \title{Class "SnpCallSetPlus"}
 \description{Description for Genotyping}
