@@ -25,16 +25,16 @@ Class \code{"\linkS4class{SnpQSet}"}, directly.
 Class \code{"\linkS4class{SnpCnvQSet}"}, directly.
 Class \code{"\linkS4class{SnpCallSet}"}, directly.
 Class \code{"\linkS4class{QuantificationSet}"}, by class "SnpQSet", distance 2.
-Class \code{"\linkS4class{eSet}"}, by class "SnpQSet", distance 3.
-Class \code{"\linkS4class{VersionedBiobase}"}, by class "SnpQSet", distance 4.
-Class \code{"\linkS4class{Versioned}"}, by class "SnpQSet", distance 5.
+Class \code{\link[Biobase:class.eSet]{eSet}}, by class "SnpQSet", distance 3.
+Class \code{\link[Biobase:class.VersionedBiobase]{VersionedBiobase}}, by class "SnpQSet", distance 4.
+Class \code{\link[Biobase:class.Versioned]{Versioned}}, by class "SnpQSet", distance 5.
 Class \code{"\linkS4class{QuantificationSet}"}, by class "SnpCnvQSet", distance 2.
-Class \code{"\linkS4class{eSet}"}, by class "SnpCnvQSet", distance 3.
-Class \code{"\linkS4class{VersionedBiobase}"}, by class "SnpCnvQSet", distance 4.
-Class \code{"\linkS4class{Versioned}"}, by class "SnpCnvQSet", distance 5.
+Class \code{\link[Biobase:class.eSet]{eSet}}, by class "SnpCnvQSet", distance 3.
+Class \code{\link[Biobase:class.VersionedBiobase]{VersionedBiobase}}, by class "SnpCnvQSet", distance 4.
+Class \code{\link[Biobase:class.Versioned]{Versioned}}, by class "SnpCnvQSet", distance 5.
 Class \code{"\linkS4class{SnpLevelSet}"}, by class "SnpCallSet", distance 2.
-Class \code{"\linkS4class{eSet}"}, by class "SnpCallSet", distance 3.
-Class \code{"\linkS4class{VersionedBiobase}"}, by class "SnpCallSet", distance 4.
+Class \code{\link[Biobase:class.eSet]{eSet}}, by class "SnpCallSet", distance 3.
+Class \code{\link[Biobase:class.VersionedBiobase]{VersionedBiobase}}, by class "SnpCallSet", distance 4.
 Class \code{"\linkS4class{Versioned}"}, by class "SnpCallSet", distance 5.
 }
 \section{Methods}{
