@@ -35,7 +35,7 @@ Class \code{\link[Biobase:class.Versioned]{Versioned}}, by class "SnpCnvQSet", d
 Class \code{"\linkS4class{SnpLevelSet}"}, by class "SnpCallSet", distance 2.
 Class \code{\link[Biobase:class.eSet]{eSet}}, by class "SnpCallSet", distance 3.
 Class \code{\link[Biobase:class.VersionedBiobase]{VersionedBiobase}}, by class "SnpCallSet", distance 4.
-Class \code{"\linkS4class{Versioned}"}, by class "SnpCallSet", distance 5.
+Class \code{\link[Biobase:class.Versioned]{Versioned}}, by class "SnpCallSet", distance 5.
 }
 \section{Methods}{
 No methods defined with class "SnpCallSetPlus" in the signature.
