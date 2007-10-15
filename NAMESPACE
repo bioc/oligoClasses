@@ -1,26 +1,32 @@
 import(Biobase)
 
-##Feature-level Classes
+## PDInfo Classes
 exportClasses(PDInfo,
               DBPDInfo,
               SNPPDInfo,
               SNPCNVPDInfo,
               AffySNPPDInfo,
               AffySNPCNVPDInfo,
-              platformDesign,
-              FeatureSet,
+              ExpressionPDInfo,
+              NgsExpressionPDInfo,
+              TilingPDInfo,
+              NgsTilingPDInfo,
+              platformDesign)
+
+##Feature-level Classes
+exportClasses(FeatureSet,
               QuantificationSet,
               ExpressionFeatureSet,
               SnpFeatureSet,
               SnpCnvFeatureSet,
               TilingFeatureSet,
-              ExonFeatureSet,
-              SnpQSet,
-              SnpCnvQSet,
-              SnpLevelSet)
+              ExonFeatureSet)
 
 ##SNP-level Classes
-exportClasses(SnpCallSet,
+exportClasses(SnpQSet,
+              SnpCnvQSet,
+              SnpLevelSet,
+              SnpCallSet,
               SnpCopyNumberSet,
               oligoSnpSet,
               SnpCallSetPlus,

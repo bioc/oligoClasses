@@ -1,5 +1,5 @@
 ###########################################################################
-##Feature-level classes
+## General PDInfo Classes
 ###########################################################################  
 setClass("PDInfo",
          representation=representation(
@@ -15,14 +15,29 @@ setClass("DBPDInfo",
 
 setClass("SNPPDInfo", contains="DBPDInfo")
 setClass("SNPCNVPDInfo", contains="SNPPDInfo")
-## We hope to have ExonPDInfo, TilingPDInfo soon
+setClass("ExpressionPDInfo", contains="DBPDInfo")
+setClass("TilingPDInfo", contains="DBPDInfo")
+setClass("ExonPDInfo", contains="DBPDInfo")
+
+
+###########################################################################
+## Manufacturer-specific PDInfo Classes
+###########################################################################  
 
 setClass("AffySNPPDInfo", contains="SNPPDInfo",
          prototype=list(
            manufacturer="Affymetrix"))
-
 setClass("AffySNPCNVPDInfo", contains="AffySNPPDInfo")
 
+setClass("NgsExpressionPDInfo", contains="ExpressionPDInfo",
+         prototype=list(manufacturer="NimbleGen"))
+setClass("NgsTilingPDInfo", contains="TilingPDInfo",
+         prototype=list(manufacturer="NimbleGen"))
+
+
+###########################################################################
+## Old PDEnvs... DF-based
+###########################################################################  
 setClass("platformDesign",
          contains="PDInfo",
          representation(featureInfo = "environment",
@@ -36,6 +51,9 @@ setClass("platformDesign",
                         platforms="character"),
          prototype = list(lookup=data.frame(), genomebuild=character()))
 
+###########################################################################
+##Feature-level classes
+###########################################################################  
 setClass("FeatureSet",
          representation(manufacturer="character",
                         platform="character",
