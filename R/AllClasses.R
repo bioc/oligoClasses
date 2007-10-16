@@ -24,9 +24,10 @@ setClass("ExonPDInfo", contains="DBPDInfo")
 ## Manufacturer-specific PDInfo Classes
 ###########################################################################  
 
+setClass("AffyExpressionPDInfo", contains="ExpressionPDInfo",
+         prototype=list(manufacturer="Affymetrix"))
 setClass("AffySNPPDInfo", contains="SNPPDInfo",
-         prototype=list(
-           manufacturer="Affymetrix"))
+         prototype=list(manufacturer="Affymetrix"))
 setClass("AffySNPCNVPDInfo", contains="AffySNPPDInfo")
 
 setClass("NgsExpressionPDInfo", contains="ExpressionPDInfo",

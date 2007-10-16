@@ -1,12 +1,15 @@
 \name{PDInfo-class}
 \docType{class}
 \alias{PDInfo-class}
+\alias{AffyExpressionPDInfo-class}
+\alias{AffyTilingPDInfo-class}
 \alias{SNPPDInfo-class}
 \alias{SNPCNVPDInfo-class}
 \alias{NgsTilingPDInfo-class}
 \alias{TilingPDInfo-class}
 \alias{ExpressionPDInfo-class}
 \alias{NgsExpressionPDInfo-class}
+\alias{NgsTilingPDInfo-class}
 
 \title{Classes "PDInfo" and "SNPPDInfo"}
 \description{Containers for chip information}
