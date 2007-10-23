@@ -9,7 +9,6 @@
 \alias{TilingPDInfo-class}
 \alias{ExpressionPDInfo-class}
 \alias{NgsExpressionPDInfo-class}
-\alias{NgsTilingPDInfo-class}
 
 \title{Classes "PDInfo" and "SNPPDInfo"}
 \description{Containers for chip information}
