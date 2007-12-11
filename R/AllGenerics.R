@@ -9,4 +9,7 @@ setGeneric("cnConfidence<-",
            function(object, value) standardGeneric("cnConfidence<-"))
 setGeneric("copyNumber", function(object) standardGeneric("copyNumber"))
 setGeneric("cnConfidence", function(object) standardGeneric("cnConfidence"))
+
+setGeneric("chromosome", function(object) standardGeneric("chromosome"))
 setGeneric("db", function(object) standardGeneric("db"))
+setGeneric("position", function(object) standardGeneric("position"))
