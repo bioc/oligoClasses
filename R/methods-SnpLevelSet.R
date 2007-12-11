@@ -8,7 +8,10 @@ setMethod("chromosome", "SnpLevelSet",
           })
 
 setMethod("db", "SnpLevelSet",
-          function(object) db(get(annotation(object))))
+          function(object) {
+            require(annotation(object), character.only=TRUE) || stop(paste(annotation(object), "package not available"))
+            db(get(annotation(object)))
+        })
 
 setMethod("position", "SnpLevelSet",
           function(object){
