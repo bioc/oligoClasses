@@ -7,10 +7,14 @@ setMethod("chromosome", "SnpLevelSet",
             tmp[idx, "chrom"]
           })
 
+
+setMethod("db", signature(object="DBPDInfo"),
+          function(object) object@getdb())
+
 setMethod("db", "SnpLevelSet",
           function(object) {
             require(annotation(object), character.only=TRUE) || stop(paste(annotation(object), "package not available"))
-            db(get(annotation(object)))
+            get(annotation(object))@getdb()
         })
 
 setMethod("position", "SnpLevelSet",
