@@ -1,3 +1,4 @@
+setGeneric("calculateCopyNumber", function(object) standardGeneric("calculateCopyNumber"))
 setGeneric("calls<-", function(object, value) standardGeneric("calls<-"))
 setGeneric("callsConfidence<-",
            function(object, value) standardGeneric("callsConfidence<-"))

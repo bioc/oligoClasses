@@ -2,8 +2,10 @@
 \docType{class}
 \alias{SnpCallSetPlus-class}
 \alias{SnpCnvCallSetPlus-class}
+\alias{calculateCopyNumber,SnpCallSetPlus-method}
 \alias{initialize,SnpCallSetPlus-method}
 \alias{initialize,SnpCnvCallSetPlus-method}
+\alias{coerce,SnpCallSetPlus,oligoSnpSet-method}
 
 \title{Class "SnpCallSetPlus"}
 \description{Description for Genotyping}
@@ -38,7 +40,10 @@ Class \code{\link[Biobase:class.VersionedBiobase]{VersionedBiobase}}, by class "
 Class \code{\link[Biobase:class.Versioned]{Versioned}}, by class "SnpCallSet", distance 5.
 }
 \section{Methods}{
-No methods defined with class "SnpCallSetPlus" in the signature.
+  \describe{
+    \item{calculateCopyNumber}{\code{signature(object="SnpCallSetPlus")}
+      See \code{\link{calculateCopyNumber}}}
+    }
 }
 
 \examples{

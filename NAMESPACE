@@ -35,11 +35,16 @@ exportClasses(SnpQSet,
               SnpCnvCallSetPlus)
 
 ##SNP-level methods
-exportMethods(calls, "calls<-",
+exportMethods(calculateCopyNumber,
+              calls, "calls<-",
               callsConfidence, "callsConfidence<-",
               chromosome,
+              coerce,
+              combine,
               copyNumber, "copyNumber<-",
               cnConfidence, "cnConfidence<-",
               db,
               initialize,
               position)
+
+export(affyPlatforms)

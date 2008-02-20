@@ -9,6 +9,7 @@
 \alias{calls<-,SnpLevelSet,matrix-method}
 \alias{callsConfidence,SnpLevelSet-method}
 \alias{callsConfidence<-,SnpLevelSet,matrix-method}
+\alias{combine,SnpLevelSet,SnpLevelSet-method}
 \title{SnpLevelSet class}
 \description{Virtual class for SNP-level data}
 \keyword{classes}
