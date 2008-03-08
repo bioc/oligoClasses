@@ -3,7 +3,7 @@
 ###########################################################################
 setMethod("calls", "SnpLevelSet", function(object) assayDataElement(object, "calls"))
 setReplaceMethod("calls", signature(object="SnpLevelSet", value="matrix"),
-                 function(object, value) assayDataElementReplace(object, "calls", value))
+                 function(object, value) assayDataElementReplace(object, "calls", value)) 
 
 setMethod("callsConfidence", "SnpLevelSet", function(object) assayDataElement(object, "callsConfidence"))
 setReplaceMethod("callsConfidence", signature(object="SnpLevelSet", value="matrix"),

@@ -6,6 +6,7 @@
 \alias{initialize,SnpCallSetPlus-method}
 \alias{initialize,SnpCnvCallSetPlus-method}
 \alias{coerce,SnpCallSetPlus,oligoSnpSet-method}
+\alias{db,SnpCallSetPlus-method}
 
 \title{Class "SnpCallSetPlus"}
 \description{Description for Genotyping}
@@ -43,6 +44,7 @@ Class \code{\link[Biobase:class.Versioned]{Versioned}}, by class "SnpCallSet", d
   \describe{
     \item{calculateCopyNumber}{\code{signature(object="SnpCallSetPlus")}
       See \code{\link{calculateCopyNumber}}}
+    \item{db}{\code{signature(object="SnpCallSetPlus")}}
     }
 }
 

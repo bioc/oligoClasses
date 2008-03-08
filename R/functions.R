@@ -11,3 +11,5 @@ affyPlatforms <- function(){
   platforms <- c(platforms, combined)
   platforms
 }
+
+

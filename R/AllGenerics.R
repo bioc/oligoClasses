@@ -1,4 +1,4 @@
-setGeneric("calculateCopyNumber", function(object) standardGeneric("calculateCopyNumber"))
+setGeneric("calculateCopyNumber", function(object, ...) standardGeneric("calculateCopyNumber"))
 setGeneric("calls<-", function(object, value) standardGeneric("calls<-"))
 setGeneric("callsConfidence<-",
            function(object, value) standardGeneric("callsConfidence<-"))
@@ -12,5 +12,6 @@ setGeneric("copyNumber", function(object) standardGeneric("copyNumber"))
 setGeneric("cnConfidence", function(object) standardGeneric("cnConfidence"))
 
 setGeneric("chromosome", function(object) standardGeneric("chromosome"))
+setGeneric("chromosome<-", function(object, value) standardGeneric("chromosome<-"))
 setGeneric("db", function(object) standardGeneric("db"))
 setGeneric("position", function(object) standardGeneric("position"))
