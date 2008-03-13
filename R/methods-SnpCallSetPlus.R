@@ -71,7 +71,7 @@ setMethod("calculateCopyNumber", "SnpCallSetPlus",
 			  }
 			  return(med)
 		  }		  
-		  robust.median <- apply(log2cn, 2, f, chromosome(callset))
+		  robust.median <- apply(log2cn, 2, f, chromosome(object))
 		  log2cn <- sweep(log2cn, 2, robust.median)
 		  
 		  rowSweep <- function(object, X, value, recenter, j){
