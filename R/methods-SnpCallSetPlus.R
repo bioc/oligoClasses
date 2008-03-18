@@ -18,6 +18,11 @@ setMethod("calculateCopyNumber", "SnpCallSetPlus",
 		   center.Y.male=1,
 		   center.Y.female=0.5){
 		  require(oligo) || stop("oligo package is not available")
+		  if(is.null(object$gender)){
+			  if(any(chromosome(object) %in% c("X", "XY", "Y"))){
+				  stop("must supply gender in the phenodata")
+			  } 
+		  }
 		  annotationPackages <- unlist(strsplit(annotation(object), ","))
 		  require(annotationPackages[1], character.only=TRUE) || stop(paste(annotationPackages[1], "package not available"))
 		  if(length(annotationPackages) > 1){
@@ -39,13 +44,15 @@ setMethod("calculateCopyNumber", "SnpCallSetPlus",
 
 
 		  ##Homozygous and heterozygous calls have different overall means.
-		  ##Seems reasonable to assume that the average copy numbers are the same		  
+		  ##Seems reasonable to assume that the average copy numbers are the same
+		  calls(object)[is.na(calls(object))] <- 4		  
 		  chr.matrix <- matrix(chromosome(object), ncol=ncol(log2cn), nrow=nrow(log2cn))
 		  median.hom <- median(log2cn[(calls(object) == 1 | calls(object) == 3) & chr.matrix != "X"], na.rm=TRUE)
 		  median.het <- median(log2cn[calls(object) == 2 & chr.matrix != "X"], na.rm=TRUE)
+##		  median.na <- median(log2cn[calls(object) == 4 & chr.matrix != "X"], na..rm=TRUE)
 
 		  ##For each column, subtract off the overall median copy number
-		  recenterByGenotype <- function(x, object, recenter.hom, recenter.het){
+		  recenterByGenotype <- function(x, object, recenter.hom, recenter.het, recenter.na){
 			  calls <- as.vector(calls(object))
 			  x[calls == 1 | calls == 3] <- x[calls ==1 | calls == 3] - recenter.hom
 			  x[calls == 2] <- x[calls == 2] - recenter.het
