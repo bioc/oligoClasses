@@ -2,8 +2,8 @@ setMethod("initialize", "SnpCallSet",
           function(.Object,
                    calls=new("matrix"),
                    callsConfidence=matrix(numeric(), nrow=nrow(calls),
-                     ncol=ncol(calls),
-                     dimnames=dimnames(calls)), ... ){
+		   ncol=ncol(calls),
+		   dimnames=dimnames(calls)), ... ){
             callNextMethod(.Object,
                            calls=calls,
                            callsConfidence=callsConfidence, ...)

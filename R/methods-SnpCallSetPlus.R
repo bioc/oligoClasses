@@ -35,7 +35,7 @@ setMethod("calculateCopyNumber", "SnpCallSetPlus",
 		  }
 		  if(all(annotationPackages %in% available.platforms[c(5, 6)])){
 			  A <- getA(object)
-			  log2cn <- rownames(A, na.rm=TRUE)
+			  log2cn <- A
 			  ##                cm <- rowMeans(log2cn)
 			  ##center the samples to have a log2 intensity of 1
 			  ##(assumes on average the copy number is 2)                
@@ -51,7 +51,7 @@ setMethod("calculateCopyNumber", "SnpCallSetPlus",
 		  median.het <- median(log2cn[calls(object) == 2 & chr.matrix != "X"], na.rm=TRUE)
 ##		  median.na <- median(log2cn[calls(object) == 4 & chr.matrix != "X"], na..rm=TRUE)
 
-		  ##For each column, subtract off the overall median copy number
+		  ##For each column (sample), subtract off the overall median copy number
 		  recenterByGenotype <- function(x, object, recenter.hom, recenter.het, recenter.na){
 			  calls <- as.vector(calls(object))
 			  x[calls == 1 | calls == 3] <- x[calls ==1 | calls == 3] - recenter.hom
@@ -66,21 +66,24 @@ setMethod("calculateCopyNumber", "SnpCallSetPlus",
 		  ## median from the samples (tries to put
 		  ## fluorescence intensities on a similar scale for
 		  ## each of the samples)
-		  f <- function(x, chromosome){
-			  tmp2 <- split(x, chromosome)
-			  if(length(tmp2) > 15){
-				  idx <- order(sapply(tmp2, "median"))
-				  tmp2 <- tmp2[idx]
-				  tmp3 <- tmp2[-c(1:5, (length(tmp2)-4):length(tmp2))]
-				  med <- median(unlist(tmp3))
-			  } else {
-				  med <- median(sapply(tmp2, "median"))
-			  }
-			  return(med)
-		  }		  
-		  robust.median <- apply(log2cn, 2, f, chromosome(object))
-		  log2cn <- sweep(log2cn, 2, robust.median)
-		  
+
+		  ##This step should be unnecessary after quantile normalization
+##		  f <- function(x, chromosome){
+##			  tmp2 <- split(x, chromosome)
+##			  if(length(tmp2) > 15){
+##				  idx <- order(sapply(tmp2, "median"))
+##				  tmp2 <- tmp2[idx]
+##				  tmp3 <- tmp2[-c(1:5, (length(tmp2)-4):length(tmp2))]
+##				  med <- median(unlist(tmp3))
+##			  } else {
+##				  med <- median(sapply(tmp2, "median"))
+##			  }
+##			  return(med)
+##		  }		  
+##		  robust.median <- apply(log2cn, 2, f, chromosome(object))
+##		  log2cn <- sweep(log2cn, 2, robust.median)
+
+		  ##Center each SNP by the median value across samples
 		  rowSweep <- function(object, X, value, recenter, j){
 			  if(length(value) == 1){
 				  i <- chromosome(object) == value
