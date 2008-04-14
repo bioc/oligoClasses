@@ -20,9 +20,12 @@
   }
 }
 \section{Extends}{
-Class \code{\link[Biobase:class.eSet]{eSet}}, directly.
-Class \code{\link[Biobase:class.VersionedBiobase]{VersionedBiobase}}, by class "eSet", distance 2.
-Class \code{\link[Biobase:class.Versioned]{Versioned}}, by class "eSet", distance 3.
+  Class \code{\link[Biobase]{class.eSet}}, directly.
+%Class \code{\link[Biobase:class.eSet]{eSet}}, directly.
+Class \code{\link[Biobase]{class.VersionedBiobase}}, by class "eSet", distance 2.
+%Class \code{\link[Biobase:class.Versioned]{Versioned}}, by class
+%"eSet", distance 3.
+Class \code{\link[Biobase]{class.Versioned}}, by class "eSet", distance 3.
 }
 \section{Methods}{
 No methods defined with class "FeatureSet" in the signature.

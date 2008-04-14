@@ -3,8 +3,6 @@
 \alias{db-methods}
 \alias{db,SnpCallSet-method}
 \alias{db,DBPDInfo-method}
-\alias{db,SnpLevelSet-method}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{Get the connection to the SQLite Database}
 \description{
   This function will return the SQLite connection to the database

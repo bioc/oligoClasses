@@ -1,0 +1,67 @@
+% \VignetteIndexEntry{SnpLevelClasses Vignette}
+% \VignetteKeywords{classes, infrastructure}
+% \VignettePackage{oligoClasses}
+\documentclass[11pt]{article}
+\usepackage{graphicx}
+\usepackage[tight]{subfigure} 
+\usepackage{color}
+\usepackage{amsmath,amssymb,setspace}
+\newcommand{\scscst}{\scriptscriptstyle}
+\newcommand{\scst}{\scriptstyle}
+\newcommand{\Rpackage}[1]{\textit{#1}}
+\newcommand{\Rfunction}[1]{\texttt{#1}}
+\newcommand{\Rmethod}[1]{\texttt{#1}}
+\newcommand{\Robject}[1]{\texttt{#1}}
+\newcommand{\Rclass}[1]{\texttt{#1}}
+\newcommand{\Rslot}[1]{\texttt{#1}}
+\newcommand{\R}{\textsf{R}}
+\usepackage{natbib}
+
+\newcommand{\oligoclasses}{\Rpackage{oligoClasses}}
+\usepackage[margin=1in]{geometry}
+%\bibliographystyle{plain}
+
+\title{SNP-level Classes used in the \Rpackage{oligoClasses} Package}
+\author{Robert B. Scharpf}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+
+This document provides an overview of the classes used to contain
+SNP-level summaries from high-throughput SNP platforms, such as
+Affymetrix.  These classes are used by the \R{} packages
+\Rpackage{oligo}, \Rpackage{SNPchip}, and \Rpackage{VanillaICE}.  See
+the \Rpackage{oligo} package for more details regarding the
+feature-level classes.
+
+<<diagram, echo=FALSE, eval=FALSE>>=
+source("dataClasses.R")
+@ 
+
+\begin{figure}[h]
+  \includegraphics{SnpLevelClasses-diagram}
+  \caption{Hierarchy of SNP-level classes.  Virtual classes are shaded.}
+\end{figure}
+
+SNP-level classes include 
+
+\begin{itemize}
+  
+\item \Robject{SnpCallSet}: a class for genotype calls and confidence
+  scores.  AssayData elements include \Robject{calls} and
+  \Robject{callsConfidence}.
+  
+\item \Robject{SnpCopyNumberSet}: class for copy number and confidence
+  scores.  AssayData elements include \Robject{copyNumber} and
+  \Robject{cnConfidence}.
+  
+\item \Robject{oligoSnpSet}: class containing both genotype calls and
+  copy number estimates, as well as the corresponding confidence
+  scores.  AssayData elements include include the union of elements in
+  \Robject{SnpCallSet} and \Robject{SnpCopyNumberSet}.
+\end{itemize}
+
+\end{document}

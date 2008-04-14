@@ -1,6 +1,5 @@
 \name{position}
 \alias{position}
-\alias{position,SnpLevelSet-method}
 \title{Accessor to position information}
 \description{
   \code{position} will return the genomic position of a SNP.
