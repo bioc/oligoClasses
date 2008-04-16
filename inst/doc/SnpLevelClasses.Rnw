@@ -30,6 +30,10 @@
 
 \section{Introduction}
 
+<<echo=FALSE>>=
+library(oligoClasses)
+@ 
+
 This document provides an overview of the classes used to contain
 SNP-level summaries from high-throughput SNP platforms, such as
 Affymetrix.  These classes are used by the \R{} packages
