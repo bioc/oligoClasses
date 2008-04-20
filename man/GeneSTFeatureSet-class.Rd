@@ -20,9 +20,10 @@ Objects can be created by calls of the form \code{new("GeneSTFeatureSet", assayD
 }
 \section{Extends}{
   Class \code{"\linkS4class{FeatureSet}"}, directly.
-  Class \code{"\linkS4class{eSet}"}, by class "FeatureSet", distance 2.
-  Class \code{"\linkS4class{VersionedBiobase}"}, by class "FeatureSet", distance 3.
-  Class \code{"\linkS4class{Versioned}"}, by class "FeatureSet", distance 4.
+  Class \code{\link[Biobase:class.eSet]{eSet}}, by class "FeatureSet",
+  distance 2.
+  Class \code{\link[Biobase:class.VersionedBiobase]{VersionedBiobase}}, by class "FeatureSet", distance 3.
+  Class \code{\link[Biobase:class.Versioned]{Versioned}}, by class "FeatureSet", distance 4.  
 }
 \section{Methods}{
   No methods defined with class "GeneSTFeatureSet" in the signature.
