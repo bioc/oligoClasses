@@ -18,7 +18,7 @@ setClass("SNPCNVPDInfo", contains="SNPPDInfo")
 setClass("ExpressionPDInfo", contains="DBPDInfo")
 setClass("TilingPDInfo", contains="DBPDInfo")
 setClass("ExonPDInfo", contains="DBPDInfo")
-setClass("GeneSTPDInfo", contains="DBPDInfo")
+setClass("GenePDInfo", contains="DBPDInfo")
 
 
 ###########################################################################
@@ -32,7 +32,7 @@ setClass("AffyExpressionPDInfo", contains="ExpressionPDInfo",
 setClass("AffySNPPDInfo", contains="SNPPDInfo",
          prototype=list(manufacturer="Affymetrix"))
 setClass("AffySNPCNVPDInfo", contains="AffySNPPDInfo")
-setClass("AffyGeneSTPDInfo", contains="AffyExpressionPDInfo")
+setClass("AffyGenePDInfo", contains="AffyExpressionPDInfo")
 
 setClass("NgsExpressionPDInfo", contains="ExpressionPDInfo",
          prototype=list(manufacturer="NimbleGen"))
@@ -75,7 +75,7 @@ setClass("SnpFeatureSet", contains="FeatureSet")
 setClass("SnpCnvFeatureSet", contains="SnpFeatureSet")
 setClass("TilingFeatureSet", contains="FeatureSet")
 setClass("ExonFeatureSet", contains="FeatureSet")
-setClass("GeneSTFeatureSet", contains="FeatureSet")
+setClass("GeneFeatureSet", contains="FeatureSet")
 setClass("SnpQSet", contains="QuantificationSet")
 setClass("SnpCnvQSet", contains="QuantificationSet")
 

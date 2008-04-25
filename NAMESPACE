@@ -9,7 +9,7 @@ exportClasses(PDInfo,
               AffyExpressionPDInfo,
               AffySNPPDInfo,
               AffySNPCNVPDInfo,
-              AffyGeneSTPDInfo,
+              AffyGenePDInfo,
               ExpressionPDInfo,
               NgsExpressionPDInfo,
               TilingPDInfo,
@@ -24,7 +24,7 @@ exportClasses(FeatureSet,
               SnpCnvFeatureSet,
               TilingFeatureSet,
               ExonFeatureSet,
-              GeneSTFeatureSet)
+              GeneFeatureSet)
 
 ##SNP-level Classes
 exportClasses(SnpQSet,

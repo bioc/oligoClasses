@@ -1,11 +1,11 @@
-\name{AffyGeneSTPDInfo-class}
+\name{AffyGenePDInfo-class}
 \docType{class}
-\alias{AffyGeneSTPDInfo-class}
+\alias{AffyGenePDInfo-class}
 
-\title{Class AffyGeneSTPDInfo}
+\title{Class AffyGenePDInfo}
 \description{Short description}
 \section{Objects from the Class}{
-Objects can be created by calls of the form \code{new("AffyGeneSTPDInfo", ...)}.
+Objects can be created by calls of the form \code{new("AffyGenePDInfo", ...)}.
 }
 \section{Slots}{
 	 \describe{
@@ -23,12 +23,12 @@ Objects can be created by calls of the form \code{new("AffyGeneSTPDInfo", ...)}.
   Class \code{"\linkS4class{PDInfo}"}, by class "AffyExpressionPDInfo", distance 4.
 }
 \section{Methods}{
-No methods defined with class "AffyGeneSTPDInfo" in the signature.
+No methods defined with class "AffyGenePDInfo" in the signature.
 }
 \author{RS}
 \seealso{
 }
 \examples{
-showClass("AffyGeneSTPDInfo")
+showClass("AffyGenePDInfo")
 }
 \keyword{classes}

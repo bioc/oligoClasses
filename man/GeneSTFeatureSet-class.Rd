@@ -1,10 +1,10 @@
-\name{GeneSTFeatureSet-class}
+\name{GeneFeatureSet-class}
 \docType{class}
-\alias{GeneSTFeatureSet-class}
-\title{Class GeneSTFeatureSet}
+\alias{GeneFeatureSet-class}
+\title{Class GeneFeatureSet}
 \description{A short description}
 \section{Objects from the Class}{
-Objects can be created by calls of the form \code{new("GeneSTFeatureSet", assayData, phenoData, featureData, experimentData, annotation, ...)}.
+Objects can be created by calls of the form \code{new("GeneFeatureSet", assayData, phenoData, featureData, experimentData, annotation, ...)}.
 }
 \section{Slots}{
 	 \describe{
@@ -26,12 +26,12 @@ Objects can be created by calls of the form \code{new("GeneSTFeatureSet", assayD
   Class \code{\link[Biobase:class.Versioned]{Versioned}}, by class "FeatureSet", distance 4.  
 }
 \section{Methods}{
-  No methods defined with class "GeneSTFeatureSet" in the signature.
+  No methods defined with class "GeneFeatureSet" in the signature.
 }
 \author{RS}
 \seealso{
 }
 \examples{
-showClass("GeneSTFeatureSet")
+showClass("GeneFeatureSet")
 }
 \keyword{classes}
