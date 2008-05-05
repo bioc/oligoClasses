@@ -63,9 +63,9 @@ setMethod("initialize", "SnpCnvCallSetPlus",
 setMethod("initialize", "SnpCopyNumberSet",
           function(.Object,
                    copyNumber=new("matrix"),
-                   cnConfidence=matrix(numeric(), nrow=nrow(calls),
-                     ncol=ncol(calls),
-                     dimnames=dimnames(calls)), ... ){
+                   cnConfidence=matrix(numeric(), nrow=nrow(copyNumber),
+                     ncol=ncol(copyNumber),
+                     dimnames=dimnames(copyNumber)), ... ){
             callNextMethod(.Object,
                            copyNumber=copyNumber,
                            cnConfidence=cnConfidence, ...)
