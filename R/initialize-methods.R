@@ -102,3 +102,41 @@ setValidity("oligoSnpSet", function(object) {
   assayDataValidMembers(assayData(object), c("calls", "callsConfidence", "copyNumber", "cnConfidence"))
 })
 
+## SnpQSet ## From oligo
+
+setMethod("initialize", "SnpQSet",
+          function(.Object,
+                   assayData = assayDataNew(senseThetaA=senseThetaA,
+                     senseThetaB=senseThetaB,
+                     antisenseThetaA=antisenseThetaA,
+                     antisenseThetaB=antisenseThetaB),
+                   senseThetaA=new("matrix"),
+                   senseThetaB=new("matrix"),
+                   antisenseThetaA=new("matrix"),
+                   antisenseThetaB=new("matrix"),
+                   phenoData=annotatedDataFrameFrom(assayData, byrow=FALSE),
+                   featureData = annotatedDataFrameFrom(assayData, byrow=TRUE),
+                   experimentData=new("MIAME"),
+                   annotation=new("character")){
+            .Object <- callNextMethod(.Object,
+                                  assayData = assayDataNew(
+                                    senseThetaA=senseThetaA,
+                                    senseThetaB=senseThetaB,
+                                    antisenseThetaA=antisenseThetaA,
+                                    antisenseThetaB=antisenseThetaB),
+                                  phenoData=phenoData,
+                                  experimentData=experimentData,
+                                  annotation=annotation)
+            .Object
+          })
+
+setValidity("SnpQSet",
+            function(object)
+            assayDataValidMembers(assayData(object),
+                                  c("senseThetaA",
+                                    "senseThetaB",
+                                    "antisenseThetaA",
+                                    "antisenseThetaB"))
+            )
+
+
