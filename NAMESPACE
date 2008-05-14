@@ -36,6 +36,9 @@ exportClasses(SnpQSet,
               SnpCallSetPlus,
               SnpCnvCallSetPlus)
 
+## Tiling-q Class
+exportClasses(TilingQSet)
+
 ##SNP-level methods
 exportMethods(calculateCopyNumber,
               calls, "calls<-",

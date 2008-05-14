@@ -140,3 +140,24 @@ setValidity("SnpQSet",
             )
 
 
+## TilingQSet
+
+setMethod("initialize", "TilingQSet",
+          function(.Object,
+                   assayData = assayDataNew(M=M),
+                   M=new("matrix"),
+                   phenoData=annotatedDataFrameFrom(assayData, byrow=FALSE),
+                   featureData=annotatedDataFrameFrom(assayData, byrow=TRUE),
+                   experimentalData=new("MIAME"),
+                   annotation=new("character")){
+            .Object <- callNextMethod(.Object,
+                                      assayData = assayDataNew(M=M),
+                                      phenoData=phenoData,
+                                      featureData=featureData,
+                                      experimentalData=experimentalData,
+                                      annotation=annotation)
+            .Object
+          })
+
+setValidity("TilingQSet", function(object) assayDataValidMembers(assayData(object), "M"))
+

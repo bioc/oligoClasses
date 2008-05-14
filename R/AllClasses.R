@@ -78,7 +78,7 @@ setClass("ExonFeatureSet", contains="FeatureSet")
 setClass("GeneFeatureSet", contains="FeatureSet")
 setClass("SnpQSet", contains="QuantificationSet")
 setClass("SnpCnvQSet", contains="QuantificationSet")
-
+setClass("TilingQSet", contains="QuantificationSet")
 
 ###########################################################################
 ##SNP-level classes
