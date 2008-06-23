@@ -57,28 +57,28 @@ setReplaceMethod("chromosome", c("AnnotatedDataFrame", "character"),
 
 setMethod("position", "SnpLevelSet",
           function(object){
-            if(!("position" %in% fvarLabels(object))){
-              require("RSQLite") || stop("RSQLite package not available")
-              fs <- featureNames(object)
-              sql <- "SELECT man_fsetid, physical_pos FROM featureSet WHERE man_fsetid LIKE 'SNP%'"
-              pkgs <- strsplit(annotation(object), ",")[[1]]
-              if(length(pkgs) > 1){
-                object2 <- object1 <- object
-                annotation(object1) <- pkgs[1]
-                annotation(object2) <- pkgs[2]                
+		  if(!("position" %in% fvarLabels(object))){
+			  require("RSQLite") || stop("RSQLite package not available")
+			  fs <- featureNames(object)
+			  sql <- "SELECT man_fsetid, physical_pos FROM featureSet WHERE man_fsetid LIKE 'SNP%'"
+			  pkgs <- strsplit(annotation(object), ",")[[1]]
+			  if(length(pkgs) > 1){
+				  object2 <- object1 <- object
+				  annotation(object1) <- pkgs[1]
+				  annotation(object2) <- pkgs[2]                
               
-                tmp1 <- dbGetQuery(db(object1), sql)
-                tmp2 <- dbGetQuery(db(object2), sql)
-                tmp <- rbind(tmp1, tmp2)
-              } else{
-                tmp <- dbGetQuery(db(object), sql)
-              }
-              idx <- match(fs, tmp[["man_fsetid"]])
-              pos <- tmp[idx, "physical_pos"]
-            } else {
-              pos <- featureData(object)$position
-            }
-            return(pos)
+				  tmp1 <- dbGetQuery(db(object1), sql)
+				  tmp2 <- dbGetQuery(db(object2), sql)
+				  tmp <- rbind(tmp1, tmp2)
+			  } else{
+				  tmp <- dbGetQuery(db(object), sql)
+			  }
+			  idx <- match(fs, tmp[["man_fsetid"]])
+			  pos <- tmp[idx, "physical_pos"]
+		  } else {
+			  pos <- featureData(object)$position
+		  }
+		  return(pos)
           })
 
 ##setMethod("position", "SnpLevelSet",

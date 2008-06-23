@@ -1,5 +1,5 @@
 Package: oligoClasses
-Version: 1.3.3
+Version: 1.3.4
 Title: Classes for high-throughput SNP arrays
 Author: Benilton Carvalho <bcarvalh@jhsph.edu> and  Robert Scharpf <rscharpf@jhsph.edu>
 Maintainer: Benilton Carvalho <bcarvalh@jhsph.edu> 
