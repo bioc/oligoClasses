@@ -1,6 +1,7 @@
 \name{SnpQSet-class}
 \docType{class}
 \alias{SnpQSet-class}
+\alias{initialize,SnpQSet-method}
 
 \title{Class "SnpQSet"}
 \description{Class to store Snp (Quantifications) Summaries}
