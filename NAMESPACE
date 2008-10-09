@@ -40,11 +40,9 @@ exportClasses(SnpQSet,
 exportClasses(TilingQSet)
 
 ##SNP-level methods
-exportMethods(calculateCopyNumber,
-              calls, "calls<-",
+exportMethods(calls, "calls<-",
               callsConfidence, "callsConfidence<-",
               chromosome, "chromosome<-",
-              coerce,
               combine,
               copyNumber, "copyNumber<-",
               cnConfidence, "cnConfidence<-",
