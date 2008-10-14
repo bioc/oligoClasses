@@ -20,9 +20,9 @@ Objects can be created by calls of the form \code{new("TilingQSet", assayData, M
 }
 \section{Extends}{
 Class \code{"\linkS4class{QuantificationSet}"}, directly.
-Class \code{"\linkS4class{eSet}"}, by class "QuantificationSet", distance 2.
-Class \code{"\linkS4class{VersionedBiobase}"}, by class "QuantificationSet", distance 3.
-Class \code{"\linkS4class{Versioned}"}, by class "QuantificationSet", distance 4.
+Class \code{"\linkS4class[Biobase]{eSet}"}, by class "QuantificationSet", distance 2.
+Class \code{"\linkS4class[Biobase]{VersionedBiobase}"}, by class "QuantificationSet", distance 3.
+Class \code{"\linkS4class[Biobase]{Versioned}"}, by class "QuantificationSet", distance 4.
 }
 \section{Methods}{
   \describe{
