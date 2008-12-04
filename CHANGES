@@ -1,0 +1,6 @@
+### CHANGE log for package oligoClasses ###
+
+Changes made by Matt Settles 12-4-2008
+** All changes should generally have effect on only Affy Tiling, ST and expression arrays.
+added classes AffyExonPDInfo and AffySTPDInfo
+

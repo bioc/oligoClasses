@@ -29,10 +29,14 @@ setClass("AffyTilingPDInfo", contains="TilingPDInfo",
          prototype=list(manufacturer="Affymetrix"))
 setClass("AffyExpressionPDInfo", contains="ExpressionPDInfo",
          prototype=list(manufacturer="Affymetrix"))
-setClass("AffySNPPDInfo", contains="SNPPDInfo",
+
+setClass("AffyGenePDInfo", contains="AffyExpressionPDInfo")
+setClass("AffyExonPDInfo", contains="AffyExpressionPDInfo")
+setClass("AffySTPDInfo", contains="AffyExpressionPDInfo")
+
+ setClass("AffySNPPDInfo", contains="SNPPDInfo",
          prototype=list(manufacturer="Affymetrix"))
 setClass("AffySNPCNVPDInfo", contains="AffySNPPDInfo")
-setClass("AffyGenePDInfo", contains="AffyExpressionPDInfo")
 
 setClass("NgsExpressionPDInfo", contains="ExpressionPDInfo",
          prototype=list(manufacturer="NimbleGen"))
@@ -60,15 +64,14 @@ setClass("platformDesign",
 ##Feature-level classes
 ###########################################################################  
 setClass("FeatureSet",
-         representation(manufacturer="character",
-                        platform="character",
-                        "VIRTUAL"),
-         contains="eSet",
-         prototype=list(
-           manufacturer=character(),
-           platform=character()))
-
-setClass("QuantificationSet", representation("VIRTUAL"), contains="eSet")
+         representation = representation(
+				 manufacturer="character",
+                 platform="character",
+                 "VIRTUAL"),
+         contains = "eSet",
+         prototype = prototype(
+				 platform=as.character(NA),
+				 manufacturer=as.character(NA)))
 
 setClass("ExpressionFeatureSet", contains="FeatureSet")
 setClass("SnpFeatureSet", contains="FeatureSet")
@@ -76,6 +79,8 @@ setClass("SnpCnvFeatureSet", contains="SnpFeatureSet")
 setClass("TilingFeatureSet", contains="FeatureSet")
 setClass("ExonFeatureSet", contains="FeatureSet")
 setClass("GeneFeatureSet", contains="FeatureSet")
+
+setClass("QuantificationSet", representation("VIRTUAL"), contains="eSet")
 setClass("SnpQSet", contains="QuantificationSet")
 setClass("SnpCnvQSet", contains="QuantificationSet")
 setClass("TilingQSet", contains="QuantificationSet")
