@@ -47,18 +47,18 @@ setClass("NgsTilingPDInfo", contains="TilingPDInfo",
 ###########################################################################
 ## Old PDEnvs... DF-based
 ###########################################################################  
-setClass("platformDesign",
-         contains="PDInfo",
-         representation(featureInfo = "environment",
-                        featureTypeDescription = "list",
-                        type = "character",
-                        nrow = "numeric",
-                        ncol = "numeric",
-                        nwells = "numeric",
-                        lookup = "data.frame",
-                        indexes = "list",
-                        platforms="character"),
-         prototype = list(lookup=data.frame(), genomebuild=character()))
+## setClass("platformDesign",
+##          contains="PDInfo",
+##          representation(featureInfo = "environment",
+##                         featureTypeDescription = "list",
+##                         type = "character",
+##                         nrow = "numeric",
+##                         ncol = "numeric",
+##                         nwells = "numeric",
+##                         lookup = "data.frame",
+##                         indexes = "list",
+##                         platforms="character"),
+##          prototype = list(lookup=data.frame(), genomebuild=character()))
 
 ###########################################################################
 ##Feature-level classes

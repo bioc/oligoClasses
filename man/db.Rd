@@ -3,6 +3,8 @@
 \alias{db-methods}
 \alias{db,SnpCallSet-method}
 \alias{db,DBPDInfo-method}
+\alias{db,SnpCnvQSet-method}
+\alias{db,SnpQSet-method}
 \title{Get the connection to the SQLite Database}
 \description{
   This function will return the SQLite connection to the database

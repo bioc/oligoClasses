@@ -42,7 +42,7 @@ the \Rpackage{oligo} package for more details regarding the
 feature-level classes.
 
 <<diagram, echo=FALSE, eval=FALSE>>=
-source("dataClasses.R")
+ source("dataClasses.R")
 @ 
 
 \begin{figure}[h]

@@ -1,17 +1,28 @@
-\name{ExonFeatureSet-class}
+\name{FeatureSet-class}
 \docType{class}
+\alias{FeatureSet-class}
+\alias{initialize,FeatureSet-method}
+\alias{GeneFeatureSet-class}
 \alias{ExpressionFeatureSet-class}
 \alias{ExonFeatureSet-class}
 \alias{SnpFeatureSet-class}
+\alias{SnpCnvFeatureSet-class}
 \alias{TilingFeatureSet-class}
 
-\title{"FeatureSet" Extensions}
+\title{"FeatureSet" and "FeatureSet" Extensions}
 \description{Classes to store data from Expression/Exon/SNP/Tiling arrays at the feature level.}
 \section{Objects from the Class}{
-Objects can be created by calls of the form \code{new("ExonFeatureSet", assayData, manufacturer, platform, exprs, phenoData, featureData, experimentData, annotation, ...)}.
+  The FeatureSet class is VIRTUAL. Therefore users are not able to
+  create instances of such class.
+  
+  Objects for FeatureSet-like classes can be created by calls of the form:
+  \code{new(CLASSNAME, assayData, manufacturer, platform, exprs,
+    phenoData, featureData, experimentData, annotation, ...)}.
+  But the preferred way is using parsers like
+  \code{\link[oligo]{read.celfiles}} and \code{\link[oligo]{read.xysfiles}}.
 }
 \section{Slots}{
-	 \describe{
+  \describe{
     \item{\code{manufacturer}:}{Object of class \code{"character"}  }
     \item{\code{platform}:}{Object of class \code{"character"}  }
     \item{\code{assayData}:}{Object of class \code{"AssayData"}  }
@@ -22,19 +33,8 @@ Objects can be created by calls of the form \code{new("ExonFeatureSet", assayDat
     \item{\code{.__classVersion__}:}{Object of class \code{"Versions"}  }
   }
 }
-\section{Extends}{
-Class \code{\linkS4class{FeatureSet}}, directly.
-Class \code{\link[Biobase:class.eSet]{eSet}}, by class "FeatureSet", distance 2.
-Class \code{\link[Biobase:class.VersionedBiobase]{VersionedBiobase}}, by class "FeatureSet", distance 3.
-Class \code{\link[Biobase:class.Versioned]{Versioned}}, by class "FeatureSet", distance 4.
-}
-\section{Methods}{
-No methods defined with class "ExonFeatureSet" in the signature.
-}
-\references{}
-\author{Benilton Carvalho}
-\note{}
 
+\author{Benilton Carvalho}
 
 \seealso{\code{\link[Biobase:class.eSet]{eSet}}, \code{\link[Biobase:class.VersionedBiobase]{VersionedBiobase}}, \code{\link[Biobase:class.Versioned]{Versioned}}}
 

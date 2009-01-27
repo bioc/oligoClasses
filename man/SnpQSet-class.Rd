@@ -28,13 +28,6 @@ Class \code{\link[Biobase:class.Versioned]{Versioned}}, by class "eSet", distanc
 \section{Methods}{
 No methods defined with class "SnpQSet" in the signature.
 }
-\references{}
-\author{}
-\note{}
 
 \seealso{\code{\link[Biobase:class.eSet]{eSet}}, \code{\link[Biobase:class.VersionedBiobase]{VersionedBiobase}}, \code{\link[Biobase:class.Versioned]{Versioned}}}
-
-\examples{
-##---- Should be DIRECTLY executable !! ----
-}
 \keyword{classes}

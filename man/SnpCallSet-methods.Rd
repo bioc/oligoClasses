@@ -26,20 +26,10 @@ callsConfidence(object)<-value
   \item{object}{\code{SnpCallSet} object.}
   \item{value}{\code{matrix}}
 }
-\details{
-}
 \value{
   Matrix with R rows (SNP's) and C columns (Samples) with genotype calls
   (1 - AA; 2 - AB; 3 - BB) or confidences.
 }
 
-\references{}
-\author{}
-\note{}
-
 \seealso{\code{\link[oligo]{crlmm}} }
-\examples{
-}
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
 \keyword{manip}

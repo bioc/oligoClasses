@@ -15,8 +15,9 @@ exportClasses(PDInfo,
               ExpressionPDInfo,
               NgsExpressionPDInfo,
               TilingPDInfo,
-              NgsTilingPDInfo,
-              platformDesign)
+              NgsTilingPDInfo)
+##,
+##              platformDesign)
 
 ##Feature-level Classes
 exportClasses(FeatureSet,
@@ -50,6 +51,23 @@ exportMethods(calls, "calls<-",
               cnConfidence, "cnConfidence<-",
               db,
               initialize,
-              position)
+              position,
+              antisenseThetaA,
+              antisenseThetaB,
+              senseThetaA,
+              senseThetaB,
+              thetaA,
+              thetaB)
 
 export(affyPlatforms)
+
+## FeatureSet methods
+exportMethods(platform,
+              manufacturer,
+              length,
+              exprs,
+              se.exprs)
+
+## Some general methods
+exportMethods(getM,
+              getA)

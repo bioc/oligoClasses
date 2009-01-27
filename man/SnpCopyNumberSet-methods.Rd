@@ -24,18 +24,8 @@ cnConfidence(object)<-value
   \item{object}{\code{SnpCopyNumberSet} object}
   \item{value}{matrix}
 }
-\details{
-}
 \value{
   Matrix with R rows (SNP's) and C columns (Samples) containing copy
   number estimates and confidences.
 }
-\references{}
-\author{}
-\note{}
-\seealso{}
-\examples{
-}
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
 \keyword{manip}

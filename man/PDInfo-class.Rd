@@ -3,6 +3,8 @@
 \alias{PDInfo-class}
 \alias{AffyExpressionPDInfo-class}
 \alias{AffyTilingPDInfo-class}
+\alias{AffyExonPDInfo-class}
+\alias{AffySTPDInfo-class}
 \alias{SNPPDInfo-class}
 \alias{SNPCNVPDInfo-class}
 \alias{NgsTilingPDInfo-class}
@@ -10,8 +12,10 @@
 \alias{ExpressionPDInfo-class}
 \alias{NgsExpressionPDInfo-class}
 
-\title{Classes "PDInfo" and "SNPPDInfo"}
-\description{Containers for chip information}
+\title{Classes "PDInfo"}
+\description{Containers for chip information. Objects of this class are
+  created with pdInfoBuilder, but for the moment, only a few users are
+  expected to create such objects.}
 \section{Objects from the Class}{
 }
 \section{Slots}{
@@ -24,14 +28,5 @@
 }
 \section{Methods}{
 No methods defined with class "PDInfo" in the signature.
-}
-\references{}
-\author{}
-\note{}
-
-\seealso{
-}
-\examples{
-##---- Should be DIRECTLY executable !! ----
 }
 \keyword{classes}
