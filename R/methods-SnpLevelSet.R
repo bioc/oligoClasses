@@ -1,16 +1,3 @@
-##setMethod("chromosome", "SnpLevelSet",
-##          function(object){
-##            require("RSQLite") || stop("RSQLite package not available")            
-##            fs <- featureNames(object)
-##            sql <- "SELECT man_fsetid, chrom FROM featureSet WHERE man_fsetid LIKE 'SNP%'"
-##            tmp <- dbGetQuery(db(object), sql)
-##            idx <- match(fs, tmp[["man_fsetid"]])
-##            tmp[idx, "chrom"]
-##          })
-
-setMethod("db", signature(object="DBPDInfo"),
-          function(object) object@getdb())
-
 setMethod("db", "SnpLevelSet",
           function(object) {
             require(annotation(object), character.only=TRUE) || stop(paste(annotation(object), "package not available"))
@@ -80,16 +67,6 @@ setMethod("position", "SnpLevelSet",
 		  }
 		  return(pos)
           })
-
-##setMethod("position", "SnpLevelSet",
-##          function(object){
-##            require("RSQLite") || stop("RSQLite package not available")            
-##            fs <- featureNames(object)
-##            sql <- "SELECT man_fsetid, physical_pos FROM featureSet WHERE man_fsetid LIKE 'SNP%'"
-##            tmp <- dbGetQuery(db(object), sql)
-##            idx <- match(fs, tmp[["man_fsetid"]])
-##            tmp[idx, "physical_pos"]
-##          })
 
 setMethod("combine", signature=signature(x="SnpLevelSet", y="SnpLevelSet"),
           function(x, y, ...){

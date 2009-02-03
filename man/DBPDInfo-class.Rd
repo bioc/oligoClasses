@@ -1,5 +1,6 @@
 \name{DBPDInfo-class}
 \docType{class}
+\alias{initialize,DBPDInfo-method}
 \alias{DBPDInfo-class}
 \alias{AffySNPPDInfo-class}
 \alias{AffySNPCNVPDInfo-class}

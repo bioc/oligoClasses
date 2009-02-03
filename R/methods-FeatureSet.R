@@ -62,3 +62,74 @@ setMethod("se.exprs",
 setReplaceMethod("se.exprs",
 		signature(object="FeatureSet"),
 		function(object, value) assayDataElementReplace(object, "se.exprs", value))
+
+setMethod("kind",
+          signature(object="FeatureSet"),
+          function(object){
+            kind(getPlatformDesign(object))
+          })
+
+setMethod("getPlatformDesign",
+          signature(object= "FeatureSet"),
+          function(object){
+            pdn <- annotation(object)
+            library(pdn,character.only=TRUE)
+            return(get(pdn,pos=paste("package:",pdn,sep="")))
+          })
+getPD <- getPlatformDesign
+
+setMethod("pmSequence",
+          signature(object="FeatureSet"),
+          function(object){
+            pmSequence(getPlatformDesign(object))
+          })
+
+setMethod("mmSequence",
+          signature(object="FeatureSet"),
+          function(object){
+            mmSequence(getPlatformDesign(object))
+          })
+
+setMethod("genomeBuild",
+          signature(object="FeatureSet"),
+          function(object){
+            genomeBuild(getPlatformDesign(object))
+          })
+
+setMethod("pmChr", "FeatureSet",
+          function(object){
+            conn <- db(object)
+            sql <- paste("SELECT fid, chrom",
+                         "FROM pmfeature, featureSet",
+                         "WHERE pmfeature.fsetid=featureSet.fsetid")
+            tmp <- dbGetQuery(conn, sql)
+            tmp <- tmp[order(tmp[["fid"]]),]
+            tmp[["chrom"]]
+          })
+
+setMethod("db", "FeatureSet",
+          function(object){
+            db(getPlatformDesign(object))
+          })
+
+setMethod("geneNames", "FeatureSet",
+          function(object){
+            geneNames(getPlatformDesign(object))
+          })
+
+setMethod("pmindex", "FeatureSet",
+          function(object, subset=NULL){
+            pmindex(getPlatformDesign(object), subset=subset)
+          })
+
+setMethod("mmindex", "FeatureSet",
+          function(object, subset=NULL){
+            mmindex(getPD(object), subset=subset)
+          })
+
+setMethod("probeNames", "FeatureSet",
+          function(object, subset=NULL) {
+            if (!is.null(subset))
+              warning("ignoring subset arg, feature not implemented")
+            probeNames(getPlatformDesign(object))
+          })

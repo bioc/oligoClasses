@@ -2,21 +2,26 @@
 \alias{chromosome}
 \alias{chromosome<-}
 \alias{chromosome<-,AnnotatedDataFrame,character-method}
+\alias{pmChr}
+\alias{pmChr,FeatureSet-method}
 \title{Accessor for chromosome information}
 \description{
   Returns chromosome information.
 }
 \usage{
-chromosome(object)
-chromosome(object) <- value
+%- chromosome(object)
+pmChr(object)
 }
+%- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{object}{object inheriting from \code{SnpLevelSet}}
-  \item{value}{vector of class \code{character}}
+  \item{object}{\code{TilingFeatureSet} or \code{SnpCallSet} object}
+}
+\details{
+  \code{chromosome()} returns the chromosomal information for all probes
+  and \code{pmChr()} subsets the output to the PM probes only (if a
+  TilingFeatureSet object).
 }
 \value{
-  Vector with chromosome information.  Chromosomes are recorded as
-  character strings (e.g., "1", "2", "X", ...)
+  Vector with chromosome information.
 }
-\author{R. Scharpf}
 \keyword{manip}

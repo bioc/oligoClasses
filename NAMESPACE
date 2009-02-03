@@ -16,8 +16,6 @@ exportClasses(PDInfo,
               NgsExpressionPDInfo,
               TilingPDInfo,
               NgsTilingPDInfo)
-##,
-##              platformDesign)
 
 ##Feature-level Classes
 exportClasses(FeatureSet,
@@ -59,7 +57,7 @@ exportMethods(calls, "calls<-",
               thetaA,
               thetaB)
 
-export(affyPlatforms)
+export(affyPlatforms, getPD)
 
 ## FeatureSet methods
 exportMethods(platform,
@@ -67,6 +65,24 @@ exportMethods(platform,
               length,
               exprs,
               se.exprs)
+
+## PDInfo methods
+exportMethods(genomeBuild,
+              geometry,
+              getPlatformDesign,
+              probeNames,
+              pmindex,
+              mmindex,
+              kind,
+              pmSequence,
+              mmSequence,
+              pmOffset,
+              pmChr,
+              pmFragmentLength,
+              pmAllele,
+              pmStrand,
+              pmPosition,
+              show)
 
 ## Some general methods
 exportMethods(getM,

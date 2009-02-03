@@ -48,8 +48,5 @@ getM(object)
 }
 
 \seealso{\code{\link[oligo]{snprma}}}
-\examples{
-}
-
 \keyword{manip}
 

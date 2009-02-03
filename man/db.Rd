@@ -1,8 +1,9 @@
 \name{db}
 \alias{db}
 \alias{db-methods}
-\alias{db,SnpCallSet-method}
+\alias{db,FeatureSet-method}
 \alias{db,DBPDInfo-method}
+\alias{db,SnpCallSet-method}
 \alias{db,SnpCnvQSet-method}
 \alias{db,SnpQSet-method}
 \title{Get the connection to the SQLite Database}
@@ -13,12 +14,12 @@
 \usage{
 db(object)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{object}{Object of valid class. See methods.}
 }
 \section{Methods}{
 \describe{
+\item{object = "FeatureSet"}{object of class FeatureSet}
 \item{object = "SnpCallSet"}{object of class SnpCallSet}
 \item{object = "DBPDInfo"}{object of class DBPDInfo}
 \item{object = "SnpLevelSet"}{object of class SnpLevelSet}
@@ -30,6 +31,4 @@ db(object)
 \examples{
 ## db(object)
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
 \keyword{methods}

@@ -1,5 +1,5 @@
 Package: oligoClasses
-Version: 1.5.1
+Version: 1.5.2
 Title: Classes for high-throughput SNP arrays
 Author: Benilton Carvalho <bcarvalh@jhsph.edu> and  Robert Scharpf <rscharpf@jhsph.edu>
 Maintainer: Benilton Carvalho <bcarvalh@jhsph.edu> 
@@ -19,4 +19,7 @@ Collate:  AllClasses.R
           methods-SnpQSet.R
           methods-platformDesign.R
           methods-TilingFeatureSet.R
+          methods-PDInfo.R
+          methods-SnpFeatureSet.R
+          show-methods.R
 biocViews: infrastructure
