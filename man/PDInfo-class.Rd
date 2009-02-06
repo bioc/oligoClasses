@@ -17,6 +17,7 @@
   created with pdInfoBuilder, but for the moment, only a few users are
   expected to create such objects.}
 \section{Objects from the Class}{
+Objects should not be created using this class, but rather one of the subclasses.
 }
 \section{Slots}{
 	 \describe{
@@ -27,6 +28,8 @@
   }
 }
 \section{Methods}{
-No methods defined with class "PDInfo" in the signature.
+ \describe{
+    \item{show}{\code{signature(.Object = "PDInfo")}: show object contents }
+    }
 }
 \keyword{classes}

@@ -27,7 +27,9 @@ No methods defined with class "AffyGenePDInfo" in the signature.
 }
 \author{RS}
 \seealso{
+	\code{\link[oligoClasses:class.DBPDInfo]{DBPDInfo}}
 }
+	
 \examples{
 showClass("AffyGenePDInfo")
 }

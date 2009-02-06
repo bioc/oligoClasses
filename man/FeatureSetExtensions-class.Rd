@@ -34,6 +34,11 @@
   }
 }
 
+\section{Methods}{
+ \describe{
+    \item{show}{\code{signature(.Object = "FeatureSet")}: show object contents }
+    }
+}
 \author{Benilton Carvalho}
 
 \seealso{\code{\link[Biobase:class.eSet]{eSet}}, \code{\link[Biobase:class.VersionedBiobase]{VersionedBiobase}}, \code{\link[Biobase:class.Versioned]{Versioned}}}

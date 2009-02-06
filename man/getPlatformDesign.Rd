@@ -15,6 +15,7 @@ getPD(object)
   \item{object}{\code{FeatureSet} object}
 }
 \details{
+    Retrieve platform design object.	
 }
 \value{
   \code{platformDesign} or \code{PDInfo} object.

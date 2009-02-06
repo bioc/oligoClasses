@@ -10,6 +10,6 @@
 show(object)
 }
 \arguments{
-  \item{object}{\code{FeatureSet} or \code{DBPDInfo} object}
+  \item{object}{\code{FeatureSet} or \code{PDInfo} object}
 }
 \keyword{manip}
