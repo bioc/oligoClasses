@@ -1,4 +1,4 @@
-setMethod("show", "PDInfo", function(object) {
+setMethod("show", "DBPDInfo", function(object) {
     cat("Class........:", class(object), "\n")
     cat("Manufacturer.:", manufacturer(object), "\n")
     cat("Genome Build.:", genomeBuild(object), "\n")

@@ -1,8 +1,7 @@
 import(Biobase)
 
 ## PDInfo Classes
-exportClasses(PDInfo,
-              DBPDInfo,
+exportClasses(DBPDInfo,
               SNPPDInfo,
               SNPCNVPDInfo,
               AffyTilingPDInfo,

@@ -1,8 +1,3 @@
-## For the moment
-## this contains both PDInfo and DBPDInfo
-## PDInfo will go away soon
-
-
 ## All methods for DBPDInfo
 ## Try to use mostly these
 ##  so extensions will 'just work'
@@ -14,10 +9,10 @@ setMethod("initialize", "DBPDInfo",
             .Object
           })
 
-setMethod("manufacturer", "PDInfo",
+setMethod("manufacturer", "DBPDInfo",
           function(object) object@manufacturer)
 
-setMethod("genomeBuild", "PDInfo",
+setMethod("genomeBuild", "DBPDInfo",
           function(object) object@genomebuild)
 
 setMethod("geometry", "DBPDInfo",
@@ -82,6 +77,11 @@ setMethod("kind", "AffySNPCNVPDInfo",
 setMethod("kind", "AffyGenePDInfo",
           function(object) {
               "gene"
+          })
+
+setMethod("kind", "AffyExonPDInfo",
+          function(object) {
+            "exon"
           })
 
 setMethod("kind", "ExpressionPDInfo",
