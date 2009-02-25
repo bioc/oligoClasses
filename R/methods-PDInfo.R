@@ -43,7 +43,7 @@ setMethod("probeNames", "DBPDInfo",
               warning("Subset not implemented (yet). Returning everything.")
             sql <- "select man_fsetid, fid from featureSet, pmfeature where pmfeature.fsetid=featureSet.fsetid"
             tmp <- dbGetQuery(db(object), sql)
-            tmp[order(tmp$fid, tmp$man_fsetid), "man_fsetid"]
+            tmp[order(tmp[["fid"]], tmp[["man_fsetid"]]), "man_fsetid"]
           })
 
 setMethod("geneNames", "DBPDInfo",
@@ -157,3 +157,45 @@ setMethod("pmPosition", "TilingPDInfo",
 ##             }
 ##             dbGetQuery(db(object), sql)[[1]]
 ##           })
+
+
+## For pdInfo v2 - BC
+## Please don't change
+
+## for TiledRegions
+setMethod("getX", "NgsTilingPDInfo",
+          function(object, type){
+            stopifnot(!missing(type))
+            sql <- "SELECT fid, x FROM"
+            if (type == "pm"){
+              sql <- paste(sql, "pmfeature")
+            }else if(type == "bg"){
+              sql <- paste(sql, "bgfeature")
+            }else{
+              stop("Method not implemented for type ", type)
+            }
+            res <- dbGetQuery(db(object), sql)
+            res[order(res[["fid"]]), "x"]
+          })
+
+setMethod("getY", "NgsTilingPDInfo",
+          function(object, type){
+            stopifnot(!missing(type))
+            sql <- "SELECT fid, y FROM"
+            if (type == "pm"){
+              sql <- paste(sql, "pmfeature")
+            }else if(type == "bg"){
+              sql <- paste(sql, "bgfeature")
+            }else{
+              stop("Method not implemented for type ", type)
+            }
+            res <- dbGetQuery(db(object), sql)
+            res[order(res[["fid"]]), "y"]
+          })
+
+setMethod("bgindex", "NgsTilingPDInfo",
+          function(object){
+            sql <- "SELECT fid FROM bgfeature"
+            dbGetQuery(db(object), sql)[[1]]
+          })
+

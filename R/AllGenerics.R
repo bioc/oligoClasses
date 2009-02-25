@@ -46,3 +46,10 @@ setGeneric("pmPosition", function(object) standardGeneric("pmPosition"))
 
 setGeneric("getPlatformDesign", function(object) standardGeneric("getPlatformDesign"))
 
+
+## For pdInfoBuilder v2
+## please don't change
+setGeneric("getX", function(object, type) standardGeneric("getX"))
+setGeneric("getY", function(object, type) standardGeneric("getY"))
+setGeneric("bgindex", function(object) standardGeneric("bgindex"))
+setGeneric("bg", function(object) standardGeneric("bg"))

@@ -86,3 +86,6 @@ exportMethods(genomeBuild,
 ## Some general methods
 exportMethods(getM,
               getA)
+
+## For pdInfo v2, please don't change
+exportMethods(getX, getY, bg)
