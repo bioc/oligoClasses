@@ -21,4 +21,4 @@ Collate:  AllClasses.R
           methods-PDInfo.R
           methods-SnpFeatureSet.R
           show-methods.R
-biocViews: infrastructure
+biocViews: Infrastructure
