@@ -13,8 +13,9 @@ setClass("SNPPDInfo", contains="DBPDInfo")
 setClass("SNPCNVPDInfo", contains="SNPPDInfo")
 setClass("ExpressionPDInfo", contains="DBPDInfo")
 setClass("TilingPDInfo", contains="DBPDInfo")
-setClass("ExonPDInfo", contains="DBPDInfo")
-setClass("GenePDInfo", contains="DBPDInfo")
+setClass("stArrayPDInfo", contains="DBPDInfo")
+setClass("ExonPDInfo", contains="stArrayDBPDInfo")
+setClass("GenePDInfo", contains="stArrayDBPDInfo")
 
 ###########################################################################
 ## Manufacturer-specific PDInfo Classes

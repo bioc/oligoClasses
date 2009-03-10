@@ -4,3 +4,6 @@ Changes made by Matt Settles 12-4-2008
 ** All changes should generally have effect on only Affy Tiling, ST and expression arrays.
 added classes AffyExonPDInfo and AffySTPDInfo
 
+03-09-09 - Benilton Carvalho - committed version 1.5.6
+** Small changes to reduce duplication of code for Gene and Exon Affymetrix arrays.
+
