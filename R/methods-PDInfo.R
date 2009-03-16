@@ -25,16 +25,18 @@ setMethod("pmindex", "DBPDInfo",
           function(object, subset=NULL) { 
             if (!is.null(subset))
               warning("Subset not implemented (yet). Returning everything.")
-            dbGetQuery(db(object),
-                       "select fid from pmfeature")[[1]]
+            tmp <- dbGetQuery(db(object),
+                              "select fid from pmfeature")[[1]]
+            sort(tmp)
           })
 
 setMethod("mmindex", "DBPDInfo",
           function(object, subset=NULL){
             if (!is.null(subset))
               warning("Subset not implemented (yet). Returning everything.")
-            dbGetQuery(db(object),
+            tmp <- dbGetQuery(db(object),
                        "select fid from mmfeature")[[1]]
+            sort(tmp)
           })
 
 setMethod("probeNames", "DBPDInfo",
@@ -163,7 +165,7 @@ setMethod("pmPosition", "TilingPDInfo",
 ## Please don't change
 
 ## for TiledRegions
-setMethod("getX", "NgsTilingPDInfo",
+setMethod("getX", "TilingPDInfo",
           function(object, type){
             stopifnot(!missing(type))
             sql <- "SELECT fid, x FROM"
@@ -178,7 +180,7 @@ setMethod("getX", "NgsTilingPDInfo",
             res[order(res[["fid"]]), "x"]
           })
 
-setMethod("getY", "NgsTilingPDInfo",
+setMethod("getY", "TilingPDInfo",
           function(object, type){
             stopifnot(!missing(type))
             sql <- "SELECT fid, y FROM"
@@ -193,7 +195,7 @@ setMethod("getY", "NgsTilingPDInfo",
             res[order(res[["fid"]]), "y"]
           })
 
-setMethod("bgindex", "NgsTilingPDInfo",
+setMethod("bgindex", "TilingPDInfo",
           function(object){
             sql <- "SELECT fid FROM bgfeature"
             dbGetQuery(db(object), sql)[[1]]

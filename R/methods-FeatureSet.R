@@ -99,9 +99,16 @@ setMethod("genomeBuild",
 setMethod("pmChr", "FeatureSet",
           function(object){
             conn <- db(object)
-            sql <- paste("SELECT fid, chrom",
-                         "FROM pmfeature, featureSet",
-                         "WHERE pmfeature.fsetid=featureSet.fsetid")
+            if (class(object) == "TilingFeatureSet" & manufacturer(object) == "Affymetrix"){
+              sql <- paste("SELECT fid, chrom_id as chrom",
+                           "FROM pmfeature",
+                           "INNER JOIN chrom_dict",
+                           "USING(chrom)")
+            }else{
+              sql <- paste("SELECT fid, chrom",
+                           "FROM pmfeature, featureSet",
+                           "WHERE pmfeature.fsetid=featureSet.fsetid")
+            }
             tmp <- dbGetQuery(conn, sql)
             tmp <- tmp[order(tmp[["fid"]]),]
             tmp[["chrom"]]

@@ -7,3 +7,5 @@ added classes AffyExonPDInfo and AffySTPDInfo
 03-09-09 - Benilton Carvalho - committed version 1.5.6
 ** Small changes to reduce duplication of code for Gene and Exon Affymetrix arrays.
 
+03-11-09 - Benilton Carvalho - committed version 1.5.7
+** Added accessors for Affy Tiling arrays.
