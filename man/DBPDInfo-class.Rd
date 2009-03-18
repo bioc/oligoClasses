@@ -7,6 +7,7 @@
 \alias{show,DBPDInfo-method}
 \alias{AffyExpressionPDInfo-class}
 \alias{AffyTilingPDInfo-class}
+\alias{AffyGenePDInfo-class}
 \alias{AffyExonPDInfo-class}
 \alias{AffySTPDInfo-class}
 \alias{SNPPDInfo-class}
@@ -31,9 +32,6 @@ Objects can be created by calls of the form \code{new("DBPDInfo", ...)}.
     \item{\code{geometry}:}{Object of class \code{"integer"} with length
     2 (rows x columns)}
   }
-}
-\section{Extends}{
-Class \code{"\linkS4class{PDInfo}"}, directly.
 }
 \section{Methods}{
 No methods defined with class "DBPDInfo" in the signature.
