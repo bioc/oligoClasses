@@ -32,6 +32,7 @@ setGeneric("genomeBuild", function(object) standardGeneric("genomeBuild"))
 setGeneric("geometry", function(object) standardGeneric("geometry"))
 setGeneric("probeNames", function(object, subset=NULL) standardGeneric("probeNames"))
 ## setGeneric("nProbes", function(object) standardGeneric("nProbes"))
+setGeneric("bgindex", function(object, ...) standardGeneric("bgindex"))
 setGeneric("pmindex", function(object, ...) standardGeneric("pmindex"))
 setGeneric("mmindex", function(object, ...) standardGeneric("mmindex"))
 setGeneric("kind", function(object) standardGeneric("kind"))
@@ -51,5 +52,6 @@ setGeneric("getPlatformDesign", function(object) standardGeneric("getPlatformDes
 ## please don't change
 setGeneric("getX", function(object, type) standardGeneric("getX"))
 setGeneric("getY", function(object, type) standardGeneric("getY"))
-setGeneric("bgindex", function(object) standardGeneric("bgindex"))
 setGeneric("bg", function(object) standardGeneric("bg"))
+
+setGeneric("show", function(object) standardGeneric("show"))

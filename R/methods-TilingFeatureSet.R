@@ -8,16 +8,16 @@ setMethod("pmPosition", "TilingFeatureSet",
             tmp[["position"]]
           })
 
-setMethod("getX", "TilingFeatureSet",
-          function(object, type){
-            getX(getPD(object), type)
-          })
-
-setMethod("getY", "TilingFeatureSet",
-          function(object, type){
-            getY(getPD(object), type)
-          })
-
+## setMethod("getX", "TilingFeatureSet",
+##           function(object, type){
+##             getX(getPD(object), type)
+##           })
+## 
+## setMethod("getY", "TilingFeatureSet",
+##           function(object, type){
+##             getY(getPD(object), type)
+##           })
+## 
 ## setMethod("bgindex", "TilingFeatureSet",
 ##           function(object){
 ##             bgindex(getPD(object))

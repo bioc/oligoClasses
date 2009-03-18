@@ -1,2 +1,3 @@
+- Move most of the methods to oligo, along with **good** documentation; leave here **only** classes' definitions and initialization methods
 - Add more data for example (check inst/doc/CrateExamples.R)
 - Add examples to help pages

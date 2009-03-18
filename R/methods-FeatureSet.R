@@ -142,12 +142,6 @@ setMethod("probeNames", "FeatureSet",
           })
 
 setMethod("bgindex", "FeatureSet",
-          function(object){
-            bgindex(getPD(object))
-          })
-
-setMethod("bg", "FeatureSet",
-          function(object){
-            bgi <- bgindex(object)
-            exprs(object[bgi,])
+          function(object, subset=NULL){
+            bgindex(getPD(object), subset=subset)
           })

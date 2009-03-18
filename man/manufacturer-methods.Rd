@@ -2,11 +2,11 @@
 \docType{methods}
 \alias{manufacturer}
 \alias{manufacturer-methods}
-\alias{manufacturer,PDInfo-method}
+\alias{manufacturer,DBPDInfo-method}
 \alias{manufacturer,FeatureSet-method}
 \title{Manufacturer ID for FeatureSet-like objects.}
 \description{
-  Manufacturer ID for FeatureSet-like objects.
+  Manufacturer ID for FeatureSet-like and DBPDInfo-like objects.
 }
 \section{Methods}{
 \describe{
@@ -14,4 +14,3 @@
 \item{object = "PDInfo"}{Manufacturer ID}
 }}
 \keyword{methods}
-

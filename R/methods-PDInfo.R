@@ -164,8 +164,7 @@ setMethod("pmPosition", "TilingPDInfo",
 ## For pdInfo v2 - BC
 ## Please don't change
 
-## for TiledRegions
-setMethod("getX", "TilingPDInfo",
+setMethod("getX", "DBPDInfo",
           function(object, type){
             stopifnot(!missing(type))
             sql <- "SELECT fid, x FROM"
@@ -180,7 +179,7 @@ setMethod("getX", "TilingPDInfo",
             res[order(res[["fid"]]), "x"]
           })
 
-setMethod("getY", "TilingPDInfo",
+setMethod("getY", "DBPDInfo",
           function(object, type){
             stopifnot(!missing(type))
             sql <- "SELECT fid, y FROM"
@@ -203,7 +202,9 @@ setMethod("getY", "TilingPDInfo",
 ## 
 
 setMethod("bgindex", "DBPDInfo",
-          function(object){
+          function(object, subset=NULL){
+            if (!is.null(subset))
+              warning("Subset not implemented (yet). Returning everything.")
             sql <- "SELECT fid FROM bgfeature"
             dbGetQuery(db(object), sql)[[1]]
           })

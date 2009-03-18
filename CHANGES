@@ -16,3 +16,7 @@ added classes AffyExonPDInfo and AffySTPDInfo
 03-17-09 - Benilton Carvalho - committed version 1.5.11
 
 ** Generalized bg/bgindex methods for FeatureSet objects.
+
+03-18-09 - Benilton Carvalho - committed version 1.5.12
+
+** Fixed all warnings so it passes CHECK.

@@ -1,18 +1,21 @@
 \name{genomeBuild}
 \alias{genomeBuild}
-\alias{genomeBuild,PDInfo-method}
+\alias{genomeBuild,DBPDInfo-method}
 \alias{genomeBuild,FeatureSet-method}
-%- Also NEED an '\alias' for EACH other topic documented here.
+
 \title{Genome Build Information}
 \description{
-  Returns the genome build information
+  Returns the genome build information. This information comes from the
+  annotation package and is given as an argument during the package
+  creation process.
 }
 \usage{
 genomeBuild(object)
 }
-%- maybe also 'usage' for other objects documented here.
+
 \arguments{
-  \item{object}{\code{PDInfo} object.}
+  \item{object}{\code{PDInfo} or \code{FeatureSet} object.}
 }
+
 \keyword{manip}
 
