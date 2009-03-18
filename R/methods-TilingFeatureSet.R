@@ -18,13 +18,13 @@ setMethod("getY", "TilingFeatureSet",
             getY(getPD(object), type)
           })
 
-setMethod("bgindex", "TilingFeatureSet",
-          function(object){
-            bgindex(getPD(object))
-          })
-
-setMethod("bg", "TilingFeatureSet",
-          function(object){
-            bgi <- bgindex(object)
-            exprs(object[bgi,])
-          })
+## setMethod("bgindex", "TilingFeatureSet",
+##           function(object){
+##             bgindex(getPD(object))
+##           })
+## 
+## setMethod("bg", "TilingFeatureSet",
+##           function(object){
+##             bgi <- bgindex(object)
+##             exprs(object[bgi,])
+##           })

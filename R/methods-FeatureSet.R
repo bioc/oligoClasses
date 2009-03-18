@@ -140,3 +140,14 @@ setMethod("probeNames", "FeatureSet",
               warning("ignoring subset arg, feature not implemented")
             probeNames(getPlatformDesign(object))
           })
+
+setMethod("bgindex", "FeatureSet",
+          function(object){
+            bgindex(getPD(object))
+          })
+
+setMethod("bg", "FeatureSet",
+          function(object){
+            bgi <- bgindex(object)
+            exprs(object[bgi,])
+          })

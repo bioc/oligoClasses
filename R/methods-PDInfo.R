@@ -195,9 +195,15 @@ setMethod("getY", "TilingPDInfo",
             res[order(res[["fid"]]), "y"]
           })
 
-setMethod("bgindex", "TilingPDInfo",
+## setMethod("bgindex", "TilingPDInfo",
+##           function(object){
+##             sql <- "SELECT fid FROM bgfeature"
+##             dbGetQuery(db(object), sql)[[1]]
+##           })
+## 
+
+setMethod("bgindex", "DBPDInfo",
           function(object){
             sql <- "SELECT fid FROM bgfeature"
             dbGetQuery(db(object), sql)[[1]]
           })
-
