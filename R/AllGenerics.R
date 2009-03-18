@@ -52,6 +52,3 @@ setGeneric("getPlatformDesign", function(object) standardGeneric("getPlatformDes
 ## please don't change
 setGeneric("getX", function(object, type) standardGeneric("getX"))
 setGeneric("getY", function(object, type) standardGeneric("getY"))
-setGeneric("bg", function(object) standardGeneric("bg"))
-
-setGeneric("show", function(object) standardGeneric("show"))

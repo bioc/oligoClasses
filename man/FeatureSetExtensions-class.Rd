@@ -1,5 +1,6 @@
 \name{FeatureSet-class}
 \docType{class}
+\alias{show,FeatureSet-method}
 \alias{FeatureSet-class}
 \alias{initialize,FeatureSet-method}
 \alias{GeneFeatureSet-class}
