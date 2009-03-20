@@ -2,7 +2,7 @@
 \docType{class}
 \alias{SnpCallSetPlus-class}
 \alias{SnpCnvCallSetPlus-class}
-\alias{calculateCopyNumber,SnpCallSetPlus-method}
+%\alias{calculateCopyNumber,SnpCallSetPlus-method}
 \alias{initialize,SnpCallSetPlus-method}
 \alias{initialize,SnpCnvCallSetPlus-method}
 \alias{coerce,SnpCallSetPlus,oligoSnpSet-method}
@@ -42,8 +42,8 @@ Class \code{\link[Biobase:class.Versioned]{Versioned}}, by class "SnpCallSet", d
 }
 \section{Methods}{
   \describe{
-    \item{calculateCopyNumber}{\code{signature(object="SnpCallSetPlus")}
-      See \code{\link{calculateCopyNumber}}}
+%    \item{calculateCopyNumber}{\code{signature(object="SnpCallSetPlus")}
+%      See \code{\link{calculateCopyNumber}}}
     \item{db}{\code{signature(object="SnpCallSetPlus")}}
     }
 }
