@@ -92,16 +92,16 @@ setMethod("initialize", "oligoSnpSet",
 
 setValidity("SnpCallSet", function(object) {
 	assayDataValidMembers(assayData(object), c("calls", "callsConfidence"))
-	if(class(chromosome(object)) != "character") stop("chromosome(object) must be of class 'character'")
+	##if(class(chromosome(object)) != "character") stop("chromosome(object) must be of class 'character'")
 	if(any(is.na(chromosome(object)))) stop("NA's in chromosome")
-	if(any(chromosome(object)=="23")) stop("should set chromosome 23 to X") 
+	##if(any(chromosome(object)=="23")) stop("should set chromosome 23 to X") 
 })
 
 setValidity("SnpCopyNumberSet", function(object) {
 	assayDataValidMembers(assayData(object), c("copyNumber", "cnConfidence"))
-	if(class(chromosome(object)) != "character") stop("chromosome(object) must be of class 'character'")
+	##if(class(chromosome(object)) != "character") stop("chromosome(object) must be of class 'character'")
 	if(any(is.na(chromosome(object)))) stop("NA's in chromosome")
-	if(any(chromosome(object)=="23")) stop("should set chromosome 23 to X") 	
+	##if(any(chromosome(object)=="23")) stop("should set chromosome 23 to X") 	
 })
 
 setValidity("oligoSnpSet", function(object) {

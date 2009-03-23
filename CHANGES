@@ -24,3 +24,7 @@ added classes AffyExonPDInfo and AffySTPDInfo
 03-20-09 - R. Scharpf - committed version 1.5.14
 ** Removed requirement that chromosome be stored as a character string in oligoSnpSet featureData slot
 ** Removed calculateCopyNumber.Rd file
+
+03-23-09 - R. Scharpf - committed version 1.5.15
+** Removed requirement that chromosome be stored as a character string in SnpCallSet and SnpCopyNumberSet
+
