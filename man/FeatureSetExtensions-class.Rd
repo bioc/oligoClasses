@@ -25,7 +25,6 @@
 \section{Slots}{
   \describe{
     \item{\code{manufacturer}:}{Object of class \code{"character"}  }
-    \item{\code{platform}:}{Object of class \code{"character"}  }
     \item{\code{assayData}:}{Object of class \code{"AssayData"}  }
     \item{\code{phenoData}:}{Object of class \code{"AnnotatedDataFrame"}  }
     \item{\code{featureData}:}{Object of class \code{"AnnotatedDataFrame"}  }

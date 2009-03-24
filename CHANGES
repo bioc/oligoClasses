@@ -28,3 +28,12 @@ added classes AffyExonPDInfo and AffySTPDInfo
 03-23-09 - R. Scharpf - committed version 1.5.15
 ** Removed requirement that chromosome be stored as a character string in SnpCallSet and SnpCopyNumberSet
 
+03-24-09 - B Carvalho - committed version 1.5.16
+
+** Removed unused TilingQSet-class
+
+** Redefined sampleNames method for FeatureSet-like objects so it returns a vector. Because I changed FeatureSet (it now contains "NChannelSet" instead of "eSet"), sampleNames() would return a list (on "NChannelSet", elements of assayData are allowed to have different colnames). For the applications I foresee oligo being used, this (different colnames) should not be the case...
+
+** Changed definition of FeatureSet. Instead of 'eSet', it contains "NChannelSet".
+
+** Added TilingFeatureSet2 class, with two channels, to accommodate 2-colors applications of Tiling arrays.

@@ -1,4 +1,25 @@
+## Importing
+## importClassesFrom(methods, ANY, character, data.frame, "function", integer, matrix, numeric)
+## importMethodsFrom(methods, initialize, show)
+## importFrom(methods, "@<-", callNextMethod, new, validObject)
+
+## importClassesFrom(Biobase, AnnotatedDataFrame, AssayData, eSet, MIAME, NChannelSet, Versions)
+## 
+## importFrom(Biobase, assayDataElement, assayDataElementReplace, assayDataNew)
+## 
+## importMethodsFrom(Biobase, annotatedDataFrameFrom, annotation,
+##                   "annotation<-", assayData, "assayData<-", combine,
+##                   experimentData, "experimentData<-", exprs,
+##                   "exprs<-", featureData, "featureData<-",
+##                   featureNames, fvarLabels, geneNames, pData,
+##                   "pData<-", phenoData, "phenoData<-", sampleNames,
+##                   se.exprs, "se.exprs<-", storageMode,
+##                   "storageMode<-")
+
 import(Biobase)
+importFrom(graphics, plot)
+
+## Exporting
 
 ## PDInfo Classes
 exportClasses(DBPDInfo,
@@ -37,7 +58,7 @@ exportClasses(SnpQSet,
               SnpCnvCallSetPlus)
 
 ## Tiling-q Class
-exportClasses(TilingQSet)
+## exportClasses(TilingQSet)
 
 ##SNP-level methods
 exportMethods(calls, "calls<-",
@@ -54,7 +75,8 @@ exportMethods(calls, "calls<-",
               senseThetaA,
               senseThetaB,
               thetaA,
-              thetaB)
+              thetaB,
+              sampleNames)
 
 export(affyPlatforms, getPD)
 

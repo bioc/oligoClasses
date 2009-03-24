@@ -25,8 +25,10 @@ setClass("AffyTilingPDInfo", contains="TilingPDInfo",
 setClass("AffyExpressionPDInfo", contains="ExpressionPDInfo",
          prototype=list(manufacturer="Affymetrix"))
 
-setClass("AffyGenePDInfo", contains="GenePDInfo", prototype=list(manufacturer="Affymetrix"))
-setClass("AffyExonPDInfo", contains="ExonPDInfo", prototype=list(manufacturer="Affymetrix"))
+setClass("AffyGenePDInfo", contains="GenePDInfo",
+         prototype=list(manufacturer="Affymetrix"))
+setClass("AffyExonPDInfo", contains="ExonPDInfo",
+         prototype=list(manufacturer="Affymetrix"))
 setClass("AffySTPDInfo", contains="AffyExpressionPDInfo")
 
  setClass("AffySNPPDInfo", contains="SNPPDInfo",
@@ -42,22 +44,20 @@ setClass("NgsTilingPDInfo", contains="TilingPDInfo",
 ##Feature-level classes
 ###########################################################################  
 setClass("FeatureSet",
-         representation = representation(
+         representation=representation(
            manufacturer="character",
-           platform="character",
            "VIRTUAL"),
-         contains = "eSet",
-         prototype = prototype(
-           platform=as.character(NA),
+         contains="NChannelSet",
+         prototype=prototype(
            manufacturer=as.character(NA)))
 
 setClass("ExpressionFeatureSet", contains="FeatureSet")
 setClass("SnpFeatureSet", contains="FeatureSet")
 setClass("SnpCnvFeatureSet", contains="SnpFeatureSet")
 setClass("TilingFeatureSet", contains="FeatureSet")
+setClass("TilingFeatureSet2", contains="TilingFeatureSet")
 setClass("ExonFeatureSet", contains="FeatureSet")
 setClass("GeneFeatureSet", contains="FeatureSet")
-
 
 ###########################################################################
 ##Summary-level classes
@@ -65,14 +65,14 @@ setClass("GeneFeatureSet", contains="FeatureSet")
 setClass("QuantificationSet", representation("VIRTUAL"), contains="eSet")
 setClass("SnpQSet", contains="QuantificationSet")
 setClass("SnpCnvQSet", contains="QuantificationSet")
-setClass("TilingQSet", contains="QuantificationSet")
+## setClass("TilingQSet", contains="QuantificationSet")
 
 ###########################################################################
 ##SNP-level classes
 ###########################################################################  
 setClass("SnpLevelSet", representation("VIRTUAL"), contains="eSet")
-setClass("SnpCopyNumberSet", contains = "SnpLevelSet")
-setClass("SnpCallSet", contains = "SnpLevelSet")
+setClass("SnpCopyNumberSet", contains="SnpLevelSet")
+setClass("SnpCallSet", contains="SnpLevelSet")
 setClass("oligoSnpSet", contains="SnpLevelSet")
 
 setClass("SnpCallSetPlus", contains=c("SnpQSet",  "SnpCallSet"))
