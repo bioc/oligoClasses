@@ -43,3 +43,11 @@ added classes AffyExonPDInfo and AffySTPDInfo
 ** Changes to accommodate sequence methods
 
 ** Added slot annotation to PDInfo, so we can easily find any information about the object.
+
+03-25-2009 - B Carvalho
+
+** Removed lots of unneeded things from NAMESPACE
+
+** Implemented better definitions in NAMESPACE
+
+** Fixed problem with sampleNames dispatching a warning.

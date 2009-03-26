@@ -1,49 +1,41 @@
 ## Importing
-## importClassesFrom(methods, ANY, character, data.frame, "function", integer, matrix, numeric)
-## importMethodsFrom(methods, initialize, show)
-## importFrom(methods, "@<-", callNextMethod, new, validObject)
+importClassesFrom(methods, ANY, character, data.frame, "function", integer, matrix, numeric)
+importMethodsFrom(methods, initialize, show)
+importFrom(methods, "@<-", callNextMethod, new, validObject)
 
-## importClassesFrom(Biobase, AnnotatedDataFrame, AssayData, eSet, MIAME, NChannelSet, Versions)
-## 
-## importFrom(Biobase, assayDataElement, assayDataElementReplace, assayDataNew)
-## 
-## importMethodsFrom(Biobase, annotatedDataFrameFrom, annotation,
-##                   "annotation<-", assayData, "assayData<-", combine,
-##                   experimentData, "experimentData<-", exprs,
-##                   "exprs<-", featureData, "featureData<-",
-##                   featureNames, fvarLabels, geneNames, pData,
-##                   "pData<-", phenoData, "phenoData<-", sampleNames,
-##                   se.exprs, "se.exprs<-", storageMode,
-##                   "storageMode<-")
-
-import(Biobase)
-importFrom(graphics, plot)
+## Protecting against IRanges masking
 importClassesFrom(IRanges, XDataFrame)
 importClassesFrom(Biostrings, DNAStringSet)
-##exportClasses(XDataFrame, DNAStringSet)
+
+## Needed from graphics
+importFrom(graphics, plot)
+
+## Needed from Biobase
+importClassesFrom(Biobase, AnnotatedDataFrame, AssayData, eSet, MIAME, NChannelSet, Versions, VersionedBiobase, Versioned)
+importFrom(Biobase, assayDataElement, assayDataElementReplace, assayDataNew)
+importMethodsFrom(Biobase, annotatedDataFrameFrom, annotation,
+                  "annotation<-", assayData, "assayData<-", combine,
+                  experimentData, "experimentData<-", exprs,
+                  "exprs<-", featureData, "featureData<-",
+                  featureNames, fvarLabels, geneNames, pData,
+                  "pData<-", phenoData, "phenoData<-", sampleNames,
+                  se.exprs, "se.exprs<-", storageMode,
+                  "storageMode<-")
 
 ## Exporting
 
 ## PDInfo Classes
-exportClasses(DBPDInfo,
-              SNPPDInfo,
-              SNPCNVPDInfo,
-              AffyTilingPDInfo,
+exportClasses(AffyTilingPDInfo,
               AffyExpressionPDInfo,
               AffySNPPDInfo,
               AffySNPCNVPDInfo,
               AffyGenePDInfo,
               AffyExonPDInfo,
-              AffySTPDInfo,
-              ExpressionPDInfo,
               NgsExpressionPDInfo,
-              TilingPDInfo,
               NgsTilingPDInfo)
 
 ##Feature-level Classes
-exportClasses(FeatureSet,
-              QuantificationSet,
-              ExpressionFeatureSet,
+exportClasses(ExpressionFeatureSet,
               SnpFeatureSet,
               SnpCnvFeatureSet,
               TilingFeatureSet,
@@ -59,9 +51,6 @@ exportClasses(SnpQSet,
               oligoSnpSet,
               SnpCallSetPlus,
               SnpCnvCallSetPlus)
-
-## Tiling-q Class
-## exportClasses(TilingQSet)
 
 ##SNP-level methods
 exportMethods(calls, "calls<-",
@@ -84,8 +73,7 @@ exportMethods(calls, "calls<-",
 export(affyPlatforms, getPD)
 
 ## FeatureSet methods
-exportMethods(platform,
-              manufacturer,
+exportMethods(manufacturer,
               length,
               exprs,
               se.exprs)

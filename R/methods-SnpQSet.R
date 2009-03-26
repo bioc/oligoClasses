@@ -29,20 +29,20 @@ setMethod("getA", "SnpQSet",
 
 setMethod("db", "SnpQSet", function(object) db(get(annotation(object))))
 
-setMethod("plotM", c("SnpQSet", "integer"),
-          function(object, i, ...){
-            mm <- featureNames(object[i,])
-            plot(getM(object[i,])[,,], main=mm, ...)})
-
-setMethod("plotM", c("SnpQSet", "numeric"),
-          function(object, i, ...)
-          plotM(object, as.integer(i), ...))
-
-setMethod("plotM", c("SnpQSet", "character"),
-          function(object, i, ...){
-            ii <- as.integer(which(featureNames(object) == i))
-            plotM(object, ii, ...)
-          })
+## setMethod("plotM", c("SnpQSet", "integer"),
+##           function(object, i, ...){
+##             mm <- featureNames(object[i,])
+##             plot(getM(object[i,])[,,], main=mm, ...)})
+## 
+## setMethod("plotM", c("SnpQSet", "numeric"),
+##           function(object, i, ...)
+##           plotM(object, as.integer(i), ...))
+## 
+## setMethod("plotM", c("SnpQSet", "character"),
+##           function(object, i, ...){
+##             ii <- as.integer(which(featureNames(object) == i))
+##             plotM(object, ii, ...)
+##           })
 
 ##
 

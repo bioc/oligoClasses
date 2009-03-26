@@ -1,5 +1,5 @@
-setGeneric("platform", function(object) standardGeneric("platform"))
-setGeneric("platform<-", function(object, value) standardGeneric("platform<-"))
+## setGeneric("platform", function(object) standardGeneric("platform"))
+## setGeneric("platform<-", function(object, value) standardGeneric("platform<-"))
 setGeneric("manufacturer",function(object) standardGeneric("manufacturer"))
 setGeneric("manufacturer<-", function(object, value) standardGeneric("manufacturer<-"))
 setGeneric("senseThetaA", function(object) standardGeneric("senseThetaA"))
@@ -8,7 +8,7 @@ setGeneric("antisenseThetaA", function(object) standardGeneric("antisenseThetaA"
 setGeneric("antisenseThetaB", function(object) standardGeneric("antisenseThetaB"))
 setGeneric("getM", function(object) standardGeneric("getM"))
 setGeneric("getA", function(object) standardGeneric("getA"))
-setGeneric("plotM", function(object, i, ...) standardGeneric("plotM"))
+## setGeneric("plotM", function(object, i, ...) standardGeneric("plotM"))
 setGeneric("thetaA", function(object) standardGeneric("thetaA"))
 setGeneric("thetaB", function(object) standardGeneric("thetaB"))
 
@@ -54,4 +54,4 @@ setGeneric("getPlatformDesign", function(object) standardGeneric("getPlatformDes
 setGeneric("getX", function(object, type) standardGeneric("getX"))
 setGeneric("getY", function(object, type) standardGeneric("getY"))
 
-setGeneric("sampleNames", function(object) standardGeneric("sampleNames"))
+## setGeneric("sampleNames", function(object) standardGeneric("sampleNames"))
