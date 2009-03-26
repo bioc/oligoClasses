@@ -7,7 +7,8 @@ setClass("DBPDInfo",
            tableInfo="data.frame",
            geometry="integer",
            manufacturer="character",
-           genomebuild="character"))
+           genomebuild="character",
+           annotation="character"))
 
 setClass("SNPPDInfo", contains="DBPDInfo")
 setClass("SNPCNVPDInfo", contains="SNPPDInfo")

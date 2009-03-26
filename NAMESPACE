@@ -18,6 +18,9 @@
 
 import(Biobase)
 importFrom(graphics, plot)
+importClassesFrom(IRanges, XDataFrame)
+importClassesFrom(Biostrings, DNAStringSet)
+##exportClasses(XDataFrame, DNAStringSet)
 
 ## Exporting
 
@@ -96,6 +99,7 @@ exportMethods(genomeBuild,
               pmindex,
               mmindex,
               kind,
+              bgSequence,
               pmSequence,
               mmSequence,
               pmOffset,

@@ -37,3 +37,9 @@ added classes AffyExonPDInfo and AffySTPDInfo
 ** Changed definition of FeatureSet. Instead of 'eSet', it contains "NChannelSet".
 
 ** Added TilingFeatureSet2 class, with two channels, to accommodate 2-colors applications of Tiling arrays.
+
+03-25-2009 - B Carvalho
+
+** Changes to accommodate sequence methods
+
+** Added slot annotation to PDInfo, so we can easily find any information about the object.

@@ -1,6 +1,9 @@
 ## All methods for DBPDInfo
 ## Try to use mostly these
 ##  so extensions will 'just work'
+setMethod("annotation", "DBPDInfo",
+          function(object) object@annotation)
+
 setMethod("initialize", "DBPDInfo",
           function(.Object, ...) {
             .Object <- callNextMethod()
@@ -53,11 +56,48 @@ setMethod("geneNames", "DBPDInfo",
               unique(probeNames(object))
           })
 
-setMethod("pmSequence", "DBPDInfo",
+setMethod("pmSequence", "AffySNPPDInfo",
           function(object){
             sql <- "select seq from sequence, pmfeature where pmfeature.fid=sequence.fid order by pmfeature.fid"
             dbGetQuery(db(object), sql)[[1]]
           })
+
+setMethod("bgSequence", "DBPDInfo",
+          function(object){
+            theFile <- file.path(system.file(package=annotation(object)), "data", "bgSequence.rda")
+            if (file.exists(theFile)){
+              load(theFile)
+              return(bgSequence[["sequence"]])
+            }else{
+              warning("bgSequence.rda file is not available for this pdInfo pkg.")
+              return(NULL)
+            }
+          })
+
+setMethod("pmSequence", "DBPDInfo",
+          function(object){
+            theFile <- file.path(system.file(package=annotation(object)), "data", "pmSequence.rda")
+            if (file.exists(theFile)){
+              load(theFile)
+              return(pmSequence[["sequence"]])
+            }else{
+              warning("pmSequence.rda file is not available for this pdInfo pkg.")
+              return(NULL)
+            }
+          })
+
+setMethod("mmSequence", "DBPDInfo",
+          function(object){
+            theFile <- file.path(system.file(package=annotation(object)), "data", "mmSequence.rda")
+            if (file.exists(theFile)){
+              load(theFile)
+              return(mmSequence[["sequence"]])
+            }else{
+              warning("mmSequence.rda file is not available for this pdInfo pkg.")
+              return(NULL)
+            }
+          })
+
 
 ######## END methods for DBPDInfo
 

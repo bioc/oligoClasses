@@ -78,6 +78,12 @@ setMethod("getPlatformDesign",
           })
 getPD <- getPlatformDesign
 
+setMethod("bgSequence",
+          signature(object="FeatureSet"),
+          function(object){
+            bgSequence(getPlatformDesign(object))
+          })
+
 setMethod("pmSequence",
           signature(object="FeatureSet"),
           function(object){

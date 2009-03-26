@@ -1,25 +1,31 @@
 \name{mmSequence}
 \alias{mmSequence}
-\alias{mSequence,DBPDInfo-method}
+\alias{mmSequence,DBPDInfo-method}
 \alias{mmSequence,FeatureSet-method}
 \alias{pmSequence}
 \alias{pmSequence,DBPDInfo-method}
 \alias{pmSequence,FeatureSet-method}
+\alias{pmSequence,AffySNPPDInfo-method}
+\alias{bgSequence}
+\alias{bgSequence,FeatureSet-method}
+\alias{bgSequence,DBPDInfo-method}
 
 \title{Probe Sequeces}
 \description{
-  Accessor to the probe sequences.
+  Accessor to the (PM/MM/background) probe sequences.
 }
 \usage{
 mmSequence(object)
 pmSequence(object, ...)
+bgSequence(object, ...)
 }
 \arguments{
-  \item{object}{\code{FeatureSet} or \code{DBPDInfo} object}
+  \item{object}{\code{FeatureSet}, \code{AffySNPPDInfo} or \code{DBPDInfo} object}
   \item{...}{additional arguments}
 }
 \value{
-  A character vector with the PM or MM probe sequences.
+  A DNAStringSet containing the PM/MM/background probe sequence
+  associated to the array.
 }
 
 \keyword{manip}
