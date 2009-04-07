@@ -62,33 +62,36 @@ setMethod("initialize", "SnpCnvCallSetPlus",
 
 setMethod("initialize", "SnpCopyNumberSet",
           function(.Object,
+		   assayData,
                    copyNumber=new("matrix"),
                    cnConfidence=matrix(numeric(), nrow=nrow(copyNumber),
-                     ncol=ncol(copyNumber),
-                     dimnames=dimnames(copyNumber)), ... ){
-            callNextMethod(.Object,
-                           copyNumber=copyNumber,
-                           cnConfidence=cnConfidence, ...)
+		   ncol=ncol(copyNumber),
+		   dimnames=dimnames(copyNumber)), ... ){
+		  if(missing(assayData)){
+			  callNextMethod(.Object,
+					 copyNumber=copyNumber,
+					 cnConfidence=cnConfidence, ...)
+		  } else{
+			  callNextMethod(.Object, assayData=assayData, ...)
+		  }
           })
 
 setMethod("initialize", "oligoSnpSet",
-          function(.Object,
-                   calls=new("matrix"),
-                   callsConfidence=matrix(numeric(), nrow=nrow(calls),
-                     ncol=ncol(calls),
-                     dimnames=dimnames(calls)),
-                   copyNumber=matrix(numeric(), nrow=nrow(calls),
-                     ncol=ncol(calls),
-                     dimnames=dimnames(calls)),
-                   cnConfidence=matrix(numeric(), nrow=nrow(calls),
-                     ncol=ncol(calls),
-                     dimnames=dimnames(calls)), ... ){
-            callNextMethod(.Object,
-                           calls=calls,
-                           callsConfidence=callsConfidence,
-                           copyNumber=copyNumber,
-                           cnConfidence=cnConfidence, ...)
-          })
+	  function(.Object, assayData, calls=new("matrix"),
+		   callsConfidence=matrix(numeric(), nrow=nrow(calls), ncol=ncol(calls), dimnames=dimnames(calls)),
+		   copyNumber=matrix(numeric(), nrow=nrow(calls), ncol=ncol(calls),  dimnames=dimnames(calls)),
+		   cnConfidence=matrix(numeric(), nrow=nrow(calls), ncol=ncol(calls), dimnames=dimnames(calls)), ... ){
+	if(missing(assayData)){
+		callNextMethod(.Object,
+			       calls=calls,
+			       callsConfidence=callsConfidence,
+			       copyNumber=copyNumber,
+			       cnConfidence=cnConfidence, ...)
+	} else{
+		callNextMethod(.Object,
+			       assayData=assayData, ...)
+	}
+})
 
 setValidity("SnpCallSet", function(object) {
 	assayDataValidMembers(assayData(object), c("calls", "callsConfidence"))
