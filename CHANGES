@@ -51,3 +51,9 @@ added classes AffyExonPDInfo and AffySTPDInfo
 ** Implemented better definitions in NAMESPACE
 
 ** Fixed problem with sampleNames dispatching a warning.
+
+04-07-2009 - R Scharpf
+
+** Removed chromosome requirement in setValidity for oligoSnpSet, SnpCallSet, and SnpCopyNumberSet
+
+
