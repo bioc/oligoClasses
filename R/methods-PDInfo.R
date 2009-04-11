@@ -187,59 +187,8 @@ setMethod("pmPosition", "TilingPDInfo",
             dbGetQuery(db(object), sql)[[1]]
           })
 
-
-### AffySNPCNV
-
-## setMethod("pmSequence", "AffySNPCNVPDInfo",
-##           function(object, probes.type="snp"){
-##             if (probes.type == "snp"){
-##               sql <- "select seq from sequence, pmfeature where pmfeature.fid=sequence.fid order by pmfeature.fid"
-##             }else if (probes.type == "cnv"){
-##               sql <- "SELECT seq FROM sequenceCNV, pmfeatureCNV WHERE pmfeatureCNV.fid=sequenceCNV.fid ORDER BY pmfeatureCNV.fid"
-##             }
-##             dbGetQuery(db(object), sql)[[1]]
-##           })
-
-
 ## For pdInfo v2 - BC
 ## Please don't change
-
-setMethod("getX", "DBPDInfo",
-          function(object, type){
-            stopifnot(!missing(type))
-            sql <- "SELECT fid, x FROM"
-            if (type == "pm"){
-              sql <- paste(sql, "pmfeature")
-            }else if(type == "bg"){
-              sql <- paste(sql, "bgfeature")
-            }else{
-              stop("Method not implemented for type ", type)
-            }
-            res <- dbGetQuery(db(object), sql)
-            res[order(res[["fid"]]), "x"]
-          })
-
-setMethod("getY", "DBPDInfo",
-          function(object, type){
-            stopifnot(!missing(type))
-            sql <- "SELECT fid, y FROM"
-            if (type == "pm"){
-              sql <- paste(sql, "pmfeature")
-            }else if(type == "bg"){
-              sql <- paste(sql, "bgfeature")
-            }else{
-              stop("Method not implemented for type ", type)
-            }
-            res <- dbGetQuery(db(object), sql)
-            res[order(res[["fid"]]), "y"]
-          })
-
-## setMethod("bgindex", "TilingPDInfo",
-##           function(object){
-##             sql <- "SELECT fid FROM bgfeature"
-##             dbGetQuery(db(object), sql)[[1]]
-##           })
-## 
 
 setMethod("bgindex", "DBPDInfo",
           function(object, subset=NULL){
