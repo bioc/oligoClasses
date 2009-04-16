@@ -66,7 +66,6 @@ setClass("GeneFeatureSet", contains="FeatureSet")
 setClass("QuantificationSet", representation("VIRTUAL"), contains="eSet")
 setClass("SnpQSet", contains="QuantificationSet")
 setClass("SnpCnvQSet", contains="QuantificationSet")
-## setClass("TilingQSet", contains="QuantificationSet")
 
 ###########################################################################
 ##SNP-level classes

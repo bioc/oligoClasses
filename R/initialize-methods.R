@@ -2,10 +2,9 @@ setMethod("initialize", "SnpCallSet",
           function(.Object,
                    calls=new("matrix"),
                    callsConfidence=matrix(numeric(), nrow=nrow(calls),
-		   ncol=ncol(calls),
-		   dimnames=dimnames(calls)), ... ){
-            callNextMethod(.Object,
-                           calls=calls,
+                     ncol=ncol(calls),
+                     dimnames=dimnames(calls)), ... ){
+            callNextMethod(.Object, calls=calls,
                            callsConfidence=callsConfidence, ...)
           })
 
@@ -57,7 +56,6 @@ setMethod("initialize", "SnpCnvCallSetPlus",
               featureData(.Object) <- annotatedDataFrameFrom(calls, byrow=TRUE)
             .Object
           })
-
 
 
 setMethod("initialize", "SnpCopyNumberSet",
@@ -150,26 +148,3 @@ setValidity("SnpQSet",
                                     "antisenseThetaA",
                                     "antisenseThetaB"))
             )
-
-
-## TilingQSet
-
-## setMethod("initialize", "TilingQSet",
-##           function(.Object,
-##                    assayData = assayDataNew(M=M),
-##                    M=new("matrix"),
-##                    phenoData=annotatedDataFrameFrom(assayData, byrow=FALSE),
-##                    featureData=annotatedDataFrameFrom(assayData, byrow=TRUE),
-##                    experimentalData=new("MIAME"),
-##                    annotation=new("character")){
-##             .Object <- callNextMethod(.Object,
-##                                       assayData = assayDataNew(M=M),
-##                                       phenoData=phenoData,
-##                                       featureData=featureData,
-##                                       experimentalData=experimentalData,
-##                                       annotation=annotation)
-##             .Object
-##           })
-## 
-## setValidity("TilingQSet", function(object) assayDataValidMembers(assayData(object), "M"))
-

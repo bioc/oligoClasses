@@ -60,4 +60,6 @@ added classes AffyExonPDInfo and AffySTPDInfo
 
 ** Changed initialization method for oligoSnpSet and SnpCopyNumberSet
 
+04-16-2009 - B Bcarvalho committed v 1.5.23
 
+** Cleaned up code

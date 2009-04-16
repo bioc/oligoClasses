@@ -8,8 +8,6 @@ setMethod("initialize", signature(.Object="FeatureSet"),
           function(.Object,
                    assayData=assayDataNew(...),
                    manufacturer=as.character(NA),
-##                   platform=as.character(NA),
-##                   exprs=matrix(numeric(0), nrow=nrow, ncol=ncol),
                    phenoData=annotatedDataFrameFrom(assayData, byrow=FALSE),
                    featureData=annotatedDataFrameFrom(assayData, byrow=TRUE),
                    experimentData=new("MIAME"),
@@ -21,18 +19,9 @@ setMethod("initialize", signature(.Object="FeatureSet"),
                                       annotation=annotation,
                                       featureData=featureData)
             .Object@manufacturer <- manufacturer
-##            .Object@platform <- platform
             .Object
           })
 
-
-## setMethod("platform", signature(object="FeatureSet"),function(object) object@platform)
-## setReplaceMethod("platform",signature(object="FeatureSet"),
-## 		  function(object,value) {
-## 			  object@platform <- value
-## 			  object
-## 		  })
-  
 setMethod("manufacturer", signature(object="FeatureSet"), function(object) object@manufacturer)
 setReplaceMethod("manufacturer", signature(object="FeatureSet"), 
 		function(object, value){
