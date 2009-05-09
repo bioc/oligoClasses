@@ -1,5 +1,3 @@
-## setGeneric("platform", function(object) standardGeneric("platform"))
-## setGeneric("platform<-", function(object, value) standardGeneric("platform<-"))
 setGeneric("manufacturer",function(object) standardGeneric("manufacturer"))
 setGeneric("manufacturer<-", function(object, value) standardGeneric("manufacturer<-"))
 setGeneric("senseThetaA", function(object) standardGeneric("senseThetaA"))
@@ -8,7 +6,6 @@ setGeneric("antisenseThetaA", function(object) standardGeneric("antisenseThetaA"
 setGeneric("antisenseThetaB", function(object) standardGeneric("antisenseThetaB"))
 setGeneric("getM", function(object) standardGeneric("getM"))
 setGeneric("getA", function(object) standardGeneric("getA"))
-## setGeneric("plotM", function(object, i, ...) standardGeneric("plotM"))
 setGeneric("thetaA", function(object) standardGeneric("thetaA"))
 setGeneric("thetaB", function(object) standardGeneric("thetaB"))
 
@@ -31,7 +28,6 @@ setGeneric("position", function(object) standardGeneric("position"))
 setGeneric("genomeBuild", function(object) standardGeneric("genomeBuild"))
 setGeneric("geometry", function(object) standardGeneric("geometry"))
 setGeneric("probeNames", function(object, subset=NULL) standardGeneric("probeNames"))
-## setGeneric("nProbes", function(object) standardGeneric("nProbes"))
 setGeneric("bgindex", function(object, ...) standardGeneric("bgindex"))
 setGeneric("pmindex", function(object, ...) standardGeneric("pmindex"))
 setGeneric("mmindex", function(object, ...) standardGeneric("mmindex"))
@@ -45,13 +41,6 @@ setGeneric("pmFragmentLength", function(object) standardGeneric("pmFragmentLengt
 setGeneric("pmAllele", function(object) standardGeneric("pmAllele"))
 setGeneric("pmStrand", function(object) standardGeneric("pmStrand"))
 setGeneric("pmPosition", function(object) standardGeneric("pmPosition"))
-
 setGeneric("getPlatformDesign", function(object) standardGeneric("getPlatformDesign"))
-
-
-## For pdInfoBuilder v2
-## please don't change
 setGeneric("getX", function(object, type) standardGeneric("getX"))
 setGeneric("getY", function(object, type) standardGeneric("getY"))
-
-## setGeneric("sampleNames", function(object) standardGeneric("sampleNames"))
