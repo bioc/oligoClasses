@@ -4,7 +4,7 @@ importMethodsFrom(methods, initialize, show)
 importFrom(methods, "@<-", callNextMethod, new, validObject)
 
 ## Protecting against IRanges masking
-importClassesFrom(IRanges, XDataFrame)
+importClassesFrom(IRanges, DataFrame)
 importClassesFrom(Biostrings, DNAStringSet)
 
 ## Needed from graphics
