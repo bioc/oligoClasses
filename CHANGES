@@ -67,3 +67,7 @@ added classes AffyExonPDInfo and AffySTPDInfo
 05-07-2009 - B Bcarvalho committed v 1.7.1
 
 ** Cleaned up code
+
+06-19-2009 - B Carvalho committed v 1.7.5
+
+** Fixed mmSequence

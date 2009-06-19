@@ -62,6 +62,12 @@ setMethod("pmSequence", "AffySNPPDInfo",
             dbGetQuery(db(object), sql)[[1]]
           })
 
+setMethod("mmSequence", "AffySNPPDInfo",
+          function(object){
+            sql <- "select seq from sequence, mmfeature where mmfeature.fid=sequence.fid order by mmfeature.fid"
+            dbGetQuery(db(object), sql)[[1]]
+          })
+
 setMethod("bgSequence", "DBPDInfo",
           function(object){
             theFile <- file.path(system.file(package=annotation(object)), "data", "bgSequence.rda")
