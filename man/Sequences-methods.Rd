@@ -2,6 +2,7 @@
 \alias{mmSequence}
 \alias{mmSequence,DBPDInfo-method}
 \alias{mmSequence,FeatureSet-method}
+\alias{mmSequence,AffySNPPDInfo-method}
 \alias{pmSequence}
 \alias{pmSequence,DBPDInfo-method}
 \alias{pmSequence,FeatureSet-method}
