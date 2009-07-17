@@ -94,7 +94,8 @@ setMethod("genomeBuild",
 setMethod("pmChr", "FeatureSet",
           function(object){
             conn <- db(object)
-            if (class(object) == "TilingFeatureSet" & manufacturer(object) == "Affymetrix"){
+            isTiling <- class(object) %in% c("TilingFeatureSet", "TilingFeatureSet2")
+            if (isTiling & manufacturer(object) == "Affymetrix"){
               sql <- paste("SELECT fid, chrom_id as chrom",
                            "FROM pmfeature",
                            "INNER JOIN chrom_dict",
