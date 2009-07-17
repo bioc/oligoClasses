@@ -71,3 +71,7 @@ added classes AffyExonPDInfo and AffySTPDInfo
 06-19-2009 - B Carvalho committed v 1.7.5
 
 ** Fixed mmSequence
+
+07-17-2009 - B Carvalho committed v 1.7.7
+
+** Extended pmChr to TilingFeatureSet2

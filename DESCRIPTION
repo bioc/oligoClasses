@@ -1,7 +1,7 @@
 Package: oligoClasses
-Version: 1.7.6
-Title: Classes for high-throughput SNP arrays
-Author: Benilton Carvalho <bcarvalh@jhsph.edu> and  Robert Scharpf <rscharpf@jhsph.edu>
+Version: 1.7.7
+Title: Classes for high-throughput arrays supported by oligo
+Author: Benilton Carvalho <bcarvalh@jhsph.edu> and Robert Scharpf <rscharpf@jhsph.edu>
 Maintainer: Benilton Carvalho <bcarvalh@jhsph.edu> 
 Depends: Biobase
 Imports: graphics, methods, IRanges (>= 1.3.16), Biostrings (>= 2.13.9), Biobase (>= 2.5.3)
