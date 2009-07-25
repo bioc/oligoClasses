@@ -75,3 +75,7 @@ added classes AffyExonPDInfo and AffySTPDInfo
 07-17-2009 - B Carvalho committed v 1.7.7
 
 ** Extended pmChr to TilingFeatureSet2
+
+07-25-2009 - B Carvalho committed v 1.7.9
+
+** Removed annotation from show method
