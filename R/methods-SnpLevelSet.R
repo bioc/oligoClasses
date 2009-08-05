@@ -1,6 +1,6 @@
 setMethod("db", "SnpLevelSet",
           function(object) {
-            require(annotation(object), character.only=TRUE) || stop(paste(annotation(object), "package not available"))
+            requireAnnotation(annotation(object)) || stop(paste(annotation(object), "package not available"))
             get(annotation(object))@getdb()
         })
 

@@ -8,5 +8,5 @@ setMethod("show", "DBPDInfo", function(object) {
 
 setMethod("show", "FeatureSet", function(object){
   callNextMethod()
-  require(annotation(object), character.only=TRUE)
+  requireAnnotation(annotation(object))
 })

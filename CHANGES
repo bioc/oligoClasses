@@ -79,3 +79,9 @@ added classes AffyExonPDInfo and AffySTPDInfo
 07-25-2009 - B Carvalho committed v 1.7.9
 
 ** Removed annotation from show method
+
+08-05-2009 - B Carvalho commited v 1.7.10
+
+** Added automatic downloarder/installer pdPkgFromBioC()/requireAnnotation() to be used with annotation packages
+
+** Added requireAnnotation, which is pretty much require() if the pkg is installed... and installs it, without asking, ortherwise.
