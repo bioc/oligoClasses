@@ -80,8 +80,12 @@ added classes AffyExonPDInfo and AffySTPDInfo
 
 ** Removed annotation from show method
 
-08-05-2009 - B Carvalho commited v 1.7.10
+08-05-2009 - B Carvalho committed v 1.7.10
 
 ** Added automatic downloarder/installer pdPkgFromBioC()/requireAnnotation() to be used with annotation packages
 
 ** Added requireAnnotation, which is pretty much require() if the pkg is installed... and installs it, without asking, ortherwise.
+
+08-06-2009 - B Carvalho committed v 1.7.10
+
+** For the moment, I don't think pdPkgFromBioC/requireAnnotation need to be exposed in NAMESPACE

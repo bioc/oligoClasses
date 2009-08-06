@@ -24,7 +24,7 @@ importMethodsFrom(Biobase, annotatedDataFrameFrom, annotation,
 
 ## Exporting
 
-export("pdPkgFromBioC", "requireAnnotation")
+## export("pdPkgFromBioC", "requireAnnotation")
 
 ## PDInfo Classes
 exportClasses(AffyTilingPDInfo,
