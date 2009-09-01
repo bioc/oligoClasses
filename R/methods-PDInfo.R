@@ -201,5 +201,6 @@ setMethod("bgindex", "DBPDInfo",
             if (!is.null(subset))
               warning("Subset not implemented (yet). Returning everything.")
             sql <- "SELECT fid FROM bgfeature"
-            dbGetQuery(db(object), sql)[[1]]
+            tmp <- dbGetQuery(db(object), sql)[[1]]
+            sort(tmp)
           })
