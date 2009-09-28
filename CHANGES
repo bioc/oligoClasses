@@ -97,3 +97,7 @@ added classes AffyExonPDInfo and AffySTPDInfo
 09-01-2009 - B Carvalho committed v 1.7.13
 
 ** bgindex now sorted
+
+09-27-2009 - B Carvalho committed v 1.7.15
+
+** added documentation to pdPkgFromBioC and requireAnnotation

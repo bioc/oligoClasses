@@ -68,11 +68,11 @@ pdPkgFromBioC <- function(pkgname, lib=.libPaths()[1], verbose=TRUE) {
   }
 }
 
-requireAnnotation <- function(pkgname, verbose=TRUE){
+requireAnnotation <- function(pkgname, lib=.libPaths()[1], verbose=TRUE){
   stopifnot(is.character(pkgname), !missing(pkgname))
   status <- require(pkgname, character.only=TRUE, quietly=!verbose)
   if (!status){
-    status <- pdPkgFromBioC(pkgname, verbose=verbose)
+    status <- pdPkgFromBioC(pkgname, lib=lib, verbose=verbose)
   }
   status
 }
