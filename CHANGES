@@ -101,3 +101,7 @@ added classes AffyExonPDInfo and AffySTPDInfo
 09-27-2009 - B Carvalho committed v 1.7.15
 
 ** added documentation to pdPkgFromBioC and requireAnnotation
+
+09-29-2009 - B Carvalho committed v 1.7.16
+
+** svn add documentation
