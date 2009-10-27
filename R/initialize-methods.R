@@ -23,7 +23,7 @@ setMethod("initialize", "SnpCallSetPlus",
                                antisenseThetaA=antisenseThetaA,
                                antisenseThetaB=antisenseThetaB,
                                senseThetaA=senseThetaA,
-                               senseThetaB=senseThetaB)
+                               senseThetaB=senseThetaB, ...)
             
             assayData(.Object) <- ad
             if (missing(phenoData))
@@ -38,17 +38,13 @@ setMethod("initialize", "SnpCnvCallSetPlus",
                    phenoData, featureData,
                    calls=new("matrix"),
                    callsConfidence=new("matrix"),
-                   antisenseThetaA,
-                   antisenseThetaB,
-                   senseThetaA,
-                   senseThetaB,
-                   thetaA,
-                   thetaB, ... ){
+                   thetaA=new("matrix"),
+                   thetaB=new("matrix"), ... ){
             ad <- assayDataNew("lockedEnvironment",
                                calls=calls,
                                callsConfidence=callsConfidence,
                                thetaA=thetaA,
-                               thetaB=thetaB)
+                               thetaB=thetaB, ...)
             assayData(.Object) <- ad
             if (missing(phenoData))
               phenoData(.Object) <- annotatedDataFrameFrom(calls, byrow=FALSE)
