@@ -34,3 +34,5 @@ setMethod("thetaB", "SnpCnvQSet", function(object) assayDataElement(object, "the
 setMethod("getM", "SnpCnvQSet", function(object) thetaA(object)-thetaB(object))
 setMethod("getA", "SnpCnvQSet", function(object) (.5*thetaA(object)+.5*thetaB(object)))
 setMethod("db", "SnpCnvQSet", function(object) db(get(annotation(object))))
+
+

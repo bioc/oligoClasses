@@ -41,11 +41,13 @@ exportClasses(ExpressionFeatureSet,
               SnpFeatureSet,
               SnpCnvFeatureSet,
               TilingFeatureSet,
+	      TilingFeatureSet2,
               ExonFeatureSet,
               GeneFeatureSet)
 
 ##SNP-level Classes
-exportClasses(SnpQSet,
+exportClasses(QuantificationSet, 
+              SnpQSet,
               SnpCnvQSet,
               SnpLevelSet,
               SnpCallSet,

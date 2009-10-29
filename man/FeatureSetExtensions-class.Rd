@@ -9,6 +9,7 @@
 \alias{SnpFeatureSet-class}
 \alias{SnpCnvFeatureSet-class}
 \alias{TilingFeatureSet-class}
+\alias{TilingFeatureSet2-class}
 
 \title{"FeatureSet" and "FeatureSet" Extensions}
 \description{Classes to store data from Expression/Exon/SNP/Tiling arrays at the feature level.}
