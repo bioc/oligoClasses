@@ -143,3 +143,14 @@ setMethod("bgindex", "FeatureSet",
 
 ## setMethod("sampleNames", "FeatureSet",
 ##           function(object) callNextMethod(object)[[1]])
+
+setMethod("pmPosition", "FeatureSet",
+          function(object){
+            conn <- db(object)
+            sql <- paste("SELECT fid, position",
+                         "FROM pmfeature",
+                         "INNER JOIN featureSet USING(fsetid)")
+            tmp <- dbGetQuery(conn, sql)
+            tmp <- tmp[order(tmp[["fid"]]),]
+            tmp[["position"]]
+          })
