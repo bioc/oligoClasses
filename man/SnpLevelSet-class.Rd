@@ -33,7 +33,8 @@
   }
 }
 \section{Extends}{
-  Class \code{\link[Biobase:class.eSet]{eSet}}, directly.
+  Class
+  \code{\link[Biobase:class.eSet]{eSet}}, directly.
   Class \code{\link[Biobase:class.VersionedBiobase]{VersionedBiobase}}, by class "eSet", distance 2.
   Class \code{\link[Biobase:class.Versioned]{Versioned}}, by class "eSet", distance 3.  
 }

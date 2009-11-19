@@ -109,3 +109,7 @@ added classes AffyExonPDInfo and AffySTPDInfo
 10-28-2009 - R. Scharpf committed v 1.9.1
 
 ** export TilingFeatureSet2, QuantificationSet
+
+11-19-2009 - R. Scharpf committed v 1.9.2
+
+** changed definition of SnpCallSetPlus extends SnpSet and SnpQSet
