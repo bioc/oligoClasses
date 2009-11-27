@@ -1,75 +1,3 @@
-setMethod("initialize", "SnpCallSet",
-          function(.Object,
-                   calls=new("matrix"),
-                   callsConfidence=matrix(numeric(), nrow=nrow(calls),
-                     ncol=ncol(calls),
-                     dimnames=dimnames(calls)), ... ){
-            callNextMethod(.Object, calls=calls,
-                           callsConfidence=callsConfidence, ...)
-          })
-
-setMethod("initialize", "SnpCallSetPlus",
-          function(.Object,
-                   phenoData, featureData,
-                   calls=new("matrix"),
-                   callsConfidence=new("matrix"),
-                   antisenseThetaA=new("matrix"),
-                   antisenseThetaB=new("matrix"),
-                   senseThetaA=new("matrix"),
-                   senseThetaB=new("matrix"), ... ){
-            ad <- assayDataNew("lockedEnvironment",
-                               calls=calls,
-                               callsConfidence=callsConfidence,
-                               antisenseThetaA=antisenseThetaA,
-                               antisenseThetaB=antisenseThetaB,
-                               senseThetaA=senseThetaA,
-                               senseThetaB=senseThetaB, ...)
-            
-            assayData(.Object) <- ad
-            if (missing(phenoData))
-              phenoData(.Object) <- annotatedDataFrameFrom(calls, byrow=FALSE)
-            if (missing(featureData))
-              featureData(.Object) <- annotatedDataFrameFrom(calls, byrow=TRUE)
-            .Object
-          })
-
-setMethod("initialize", "SnpCnvCallSetPlus",
-          function(.Object,
-                   phenoData, featureData,
-                   calls=new("matrix"),
-                   callsConfidence=new("matrix"),
-                   thetaA=new("matrix"),
-                   thetaB=new("matrix"), ... ){
-            ad <- assayDataNew("lockedEnvironment",
-                               calls=calls,
-                               callsConfidence=callsConfidence,
-                               thetaA=thetaA,
-                               thetaB=thetaB, ...)
-            assayData(.Object) <- ad
-            if (missing(phenoData))
-              phenoData(.Object) <- annotatedDataFrameFrom(calls, byrow=FALSE)
-            if (missing(featureData))
-              featureData(.Object) <- annotatedDataFrameFrom(calls, byrow=TRUE)
-            .Object
-          })
-
-
-setMethod("initialize", "SnpCopyNumberSet",
-          function(.Object,
-		   assayData,
-                   copyNumber=new("matrix"),
-                   cnConfidence=matrix(numeric(), nrow=nrow(copyNumber),
-		   ncol=ncol(copyNumber),
-		   dimnames=dimnames(copyNumber)), ... ){
-		  if(missing(assayData)){
-			  callNextMethod(.Object,
-					 copyNumber=copyNumber,
-					 cnConfidence=cnConfidence, ...)
-		  } else{
-			  callNextMethod(.Object, assayData=assayData, ...)
-		  }
-          })
-
 setMethod("initialize", "oligoSnpSet",
 	  function(.Object, assayData, calls=new("matrix"),
 		   callsConfidence=matrix(numeric(), nrow=nrow(calls), ncol=ncol(calls), dimnames=dimnames(calls)),
@@ -87,60 +15,22 @@ setMethod("initialize", "oligoSnpSet",
 	}
 })
 
-setValidity("SnpCallSet", function(object) {
-	assayDataValidMembers(assayData(object), c("calls", "callsConfidence"))
-	##if(class(chromosome(object)) != "character") stop("chromosome(object) must be of class 'character'")
-	##if(any(is.na(chromosome(object)))) stop("NA's in chromosome")
-	##if(any(chromosome(object)=="23")) stop("should set chromosome 23 to X") 
-})
-
-setValidity("SnpCopyNumberSet", function(object) {
-	assayDataValidMembers(assayData(object), c("copyNumber", "cnConfidence"))
-	##if(class(chromosome(object)) != "character") stop("chromosome(object) must be of class 'character'")
-	##if(any(is.na(chromosome(object)))) stop("NA's in chromosome")
-	##if(any(chromosome(object)=="23")) stop("should set chromosome 23 to X") 	
-})
-
 setValidity("oligoSnpSet", function(object) {
 	assayDataValidMembers(assayData(object), c("calls", "callsConfidence", "copyNumber", "cnConfidence"))
-	##if(class(chromosome(object)) != "character") stop("chromosome(object) must be of class character")
-	##if(any(is.na(chromosome(object)))) stop("NA's in chromosome")
-	##if(any(chromosome(object)=="23")) stop("should set chromosome 23 to X") 		
 })
 
-## SnpQSet ## From oligo
-
-setMethod("initialize", "SnpQSet",
-          function(.Object,
-                   assayData = assayDataNew(senseThetaA=senseThetaA,
-                     senseThetaB=senseThetaB,
-                     antisenseThetaA=antisenseThetaA,
-                     antisenseThetaB=antisenseThetaB),
-                   senseThetaA=new("matrix"),
-                   senseThetaB=new("matrix"),
-                   antisenseThetaA=new("matrix"),
-                   antisenseThetaB=new("matrix"),
-                   phenoData=annotatedDataFrameFrom(assayData, byrow=FALSE),
-                   featureData = annotatedDataFrameFrom(assayData, byrow=TRUE),
-                   experimentData=new("MIAME"),
-                   annotation=new("character")){
-            .Object <- callNextMethod(.Object,
-                                  assayData = assayDataNew(
-                                    senseThetaA=senseThetaA,
-                                    senseThetaB=senseThetaB,
-                                    antisenseThetaA=antisenseThetaA,
-                                    antisenseThetaB=antisenseThetaB),
-                                  phenoData=phenoData,
-                                  experimentData=experimentData,
-                                  annotation=annotation)
-            .Object
-          })
-
-setValidity("SnpQSet",
-            function(object)
-            assayDataValidMembers(assayData(object),
-                                  c("senseThetaA",
-                                    "senseThetaB",
-                                    "antisenseThetaA",
-                                    "antisenseThetaB"))
-            )
+setValidity("AlleleSet",
+            function(object){
+              grp1 <- c("alleleA", "alleleB")
+              grp2 <- c("senseAlleleA", "senseAlleleB",
+                        "antisenseAlleleA", "antisenseAlleleB")
+              elem <- assayDataElementNames(object)
+              ok <- all(elem %in% grp1) || all(elem %in% grp2)
+              f <- function(x) paste("'", x, "'", collapse=" + ", sep="")
+              if (!ok){
+                paste("Elements of 'AlleleSummarySet' must be:",
+                      f(grp1), "OR", f(grp2))
+              }else{
+                TRUE
+              }
+            })

@@ -1,0 +1,15 @@
+        **************************************************
+        *                                                *
+        *              1.9.x SERIES NEWS                 *
+        *                                                *
+        **************************************************
+
+USER VISIBLE CHANGES
+
+	o Major refactoring of classes used by SNP/CNP algorithms.
+		  i) New class: CNSet, AlleleSet, SnpSuperSet
+		 ii) Removed classes: Snp*QSet, Snp*CallSet, Snp*CallSetPlus
+		iii) Genotyping algorithms will use SnpSet instead of SnpCallSet
+
+	o Replaced thetaA, thetaB, senseThetaA, antisenseThetaA,
+	    senseThetaB and antisenseThetaB methods by allele.

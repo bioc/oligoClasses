@@ -141,9 +141,6 @@ setMethod("bgindex", "FeatureSet",
             bgindex(getPD(object), subset=subset)
           })
 
-## setMethod("sampleNames", "FeatureSet",
-##           function(object) callNextMethod(object)[[1]])
-
 setMethod("pmPosition", "FeatureSet",
           function(object){
             conn <- db(object)

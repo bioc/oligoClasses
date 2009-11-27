@@ -3,7 +3,6 @@ setMethod("show", "DBPDInfo", function(object) {
     cat("Manufacturer.:", manufacturer(object), "\n")
     cat("Genome Build.:", genomeBuild(object), "\n")
     cat("Chip Geometry:", geometry(object)[1], "rows x ", geometry(object)[2], "columns\n")
-##    cat("Annotation...:", annotation(object), "\n")
 })
 
 setMethod("show", "FeatureSet", function(object){

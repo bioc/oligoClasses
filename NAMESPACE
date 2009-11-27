@@ -4,14 +4,16 @@ importMethodsFrom(methods, initialize, show)
 importFrom(methods, "@<-", callNextMethod, new, validObject)
 
 ## Protecting against IRanges masking
-importClassesFrom(IRanges, DataFrame)
+importClassesFrom(IRanges, DataFrame, RangedData, IRanges)
+importMethodsFrom(IRanges, Rle, start, end, width)
+importFrom(IRanges, IRanges, RleList, RangedData)
 importClassesFrom(Biostrings, DNAStringSet)
 
 ## Needed from graphics
 importFrom(graphics, plot)
 
 ## Needed from Biobase
-importClassesFrom(Biobase, AnnotatedDataFrame, AssayData, eSet, MIAME, NChannelSet, Versions, VersionedBiobase, Versioned)
+importClassesFrom(Biobase, AnnotatedDataFrame, AssayData, eSet, MIAME, NChannelSet, Versions, VersionedBiobase, Versioned, SnpSet)
 importFrom(Biobase, assayDataElement, assayDataElementReplace, assayDataNew)
 importMethodsFrom(Biobase, annotatedDataFrameFrom, annotation,
                   "annotation<-", assayData, "assayData<-", combine,
@@ -41,20 +43,15 @@ exportClasses(ExpressionFeatureSet,
               SnpFeatureSet,
               SnpCnvFeatureSet,
               TilingFeatureSet,
-	      TilingFeatureSet2,
               ExonFeatureSet,
               GeneFeatureSet)
 
 ##SNP-level Classes
-exportClasses(QuantificationSet, 
-              SnpQSet,
-              SnpCnvQSet,
+exportClasses(AlleleSet,
               SnpLevelSet,
-              SnpCallSet,
-              SnpCopyNumberSet,
               oligoSnpSet,
-              SnpCallSetPlus,
-              SnpCnvCallSetPlus)
+              SnpSuperSet,
+              CNSet)
 
 ##SNP-level methods
 exportMethods(calls, "calls<-",
@@ -66,12 +63,7 @@ exportMethods(calls, "calls<-",
               db,
               initialize,
               position,
-              antisenseThetaA,
-              antisenseThetaB,
-              senseThetaA,
-              senseThetaB,
-              thetaA,
-              thetaB,
+              allele,
               sampleNames)
 
 export(affyPlatforms, getPD)

@@ -56,24 +56,28 @@ setClass("ExpressionFeatureSet", contains="FeatureSet")
 setClass("SnpFeatureSet", contains="FeatureSet")
 setClass("SnpCnvFeatureSet", contains="SnpFeatureSet")
 setClass("TilingFeatureSet", contains="FeatureSet")
-setClass("TilingFeatureSet2", contains="TilingFeatureSet")
 setClass("ExonFeatureSet", contains="FeatureSet")
 setClass("GeneFeatureSet", contains="FeatureSet")
 
 ###########################################################################
-##Summary-level classes
+##Summary-level classes - SNP - allele data
 ###########################################################################  
-setClass("QuantificationSet", representation("VIRTUAL"), contains="eSet")
-setClass("SnpQSet", contains="QuantificationSet")
-setClass("SnpCnvQSet", contains="QuantificationSet")
+setClass("AlleleSet", contains="eSet")
+
+###########################################################################
+## Combo classes - SNP Summaries - alleles + calls/conf
+###########################################################################  
+setClass("SnpSuperSet", contains=c("AlleleSet", "SnpSet"))
+
+###########################################################################
+##Summary-level classes - CNP
+###########################################################################  
+setClass("CNSet", contains="SnpSuperSet",
+	 representation(emissionPr="array",
+			segmentData="RangedData"))
 
 ###########################################################################
 ##SNP-level classes
 ###########################################################################  
 setClass("SnpLevelSet", representation("VIRTUAL"), contains="eSet")
-setClass("SnpCopyNumberSet", contains="SnpLevelSet")
-setClass("SnpCallSet", contains="SnpLevelSet")
 setClass("oligoSnpSet", contains="SnpLevelSet")
-##setClass("SnpCallSetPlus", contains=c("SnpQSet",  "SnpCallSet"))
-setClass("SnpCallSetPlus", contains=c("SnpQSet",  "SnpSet"))
-setClass("SnpCnvCallSetPlus", contains=c("SnpCnvQSet", "SnpCallSet"))

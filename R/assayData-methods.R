@@ -18,9 +18,3 @@ setReplaceMethod("cnConfidence", signature(object="SnpLevelSet", value="matrix")
                  function(object, value){
                    assayDataElementReplace(object, "cnConfidence", value)
                  })
-
-setMethod("db", "SnpCallSet",
-          function(object) db(get(annotation(object))))
-
-
-
