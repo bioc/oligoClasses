@@ -32,7 +32,7 @@ setClass("AffyExonPDInfo", contains="ExonPDInfo",
          prototype=list(manufacturer="Affymetrix"))
 setClass("AffySTPDInfo", contains="AffyExpressionPDInfo")
 
- setClass("AffySNPPDInfo", contains="SNPPDInfo",
+setClass("AffySNPPDInfo", contains="SNPPDInfo",
          prototype=list(manufacturer="Affymetrix"))
 setClass("AffySNPCNVPDInfo", contains="AffySNPPDInfo")
 
