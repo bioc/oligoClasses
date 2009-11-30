@@ -1,6 +1,6 @@
 setGeneric("manufacturer",function(object) standardGeneric("manufacturer"))
 setGeneric("manufacturer<-", function(object, value) standardGeneric("manufacturer<-"))
-setGeneric("bothAlleles", function(object) standardGeneric("bothAlleles"))
+setGeneric("bothStrands", function(object) standardGeneric("bothStrands"))
 setGeneric("allele", function(object, allele, strand) standardGeneric("allele"))
 setGeneric("getM", function(object) standardGeneric("getM"))
 setGeneric("getA", function(object) standardGeneric("getA"))

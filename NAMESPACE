@@ -54,7 +54,7 @@ exportClasses(AlleleSet,
               CNSet)
 
 ##SNP-level methods
-exportMethods(calls, "calls<-",
+exportMethods(bothStrands, calls, "calls<-",
               callsConfidence, "callsConfidence<-",
               chromosome, "chromosome<-",
               combine,

@@ -1,4 +1,4 @@
-setMethod("bothAlleles", "AlleleSet",
+setMethod("bothStrands", "AlleleSet",
           function(object){
             grp1 <- c("alleleA", "alleleB")
             grp2 <- c("senseAlleleA", "senseAlleleB",
@@ -17,7 +17,7 @@ setMethod("allele", "AlleleSet",
           function(object, allele, strand){
             stopifnot(!missing(allele))
             allele <- match.arg(allele, c("A", "B"))
-            both <- bothAlleles(object)
+            both <- bothStrands(object)
             if (!both){
               what <- paste("allele", allele, sep="")
             }else{
@@ -30,7 +30,7 @@ setMethod("allele", "AlleleSet",
 
 setMethod("getM", "AlleleSet",
           function(object){
-            both <- bothAlleles(object)
+            both <- bothStrands(object)
             if (!both){
               tmp <- allele(object, "A")-allele(object, "B")
             }else{
@@ -46,7 +46,7 @@ setMethod("getM", "AlleleSet",
 
 setMethod("getA", "AlleleSet",
           function(object){
-            both <- bothAlleles(object)
+            both <- bothStrands(object)
             if (!both){
               tmp <- (allele(object, "A")+allele(object, "B"))/2
             }else{

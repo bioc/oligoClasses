@@ -25,7 +25,7 @@ setValidity("AlleleSet",
               grp2 <- c("senseAlleleA", "senseAlleleB",
                         "antisenseAlleleA", "antisenseAlleleB")
               elem <- assayDataElementNames(object)
-              ok <- all(elem %in% grp1) || all(elem %in% grp2)
+              ok <- all(grp1 %in% elem) || all(grp2 %in% elem)
               f <- function(x) paste("'", x, "'", collapse=" + ", sep="")
               if (!ok){
                 paste("Elements of 'AlleleSummarySet' must be:",
