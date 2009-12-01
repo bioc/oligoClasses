@@ -1,7 +1,5 @@
 \name{pmAllele}
 \alias{pmAllele}
-\alias{pmAllele,SnpFeatureSet-method}
-%% \alias{pmAllele,PDInfo-method}
 \alias{pmAllele,AffySNPPDInfo-method}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Access the allele information for PM probes.}
