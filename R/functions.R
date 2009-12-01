@@ -39,7 +39,7 @@ pdPkgFromBioC <- function(pkgname, lib=.libPaths()[1], verbose=TRUE) {
       return(FALSE)
     }
       
-    biocContribUrl <- sapply(Biobase:::biocReposList(), contrib.url)
+    biocContribUrl <- sapply(biocReposList(), contrib.url)
     biocPkgs <- available.packages(biocContribUrl)
     if (! pkgname %in% biocPkgs[, "Package"]) {
       if (verbose) 
@@ -48,7 +48,7 @@ pdPkgFromBioC <- function(pkgname, lib=.libPaths()[1], verbose=TRUE) {
       return(FALSE)
     } else {
       install.packages(pkgname, lib=lib,
-                       repos=Biobase:::biocReposList(),
+                       repos=biocReposList(),
                        dependencies=TRUE)
       status <- require(pkgname, character.only=TRUE, quietly=!verbose)
       if (status){

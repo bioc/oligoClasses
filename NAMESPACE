@@ -13,87 +13,49 @@ importClassesFrom(Biostrings, DNAStringSet)
 importFrom(graphics, plot)
 
 ## Needed from Biobase
-importClassesFrom(Biobase, AnnotatedDataFrame, AssayData, eSet, MIAME, NChannelSet, Versions, VersionedBiobase, Versioned, SnpSet)
-importFrom(Biobase, assayDataElement, assayDataElementReplace, assayDataNew)
+importClassesFrom(Biobase, AnnotatedDataFrame, AssayData, eSet, MIAME,
+                  NChannelSet, Versions, VersionedBiobase, Versioned,
+                  SnpSet)
+importFrom(Biobase, assayDataElement, assayDataElementReplace,
+           assayDataNew, biocReposList)
 importMethodsFrom(Biobase, annotatedDataFrameFrom, annotation,
                   "annotation<-", assayData, "assayData<-", combine,
-                  experimentData, "experimentData<-", exprs,
-                  "exprs<-", featureData, "featureData<-",
-                  featureNames, fvarLabels, geneNames, pData,
-                  "pData<-", phenoData, "phenoData<-", sampleNames,
-                  se.exprs, "se.exprs<-", storageMode,
-                  "storageMode<-")
+                  experimentData, "experimentData<-", exprs, "exprs<-",
+                  featureData, "featureData<-", featureNames,
+                  fvarLabels, geneNames, pData, "pData<-", phenoData,
+                  "phenoData<-", sampleNames, se.exprs, "se.exprs<-",
+                  storageMode, "storageMode<-")
 
 ## Exporting
-
-export("pdPkgFromBioC", "requireAnnotation")
+export(pdPkgFromBioC, requireAnnotation, affyPlatforms, getPD)
 
 ## PDInfo Classes
-exportClasses(AffyTilingPDInfo,
-              AffyExpressionPDInfo,
-              AffySNPPDInfo,
-              AffySNPCNVPDInfo,
-              AffyGenePDInfo,
-              AffyExonPDInfo,
-              NgsExpressionPDInfo,
-              NgsTilingPDInfo)
+exportClasses(AffyTilingPDInfo, AffyExpressionPDInfo, AffySNPPDInfo,
+              AffySNPCNVPDInfo, AffyGenePDInfo, AffyExonPDInfo,
+              NgsExpressionPDInfo, NgsTilingPDInfo)
 
 ##Feature-level Classes
-exportClasses(ExpressionFeatureSet,
-              SnpFeatureSet,
-              SnpCnvFeatureSet,
-              TilingFeatureSet,
-              ExonFeatureSet,
-              GeneFeatureSet)
+exportClasses(ExpressionFeatureSet, SnpFeatureSet, SnpCnvFeatureSet,
+              TilingFeatureSet, ExonFeatureSet, GeneFeatureSet)
 
 ##SNP-level Classes
-exportClasses(AlleleSet,
-              SnpLevelSet,
-              oligoSnpSet,
-              SnpSuperSet,
-              CNSet)
+exportClasses(AlleleSet, SnpLevelSet, oligoSnpSet, SnpSuperSet, CNSet)
 
 ##SNP-level methods
-exportMethods(bothStrands, calls, "calls<-",
-              callsConfidence, "callsConfidence<-",
-              chromosome, "chromosome<-",
-              combine,
-              copyNumber, "copyNumber<-",
-              cnConfidence, "cnConfidence<-",
-              db,
-              initialize,
-              position,
-              allele,
+exportMethods(bothStrands, calls, "calls<-", callsConfidence,
+              "callsConfidence<-", chromosome, "chromosome<-", combine,
+              copyNumber, "copyNumber<-", cnConfidence,
+              "cnConfidence<-", db, initialize, position, allele,
               sampleNames)
 
-export(affyPlatforms, getPD)
-
 ## FeatureSet methods
-exportMethods(manufacturer,
-              length,
-              exprs,
-              se.exprs)
+exportMethods(manufacturer, length, exprs, se.exprs)
 
 ## PDInfo methods
-exportMethods(genomeBuild,
-              geometry,
-              getPlatformDesign,
-              probeNames,
-              bgindex,
-              pmindex,
-              mmindex,
-              kind,
-              bgSequence,
-              pmSequence,
-              mmSequence,
-              pmOffset,
-              pmChr,
-              pmFragmentLength,
-              pmAllele,
-              pmStrand,
-              pmPosition,
-              show)
+exportMethods(genomeBuild, geometry, getPlatformDesign, probeNames,
+              bgindex, pmindex, mmindex, kind, bgSequence, pmSequence,
+              mmSequence, pmOffset, pmChr, pmFragmentLength, pmAllele,
+              pmStrand, pmPosition, show)
 
 ## Some general methods
-exportMethods(getM,
-              getA)
+exportMethods(getM, getA)
