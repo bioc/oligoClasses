@@ -113,3 +113,8 @@ added classes AffyExonPDInfo and AffySTPDInfo
 11-19-2009 - R. Scharpf committed v 1.9.2
 
 ** changed definition of SnpCallSetPlus extends SnpSet and SnpQSet
+
+12-01-2009 - R. Scharpf committed v 1.9.7
+
+** removed SnpLevelSet
+** oligoSnpSet extends SnpSet
