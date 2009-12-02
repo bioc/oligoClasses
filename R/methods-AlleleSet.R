@@ -4,14 +4,15 @@ setMethod("bothStrands", "AlleleSet",
             grp2 <- c("senseAlleleA", "senseAlleleB",
                       "antisenseAlleleA", "antisenseAlleleB")
             elem <- assayDataElementNames(object)
-            if (all(elem %in% grp1)){
-              return(FALSE)
-            }else if (all(elem %in% grp2)){
+##            if (all(elem %in% grp1)){
+	    if(all(grp1 %in% elem)){
+		    return(FALSE)
+            }else if (all(grp2 %in% elem)){
               return(TRUE)
             }else{
               stop("Invalid 'AlleleSet' object.")
             }
-          })
+    })
 
 setMethod("allele", "AlleleSet",
           function(object, allele, strand){
