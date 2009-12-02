@@ -15,3 +15,9 @@ setReplaceMethod("confs", signature(object="SnpSet", value="matrix"),
 			 dimnames(X) <- dns
 			 assayDataElementReplace(object, "callProbability", X)
 		 })
+
+setMethod("callsConfidence", "SnpSet", function(object)
+          assayDataElement(object, "callProbability"))
+
+setReplaceMethod("callsConfidence", signature(object="SnpSet", value="matrix"),
+                 function(object, value) assayDataElementReplace(object, "callProbability", value))

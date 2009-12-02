@@ -118,3 +118,8 @@ added classes AffyExonPDInfo and AffySTPDInfo
 
 ** removed SnpLevelSet
 ** oligoSnpSet extends SnpSet
+
+12-02-2009 - B. Carvalho committed v 1.9.9
+
+** moved several methods to oligo
+** trying to keepp only accessors and replace methods in oligoClasses

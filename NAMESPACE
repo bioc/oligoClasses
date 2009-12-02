@@ -27,7 +27,7 @@ importMethodsFrom(Biobase, annotatedDataFrameFrom, annotation,
                   storageMode, "storageMode<-")
 
 ## Exporting
-export(pdPkgFromBioC, requireAnnotation, affyPlatforms, getPD)
+export(pdPkgFromBioC, requireAnnotation, affyPlatforms)
 
 ## PDInfo Classes
 exportClasses(AffyTilingPDInfo, AffyExpressionPDInfo, AffySNPPDInfo,
@@ -46,16 +46,14 @@ exportMethods(bothStrands, calls, "calls<-", confs,
               "confs<-", chromosome, "chromosome<-", combine,
               copyNumber, "copyNumber<-", cnConfidence,
               "cnConfidence<-", db, initialize, position, allele,
-              sampleNames)
+              sampleNames, confs, "confs<-")
 
 ## FeatureSet methods
-exportMethods(manufacturer, length, exprs, se.exprs)
+exportMethods(exprs)
 
 ## PDInfo methods
-exportMethods(genomeBuild, geometry, getPlatformDesign, probeNames,
-              bgindex, pmindex, mmindex, kind, bgSequence, pmSequence,
-              mmSequence, pmOffset, pmChr, pmFragmentLength, pmAllele,
-              pmStrand, pmPosition, show)
+exportMethods(annotation, db, initialize, genomeBuild,
+              geometry, kind, manufacturer)
 
 ## Some general methods
 exportMethods(getM, getA)
