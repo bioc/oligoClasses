@@ -42,11 +42,11 @@ exportClasses(ExpressionFeatureSet, SnpFeatureSet, SnpCnvFeatureSet,
 exportClasses(AlleleSet, SnpLevelSet, oligoSnpSet, SnpSuperSet, CNSet)
 
 ##SNP-level methods
-exportMethods(bothStrands, calls, "calls<-", confs,
-              "confs<-", chromosome, "chromosome<-", combine,
-              copyNumber, "copyNumber<-", cnConfidence,
-              "cnConfidence<-", db, initialize, position, allele,
-              sampleNames, confs, "confs<-")
+exportMethods(bothStrands, calls, "calls<-", confs, "confs<-",
+              callsConfidence, "callsConfidence<-", chromosome,
+              "chromosome<-", combine, copyNumber, "copyNumber<-",
+              cnConfidence, "cnConfidence<-", db, initialize, position,
+              allele, sampleNames, confs, "confs<-")
 
 ## FeatureSet methods
 exportMethods(exprs)

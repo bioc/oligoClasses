@@ -123,3 +123,4 @@ added classes AffyExonPDInfo and AffySTPDInfo
 
 ** moved several methods to oligo
 ** trying to keepp only accessors and replace methods in oligoClasses
+** exposing callsConfidence - until it comes from Biobase
