@@ -24,6 +24,10 @@ setReplaceMethod("exprs",
 
 setMethod("db", "FeatureSet",
           function(object){
-            db(getPlatformDesign(object))
+            db(get(annotation(object)))
           })
 
+setMethod("kind", "FeatureSet",
+          function(object){
+            kind(get(annotation(object)))
+          })
