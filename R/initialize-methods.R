@@ -1,8 +1,8 @@
 setMethod("initialize", "oligoSnpSet",
 	  function(.Object,
 		   assayData=assayDataNew(call=call,
-		                          callProbability=callProbability,
-		                          copyNumber=copyNumber,
+		                          callProbability=matrix(as.integer(-1000*(log(1-callProbability))), nrow(call), ncol(call), dimnames=dimnames(call)),
+		                          copyNumber=matrix(as.integer(copyNumber*100), nrow(call), ncol(call), dimnames=dimnames(call)),
                                           cnConfidence=cnConfidence, ...),
 		   call=new("matrix"),
 		   callProbability=matrix(numeric(), nrow=nrow(call), ncol=ncol(call), dimnames=dimnames(call)),
@@ -13,23 +13,25 @@ setMethod("initialize", "oligoSnpSet",
 		   chromosome,
 		   isSnp,
 		   annotation, ... ){
-		  browser()
-		  if(missing(assayData)){
-			  .Object <- callNextMethod(.Object,
-						    call=call,
-						    callProbability=callProbability,
-						    copyNumber=copyNumber,
-						    cnConfidence=cnConfidence,...)
-		  } else{
-			  .Object <- callNextMethod(.Object,
-						    assayData=assayData, ...)
-		  }
+		  message("Storing copyNumber and callProbability as integers.  Use the copyNumber() and confs() accessors")
+		  .Object <- callNextMethod(.Object,
+					    assayData=assayData,
+					    featureData=featureData, ...)
 		  if(missing(annotation)){
-			  stop("must specify annotation")
+			  if((missing(position) | missing(chromosome) | missing(isSnp))){
+				  stop("must specify annotation if 'chromosome', 'position', and 'isSnp' are missing")
+			  } else {
+				  pData(featureData)$chromosome <- chromosome
+				  pData(featureData)$position <- position
+				  pData(featureData)$isSnp <- isSnp
+			  }
 		  } else{
-			  if(!isSupportedAnnotation(annotation) & (missing(position) | missing(chromosome) | missing(isSnp))){
-				  stop("annotation is not supported. Must specify chromosome, position, and an indicator for whether the marker is polymorphic (isSnp)")
-			  } else{
+			  .Object@annotation <- annotation
+			  if((missing(position) | missing(chromosome) | missing(isSnp))){
+				  if(!isSupportedAnnotation(annotation)){
+					  stop("The annotation is not supported. Arguments 'chromosome', 'position', and 'isSnp' can be omitted from the initialization only if the annotation is supported (see oligoClasses:::supportedAnnotation()).")
+				  }
+			  } else {
 				  pData(featureData)$chromosome <- chromosome
 				  pData(featureData)$position <- position
 				  pData(featureData)$isSnp <- isSnp
@@ -38,13 +40,13 @@ setMethod("initialize", "oligoSnpSet",
 		  }
 		  ## Do after annotation has been assigned
 		  if(!(all(c("chromosome", "position", "isSnp") %in% varLabels(featureData))) & isSupportedAnnotation(annotation)){
-			  .Object@featureData <- addFeatureAnnotation.SnpSet(.Object)
+			  .Object@featureData <- addFeatureAnnotation(.Object)
 		  }
 		  return(.Object)
 	  })
 
 isSupportedAnnotation <- function(x){
-	validAnn <- validAnnotation()
+	validAnn <- supportedAnnotation()
 	x %in% validAnn
 }
 

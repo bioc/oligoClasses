@@ -16,11 +16,19 @@ setReplaceMethod("confs", signature(object="SnpSet", value="matrix"),
 			 assayDataElementReplace(object, "callProbability", X)
 		 })
 
-setMethod("callsConfidence", "SnpSet", function(object)
-          assayDataElement(object, "callProbability"))
-
+setMethod("callsConfidence", "SnpSet", function(object) confs(object))
 setReplaceMethod("callsConfidence", signature(object="SnpSet", value="matrix"),
-                 function(object, value) assayDataElementReplace(object, "callProbability", value))
+                 function(object, value) confs(object) <- value)
+
+setMethod("isSnp", "SnpSet", function(object) {
+	labels <- fvarLabels(object)
+	if("isSnp" %in% labels){
+		res <- fData(object)[, "isSnp"]
+	} else{
+		res <- as.integer(featureNames(object) %in% snpNames(object))
+	}
+	return(res==1)
+})
 
 
 setMethod("db", "SnpSet",
@@ -43,52 +51,93 @@ addFeatureAnnotation.pd <- function(object){
 	require(annotation(object), character.only=TRUE)
 	message("Adding required feature annotation (chromosome, position, isSnp) to featureData slot")
 	fs <- featureNames(object)
-	tmp <- paste("'", paste(fs, collapse="', '"), "'", sep="")
-
-	##extracts the snps
-	##sql <- "SELECT man_fsetid, chrom, physical_pos FROM featureSet WHERE man_fsetid LIKE 'SNP%'"
+	tmp <- paste("('", paste(fs, collapse="', '"), "')", sep="")
+	fD <- matrix(integer(), length(fs), 3)
+	rownames(fD) <- fs
+	colnames(fD) <- c("chromosome", "position", "isSnp")
 	sql <- paste("SELECT man_fsetid, chrom, physical_pos FROM featureSet WHERE man_fsetid IN ", tmp)
-	conn <- db(annotation(object))	
 	##Check if two objects have been combined
 	pkgs <- strsplit(annotation(object), ",")[[1]]
-	if(length(pkgs) > 1){
-                object2 <- object1 <- object
-                annotation(object1) <- pkgs[1]
-                annotation(object2) <- pkgs[2]
+	snps <- snp.index <- nps <- np.index <- vector("list", length(pkgs))
+	for(i in seq(along=pkgs)){
+		annotation(object) <- pkgs[i]
+                snps[[i]] <- dbGetQuery(db(object), sql)
+		snp.index[[i]] <- match(snps[[i]]$man_fsetid, rownames(fD))
 
-                tmp1 <- dbGetQuery(db(object1), sql)
-                tmp2 <- dbGetQuery(db(object2), sql)
-                tmp <- rbind(tmp1, tmp2)
-	} else {
-                tmp <- dbGetQuery(db(object), sql)
+		sql <- paste("SELECT man_fsetid, chrom, chrom_start FROM featureSetCNV WHERE man_fsetid IN ", tmp)
+		nps[[i]] <- dbGetQuery(db(object), sql)
+		np.index[[i]] <- match(nps[[i]]$man_fsetid, rownames(fD))
 	}
-	idx <- match(fs, tmp[["man_fsetid"]])
-	featureAnn <- tmp[idx, c("chrom", "physical_pos")]
-	colnames(featureAnn) <- c("chromosome", "position")
-	fD <- fData(object)
-	fD2 <- cbind(fD, featureAnn)
-	featureData <- new("AnnotatedDataFrame", data=fD2,
-			   varMetadata=data.frame(labelDescription=colnames(featureData)))
-
+	if(length(snps) > 1){
+		snps <- do.call(rbind, snps)
+		snp.index <- unlist(snp.index)
+		nps <- do.call(rbind, nps)
+		np.index <- unlist(np.index)
+	} else {
+		snps <- snps[[1]]
+		nps <- nps[[1]]
+		snp.index <- snp.index[[1]]
+		np.index <- np.index[[1]]
+	}
+	fD[snp.index, "isSnp"] <- as.integer(1)
+	fD[snp.index, "chromosome"] <- chromosome2integer(snps$chrom)
+	fD[snp.index, "position"] <- as.integer(snps$physical_pos)
+	fD[np.index, "isSnp"] <- as.integer(0)
+	fD[np.index, "chromosome"] <- chromosome2integer(nps$chrom)
+	fD[np.index, "position"] <- as.integer(nps$chrom_start)
+	fD <- cbind(fD, fData(object))
+	featureData <- new("AnnotatedDataFrame", data=fD,
+			   varMetadata=data.frame(labelDescription=colnames(fD)))
 	##Figure out how to add an indicator for SNP/CN probe
 	return(featureData)
 }
 
+loader <- function(theFile, envir, pkgname){
+	theFile <- file.path(system.file(package=pkgname),
+			     "extdata", theFile)
+	if (!file.exists(theFile))
+		stop("File ", theFile, " does not exist in ", pkgname)
+	load(theFile, envir=envir)
+}
+
+chromosome2integer <- function(chrom){
+	chrom[chrom == "X"] <- 23; chrom[chrom == "Y"] <- 24; chrom[chrom == "XY"] <- 25; chrom[chrom=="M" | chrom == "MT"] <- 26
+	as.integer(chrom)
+}
+
+snpNames <- function(object){
+	path <- system.file("extdata", package=paste(annotation(object), "Crlmm", sep=""))
+	load(file.path(path, "snpProbes.rda"))
+	snpProbes <- get("snpProbes")
+	snps <- rownames(snpProbes)
+	snps <- snps[snps %in% featureNames(object)]
+	index <- match(snps, featureNames(object), nomatch=0)
+	index <- index[index != 0]
+	featureNames(object)[index]
+}
+
 addFeatureAnnotation.crlmm <- function(object, ...){
 	##if(missing(CHR)) stop("Must specificy chromosome")
+	message("Adding required feature annotation (chromosome, position, isSnp) to featureData slot")
 	cdfName <- annotation(object)
 	pkgname <- paste(cdfName, "Crlmm", sep="")	
 	path <- system.file("extdata", package=pkgname)
-	loader("cnProbes.rda", pkgname=pkgname, envir=.crlmmPkgEnv)
-	cnProbes <- get("cnProbes", envir=.crlmmPkgEnv)
-	loader("snpProbes.rda", pkgname=pkgname, envir=.crlmmPkgEnv)
-	snpProbes <- get("snpProbes", envir=.crlmmPkgEnv)	
+	loader("cnProbes.rda", pkgname=pkgname, envir=.oligoClassesPkgEnv)
+	cnProbes <- get("cnProbes", envir=.oligoClassesPkgEnv)
+	loader("snpProbes.rda", pkgname=pkgname, envir=.oligoClassesPkgEnv)
+	snpProbes <- get("snpProbes", envir=.oligoClassesPkgEnv)	
 
 	##Feature Data
 	isSnp <- rep(as.integer(0), nrow(object))
+
+	snpIndex <- function(object){
+		index <- match(snpNames(object), featureNames(object), nomatch=0)
+		index[index != 0]
+	}
+
+
 	isSnp[snpIndex(object)] <- as.integer(1)
 	names(isSnp) <- featureNames(object)
-
 	if(any(isSnp)){
 		snps <- featureNames(object)[isSnp == 1]
 		position.snp <- snpProbes[match(snps, rownames(snpProbes)), "position"]
@@ -146,6 +195,8 @@ addFeatureAnnotation.crlmm <- function(object, ...){
 	fD <- new("AnnotatedDataFrame", data=fd, varMetadata=data.frame(labelDescription=colnames(fd), row.names=colnames(fd)))
 	return(fD)
 }
+
+
 
 setMethod("chromosome", "SnpSet",
 	  function(object){

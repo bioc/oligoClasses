@@ -21,7 +21,7 @@ setGeneric("chromosome<-", function(object, value) standardGeneric("chromosome<-
 setGeneric("db", function(object) standardGeneric("db"))
 setGeneric("kind", function(object) standardGeneric("kind"))
 setGeneric("position", function(object) standardGeneric("position"))
-
+setGeneric("isSnp", function(object) standardGeneric("isSnp"))
 
 setGeneric("genomeBuild", function(object) standardGeneric("genomeBuild"))
 setGeneric("geometry", function(object) standardGeneric("geometry"))
