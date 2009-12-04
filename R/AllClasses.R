@@ -79,5 +79,4 @@ setClass("CNSet", contains="SnpSuperSet",
 ###########################################################################
 ##SNP-level classes
 ###########################################################################  
-setClass("SnpLevelSet", representation("VIRTUAL"), contains="eSet")
-setClass("oligoSnpSet", contains="SnpLevelSet")
+setClass("oligoSnpSet", contains="SnpSet")

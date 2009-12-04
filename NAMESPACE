@@ -39,7 +39,9 @@ exportClasses(ExpressionFeatureSet, SnpFeatureSet, SnpCnvFeatureSet,
               TilingFeatureSet, ExonFeatureSet, GeneFeatureSet)
 
 ##SNP-level Classes
-exportClasses(AlleleSet, SnpLevelSet, oligoSnpSet, SnpSuperSet, CNSet)
+exportClasses(AlleleSet, oligoSnpSet, SnpSuperSet, CNSet)
+export(isSupportedAnnotation, supportedAnnotation, addFeatureAnnotation,
+           addFeatureAnnotation.pd, addFeatureAnnotation.crlmm, db)
 
 ##SNP-level methods
 exportMethods(bothStrands, calls, "calls<-", confs, "confs<-",
