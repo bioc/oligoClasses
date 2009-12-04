@@ -22,7 +22,7 @@ importMethodsFrom(Biobase, annotatedDataFrameFrom, annotation,
                   "annotation<-", assayData, "assayData<-", combine,
                   experimentData, "experimentData<-", exprs, "exprs<-",
                   featureData, "featureData<-", featureNames,
-                  fvarLabels, geneNames, pData, "pData<-", phenoData,
+                  fvarLabels, pData, "pData<-", phenoData,
                   "phenoData<-", sampleNames, se.exprs, "se.exprs<-",
                   storageMode, "storageMode<-")
 
