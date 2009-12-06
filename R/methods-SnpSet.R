@@ -47,7 +47,6 @@ addFeatureAnnotation <- function(object){
 }
 
 addFeatureAnnotation.pd <- function(object){
-	##require("RSQLite") || stop("RSQLite package not available")
 	require(annotation(object), character.only=TRUE)
 	message("Adding required feature annotation (chromosome, position, isSnp) to featureData slot")
 	fs <- featureNames(object)
@@ -64,27 +63,35 @@ addFeatureAnnotation.pd <- function(object){
                 snps[[i]] <- dbGetQuery(db(object), sql)
 		snp.index[[i]] <- match(snps[[i]]$man_fsetid, rownames(fD))
 
-		sql <- paste("SELECT man_fsetid, chrom, chrom_start FROM featureSetCNV WHERE man_fsetid IN ", tmp)
-		nps[[i]] <- dbGetQuery(db(object), sql)
-		np.index[[i]] <- match(nps[[i]]$man_fsetid, rownames(fD))
+		if("featureSetCNV" %in% dbListTables(db(object))){
+			sql <- paste("SELECT man_fsetid, chrom, chrom_start FROM featureSetCNV WHERE man_fsetid IN ", tmp)
+			nps[[i]] <- dbGetQuery(db(object), sql)
+			np.index[[i]] <- match(nps[[i]]$man_fsetid, rownames(fD))
+		}
 	}
 	if(length(snps) > 1){
 		snps <- do.call(rbind, snps)
 		snp.index <- unlist(snp.index)
-		nps <- do.call(rbind, nps)
-		np.index <- unlist(np.index)
+		if("featureSetCNV" %in% dbListTables(db(object))){		
+			nps <- do.call(rbind, nps)
+			np.index <- unlist(np.index)
+		}
 	} else {
 		snps <- snps[[1]]
-		nps <- nps[[1]]
-		snp.index <- snp.index[[1]]
-		np.index <- np.index[[1]]
+		snp.index <- snp.index[[1]]		
+		if("featureSetCNV" %in% dbListTables(db(object))){		
+			nps <- nps[[1]]
+			np.index <- np.index[[1]]
+		}
 	}
 	fD[snp.index, "isSnp"] <- as.integer(1)
 	fD[snp.index, "chromosome"] <- chromosome2integer(snps$chrom)
 	fD[snp.index, "position"] <- as.integer(snps$physical_pos)
-	fD[np.index, "isSnp"] <- as.integer(0)
-	fD[np.index, "chromosome"] <- chromosome2integer(nps$chrom)
-	fD[np.index, "position"] <- as.integer(nps$chrom_start)
+	if("featureSetCNV" %in% dbListTables(db(object))){			
+		fD[np.index, "isSnp"] <- as.integer(0)
+		fD[np.index, "chromosome"] <- chromosome2integer(nps$chrom)
+		fD[np.index, "position"] <- as.integer(nps$chrom_start)
+	}
 	fD <- cbind(fD, fData(object))
 	featureData <- new("AnnotatedDataFrame", data=fD,
 			   varMetadata=data.frame(labelDescription=colnames(fD)))

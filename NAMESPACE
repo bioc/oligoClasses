@@ -17,7 +17,7 @@ importClassesFrom(Biobase, AnnotatedDataFrame, AssayData, eSet, MIAME,
                   NChannelSet, Versions, VersionedBiobase, Versioned,
                   SnpSet)
 importFrom(Biobase, assayDataElement, assayDataElementReplace,
-           assayDataNew, biocReposList)
+           assayDataNew, biocReposList, assayDataValidMembers)
 importMethodsFrom(Biobase, annotatedDataFrameFrom, annotation,
                   "annotation<-", assayData, "assayData<-", combine,
                   experimentData, "experimentData<-", exprs, "exprs<-",
@@ -62,3 +62,7 @@ exportMethods(annotation, db, initialize, genomeBuild,
 
 ## Some general methods
 exportMethods(getM, getA)
+
+
+
+export(addFeatureAnnotation.pd)
