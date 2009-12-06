@@ -40,14 +40,18 @@ exportClasses(ExpressionFeatureSet, SnpFeatureSet, SnpCnvFeatureSet,
 
 ##SNP-level Classes
 exportClasses(AlleleSet, oligoSnpSet, SnpSuperSet, CNSet)
-export(supportedAnnotation, addFeatureAnnotation.crlmm, chromosome2integer, isSnp)
+export(chromosome2integer)
+##export(supportedAnnotation, addFeatureAnnotation.crlmm, chromosome2integer)
 
 ##SNP-level methods
 exportMethods(bothStrands, calls, "calls<-", confs, "confs<-",
               callsConfidence, "callsConfidence<-", chromosome,
               "chromosome<-", combine, copyNumber, "copyNumber<-",
               cnConfidence, "cnConfidence<-", db, initialize, position,
-              allele, sampleNames, confs, "confs<-")
+              allele, sampleNames, confs, "confs<-",
+	      CA, CB, "CA<-", "CB<-", rangedData, "rangedData<-",
+	      segmentData, "segmentData<-", emissionPr,
+	      "emissionPr<-", start, end, width)
 
 ## FeatureSet methods
 exportMethods(exprs)

@@ -12,8 +12,8 @@ Suggests: pd.genomewidesnp.6,
 	  pd.mapping50k.xba240,
 	  pd.mapping250k.sty,
 	  pd.mapping250k.nsp,
-	  genomewidesnp6,
-	  genomewidesnp5
+	  genomewidesnp6Crlmm,
+	  genomewidesnp5Crlmm
 Description: This package contains class definitions, validity checks, and initialization methods for classes used by the oligo package and friends.
 License: GPL (>= 2)
 LazyLoad: yes	     
@@ -24,6 +24,7 @@ Collate:  AllClasses.R
           methods-AlleleSet.R
           methods-FeatureSet.R
 	  methods-oligoSnpSet.R
+	  methods-CNSet.R
           methods-PDInfo.R
 	  methods-SnpSet.R
           show-methods.R

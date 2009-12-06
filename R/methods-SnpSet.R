@@ -47,7 +47,7 @@ addFeatureAnnotation <- function(object){
 }
 
 addFeatureAnnotation.pd <- function(object){
-	require("RSQLite") || stop("RSQLite package not available")
+	##require("RSQLite") || stop("RSQLite package not available")
 	require(annotation(object), character.only=TRUE)
 	message("Adding required feature annotation (chromosome, position, isSnp) to featureData slot")
 	fs <- featureNames(object)
@@ -126,16 +126,12 @@ addFeatureAnnotation.crlmm <- function(object, ...){
 	cnProbes <- get("cnProbes", envir=.oligoClassesPkgEnv)
 	loader("snpProbes.rda", pkgname=pkgname, envir=.oligoClassesPkgEnv)
 	snpProbes <- get("snpProbes", envir=.oligoClassesPkgEnv)	
-
 	##Feature Data
 	isSnp <- rep(as.integer(0), nrow(object))
-
 	snpIndex <- function(object){
 		index <- match(snpNames(object), featureNames(object), nomatch=0)
 		index[index != 0]
 	}
-
-
 	isSnp[snpIndex(object)] <- as.integer(1)
 	names(isSnp) <- featureNames(object)
 	if(any(isSnp)){
@@ -159,7 +155,6 @@ addFeatureAnnotation.crlmm <- function(object, ...){
 	}
 	position <- c(position.snp, position.np)
 	chrom <- c(chr.snp, chr.np)
-
 	##We may not have annotation for all of the snps
 	if(!all(featureNames(object) %in% names(position))){
 		message("Dropping loci for which physical position  is not available.")

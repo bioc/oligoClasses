@@ -1,36 +1,27 @@
 \name{chromosome2integer}
 \alias{chromosome2integer}
-\alias{integer2chromosome}
-\title{Converts chromosome to integer or vice versa}
+\title{Converts chromosome to integer}
 \description{
-  Provides a standard way of converting chromosome annotation stored in
-  \code{SnpLevelSet} objects to the numeric class.
+	Coerces character string for chromosome in the pd. annotation packages to integers
 }
 \usage{
-chromosome2integer(chrom)
-integer2chromosome(chrom)
+	chromosome2integer(chrom)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{chrom}{chromosome}
+	\item{chrom}{chromosome}
 }
 \details{
   This is useful when sorting SNPs in an object by chromosome and
   physical position -- ensures that the sorting is done in the same way
   for different objects.
-
-  The function currently provides the following conversions:
-
-  "X" -> 23
-  "Y" -> 24
-  "XY" -> 25  
-  "M" -> 26
-  }
-
-\value{
-  \code{integer}
-  \code{character}
 }
+\value{
+	  \code{integer}
+	  \code{character}
+}
+\examples{
+	chromosome2integer(c(1:22, "X", "Y", "XY", "M"))
+}	
 \author{R. Scharpf}
 \keyword{manip}
 
