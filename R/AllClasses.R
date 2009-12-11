@@ -47,10 +47,12 @@ setClass("NgsTilingPDInfo", contains="TilingPDInfo",
 setClass("FeatureSet",
          representation=representation(
            manufacturer="character",
+           intensityFile="character",
            "VIRTUAL"),
          contains="NChannelSet",
          prototype=prototype(
-           manufacturer=as.character(NA)))
+           manufacturer=NA_character_,
+           intensityFile=NA_character_))
 
 setClass("ExpressionFeatureSet", contains="FeatureSet")
 setClass("SnpFeatureSet", contains="FeatureSet")

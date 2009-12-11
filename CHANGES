@@ -124,3 +124,8 @@ added classes AffyExonPDInfo and AffySTPDInfo
 ** moved several methods to oligo
 ** trying to keepp only accessors and replace methods in oligoClasses
 ** exposing callsConfidence - until it comes from Biobase
+
+12-10-2009 - B. Carvalho committed v 1.9.15
+
+** added intensityFile slot to FeatureSet class, it'll be NA for regular
+     use and the filename (full) for persistent storage
