@@ -47,7 +47,6 @@ addFeatureAnnotation <- function(object){
 }
 
 addFeatureAnnotation.pd <- function(object){
-	require(annotation(object), character.only=TRUE)
 	message("Adding required feature annotation (chromosome, position, isSnp) to featureData slot")
 	fs <- featureNames(object)
 	tmp <- paste("('", paste(fs, collapse="', '"), "')", sep="")
@@ -60,6 +59,7 @@ addFeatureAnnotation.pd <- function(object){
 	snps <- snp.index <- nps <- np.index <- vector("list", length(pkgs))
 	for(i in seq(along=pkgs)){
 		annotation(object) <- pkgs[i]
+		require(annotation(object), character.only=TRUE)		
                 snps[[i]] <- dbGetQuery(db(object), sql)
 		snp.index[[i]] <- match(snps[[i]]$man_fsetid, rownames(fD))
 
@@ -92,7 +92,11 @@ addFeatureAnnotation.pd <- function(object){
 		fD[np.index, "chromosome"] <- chromosome2integer(nps$chrom)
 		fD[np.index, "position"] <- as.integer(nps$chrom_start)
 	}
-	fD <- cbind(fD, fData(object))
+	jj <- match(c("chromosome", "position", "isSnp"), fvarLabels(object))	
+	jj <- jj[!is.na(jj)]
+	if(length(jj) > 0){
+		fD <- cbind(fD, fData(object)[, -jj, drop=FALSE])
+	} else fD <- cbind(fD, fData(object))
 	featureData <- new("AnnotatedDataFrame", data=fD,
 			   varMetadata=data.frame(labelDescription=colnames(fD)))
 	##Figure out how to add an indicator for SNP/CN probe
@@ -184,7 +188,7 @@ addFeatureAnnotation.crlmm <- function(object, ...){
 				   isSnp[I]))
 	colnames(tmp.fd) <- c("chromosome", "position", "isSnp")
 	if("chromosome" %in% fvarLabels(object))
-		tmp.fd <- tmp.fd[, -1]
+		tmp.fd <- tmp.fd[, -grep("chromosome", colnames(tmp.fd)), drop=FALSE]
 	if("position" %in% fvarLabels(object))
 		tmp.fd <- tmp.fd[, -grep("position", colnames(tmp.fd)), drop=FALSE]
 	if("isSnp" %in% fvarLabels(object))

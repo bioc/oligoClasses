@@ -3,6 +3,8 @@ importClassesFrom(methods, ANY, character, data.frame, "function", integer, matr
 importMethodsFrom(methods, initialize, show)
 importFrom(methods, "@<-", callNextMethod, new, validObject)
 
+importFrom(affyio, read.celfile.header, read.celfile)
+
 ## Protecting against IRanges masking
 importClassesFrom(IRanges, DataFrame, RangedData, IRanges)
 importMethodsFrom(IRanges, Rle, start, end, width)
@@ -27,7 +29,7 @@ importMethodsFrom(Biobase, annotatedDataFrameFrom, annotation,
                   storageMode, "storageMode<-")
 
 ## Exporting
-export(pdPkgFromBioC, requireAnnotation, affyPlatforms)
+export(pdPkgFromBioC, requireAnnotation, affyPlatforms, celfileDate, list.celfiles)
 
 ## PDInfo Classes
 exportClasses(AffyTilingPDInfo, AffyExpressionPDInfo, AffySNPPDInfo,
@@ -47,7 +49,7 @@ export(chromosome2integer)
 exportMethods(bothStrands, calls, "calls<-", confs, "confs<-",
               callsConfidence, "callsConfidence<-", chromosome,
               "chromosome<-", combine, copyNumber, "copyNumber<-",
-              cnConfidence, "cnConfidence<-", db, initialize, position,
+              cnConfidence, "cnConfidence<-", db, isSnp, position,
               allele, sampleNames, confs, "confs<-",
 	      CA, CB, "CA<-", "CB<-", rangedData, "rangedData<-",
 	      segmentData, "segmentData<-", emissionPr,
@@ -62,7 +64,5 @@ exportMethods(annotation, db, initialize, genomeBuild,
 
 ## Some general methods
 exportMethods(getM, getA)
-
-
 
 export(addFeatureAnnotation.pd)

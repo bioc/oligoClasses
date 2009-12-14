@@ -38,6 +38,7 @@ setMethod("initialize", "oligoSnpSet",
 		  if(!(all(c("chromosome", "position", "isSnp") %in% varLabels(featureData))) & isSupportedAnnotation(annotation)){
 			  .Object@featureData <- addFeatureAnnotation(.Object)
 		  }
+		  .Object <- .Object[order(chromosome(.Object), position(.Object)), ]
 		  return(.Object)
 	  })
 
@@ -122,6 +123,7 @@ setMethod("initialize", "CNSet",
 		  }		  
 		  if(!missing(emissionPr)) .Object@emissionPr <- emissionPr
 		  segmentData(.Object) <- segmentData
+		  .Object <- .Object[order(chromosome(.Object), position(.Object)), ]
 		  .Object	    
           })
 

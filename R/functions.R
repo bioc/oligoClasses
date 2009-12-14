@@ -99,3 +99,32 @@ supportedAnnotation <- function(){
 	  "human660quadv1a",
 	  "human1mduov3b")	  
 }
+
+list.celfiles <-   function(...){
+	files <- list.files(...)
+	return(files[grep("\\.[cC][eE][lL]$", files)])
+}
+
+celfileDate <- function(filename) {
+	h <- affyio::read.celfile.header(filename, info="full")
+	date <- grep("/", strsplit(h$DatHeader, " ")[[1]], value=TRUE)
+	if(length(date) < 1){
+		##try something else
+		results <- h$ScanDate
+	} else{
+		date <- strsplit(date, split="/")[[1]]
+		CC <- ifelse(substr(date[3],1,1)=="9", "19", "20")
+		results <- as.character(as.Date(paste(paste(CC, date[3], sep=""), date[1],
+						      date[2], sep="-")))
+	}
+	results
+}
+
+ ## ---------------------------------------------------------------------------
+## not to be exported
+hapmapPedFile <- function(){
+	pedFile <- read.csv("~/projects/Beaty/inst/extdata/HapMap_samples.csv", as.is=TRUE)
+	pedFile <- pedFile[, 1:5]
+	colnames(pedFile) <- c("coriellId", "familyId", "individualId", "fatherId", "motherId")
+	return(pedFile)
+}

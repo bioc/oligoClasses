@@ -1,26 +1,17 @@
-setMethod("copyNumber", "oligoSnpSet", function(object){
-	X <- assayData(object)[["copyNumber"]]
-	CN <- X/100
-	return(CN)
-})
+setMethod("copyNumber", "oligoSnpSet", function(object) assayData(object)[["copyNumber"]])
+
 setReplaceMethod("copyNumber", signature(object="oligoSnpSet", value="matrix"),
                  function(object, value){
-			 CN <- value
-			 dns <- dimnames(CN)
-			 X <- matrix(as.integer(CN*100), nrow(CN), ncol(CN))
-			 dimnames(X) <- dns
-			 assayDataElementReplace(object, "copyNumber", X)
+			 ##value <- matrix(as.integer(value*100), nrow(value), ncol(value), dimnames=dimnames(value))
+			 assayDataElementReplace(object, "copyNumber", value)
 		 })
-setMethod("cnConfidence", "oligoSnpSet", function(object){
-	X <- assayData(object)[["cnConfidence"]]
-	conf <- X/100
-	return(X)	
-  })
+
+setMethod("cnConfidence", "oligoSnpSet", function(object) assayData(object)[["cnConfidence"]])
 setReplaceMethod("cnConfidence", signature(object="oligoSnpSet", value="matrix"),
                  function(object, value){
-			 conf <- value
-			 dns <- dimnames(conf)
-			 X <- matrix(as.integer(conf*100), nrow(conf), ncol(conf))
-			 dimnames(X) <- dns
-			 assayDataElementReplace(object, "cnConfidence", X)
+##			 conf <- value
+##			 dns <- dimnames(conf)
+##			 X <- matrix(as.integer(conf*100), nrow(conf), ncol(conf))
+##			 dimnames(X) <- dns
+			 assayDataElementReplace(object, "cnConfidence", value)
                  })

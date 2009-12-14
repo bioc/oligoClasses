@@ -12,6 +12,8 @@ setReplaceMethod("CB", signature(object="CNSet", value="matrix"),
 			 assayDataElementReplace(object, "CB", value)
 		 })
 
+
+
 setMethod("rangedData", "CNSet", function(object) segmentData(object))
 setReplaceMethod("rangedData", c("CNSet", "RangedData"), function(object, value){
 	segmentData(object) <- value
