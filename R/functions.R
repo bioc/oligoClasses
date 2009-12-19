@@ -100,9 +100,13 @@ supportedAnnotation <- function(){
 	  "human1mduov3b")	  
 }
 
-list.celfiles <-   function(...){
-	files <- list.files(...)
-	return(files[grep("\\.[cC][eE][lL]$", files)])
+list.celfiles <-   function(..., listGzipped=FALSE){
+    files <- list.files(...)
+    if (listGzipped){
+      return(files[grep("\\.[cC][eE][lL]\\.[gG][zZ]$|\\.[cC][eE][lL]$", files)])
+    }else{
+      return(files[grep("\\.[cC][eE][lL]$", files)])
+    }
 }
 
 celfileDate <- function(filename) {
