@@ -129,3 +129,8 @@ added classes AffyExonPDInfo and AffySTPDInfo
 
 ** added intensityFile slot to FeatureSet class, it'll be NA for regular
      use and the filename (full) for persistent storage
+
+12-19-2009 - R. Scharpf committed v 1.9.17
+
+** added man pages for AlleleSet, SnpSuperSet, and CNSet
+

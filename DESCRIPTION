@@ -1,11 +1,11 @@
 Package: oligoClasses
-Version: 1.9.16
+Version: 1.9.17
 Title: Classes for high-throughput arrays supported by oligo
 Author: Benilton Carvalho <bcarvalh@jhsph.edu> and Robert Scharpf <rscharpf@jhsph.edu>
 Maintainer: Benilton Carvalho <bcarvalh@jhsph.edu> 
-Depends:  Biobase
+Depends:  Biobase, methods
 Suggests: RSQLite
-Imports:  graphics, methods, IRanges (>= 1.3.16), Biostrings (>= 2.13.9), Biobase (>= 2.7.0), affyio
+Imports:  graphics, IRanges (>= 1.3.16), Biostrings (>= 2.13.9), Biobase (>= 2.7.0), affyio
 Suggests: pd.genomewidesnp.6,
 	  pd.genomewidesnp.5,
 	  pd.mapping50k.hind240,

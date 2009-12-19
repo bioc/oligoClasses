@@ -54,18 +54,18 @@ SNP-level classes include
 
 \begin{itemize}
   
-\item \Robject{SnpCallSet}: a class for genotype calls and confidence
-  scores.  AssayData elements include \Robject{calls} and
-  \Robject{callsConfidence}.
+%\item \Robject{SnpSet}: a class for genotype calls and confidence
+%  scores.  AssayData elements include \Robject{call} and
+%  \Robject{callProbability}.
   
-\item \Robject{SnpCopyNumberSet}: class for copy number and confidence
-  scores.  AssayData elements include \Robject{copyNumber} and
-  \Robject{cnConfidence}.
+%\item \Robject{SnpCopyNumberSet}: class for copy number and confidence
+%  scores.  AssayData elements include \Robject{copyNumber} and
+%  \Robject{cnConfidence}.
   
 \item \Robject{oligoSnpSet}: class containing both genotype calls and
-  copy number estimates, as well as the corresponding confidence
+  total copy number estimates, as well as the corresponding confidence
   scores.  AssayData elements include include the union of elements in
-  \Robject{SnpCallSet} and \Robject{SnpCopyNumberSet}.
+  \Robject{SnpSet}, \code{copyNumber}, and \code{cnConfidence}.
 \end{itemize}
 
 \end{document}

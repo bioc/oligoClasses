@@ -14,7 +14,6 @@ text(mean(sls.coords$x), mean(sls.coords$y), "SnpLevelSet")
 arrows(x0=mean(eset.coords$x), y0=0.80,
        x1=mean(eset.coords$x), y1=0.69, length=0.1)
 
-
 y <- c(0, 0, 0.15, 0.15)
 callset.coords <- xy.coords(c(0, 0.25, 0.25, 0),
                             y)
