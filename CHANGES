@@ -134,3 +134,8 @@ added classes AffyExonPDInfo and AffySTPDInfo
 
 ** added man pages for AlleleSet, SnpSuperSet, and CNSet
 
+12-20-2009 - R. Scharpf committed v 1.9.19
+
+** removed SnpLevelClasses Vignette and supporting documents in inst/doc
+** added man/Snp-methods.Rd 
+** added man/list.cefiles.Rd

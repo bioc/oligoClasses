@@ -8,13 +8,11 @@
 \alias{CB<-,CNSet,matrix-method}
 \alias{initialize,CNSet-method}
 
-\title{Class "CNSet"}}
+\title{Class "CNSet"}
 \description{A class to store copy number estimates as well as locus-level summaries of the normalized intensities}
 \section{Objects from the Class}{
-
-Objects can be created by calls of the form 
-
-\code{new("CNSet", call, CA, CB, callProbability, alleleA, alleleB, phenoData, featureData, experimentData, protocolData, segmentData, emissionPr, position, chromosome, isSnp, annotation, ...)}.
+		 Objects can be created by calls of the form 
+		 \code{new("CNSet", call, CA, CB, callProbability, alleleA, alleleB, phenoData, featureData, experimentData, protocolData, segmentData, emissionPr, position, chromosome, isSnp, annotation, ...)}.
 
 }
 \section{Slots}{
@@ -51,6 +49,6 @@ Class \code{"\linkS4class{Versioned}"}, by class "SnpSuperSet", distance 5.
 	\code{\linkS4class{AlleleSet}}, \code{\linkS4class{SnpSuperSet}}
 }
 \examples{
-showClass("CNSet")
-}
+	showClass("CNSet")
+}	
 \keyword{classes}
