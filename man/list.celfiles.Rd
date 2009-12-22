@@ -11,10 +11,7 @@
 
 \arguments{
   \item{\dots}{Passed to \code{\link{list.files}}}
-  \item{listGzipped}{Logical}
-}
-\details{
-
+  \item{listGzipped}{Logical. List .CEL.gz files?}
 }
 \value{
   Character vector with filenames.
