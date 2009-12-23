@@ -6,9 +6,9 @@ importFrom(methods, "@<-", callNextMethod, new, validObject)
 importFrom(affyio, read.celfile.header, read.celfile)
 
 ## Protecting against IRanges masking
-importClassesFrom(IRanges, DataFrame, RangedData, IRanges)
-importMethodsFrom(IRanges, Rle, end, start, width)
-importFrom(IRanges, IRanges, RleList, RangedData)
+##importClassesFrom(IRanges, DataFrame, RangedData, IRanges)
+##importMethodsFrom(IRanges, Rle, end, start, width)
+##importFrom(IRanges, IRanges, RleList, RangedData)
 importClassesFrom(Biostrings, DNAStringSet)
 
 ## Needed from graphics

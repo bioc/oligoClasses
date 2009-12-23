@@ -142,6 +142,6 @@ added classes AffyExonPDInfo and AffySTPDInfo
 
 12-23-2009 - R. Scharpf committed v 1.9.21
 
-** moved IRanges back to depends (DESCRIPTION) because of warnings with 'complete.cases, width, start, end'
+** removed IRanges dependency.  Added a few .Rd files
 
 

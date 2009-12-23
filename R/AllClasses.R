@@ -75,8 +75,6 @@ setClass("SnpSuperSet", contains=c("AlleleSet", "SnpSet"))
 ##Summary-level classes - CNP
 ###########################################################################  
 setClass("CNSet", contains="SnpSuperSet")
-#	 representation(emissionPr="array",
-#			segmentData="RangedData"))
 
 ###########################################################################
 ##SNP-level classes
