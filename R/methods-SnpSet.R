@@ -16,9 +16,9 @@ setReplaceMethod("confs", signature(object="SnpSet", value="matrix"),
 			 assayDataElementReplace(object, "callProbability", X)
 		 })
 
-setMethod("callsConfidence", "SnpSet", function(object) confs(object))
-setReplaceMethod("callsConfidence", signature(object="SnpSet", value="matrix"),
-                 function(object, value) confs(object) <- value)
+##setMethod("callsConfidence", "SnpSet", function(object) confs(object))
+##setReplaceMethod("callsConfidence", signature(object="SnpSet", value="matrix"),
+##                 function(object, value) confs(object) <- value)
 
 setMethod("isSnp", "SnpSet", function(object) {
 	labels <- fvarLabels(object)

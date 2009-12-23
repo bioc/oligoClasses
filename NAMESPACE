@@ -46,14 +46,20 @@ export(chromosome2integer)
 ##export(supportedAnnotation, addFeatureAnnotation.crlmm, chromosome2integer)
 
 ##SNP-level methods
-exportMethods(bothStrands, calls, "calls<-", confs, "confs<-",
-              callsConfidence, "callsConfidence<-", chromosome,
-              "chromosome<-", combine, copyNumber, "copyNumber<-",
-              cnConfidence, "cnConfidence<-", db, isSnp, position,
-              allele, sampleNames, confs, "confs<-",
-	      CA, CB, "CA<-", "CB<-", rangedData, "rangedData<-",
-	      segmentData, "segmentData<-", emissionPr,
-	      "emissionPr<-", start, end, width)
+exportMethods(##bothStrands,
+              allele,
+              calls, "calls<-", confs, "confs<-",
+	      chromosome,
+              "chromosome<-", 
+	      combine, 
+	      copyNumber, "copyNumber<-",
+              cnConfidence, "cnConfidence<-", 
+	      db, isSnp, position,
+              sampleNames, 
+	      CA, CB, "CA<-", "CB<-") 
+##	      rangedData, "rangedData<-",
+##	      segmentData, "segmentData<-", 
+##	      start, end, width)
 
 ## FeatureSet methods
 exportMethods(exprs)
@@ -65,4 +71,4 @@ exportMethods(annotation, db, initialize, genomeBuild,
 ## Some general methods
 exportMethods(getM, getA)
 
-export(addFeatureAnnotation.pd)
+##export(addFeatureAnnotation.pd)

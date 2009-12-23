@@ -139,3 +139,9 @@ added classes AffyExonPDInfo and AffySTPDInfo
 ** removed SnpLevelClasses Vignette and supporting documents in inst/doc
 ** added man/Snp-methods.Rd 
 ** added man/list.cefiles.Rd
+
+12-23-2009 - R. Scharpf committed v 1.9.21
+
+** moved IRanges back to depends (DESCRIPTION) because of warnings with 'complete.cases, width, start, end'
+
+

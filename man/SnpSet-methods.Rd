@@ -2,6 +2,7 @@
 \docType{methods}
 \alias{calls}
 \alias{calls,SnpSet-method}
+\alias{calls<-}
 \alias{calls<-,SnpSet,matrix-method}
 \alias{confs}
 \alias{confs,SnpSet-method}

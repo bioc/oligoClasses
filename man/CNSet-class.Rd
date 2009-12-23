@@ -2,8 +2,12 @@
 \Rdversion{1.1}
 \docType{class}
 \alias{CNSet-class}
+\alias{CA}
+\alias{CA<-}
 \alias{CA,CNSet-method}
 \alias{CA<-,CNSet,matrix-method}
+\alias{CB}
+\alias{CB<-}
 \alias{CB,CNSet-method}
 \alias{CB<-,CNSet,matrix-method}
 \alias{initialize,CNSet-method}
