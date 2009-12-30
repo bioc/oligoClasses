@@ -4,11 +4,6 @@ importMethodsFrom(methods, initialize, show)
 importFrom(methods, "@<-", callNextMethod, new, validObject)
 
 importFrom(affyio, read.celfile.header, read.celfile)
-
-## Protecting against IRanges masking
-##importClassesFrom(IRanges, DataFrame, RangedData, IRanges)
-##importMethodsFrom(IRanges, Rle, end, start, width)
-##importFrom(IRanges, IRanges, RleList, RangedData)
 importClassesFrom(Biostrings, DNAStringSet)
 
 ## Needed from graphics
@@ -57,9 +52,7 @@ exportMethods(##bothStrands,
 	      db, isSnp, position,
               sampleNames, 
 	      CA, CB, "CA<-", "CB<-") 
-##	      rangedData, "rangedData<-",
-##	      segmentData, "segmentData<-", 
-##	      start, end, width)
+
 
 ## FeatureSet methods
 exportMethods(exprs)

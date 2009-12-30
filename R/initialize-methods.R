@@ -75,8 +75,8 @@ setMethod("initialize", "CNSet",
 		   featureData=annotatedDataFrameFrom(call, byrow=TRUE),
 		   experimentData=new("MIAME"),
 		   protocolData=phenoData[, integer(0)],
-		   segmentData=new("RangedData"),
-		   emissionPr=new("array"),
+##		   segmentData=new("RangedData"),
+##		   emissionPr=new("array"),
 		   position=integer(),
 		   chromosome=integer(),
 		   isSnp=integer(),
@@ -121,8 +121,8 @@ setMethod("initialize", "CNSet",
 		  if(!(all(c("chromosome", "position", "isSnp") %in% varLabels(featureData))) & isSupportedAnnotation(annotation)){
 			  .Object@featureData <- addFeatureAnnotation(.Object)
 		  }		  
-		  if(!missing(emissionPr)) .Object@emissionPr <- emissionPr
-		  segmentData(.Object) <- segmentData
+##		  if(!missing(emissionPr)) .Object@emissionPr <- emissionPr
+##		  segmentData(.Object) <- segmentData
 		  .Object <- .Object[order(chromosome(.Object), position(.Object)), ]
 		  .Object	    
           })

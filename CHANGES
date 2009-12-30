@@ -142,6 +142,10 @@ added classes AffyExonPDInfo and AffySTPDInfo
 
 12-23-2009 - R. Scharpf committed v 1.9.21
 
-** removed IRanges dependency.  Added a few .Rd files
+** removed IRanges dependency.  Added a few .Rd files.  Note IRanges
+   is still loaded because of Biostrings dependency on IRanges.  Do we
+   need Biostrings?
 
+12-30-2009 - R. Scharpf committed v 1.9.22
 
+** removed segmentData from initialization method for CNSet objects
