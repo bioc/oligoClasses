@@ -1,5 +1,5 @@
 Package: oligoClasses
-Version: 1.9.23
+Version: 1.9.24
 Title: Classes for high-throughput arrays supported by oligo
 Author: Benilton Carvalho <bcarvalh@jhsph.edu> and Robert Scharpf <rscharpf@jhsph.edu>
 Maintainer: Benilton Carvalho <bcarvalh@jhsph.edu> 
