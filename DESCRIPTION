@@ -3,9 +3,9 @@ Version: 1.9.23
 Title: Classes for high-throughput arrays supported by oligo
 Author: Benilton Carvalho <bcarvalh@jhsph.edu> and Robert Scharpf <rscharpf@jhsph.edu>
 Maintainer: Benilton Carvalho <bcarvalh@jhsph.edu> 
-Depends:  Biobase, methods
+Depends:  Biobase (>= 2.7.3), methods
 Suggests: RSQLite
-Imports:  graphics, Biostrings (>= 2.15.11), Biobase (>= 2.7.0), affyio
+Imports:  graphics, Biostrings (>= 2.15.11), affyio (>= 1.15.1)
 Suggests: pd.genomewidesnp.6,
 	  pd.genomewidesnp.5,
 	  pd.mapping50k.hind240,
