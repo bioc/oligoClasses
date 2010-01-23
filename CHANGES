@@ -149,3 +149,7 @@ added classes AffyExonPDInfo and AffySTPDInfo
 12-30-2009 - R. Scharpf committed v 1.9.22
 
 ** removed segmentData from initialization method for CNSet objects
+
+01-23-2010 - B. Carvalho committed v 1.9.25
+
+** exported bothStrands()

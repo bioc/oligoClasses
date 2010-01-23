@@ -41,7 +41,7 @@ export(chromosome2integer)
 ##export(supportedAnnotation, addFeatureAnnotation.crlmm, chromosome2integer)
 
 ##SNP-level methods
-exportMethods(##bothStrands,
+exportMethods(bothStrands,
               allele,
               calls, "calls<-", confs, "confs<-",
 	      chromosome,
