@@ -153,3 +153,7 @@ added classes AffyExonPDInfo and AffySTPDInfo
 01-23-2010 - B. Carvalho committed v 1.9.25
 
 ** exported bothStrands()
+
+01-28-2010 - B. Carvalho committed v 1.9.26
+
+** changed confs() slightly to agree with oligo
