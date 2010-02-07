@@ -157,3 +157,7 @@ added classes AffyExonPDInfo and AffySTPDInfo
 01-28-2010 - B. Carvalho committed v 1.9.26
 
 ** changed confs() slightly to agree with oligo
+
+02-07-2010 - B. Carvalho (1.9.27)
+
+** Updated requirement on affyio so Win64 is supported
