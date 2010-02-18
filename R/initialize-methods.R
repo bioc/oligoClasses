@@ -1,3 +1,57 @@
+setMethod("initialize", "CopyNumberSet",
+          function(.Object,
+                   assayData = assayDataNew(copyNumber = copyNumber,
+                                            cnConfidence = cnConfidence, ...),
+                   phenoData = annotatedDataFrameFrom(assayData, byrow=FALSE),
+                   featureData = annotatedDataFrameFrom(assayData, byrow=TRUE),
+                   experimentData = new("MIAME"),
+                   annotation = character(),
+                   protocolData = phenoData[,integer(0)],
+                   copyNumber = new("matrix"),
+                   cnConfidence = matrix(numeric(),
+                                            nrow=nrow(copyNumber), ncol=ncol(copyNumber),
+                                            dimnames=dimnames(copyNumber)),
+		   position=integer(),
+		   chromosome=integer(),
+		   isSnp=integer(),
+                   ...) {
+		  .Object <- callNextMethod(.Object,
+					    assayData = assayData,
+					    phenoData = phenoData,
+					    featureData = featureData,
+					    experimentData = experimentData,
+					    annotation = annotation,
+					    protocolData = protocolData)
+		  annotation <- .Object@annotation
+		  featureData <- .Object@featureData
+		  if(length(annotation) < 1){
+			  if((length(position) < 1| length(chromosome) <1 | length(isSnp) <1)){
+				  stop("must specify annotation if 'chromosome', 'position', and 'isSnp' are missing")
+			  } else {
+				  pData(featureData)$chromosome <- chromosome
+				  pData(featureData)$position <- position
+				  pData(featureData)$isSnp <- isSnp
+			  }
+		  } else{
+			  if((length(position) < 1| length(chromosome) < 1| length(isSnp) < 1)){
+				  if(!isSupportedAnnotation(annotation)){
+					  stop("The annotation is not supported. Arguments 'chromosome', 'position', and 'isSnp' can be omitted from the initialization only if the annotation is supported (see oligoClasses:::supportedAnnotation()).")
+				  }
+			  } else {
+				  pData(featureData)$chromosome <- chromosome
+				  pData(featureData)$position <- position
+				  pData(featureData)$isSnp <- isSnp
+			  }
+			  .Object@featureData <- featureData
+		  }
+		  ## Do after annotation has been assigned
+		  if(!(all(c("chromosome", "position", "isSnp") %in% varLabels(featureData))) & isSupportedAnnotation(annotation)){
+			  .Object@featureData <- addFeatureAnnotation(.Object)
+		  }
+		  .Object <- .Object[order(chromosome(.Object), position(.Object)), ]
+		  return(.Object)
+          })
+
 setMethod("initialize", "oligoSnpSet",
 	  function(.Object,
 		   call=new("matrix"),

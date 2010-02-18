@@ -21,24 +21,6 @@ setReplaceMethod("confs", signature(object="SnpSet", value="matrix"),
 ##setMethod("callsConfidence", "SnpSet", function(object) confs(object))
 ##setReplaceMethod("callsConfidence", signature(object="SnpSet", value="matrix"),
 ##                 function(object, value) confs(object) <- value)
-
-setMethod("isSnp", "SnpSet", function(object) {
-	labels <- fvarLabels(object)
-	if("isSnp" %in% labels){
-		res <- fData(object)[, "isSnp"]
-	} else{
-		res <- as.integer(featureNames(object) %in% snpNames(object))
-	}
-	return(res==1)
-})
-
-
-setMethod("db", "SnpSet",
-          function(object) {
-		  requireAnnotation(annotation(object)) || stop(paste(annotation(object), "package not available"))
-		  get(annotation(object))@getdb()
-	  })
-
 addFeatureAnnotation <- function(object){
 	if(length(grep("pd.", annotation(object))) >= 1){
 		fD <- addFeatureAnnotation.pd(object)
@@ -204,29 +186,11 @@ addFeatureAnnotation.crlmm <- function(object, ...){
 	return(fD)
 }
 
-
-
-setMethod("chromosome", "SnpSet",
-	  function(object){
-		  if(!("chromosome" %in% fvarLabels(object))){
-			  stop("chromosome not in fvarLabels")
-		  } 
-		  return(featureData(object)$chromosome)
-	  })
-
 setReplaceMethod("chromosome", c("SnpSet", "ANY"),
 		 function(object, value){
 			 fData(object)$chromosome <-  value
 			 object
 		 })
-
-setMethod("position", "SnpSet",
-          function(object){
-		  if(!("position" %in% fvarLabels(object))){
-			  stop("position not in fvarLabels")
-		  }
-		  pos <- featureData(object)$position
-          })
 
 setMethod("combine", signature=signature(x="SnpSet", y="SnpSet"),
           function(x, y, ...){

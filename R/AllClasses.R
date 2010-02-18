@@ -80,3 +80,6 @@ setClass("CNSet", contains="SnpSuperSet")
 ##SNP-level classes
 ###########################################################################  
 setClass("oligoSnpSet", contains="SnpSet")
+setClass("CopyNumberSet", contains="eSet")
+
+

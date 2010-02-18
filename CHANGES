@@ -161,3 +161,13 @@ added classes AffyExonPDInfo and AffySTPDInfo
 02-07-2010 - B. Carvalho (1.9.27)
 
 ** Updated requirement on affyio so Win64 is supported
+
+02-20-2010 - R. Scharpf (1.9.28)
+
+** Added CopyNumberSet class as a container for total copy number with
+   no slots for genotypes. (Mainly for use with VanillaICE)
+
+** Defined methods for db, chromosome, position, and isSnp at the
+   level of eSet (formerly, these were defined at the SnpSet level). I
+   did this so that CopyNumberSet, which extends eSet directly, could
+   inherit these methods
