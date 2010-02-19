@@ -171,3 +171,9 @@ added classes AffyExonPDInfo and AffySTPDInfo
    level of eSet (formerly, these were defined at the SnpSet level). I
    did this so that CopyNumberSet, which extends eSet directly, could
    inherit these methods
+
+02-20-2010 - R. Scharpf (1.9.29)
+
+** modified initialization method for SnpSet.  I would have preferred
+   to modify the initialization in VanillaICE, but I had problems with
+   this

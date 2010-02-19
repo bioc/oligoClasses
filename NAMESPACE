@@ -65,3 +65,5 @@ exportMethods(annotation, db, initialize, genomeBuild,
 exportMethods(getM, getA)
 
 ##export(addFeatureAnnotation.pd)
+
+export(isSupportedAnnotation, addFeatureAnnotation)

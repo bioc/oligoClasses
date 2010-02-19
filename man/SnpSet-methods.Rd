@@ -35,7 +35,7 @@
  theCalls <- matrix(sample(1:3, 20, rep=TRUE), nc=2)
   p <- matrix(runif(20), nc=2)
   theConfs <- round(-1000*log2(1-p))
-  obj <- new("SnpSet", call=theCalls, callProbability=theConfs)
+  obj <- new("SnpSet", call=theCalls, callProbability=theConfs, annotate=FALSE)
   calls(obj)
   confs(obj)
 }
