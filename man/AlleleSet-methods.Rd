@@ -7,6 +7,17 @@
 \alias{getM,SnpCnvQSet-method}
 \alias{getM,TilingFeatureSet2-method}
 \alias{getA,TilingFeatureSet2-method}
+
+\alias{A}
+\alias{A,AlleleSet-method}
+\alias{A<-}
+\alias{A<-,AlleleSet,matrix-method}
+\alias{B}
+\alias{B,AlleleSet-method}
+\alias{B<-}
+\alias{B<-,AlleleSet,matrix-method}
+
+
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Compute average log-intensities / log-ratios}
 \description{
@@ -16,6 +27,8 @@
 \usage{
 getA(object)
 getM(object)
+A(object)
+B(object)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -26,10 +39,12 @@ getM(object)
 
   For SNP data, SNPRMA summarizes the SNP information into 4 quantities (log2-scale):
   \itemize{
-    \item{antisenseThetaA}{antisense allele A}
-    \item{antisenseThetaB}{antisense allele B}
-    \item{senseThetaA}{sense allele A}
-    \item{senseThataB}{sense allele B}
+    \item{antisenseThetaA}{antisense allele A. (Not applicable for Affymetrix 5.0 and 6.0 platforms.)}  
+    \item{antisenseThetaB}{antisense allele B. (Not applicable for Affymetrix 5.0 and 6.0 platforms.)}
+    \item{senseThetaA}{sense allele A.  (Not applicable for Affymetrix 5.0 and 6.0 platforms.)}
+    \item{senseThataB}{sense allele B.  (Not applicable for Affymetrix 5.0 and 6.0 platforms.)}
+    \item{alleleA}{Affymetrix 5.0 and 6.0 platforms}
+    \item{alleleB}{Affymetrix 5.0 and 6.0 platforms}
   }
   
   The average log-intensities are given by:

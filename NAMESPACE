@@ -1,3 +1,4 @@
+## oligoClasses NAMESPACE
 ## Importing
 importClassesFrom(methods, ANY, character, data.frame, "function", integer, matrix, numeric)
 importMethodsFrom(methods, initialize, show)
@@ -51,7 +52,7 @@ exportMethods(bothStrands,
               cnConfidence, "cnConfidence<-", 
 	      db, isSnp, position,
               sampleNames, 
-	      CA, CB, "CA<-", "CB<-") 
+	      CA, CB, "CA<-", "CB<-", A, B) 
 
 
 ## FeatureSet methods
@@ -62,8 +63,11 @@ exportMethods(annotation, db, initialize, genomeBuild,
               geometry, kind, manufacturer)
 
 ## Some general methods
-exportMethods(getM, getA)
+exportMethods(getM, getA, annotate)
 
 ##export(addFeatureAnnotation.pd)
 
 export(isSupportedAnnotation, addFeatureAnnotation)
+
+## For debugging
+exportPattern("^[^\\.]")

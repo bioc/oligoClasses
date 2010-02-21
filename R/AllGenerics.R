@@ -2,8 +2,12 @@ setGeneric("manufacturer",function(object) standardGeneric("manufacturer"))
 setGeneric("manufacturer<-", function(object, value) standardGeneric("manufacturer<-"))
 setGeneric("bothStrands", function(object) standardGeneric("bothStrands"))
 setGeneric("allele", function(object, allele, strand) standardGeneric("allele"))
+setGeneric("annotate", function(object) standardGeneric("annotate"))
 setGeneric("getM", function(object) standardGeneric("getM"))
 setGeneric("getA", function(object) standardGeneric("getA"))
+
+setGeneric("A", function(object) standardGeneric("A"))
+setGeneric("B", function(object) standardGeneric("B"))
 
 
 setGeneric("calls<-", function(object, value) standardGeneric("calls<-"))

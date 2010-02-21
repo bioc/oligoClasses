@@ -53,6 +53,48 @@ Class \code{"\linkS4class{Versioned}"}, by class "SnpSuperSet", distance 5.
 	\code{\linkS4class{AlleleSet}}, \code{\linkS4class{SnpSuperSet}}
 }
 \examples{
-	showClass("CNSet")
+	theCalls <- matrix(2, nc=2, nrow=10)
+	A <- matrix(sample(1:1000, 20), 10,2)
+	B <- matrix(sample(1:1000, 20), 10,2)
+	CA <- matrix(rnorm(20, 1), nrow=10)
+	CB <- matrix(rnorm(20, 1), nrow=10)
+	p <- matrix(runif(20), nc=2)
+	theConfs <- round(-1000*log2(1-p))
+	obj <- new("CNSet",
+		   alleleA=A,
+		   alleleB=B,
+		   call=theCalls,
+		   callProbability=theConfs,
+		   CA=CA,
+		   CB=CB)
+
+	## Accessors
+	calls(obj)
+	confs(obj)
+	A(obj)
+	B(obj)
+	CA(obj)
+	CB(obj)
+	##with annotation
+	if(require("genomewidesnp6Crlmm")){
+		ids <- c("SNP_A-2131660", "SNP_A-1967418", "SNP_A-1969580", "SNP_A-4263484",
+			 "SNP_A-1978185", "SNP_A-4264431", "SNP_A-1980898", "SNP_A-1983139",
+			 "SNP_A-4265735", "SNP_A-1995832")
+		rownames(theCalls) <- rownames(p) <- rownames(theConfs) <- ids
+		rownames(A) <- rownames(B) <- rownames(CA) <- rownames(CB) <- ids
+		obj2 <- new("CNSet",
+			   alleleA=A,
+			   alleleB=B,
+			   call=theCalls,
+			   callProbability=theConfs,
+			   CA=CA,
+			   CB=CB, annotation="genomewidesnp6")
+		fvarLabels(obj2)
+
+		## additional accessors
+		isSnp(obj2)
+		chromosome(obj2)
+		position(obj2)
+	}
 }	
 \keyword{classes}

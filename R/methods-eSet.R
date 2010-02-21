@@ -1,3 +1,36 @@
+setMethod("annotate", "eSet", function(object){
+	annotation <- object@annotation
+	featureData <- object@featureData
+	position <- grep("position", varLabels(featureData))
+	chromosome <- grep("chromosome", varLabels(featureData))
+	isSnp <- grep("isSnp", varLabels(featureData))
+	if(length(annotation) < 1){
+		if((length(position) < 1| length(chromosome) <1 | length(isSnp) <1)){
+			stop("must specify annotation if 'chromosome', 'position', and 'isSnp' are missing")
+		} else {
+			pData(featureData)$chromosome <- chromosome
+			pData(featureData)$position <- position
+			pData(featureData)$isSnp <- isSnp
+		}
+	} else{
+		if((length(position) < 1| length(chromosome) < 1| length(isSnp) < 1)){
+			if(!isSupportedAnnotation(annotation)){
+				stop("The annotation is not supported. Arguments 'chromosome', 'position', and 'isSnp' can be omitted from the initialization only if the annotation is supported (see oligoClasses:::supportedAnnotation()).")
+			}
+		} else {
+			pData(featureData)$chromosome <- chromosome
+			pData(featureData)$position <- position
+			pData(featureData)$isSnp <- isSnp
+		}
+		object@featureData <- featureData
+	}
+	## Do after annotation has been assigned
+	if(!(all(c("chromosome", "position", "isSnp") %in% varLabels(featureData))) & isSupportedAnnotation(annotation)){
+		object@featureData <- addFeatureAnnotation(object)
+	}
+	return(object)
+})
+
 setMethod("isSnp", "eSet", function(object) {
 	labels <- fvarLabels(object)
 	if("isSnp" %in% labels){

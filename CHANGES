@@ -177,3 +177,9 @@ added classes AffyExonPDInfo and AffySTPDInfo
 ** modified initialization method for SnpSet.  I would have preferred
    to modify the initialization in VanillaICE, but I had problems with
    this
+
+02-20-2010 - R. Scharpf (1.9.30)
+
+** moved A, B accessors from crlmm to oligoClasses.  Updated a few of the man pages.
+
+
