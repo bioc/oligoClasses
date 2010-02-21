@@ -1,0 +1,156 @@
+%\VignetteIndexEntry{oligoClasses Vignette}
+%\VignetteKeywords{infractructure}
+%\VignettePackage{oligoClasses}
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{natbib}
+\usepackage{color}
+\usepackage[margin=1in]{geometry}
+
+\newcommand{\scscst}{\scriptscriptstyle}
+\newcommand{\scst}{\scriptstyle}
+\newcommand{\Rpackage}[1]{\textit{#1}}
+\newcommand{\Rfunction}[1]{\texttt{#1}}
+\newcommand{\Robject}[1]{\texttt{#1}}
+\newcommand{\R}{\textsf{R}}
+\newcommand{\crlmm}{\Rpackage{crlmm}}
+\newcommand{\oligo}{\Rpackage{oligo}}
+
+\begin{document}
+\title{Infrastructure classes for high-throughput SNP data}
+\author{Robert Scharpf and Benilton Carvalho}
+\maketitle
+
+
+<<setup, echo=FALSE>>=
+options(width=75)
+library(oligoClasses)
+@ 
+
+This document describes some of the infrastructure classes used for
+high-throughput genomic data.  For the classes used to organize SNP
+data, we provide examples for initialization and illustrate some of the
+accessors.  We should add a diagram showing the relationships of these
+classes here.
+
+[ Insert diagram of classes here ]
+
+\section{Feature-level classes}
+
+\section{Locus-level classes}
+
+The examples below are completely simulated and are not meant to convey
+any biological plausibility.
+
+\subsection{SnpSet}
+
+\subsubsection{Initialization}
+
+<<initialize_snpset>>=
+	theCalls <- matrix(sample(1:3, 20, rep=TRUE), nc=2)
+	p <- matrix(runif(20), nc=2)
+	theConfs <- round(-1000*log2(1-p))
+	obj <- new("SnpSet", call=theCalls, callProbability=theConfs)
+@ 
+
+\subsubsection{Accessors}
+<<accessors_snpset>>=
+calls(obj)
+confs(obj)
+@ 
+
+\subsubsection{Annotating}
+<<annotation_snpset>>=
+if(require("genomewidesnp6Crlmm")){
+	ids <- c("SNP_A-2131660", "SNP_A-1967418", "SNP_A-1969580", "SNP_A-4263484",
+		 "SNP_A-1978185", "SNP_A-4264431", "SNP_A-1980898", "SNP_A-1983139",
+		 "SNP_A-4265735", "SNP_A-1995832")
+	rownames(theCalls) <- rownames(p) <- rownames(theConfs) <- ids
+	obj <- new("SnpSet", call=theCalls, callProbability=theConfs,
+		   annotation="genomewidesnp6")
+	obj2 <- annotate(obj)
+	fvarLabels(obj2)
+	isSnp(obj2)
+	position(obj2)
+	chromosome(obj2)
+}
+@ 
+
+\subsection{CopyNumberSet}
+
+\subsubsection{Initialization}
+
+\subsubsection{Accessors}
+
+\subsubsection{Annotating}
+
+\subsection{CNSet}
+
+\subsubsection{Initialization}
+
+<<example_cnSet>>=
+theCalls <- matrix(2, nc=2, nrow=10)
+A <- matrix(sample(1:1000, 20), 10,2)
+B <- matrix(sample(1:1000, 20), 10,2)
+CA <- matrix(rnorm(20, 1), nrow=10)
+CB <- matrix(rnorm(20, 1), nrow=10)
+p <- matrix(runif(20), nc=2)
+theConfs <- round(-1000*log2(1-p))
+obj <- new("CNSet",
+	   alleleA=A,
+	   alleleB=B,
+	   call=theCalls,
+	   callProbability=theConfs,
+	   CA=CA,
+	   CB=CB)
+@ 
+
+\subsubsection{Accessors}
+
+<<cnset_accessors>>=
+calls(obj)
+confs(obj)
+A(obj)
+B(obj)
+CA(obj)
+CB(obj)
+@ 
+
+\subsubsection{Annotating}
+Annotating with chromosome and physical position:
+
+<<annotation_cnset>>=
+if(require("genomewidesnp6Crlmm")){
+	ids <- c("SNP_A-2131660", "SNP_A-1967418", "SNP_A-1969580", "SNP_A-4263484",
+		 "SNP_A-1978185", "SNP_A-4264431", "SNP_A-1980898", "SNP_A-1983139",
+		 "SNP_A-4265735", "SNP_A-1995832")
+	rownames(theCalls) <- rownames(p) <- rownames(theConfs) <- ids
+	rownames(A) <- rownames(B) <- rownames(CA) <- rownames(CB) <- ids
+	obj2 <- new("CNSet",
+		    alleleA=A,
+		    alleleB=B,
+		    call=theCalls,
+		    callProbability=theConfs,
+		    CA=CA,
+		    CB=CB, annotation="genomewidesnp6")
+	fvarLabels(obj2)
+	## additional accessors
+	isSnp(obj2)
+	chromosome(obj2)
+	position(obj2)
+}
+@
+
+
+\section{Session Information}
+
+The version number of R and packages loaded for generating the vignette
+were:
+
+<<echo=FALSE, results=tex>>=
+toLatex(sessionInfo())
+@  
+
+
+\end{document}
