@@ -1,8 +1,8 @@
 Package: oligoClasses
-Version: 1.9.30
+Version: 1.9.31
 Title: Classes for high-throughput arrays supported by oligo
-Author: Benilton Carvalho <bcarvalh@jhsph.edu> and Robert Scharpf <rscharpf@jhsph.edu>
-Maintainer: Benilton Carvalho <bcarvalh@jhsph.edu> 
+Author: Benilton Carvalho <carvalho@bclab.org> and Robert Scharpf <rscharpf@jhsph.edu>
+Maintainer: Benilton Carvalho <carvalho@bclab.org> and Robert Scharpf <rscharpf@jhsph.edu>
 Depends:  Biobase (>= 2.7.3), methods
 Suggests: RSQLite
 Imports:  graphics, Biostrings (>= 2.15.11), affyio (>= 1.15.2)
@@ -19,8 +19,7 @@ License: GPL (>= 2)
 LazyLoad: yes	     
 Collate:  AllClasses.R
           AllGenerics.R
-	  utils.R
-          functions.R
+	  utils-general.R
           initialize-methods.R
 	  methods-eSet.R	
           methods-AlleleSet.R

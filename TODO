@@ -2,3 +2,4 @@
 - Add more data for example (check inst/doc/CrateExamples.R)
 - Add examples to help pages
 - getM for PM probes
+- Move celfileDate to where it is used and remove affyio from dependency list?
