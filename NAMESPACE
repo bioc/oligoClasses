@@ -32,6 +32,9 @@ exportClasses(AffyTilingPDInfo, AffyExpressionPDInfo, AffySNPPDInfo,
               AffySNPCNVPDInfo, AffyGenePDInfo, AffyExonPDInfo,
               NgsExpressionPDInfo, NgsTilingPDInfo)
 
+## broke oligo without the exports below
+exportClasses(DBPDInfo, ExpressionPDInfo, FeatureSet, TilingPDInfo)
+
 ##Feature-level Classes
 exportClasses(ExpressionFeatureSet, SnpFeatureSet, SnpCnvFeatureSet,
               TilingFeatureSet, ExonFeatureSet, GeneFeatureSet)

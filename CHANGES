@@ -183,4 +183,7 @@ added classes AffyExonPDInfo and AffySTPDInfo
 ** moved A, B accessors from crlmm to oligoClasses.  Updated a few of the man pages.
 ** added oligoClasses.Rnw vignette
 
+03-04-2010 - B Carvalho (1.9.32)
 
+** exposed DBPDInfo, ExpressionPDInfo, FeatureSet, TilingPDInfo
+** fixed NEWS file
