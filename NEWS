@@ -12,3 +12,7 @@ USER VISIBLE CHANGES
         senseThetaB and antisenseThetaB methods by allele.
 
     o Exported DBPDInfo, ExpressionPDInfo, FeatureSet, TilingPDInfo
+
+NEW FEATURES
+
+    o bothStrands() methods for AlleleSet and SnpFeatureSet.

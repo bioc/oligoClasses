@@ -1,5 +1,5 @@
 Package: oligoClasses
-Version: 1.9.32
+Version: 1.9.34
 Title: Classes for high-throughput arrays supported by oligo
 Author: Benilton Carvalho <carvalho@bclab.org> and Robert Scharpf <rscharpf@jhsph.edu>
 Maintainer: Benilton Carvalho <carvalho@bclab.org> and Robert Scharpf <rscharpf@jhsph.edu>
@@ -24,6 +24,7 @@ Collate:  AllClasses.R
 	  methods-eSet.R	
           methods-AlleleSet.R
           methods-FeatureSet.R
+          methods-SnpFeatureSet.R
 	  methods-oligoSnpSet.R
 	  methods-CopyNumberSet.R
 	  methods-CNSet.R
