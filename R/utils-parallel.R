@@ -14,7 +14,7 @@ ocParallelStatus <- function(verbose=TRUE){
   cl <- parStatus()
   ld <- isPackageLoaded("ff")
   if (verbose){
-    message("Parallel computing support for 'oligo': ", appendLF=FALSE)
+    message("Parallel computing support for 'oligo/crlmm': ", appendLF=FALSE)
     if (!ld){  
       message("Disabled")
       message("     - Load 'ff'")
@@ -46,18 +46,18 @@ ocParallelStatus <- function(verbose=TRUE){
 
 ocProbesets <- function(n){
   if (missing(n)){
-    return(getOption("oligoProbesets"))
+    return(getOption("ocProbesets"))
   }else{
-    options(oligoProbesets=n)
+    options(ocProbesets=n)
     invisible(TRUE)
   }
 }
 
 ocSamples <- function(n){
   if (missing(n)){
-    return(getOption("oligoSamples"))
+    return(getOption("ocSamples"))
   }else{
-    options(oligoSamples=n)
+    options(ocSamples=n)
     invisible(TRUE)
   }
 }

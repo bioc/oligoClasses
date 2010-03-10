@@ -39,7 +39,7 @@ ldStatus <- function(verbose=FALSE){
   ld <- isPackageLoaded("ff")
   if (verbose){
     message(getBar())
-    message("Large dataset support for 'oligo': ", appendLF=FALSE)
+    message("Large dataset support for 'oligo/crlmm': ", appendLF=FALSE)
     if (ld){
       message("Enabled")
       ns <- prettyNum(c(ocProbesets(), ocSamples()), big.mark=",")
