@@ -27,7 +27,7 @@ importMethodsFrom(Biobase, annotatedDataFrameFrom, annotation,
 ## Exporting
 export(pdPkgFromBioC, requireAnnotation, affyPlatforms, celfileDate,
        list.celfiles, is.ffmatrix, isPackageLoaded, ldStatus,
-       ldSetOptions, parStatus, ocProbesets, ocSamples, ocPath, getBar,
+       ldSetOptions, parStatus, ocProbesets, ocSamples, ldPath, getBar,
        createFF)
 
 ## PDInfo Classes
