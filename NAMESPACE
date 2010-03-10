@@ -25,10 +25,13 @@ importMethodsFrom(Biobase, annotatedDataFrameFrom, annotation,
                   storageMode, "storageMode<-")
 
 ## Exporting
+
 export(pdPkgFromBioC, requireAnnotation, affyPlatforms, celfileDate,
        list.celfiles, is.ffmatrix, isPackageLoaded, ldStatus,
        ldSetOptions, parStatus, ocProbesets, ocSamples, ldPath, getBar,
-       createFF)
+       createFF, setCluster, delCluster, getCluster,
+       requireClusterPkgSet, requireClusterPkg, ocLapply,
+       splitIndicesByLength, splitIndicesByNode)
 
 ## PDInfo Classes
 exportClasses(AffyTilingPDInfo, AffyExpressionPDInfo, AffySNPPDInfo,

@@ -61,3 +61,64 @@ ocSamples <- function(n){
     invisible(TRUE)
   }
 }
+
+setCluster <- function(...){
+  pkg <- "snow"
+  require(pkg, character.only=TRUE)
+  options(cluster=makeCluster(...))
+}
+
+delCluster <- function(){
+  stopCluster(getOption("cluster"))
+  options(cluster=NULL)
+}
+
+getCluster <- function()
+  getOption("cluster")
+
+requireClusterPkgSet <- function(packages){
+  if (!parStatus())
+    stop("cluster is not ready. Use 'setCluster'.")
+  for (pkg in packages){
+    pkgOnCluster <- requireClusterPkg(pkg, character.only=TRUE)
+    if (!pkgOnCluster){
+      msg <- paste("Package '", pkg, "' not found on the cluster. ",
+                   "Install it or load it manually using ",
+                   "'clusterEvalQ(getCluster(), library(", pkg,
+                   ", lib.loc=<APPROPRIATE PATH>))'", sep="")
+      stop(msg)
+    }
+  }
+  TRUE
+}
+
+requireClusterPkg <- function(...)
+  all(unlist(clusterCall(getCluster(), require, ...)))
+
+ocLapply <- function(X, FUN, ..., neededPkgs){
+  if (parStatus()){
+    if (missing(neededPkgs)){
+      neededPkgs <- "ff"
+    }else{
+      neededPkgs <- unique(append(neededPkgs, "ff"))
+    }
+    requireClusterPkgSet(neededPkgs)
+    parLapply(getCluster(), X, FUN, ...)
+  }else{
+    lapply(X, FUN, ...)
+  }
+}
+
+splitIndicesByLength <- function(x, lg){
+  lx <- length(x)
+  split(x, rep(1:lx, each=lg, length.out=lx))
+}
+
+splitIndicesByNode <- function(x){
+  if (parStatus()){
+    clusterSplit(getCluster(), x)
+  }else{
+    list(x)
+  }
+}
+
