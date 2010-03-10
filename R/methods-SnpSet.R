@@ -1,7 +1,9 @@
 
 
 setMethod("calls", "SnpSet", function(object) assayData(object)$call)
+
 setReplaceMethod("calls", signature(object="SnpSet", value="matrix"), function(object, value) assayDataElementReplace(object, "call", value))
+##setReplaceMethod("confs", signature(object="SnpSet", value="matrix"), function(object, value) assayDataElementReplace(object, "callProbability", value))
 setMethod("confs", "SnpSet", function(object, transform=TRUE) {
 	X <- assayData(object)$callProbability
 	if (transform){
