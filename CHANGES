@@ -191,3 +191,8 @@ added classes AffyExonPDInfo and AffySTPDInfo
 03-10-2010 - R.Scharpf (1.9.35)
 
 ** export A<-, B<- for AlleleSet
+
+03-10-2010 - B Carvalho (1.9.37)
+
+** adding ff utilities to be used in oligo and crlmm
+** adding tools to diagnose cluster/large dataset support

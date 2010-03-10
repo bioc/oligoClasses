@@ -1,11 +1,12 @@
 Package: oligoClasses
-Version: 1.9.36
+Version: 1.9.37
 Title: Classes for high-throughput arrays supported by oligo
 Author: Benilton Carvalho <carvalho@bclab.org> and Robert Scharpf <rscharpf@jhsph.edu>
 Maintainer: Benilton Carvalho <carvalho@bclab.org> and Robert Scharpf <rscharpf@jhsph.edu>
 Depends:  Biobase (>= 2.7.3), methods
 Suggests: RSQLite
 Imports:  graphics, Biostrings (>= 2.15.11), affyio (>= 1.15.2)
+Enhances: ff, snow
 Suggests: pd.genomewidesnp.6,
 	  pd.genomewidesnp.5,
 	  pd.mapping50k.hind240,
@@ -14,7 +15,7 @@ Suggests: pd.genomewidesnp.6,
 	  pd.mapping250k.nsp,
 	  genomewidesnp6Crlmm,
 	  genomewidesnp5Crlmm
-Description: This package contains class definitions, validity checks, and initialization methods for classes used by the oligo package and friends.
+Description: This package contains class definitions, validity checks, and initialization methods for classes used by the oligo and crlmm packages.
 License: GPL (>= 2)
 LazyLoad: yes	     
 Collate:  AllClasses.R

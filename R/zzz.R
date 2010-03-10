@@ -1,16 +1,27 @@
-# Loading required libraries
 THISPKG <- "oligoClasses"
-
-##.onLoad <- function(libname, pkgname) {
-##	require("methods")
-##}
+.oligoClassesPkgEnv <- new.env(parent=emptyenv())
 
 .onAttach <- function(libname, pkgname) {
-	message("Welcome to oligoClasses version ", packageDescription(THISPKG, field="Version"))
+  version <- packageDescription("oligoClasses", field="Version")
+  message(getBar())
+  message("Welcome to oligoClasses version ", version)
+  ldSetOptions()
+  bm <- ldStatus(TRUE)
+  snow <- ocParallelStatus()
+
+  setHook(packageEvent("ff", "attach"),
+          function(...){
+            ldSetOptions(verbose=FALSE)
+            ldStatus(TRUE)
+          })
+  
+  setHook(packageEvent("snow", "attach"),
+          function(...){
+            ocParallelStatus()
+          })
+  
 }
 
-##.onUnload <- function( libpath ){
-##	library.dynam.unload(THISPKG, libpath)
-##}
-
-.oligoClassesPkgEnv <- new.env(parent=emptyenv())
+.onUnload <- function( libpath ){
+  library.dynam.unload("oligo", libpath)
+}

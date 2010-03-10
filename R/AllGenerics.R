@@ -6,8 +6,8 @@ setGeneric("annotate", function(object) standardGeneric("annotate"))
 setGeneric("getM", function(object) standardGeneric("getM"))
 setGeneric("getA", function(object) standardGeneric("getA"))
 
-setGeneric("A", function(object) standardGeneric("A"))
-setGeneric("B", function(object) standardGeneric("B"))
+setGeneric("A", function(object, ...) standardGeneric("A"))
+setGeneric("B", function(object, ...) standardGeneric("B"))
 setGeneric("A<-", function(object, value) standardGeneric("A<-"))
 setGeneric("B<-", function(object, value) standardGeneric("B<-"))
 

@@ -312,3 +312,14 @@ addFeatureAnnotation.crlmm <- function(object, ...){
 	fD <- new("AnnotatedDataFrame", data=fd, varMetadata=data.frame(labelDescription=colnames(fd), row.names=colnames(fd)))
 	return(fD)
 }
+
+## a bar that I like to use when sending messages to the user
+getBar <- function(width=getOption("width"))
+  paste(rep("=", width), collapse="")
+
+isPackageLoaded <- function(pkg){
+  stopifnot(is.character(pkg))
+  pkg <- paste("package:", pkg, sep="")
+  pkg %in% search()
+}
+

@@ -1,12 +1,17 @@
+setMethod("db", "AlleleSet", function(object) db(get(annotation(object))))
+setMethod("A", "AlleleSet", function(object, ...) allele(object, "A", ...))
+setMethod("B", "AlleleSet", function(object, ...) allele(object, "B", ...))
+setReplaceMethod("A", "AlleleSet", function(object, value) assayDataElementReplace(object, "alleleA", value))
+setReplaceMethod("B", "AlleleSet", function(object, value) assayDataElementReplace(object, "alleleB", value))
+
 setMethod("bothStrands", "AlleleSet",
           function(object){
             grp1 <- c("alleleA", "alleleB")
             grp2 <- c("senseAlleleA", "senseAlleleB",
                       "antisenseAlleleA", "antisenseAlleleB")
             elem <- assayDataElementNames(object)
-##            if (all(elem %in% grp1)){
 	    if(all(grp1 %in% elem)){
-		    return(FALSE)
+              return(FALSE)
             }else if (all(grp2 %in% elem)){
               return(TRUE)
             }else{
@@ -32,15 +37,34 @@ setMethod("allele", "AlleleSet",
 setMethod("getM", "AlleleSet",
           function(object){
             both <- bothStrands(object)
+            ffmat <- all(unlist(eapply(assayData(object), is.ffmatrix)))
+            ismat <- all(unlist(eapply(assayData(object), is.matrix)))
+            stopifnot(ffmat || ismat)
+            rm(ffmat, ismat)
+            
             if (!both){
-              tmp <- allele(object, "A")-allele(object, "B")
+              if (ismat){
+                tmp <- A(object)-B(object)
+              }else{
+                tmp <- ff(vmode="double", dim=dim(object))
+                for (i in 1:ncol(object))
+                  tmp[,i] <- A(object)[,i]-B(object)[,i]
+              }
             }else{
-              tmp <- array(NA, dim=c(dim(object), 2),
-                           dimnames=list(featureNames(object),
-                             sampleNames(object),
-                             c("antisense", "sense")))
-              tmp[,,1] <- allele(object, "A", "antisense")-allele(object, "B", "antisense")
-              tmp[,,2] <- allele(object, "A", "sense")-allele(object, "B", "sense")
+              if (ismat){
+                tmp <- array(NA, dim=c(dim(object), 2),
+                             dimnames=list(featureNames(object),
+                               sampleNames(object),
+                               c("antisense", "sense")))
+                tmp[,,1] <- A(object, "antisense")-B(object, "antisense")
+                tmp[,,2] <- A(object, "sense")-B(object, "sense")
+              }else{
+                tmp <- ff(vmode="double", dim=c(dim(object), 2))
+                for (i in 1:ncol(object)){
+                  tmp[, i, 1] <- A(object, "antisense")[,i]-B(object, "antisense")[,i]
+                  tmp[, i, 2] <- A(object, "sense")[,i]-B(object, "sense")[,i]
+                }
+              }
             }
             return(tmp)
           })
@@ -48,23 +72,34 @@ setMethod("getM", "AlleleSet",
 setMethod("getA", "AlleleSet",
           function(object){
             both <- bothStrands(object)
+            ffmat <- all(unlist(eapply(assayData(object), is.ffmatrix)))
+            ismat <- all(unlist(eapply(assayData(object), is.matrix)))
+            stopifnot(ffmat || ismat)
+            rm(ffmat, ismat)
+            
             if (!both){
-              tmp <- (allele(object, "A")+allele(object, "B"))/2
+              if (ismat){
+                tmp <- (A(object)+B(object))/2
+              }else{
+                tmp <- ff(vmode="double", dim=dim(object))
+                for (i in 1:ncol(object))
+                  tmp[,i] <- (A(object)[,i]+B(object)[,i])/2
+              }
             }else{
-              tmp <- array(NA, dim=c(dim(object), 2),
-                           dimnames=list(featureNames(object),
-                             sampleNames(object),
-                             c("antisense", "sense")))
-              tmp[,,1] <- (allele(object, "A", "antisense")+allele(object, "B", "antisense"))/2
-              tmp[,,2] <- (allele(object, "A", "sense")+allele(object, "B", "sense"))/2
+              if (ismat){
+                tmp <- array(NA, dim=c(dim(object), 2),
+                             dimnames=list(featureNames(object),
+                               sampleNames(object),
+                               c("antisense", "sense")))
+                tmp[,,1] <- (A(object, "antisense")+B(object, "antisense"))/2
+                tmp[,,2] <- (A(object, "sense")+B(object, "sense"))/2
+              }else{
+                tmp <- ff(vmode="double", dim=c(dim(object), 2))
+                for (i in 1:ncol(object)){
+                  tmp[, i, 1] <- (A(object, "antisense")[,i]+B(object, "antisense")[,i])/2
+                  tmp[, i, 2] <- (A(object, "sense")[,i]+B(object, "sense")[,i])/2
+                }
+              }
             }
             return(tmp)
           })
-
-setMethod("db", "AlleleSet", function(object) db(get(annotation(object))))
-
-
-setMethod("A", "AlleleSet", function(object) allele(object, "A"))
-setMethod("B", "AlleleSet", function(object) allele(object, "B"))
-setReplaceMethod("A", "AlleleSet", function(object, value) assayDataElementReplace(object, "alleleA", value))
-setReplaceMethod("B", "AlleleSet", function(object, value) assayDataElementReplace(object, "alleleB", value))

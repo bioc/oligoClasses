@@ -13,6 +13,8 @@ USER VISIBLE CHANGES
 
     o Exported DBPDInfo, ExpressionPDInfo, FeatureSet, TilingPDInfo
 
+    o Added ff utilities used by both oligo and crlmm packages
+
 NEW FEATURES
 
     o bothStrands() methods for AlleleSet and SnpFeatureSet.
