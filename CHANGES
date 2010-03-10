@@ -187,3 +187,7 @@ added classes AffyExonPDInfo and AffySTPDInfo
 
 ** exposed DBPDInfo, ExpressionPDInfo, FeatureSet, TilingPDInfo
 ** fixed NEWS file
+
+03-10-2010 - R.Scharpf (1.9.35)
+
+** export A<-, B<- for AlleleSet

@@ -71,12 +71,13 @@ setMethod("initialize", "CNSet",
                    callProbability=matrix(NA, nrow(call), ncol(call), dimnames=dimnames(call)),
                    alleleA = matrix(NA, nrow(call), ncol(call), dimnames=dimnames(call)),
                    alleleB = matrix(NA, nrow(call), ncol(call), dimnames=dimnames(call)),
-                   phenoData = annotatedDataFrameFrom(call, byrow=FALSE),		   
+                  phenoData = annotatedDataFrameFrom(call, byrow=FALSE),		   
 		   featureData=annotatedDataFrameFrom(call, byrow=TRUE),
 		   experimentData=new("MIAME"),
 		   protocolData=phenoData[, integer(0)],
 		   annotation=character(), ... ){
 		  ##The ... should be additional assayDataElements (e.g., for a class that extends CNSet)
+		  browser()
 		  .Object <- callNextMethod(.Object,
 					    call=call,
 					    callProbability=callProbability,
@@ -94,6 +95,8 @@ setMethod("initialize", "CNSet",
 			  .Object <- annotate(.Object)
 		  return(.Object)
           })
+##initialize.CNSet <- function(.Object,
+			     
 
 
 setValidity("CNSet", function(object) {

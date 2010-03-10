@@ -63,5 +63,8 @@ setMethod("getA", "AlleleSet",
 
 setMethod("db", "AlleleSet", function(object) db(get(annotation(object))))
 
+
 setMethod("A", "AlleleSet", function(object) allele(object, "A"))
 setMethod("B", "AlleleSet", function(object) allele(object, "B"))
+setReplaceMethod("A", "AlleleSet", function(object, value) assayDataElementReplace(object, "A", value))
+setReplaceMethod("B", "AlleleSet", function(object, value) assayDataElementReplace(object, "B", value))

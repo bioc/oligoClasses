@@ -8,7 +8,8 @@ setGeneric("getA", function(object) standardGeneric("getA"))
 
 setGeneric("A", function(object) standardGeneric("A"))
 setGeneric("B", function(object) standardGeneric("B"))
-
+setGeneric("A<-", function(object, value) standardGeneric("A<-"))
+setGeneric("B<-", function(object, value) standardGeneric("B<-"))
 
 setGeneric("calls<-", function(object, value) standardGeneric("calls<-"))
 setGeneric("calls", function(object) standardGeneric("calls"))

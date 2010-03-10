@@ -55,7 +55,7 @@ exportMethods(bothStrands,
               cnConfidence, "cnConfidence<-", 
 	      db, isSnp, position,
               sampleNames, 
-	      CA, CB, "CA<-", "CB<-", A, B) 
+	      CA, CB, "CA<-", "CB<-", A, B, "A<-", "B<-") 
 
 
 ## FeatureSet methods
