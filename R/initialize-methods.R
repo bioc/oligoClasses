@@ -98,7 +98,6 @@ setMethod("initialize", "CNSet",
 ##initialize.CNSet <- function(.Object,
 			     
 
-
 setValidity("CNSet", function(object) {
 	assayDataValidMembers(assayData(object), c("CA", "CB", "call", "callProbability", "alleleA", "alleleB"))
 })
