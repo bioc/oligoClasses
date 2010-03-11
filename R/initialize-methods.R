@@ -47,56 +47,45 @@ setValidity("oligoSnpSet", function(object) {
 })
 
 ## RS: ask BC about this... initialization method for CNSet does not work when this is uncommented
-##setValidity("AlleleSet",
-##            function(object){
-##              grp1 <- c("alleleA", "alleleB")
-##              grp2 <- c("senseAlleleA", "senseAlleleB",
-##                        "antisenseAlleleA", "antisenseAlleleB")
-##              elem <- assayDataElementNames(object)
-##              ok <- all(grp1 %in% elem) || all(grp2 %in% elem)
-##              f <- function(x) paste("'", x, "'", collapse=" + ", sep="")
-##              if (!ok){
-##                paste("Elements of 'AlleleSummarySet' must be:",
-##                      f(grp1), "OR", f(grp2))
-##              }else{
-##                TRUE
-##              }
-##            })
+setValidity("AlleleSet",
+            function(object){
+              grp1 <- c("alleleA", "alleleB")
+              grp2 <- c("senseAlleleA", "senseAlleleB",
+                        "antisenseAlleleA", "antisenseAlleleB")
+              elem <- assayDataElementNames(object)
+              ok <- all(grp1 %in% elem) || all(grp2 %in% elem)
+              f <- function(x) paste("'", x, "'", collapse=" + ", sep="")
+              if (!ok){
+                paste("Elements of 'AlleleSummarySet' must be:",
+                      f(grp1), "OR", f(grp2))
+              }else{
+                TRUE
+              }
+            })
+
+setMethod("initialize", "AlleleSet",
+          function(.Object,
+		   alleleA=new("matrix"),
+		   alleleB=new("matrix"), ...){
+		  callNextMethod(.Object, alleleA=alleleA, alleleB=alleleB, ...)
+	  })
+
+setMethod("initialize", "SnpSuperSet",
+          function(.Object, call=new("matrix"), callProbability=new("matrix"), ...){
+		  callNextMethod(.Object, call=call, callProbability=callProbability, ...)
+	  })
 
 setMethod("initialize", "CNSet",
           function(.Object,
-		   call=new("matrix"),		   		   
-		   CA=matrix(NA, nrow(call), ncol(call), dimnames=dimnames(call)),
-		   CB=matrix(NA, nrow(call), ncol(call), dimnames=dimnames(call)),
-                   callProbability=matrix(NA, nrow(call), ncol(call), dimnames=dimnames(call)),
-                   alleleA = matrix(NA, nrow(call), ncol(call), dimnames=dimnames(call)),
-                   alleleB = matrix(NA, nrow(call), ncol(call), dimnames=dimnames(call)),
-                  phenoData = annotatedDataFrameFrom(call, byrow=FALSE),		   
-		   featureData=annotatedDataFrameFrom(call, byrow=TRUE),
-		   experimentData=new("MIAME"),
-		   protocolData=phenoData[, integer(0)],
-		   annotation=character(), ... ){
-		  ##The ... should be additional assayDataElements (e.g., for a class that extends CNSet)
-            ## browser()
+		   CA=new("matrix"),
+		   CB=new("matrix"),
+		   ...
+		   ){
 		  .Object <- callNextMethod(.Object,
-					    call=call,
-					    callProbability=callProbability,
-					    alleleA=alleleA,
-					    alleleB=alleleB,
 					    CA=CA,
 					    CB=CB,
-					    phenoData=phenoData,
-					    featureData=featureData,
-					    experimentData=experimentData,
-					    protocolData=protocolData,
-					    annotation=annotation,
 					    ...)
-		  if(checkAnnotation(annotation))
-			  .Object <- annotate(.Object)
-		  return(.Object)
           })
-##initialize.CNSet <- function(.Object,
-			     
 
 setValidity("CNSet", function(object) {
 	assayDataValidMembers(assayData(object), c("CA", "CB", "call", "callProbability", "alleleA", "alleleB"))
