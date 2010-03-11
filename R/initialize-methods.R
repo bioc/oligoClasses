@@ -77,7 +77,7 @@ setMethod("initialize", "CNSet",
 		   protocolData=phenoData[, integer(0)],
 		   annotation=character(), ... ){
 		  ##The ... should be additional assayDataElements (e.g., for a class that extends CNSet)
-		  browser()
+            ## browser()
 		  .Object <- callNextMethod(.Object,
 					    call=call,
 					    callProbability=callProbability,

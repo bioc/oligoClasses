@@ -71,4 +71,4 @@ exportMethods(getM, getA, annotate, annotatedDataFrameFrom)
 export(isSupportedAnnotation, addFeatureAnnotation)
 
 ## For debugging
-exportPattern("^[^\\.]")
+## exportPattern("^[^\\.]")

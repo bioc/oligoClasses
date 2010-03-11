@@ -27,12 +27,15 @@
 \usage{
 getA(object)
 getM(object)
-A(object)
-B(object)
+A(object, ...)
+B(object, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{object}{\code{SnpQSet}, \code{SnpCnvQSet} or \code{TilingFeatureSet2} object.}
+  \item{object}{\code{SnpQSet}, \code{SnpCnvQSet} or
+    \code{TilingFeatureSet2} object.}
+  \item{...}{arguments to be passed to \code{allele} - 'sense' and
+    'antisense' are valid values if the array is pre-SNP_5.0}
 }
 
 \details{

@@ -21,7 +21,3 @@ THISPKG <- "oligoClasses"
           })
   
 }
-
-.onUnload <- function( libpath ){
-  library.dynam.unload("oligo", libpath)
-}

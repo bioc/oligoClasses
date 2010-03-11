@@ -3,6 +3,7 @@
 \docType{class}
 \alias{AlleleSet-class}
 \alias{allele,AlleleSet-method}
+\alias{bothStrands}
 \alias{bothStrands,AlleleSet-method}
 \alias{db,AlleleSet-method}
 \alias{getA,AlleleSet-method}
@@ -31,12 +32,18 @@ Class \code{"\linkS4class{Versioned}"}, by class "eSet", distance 3.
 }
 \section{Methods}{
   \describe{
-    \item{allele}{\code{signature(object = "AlleleSet")}: ... }
-    \item{bothStrands}{\code{signature(object = "AlleleSet")}: ... }
-    \item{db}{\code{signature(object = "AlleleSet")}: ... }
-    \item{getA}{\code{signature(object = "AlleleSet")}: ... }
-    \item{getM}{\code{signature(object = "AlleleSet")}: ... }
-	 }
+    \item{allele}{\code{signature(object = "AlleleSet")}: extract allele
+    specific summaries. For 50K (XBA and Hind) and 250K (Sty and
+    Nsp) arrays, an additional argument (strand) must be used (allowed
+    values: 'sense', 'antisense'.}
+    \item{bothStrands}{\code{signature(object = "AlleleSet")}: tests if
+      data contains allele summaries on both strands for a given SNP.}
+    \item{db}{\code{signature(object = "AlleleSet")}: link to database connection.}
+    \item{getA}{\code{signature(object = "AlleleSet")}: average
+      intensities (across alleles)}
+    \item{getM}{\code{signature(object = "AlleleSet")}: log-ratio
+      (Allele A vs. Allele B)}
+  }
 }
 \author{R. Scharpf}
 

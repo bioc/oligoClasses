@@ -198,3 +198,4 @@ added classes AffyExonPDInfo and AffySTPDInfo
 ** adding tools to diagnose cluster/large dataset support
 ** (1.9.39) fixed broken export and added p2i/i2p functions to simplify future changes on the conversion
 ** (1.9.40) fixed oligoProbeset/oligoSamples to be ocProbesets/ocSamples
+** (1.9.41) fixed unload / docs
