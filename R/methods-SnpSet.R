@@ -2,9 +2,6 @@ setMethod("calls", "SnpSet", function(object) assayData(object)$call)
 setReplaceMethod("calls", signature(object="SnpSet", value="matrix"),
                  function(object, value)
                  assayDataElementReplace(object, "call", value))
-
-##setReplaceMethod("confs", signature(object="SnpSet", value="matrix"), function(object, value) assayDataElementReplace(object, "callProbability", value))
-
 p2i <- function(p)
   as.integer(-1000*log(1-p))
 
@@ -18,7 +15,6 @@ setMethod("confs", "SnpSet", function(object, transform=TRUE) {
 	}
 	return(X)
 })
-
 setReplaceMethod("confs", signature(object="SnpSet", value="matrix"),
 		 function(object, value){
 			 ##convert probability to integer
@@ -30,11 +26,6 @@ setReplaceMethod("confs", signature(object="SnpSet", value="matrix"),
 ##setMethod("callsConfidence", "SnpSet", function(object) confs(object))
 ##setReplaceMethod("callsConfidence", signature(object="SnpSet", value="matrix"),
 ##                 function(object, value) confs(object) <- value)
-
-
-
-
-
 
 setMethod("combine", signature=signature(x="SnpSet", y="SnpSet"),
           function(x, y, ...){
