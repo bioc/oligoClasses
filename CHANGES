@@ -199,3 +199,7 @@ added classes AffyExonPDInfo and AffySTPDInfo
 ** (1.9.39) fixed broken export and added p2i/i2p functions to simplify future changes on the conversion
 ** (1.9.40) fixed oligoProbeset/oligoSamples to be ocProbesets/ocSamples
 ** (1.9.41) fixed unload / docs
+
+03-20-2010 - B Carvalho (1.9.44)
+
+** fixed bugs that broke oligo::crlmm (initialization method for AlleleSet and getM/getA)

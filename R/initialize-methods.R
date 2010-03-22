@@ -63,12 +63,17 @@ setValidity("AlleleSet",
               }
             })
 
-setMethod("initialize", "AlleleSet",
-          function(.Object,
-		   alleleA=new("matrix"),
-		   alleleB=new("matrix"), ...){
-		  callNextMethod(.Object, alleleA=alleleA, alleleB=alleleB, ...)
-	  })
+## BC: AlleleSet must allow for sense/antisense chips too
+## BC: I'm commenting out this initialization method
+## BC: to allow the standard eSet initialization
+## BC: therefore, all new instances must be named:
+## BC: eg: new("AlleleSet", alleleA=<value>, alleleB=<value>)
+## setMethod("initialize", "AlleleSet",
+##           function(.Object,
+## 		   alleleA=new("matrix"),
+## 		   alleleB=new("matrix"), ...){
+## 		  callNextMethod(.Object, alleleA=alleleA, alleleB=alleleB, ...)
+## 	  })
 
 setMethod("initialize", "SnpSuperSet",
           function(.Object, call=new("matrix"), callProbability=new("matrix"), ...){

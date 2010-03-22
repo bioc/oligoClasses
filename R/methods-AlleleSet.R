@@ -40,7 +40,6 @@ setMethod("getM", "AlleleSet",
             ffmat <- all(unlist(eapply(assayData(object), is.ffmatrix)))
             ismat <- all(unlist(eapply(assayData(object), is.matrix)))
             stopifnot(ffmat || ismat)
-            rm(ffmat, ismat)
             
             if (!both){
               if (ismat){
@@ -75,7 +74,7 @@ setMethod("getA", "AlleleSet",
             ffmat <- all(unlist(eapply(assayData(object), is.ffmatrix)))
             ismat <- all(unlist(eapply(assayData(object), is.matrix)))
             stopifnot(ffmat || ismat)
-            rm(ffmat, ismat)
+##            rm(ffmat, ismat)
             
             if (!both){
               if (ismat){
