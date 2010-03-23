@@ -80,15 +80,21 @@ setMethod("initialize", "SnpSuperSet",
 		  callNextMethod(.Object, call=call, callProbability=callProbability, ...)
 	  })
 
+## b/c I removed alleleA/alleleB from AlleleSet initialization, I'll add it here
+## as this seems to be the place where such arguments are expected.
 setMethod("initialize", "CNSet",
           function(.Object,
 		   CA=new("matrix"),
 		   CB=new("matrix"),
+                   alleleA=new("matrix"),
+                   alleleB=new("matrix"),
 		   ...
 		   ){
 		  .Object <- callNextMethod(.Object,
 					    CA=CA,
 					    CB=CB,
+                                            alleleA=alleleA,
+                                            alleleB=alleleB,
 					    ...)
           })
 
