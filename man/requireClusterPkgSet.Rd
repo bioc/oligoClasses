@@ -17,6 +17,7 @@ requireClusterPkg(...)
 \arguments{
   \item{packages}{character vector with the names of the packages to be
     loaded on the compute nodes.}
+  \item{\dots}{same arguments as \code{require}}
 }
 \details{
   \code{requireClusterPkgSet} applies \code{require} for a set of

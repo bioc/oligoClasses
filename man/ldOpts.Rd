@@ -1,6 +1,7 @@
 \name{ldSetOptions}
 \alias{ldSetOptions}
 \alias{ldStatus}
+\alias{ldPath}
 
 \title{
   Set/check large dataset options.
@@ -11,6 +12,7 @@
 \usage{
 ldSetOptions(nsamples=100, nprobesets=1000, path=getwd(), verbose=FALSE)
 ldStatus(verbose=FALSE)
+ldPath(path)
 }
 
 \arguments{

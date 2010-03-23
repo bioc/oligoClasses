@@ -120,7 +120,8 @@ CB(obj)
 \subsubsection{Annotating}
 Annotating with chromosome and physical position:
 
-<<annotation_cnset>>=
+%% BC: this is broken!
+<<annotation_cnset, eval=FALSE>>=
 if(require("genomewidesnp6Crlmm")){
 	ids <- c("SNP_A-2131660", "SNP_A-1967418", "SNP_A-1969580", "SNP_A-4263484",
 		 "SNP_A-1978185", "SNP_A-4264431", "SNP_A-1980898", "SNP_A-1983139",

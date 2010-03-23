@@ -53,6 +53,7 @@ Class \code{"\linkS4class{Versioned}"}, by class "SnpSuperSet", distance 5.
 	\code{\linkS4class{AlleleSet}}, \code{\linkS4class{SnpSuperSet}}
 }
 \examples{
+\dontrun{
 	theCalls <- matrix(2, nc=2, nrow=10)
 	A <- matrix(sample(1:1000, 20), 10,2)
 	B <- matrix(sample(1:1000, 20), 10,2)
@@ -96,5 +97,6 @@ Class \code{"\linkS4class{Versioned}"}, by class "SnpSuperSet", distance 5.
 		chromosome(obj2)
 		position(obj2)
 	}
+}
 }	
 \keyword{classes}
