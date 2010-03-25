@@ -210,3 +210,8 @@ added classes AffyExonPDInfo and AffySTPDInfo
 ** commented out example (CNSet) the breaks completely the build process
 ** added eval=FALSE on the vignette on the relevant part so the pkg can be built
 ** fixed initialization for CNSet to conform changes on 1.9.44.
+
+03-22-2010 - B Carvalho (1.9.46)
+
+** fixed is.ffmatrix example
+** fixed alias for allele

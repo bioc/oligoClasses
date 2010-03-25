@@ -28,7 +28,7 @@ if (isPackageLoaded("ff")){
   x1 <- ff(vmode="double", dim=c(10, 2))
   is.ffmatrix(x1)
 }
-x1 <- matrix(0, dim=c(10, 2))
+x1 <- matrix(0, nr=10, nc=2)
 is.ffmatrix(x1)
 
 }

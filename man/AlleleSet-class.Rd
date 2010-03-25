@@ -2,6 +2,7 @@
 \Rdversion{1.1}
 \docType{class}
 \alias{AlleleSet-class}
+\alias{allele}
 \alias{allele,AlleleSet-method}
 \alias{bothStrands}
 \alias{bothStrands,AlleleSet-method}
