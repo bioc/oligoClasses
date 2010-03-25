@@ -56,7 +56,7 @@ setValidity("AlleleSet",
               ok <- all(grp1 %in% elem) || all(grp2 %in% elem)
               f <- function(x) paste("'", x, "'", collapse=" + ", sep="")
               if (!ok){
-                paste("Elements of 'AlleleSummarySet' must be:",
+                paste("Elements of 'AlleleSet' must be:",
                       f(grp1), "OR", f(grp2))
               }else{
                 TRUE
@@ -76,7 +76,7 @@ setValidity("AlleleSet",
 ## 	  })
 
 setMethod("initialize", "SnpSuperSet",
-          function(.Object, call=new("matrix"), callProbability=new("matrix"), ...){
+          function(.Object, call=new("matrix"), callProbability=new("matrix"), alleleA=new("matrix"), alleleB=new("matrix"), ...){
 		  callNextMethod(.Object, call=call, callProbability=callProbability, ...)
 	  })
 
