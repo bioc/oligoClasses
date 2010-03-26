@@ -76,8 +76,8 @@ setValidity("AlleleSet",
 ## 	  })
 
 setMethod("initialize", "SnpSuperSet",
-          function(.Object, call=new("matrix"), callProbability=new("matrix"), alleleA=new("matrix"), alleleB=new("matrix"), ...){
-		  callNextMethod(.Object, call=call, callProbability=callProbability, alleleA=alleleA, alleleB=alleleB, ...)
+          function(.Object, call=new("matrix"), callProbability=new("matrix"), ...){
+		  callNextMethod(.Object, call=call, callProbability=callProbability, ...)
 	  })
 
 ## b/c I removed alleleA/alleleB from AlleleSet initialization, I'll add it here
@@ -86,11 +86,15 @@ setMethod("initialize", "CNSet",
           function(.Object,
 		   CA=new("matrix"),
 		   CB=new("matrix"),
+		   alleleA=new("matrix"),
+		   alleleB=new("matrix"),
 		   ...
 		   ){
 		  .Object <- callNextMethod(.Object,
 					    CA=CA,
 					    CB=CB,
+					    alleleA=alleleA,
+					    alleleB=alleleB,
 					    ...)
           })
 
