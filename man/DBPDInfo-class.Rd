@@ -1,6 +1,7 @@
 \name{DBPDInfo-class}
 \docType{class}
 \alias{initialize,DBPDInfo-method}
+\alias{annotation,DBPDInfo-method}
 \alias{DBPDInfo-class}
 \alias{AffySNPPDInfo-class}
 \alias{AffySNPCNVPDInfo-class}
@@ -34,6 +35,9 @@ Objects can be created by calls of the form \code{new("DBPDInfo", ...)}.
   }
 }
 \section{Methods}{
-No methods defined with class "DBPDInfo" in the signature.
+  \describe{
+    \item{annotation}{string describing annotation package associated to
+      object}
+    }
 }
 \keyword{classes}

@@ -25,7 +25,7 @@
 \section{Methods}{
 	\describe{
 	\item{\code{initialize(SnpSet)}:}{Object instantiation, used by
-	      \code{new}; not be be called directly by the user.}  
+	  \code{new}; not to be called directly by the user.}  
 	\item{\code{calls(object)}:}{accessor for genotype calls}
 	\item{\code{confs(object)}:}{accessor for crlmm genotype confidence scores}
 	}

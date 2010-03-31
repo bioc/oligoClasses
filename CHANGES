@@ -215,3 +215,7 @@ added classes AffyExonPDInfo and AffySTPDInfo
 
 ** fixed is.ffmatrix example
 ** fixed alias for allele
+
+03-31-2010 - B Carvalho (1.9.50)
+
+** moved initializeBigMatrix and initializeBigVector from crlmm to oligoClasses

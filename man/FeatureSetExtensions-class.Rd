@@ -38,6 +38,11 @@
 \section{Methods}{
  \describe{
     \item{show}{\code{signature(.Object = "FeatureSet")}: show object contents }
+    \item{bothStrands}{\code{signature(.Object = "SnpFeatureSet")}:
+      checks if object contains data for both strands simultaneously
+      (50K/250K Affymetrix SNP chips - in this case it returns TRUE); if
+      object contains data for one strand at a time (SNP 5.0 and SNP 6.0
+      - in this case it returns FALSE)}
     }
 }
 \author{Benilton Carvalho}

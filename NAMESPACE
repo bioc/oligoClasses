@@ -31,7 +31,8 @@ export(pdPkgFromBioC, requireAnnotation, affyPlatforms, celfileDate,
        ldSetOptions, parStatus, ocProbesets, ocSamples, ldPath, getBar,
        createFF, setCluster, delCluster, getCluster,
        requireClusterPkgSet, requireClusterPkg, ocLapply,
-       splitIndicesByLength, splitIndicesByNode)
+       splitIndicesByLength, splitIndicesByNode, initializeBigMatrix,
+       initializeBigVector)
 
 ## PDInfo Classes
 exportClasses(AffyTilingPDInfo, AffyExpressionPDInfo, AffySNPPDInfo,
