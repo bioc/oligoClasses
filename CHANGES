@@ -219,3 +219,7 @@ added classes AffyExonPDInfo and AffySTPDInfo
 03-31-2010 - B Carvalho (1.9.50)
 
 ** moved initializeBigMatrix and initializeBigVector from crlmm to oligoClasses
+
+03-31-2010 - R. Scharpf (1.9.51)
+
+** added a few Rd files

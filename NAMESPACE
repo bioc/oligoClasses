@@ -53,7 +53,7 @@ export(chromosome2integer)
 
 ##SNP-level methods
 exportMethods(bothStrands, allele, calls, "calls<-", confs, "confs<-",
-              chromosome, "chromosome<-", combine, copyNumber,
+              chromosome, "chromosome<-", copyNumber,
               "copyNumber<-", cnConfidence, "cnConfidence<-", db, isSnp,
               position, sampleNames, CA, CB, "CA<-", "CB<-", A, B, "A<-", "B<-")
 
@@ -65,7 +65,7 @@ exportMethods(annotation, db, initialize, genomeBuild,
               geometry, kind, manufacturer)
 
 ## Some general methods
-exportMethods(getM, getA, annotate, annotatedDataFrameFrom)
+exportMethods(getM, getA, annotatedDataFrameFrom)
 
 ##export(addFeatureAnnotation.pd)
 

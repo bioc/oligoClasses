@@ -11,10 +11,12 @@
 \alias{A}
 \alias{A,AlleleSet-method}
 \alias{A<-}
+\alias{A<-,AlleleSet-method}
 \alias{A<-,AlleleSet,matrix-method}
 \alias{B}
 \alias{B,AlleleSet-method}
 \alias{B<-}
+\alias{B<-,AlleleSet-method}
 \alias{B<-,AlleleSet,matrix-method}
 
 
