@@ -49,7 +49,6 @@ exportClasses(ExpressionFeatureSet, SnpFeatureSet, SnpCnvFeatureSet,
 ##SNP-level Classes
 exportClasses(AlleleSet, oligoSnpSet, SnpSuperSet, CNSet)
 export(chromosome2integer)
-##export(supportedAnnotation, addFeatureAnnotation.crlmm, chromosome2integer)
 
 ##SNP-level methods
 exportMethods(bothStrands, allele, calls, "calls<-", confs, "confs<-",
@@ -69,7 +68,7 @@ exportMethods(getM, getA, annotatedDataFrameFrom)
 
 ##export(addFeatureAnnotation.pd)
 
-export(isSupportedAnnotation, addFeatureAnnotation)
+export(annotationPackages, addFeatureAnnotation)
 
 ## For debugging
 ## exportPattern("^[^\\.]")

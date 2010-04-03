@@ -69,11 +69,11 @@ if(require("genomewidesnp6Crlmm")){
 	rownames(theCalls) <- rownames(p) <- rownames(theConfs) <- ids
 	obj <- new("SnpSet", call=theCalls, callProbability=theConfs,
 		   annotation="genomewidesnp6")
-	obj2 <- annotate(obj)
-	fvarLabels(obj2)
-	isSnp(obj2)
-	position(obj2)
-	chromosome(obj2)
+	featureData(obj) <- addFeatureAnnotation(obj)
+	fvarLabels(obj)
+	isSnp(obj)
+	position(obj)
+	chromosome(obj)
 }
 @ 
 

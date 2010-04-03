@@ -25,11 +25,11 @@ requireAnnotation <- function(pkgname, lib=.libPaths()[1], verbose=TRUE){
 }
 
 isSupportedAnnotation <- function(x){
-	validAnn <- supportedAnnotation()
+	validAnn <- annotationPackages()
 	x %in% validAnn
 }
 
-supportedAnnotation <- function(){
+annotationPackages <- function(){
 	c("pd.mapping50k.hind240", "pd.mapping50k.xba240",
 	  "pd.mapping50k.hind240,pd.mapping50k.xba240",	  
 	  "pd.mapping250k.nsp",
@@ -37,15 +37,16 @@ supportedAnnotation <- function(){
 	  "pd.mapping250k.nsp,pd.mapping250k.sty",
 	  "pd.genomewidesnp.5",
 	  "pd.genomewidesnp.6",
-	  "genomewidesnp6",
-	  "genomewidesnp5",
-	  "human370v1c",
-	  "human370quadv3c",
-	  "human550v3b",
-	  "human650v3a",
-	  "human610quadv1b",
-	  "human660quadv1a",
-	  "human1mduov3b")	  
+	  "genomewidesnp6Crlmm",
+	  "genomewidesnp5Crlmm",
+	  "human370v1cCrlmm",
+	  "human370quadv3cCrlmm",
+	  "human550v3bCrlmm",
+	  "human650v3aCrlmm",
+	  "human610quadv1bCrlmm",
+	  "human660quadv1aCrlmm",
+	  "human1mduov3bCrlmm",
+	  "humanomni1quadv1bCrlmm")	  
 }
 
 affyPlatforms <- function(){

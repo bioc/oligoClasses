@@ -3,7 +3,10 @@
 \alias{CopyNumberSet-methods}
 \alias{copyNumber}
 \alias{copyNumber,CopyNumberSet-method}
+\alias{copyNumber<-}
 \alias{copyNumber<-,CopyNumberSet,matrix-method}
+\alias{cnConfidence}
+\alias{cnConfidence<-}
 \alias{cnConfidence,CopyNumberSet-method}
 \alias{cnConfidence<-,CopyNumberSet,matrix-method}
 \alias{initialize,CopyNumberSet-method}

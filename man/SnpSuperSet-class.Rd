@@ -2,6 +2,7 @@
 \Rdversion{1.1}
 \docType{class}
 \alias{SnpSuperSet-class}
+\alias{initialize,SnpSuperSet-method}
 
 \title{Class "SnpSuperSet"}
 \description{A class to store locus-level summaries of the quantile normalized intensities, genotype calls, and genotype confidence scores}

@@ -2,6 +2,8 @@
 \docType{methods}
 \alias{chromosome}
 \alias{chromosome,eSet-method}
+\alias{chromosome}
+\alias{chromosome<-}
 \alias{chromosome<-,eSet-method}
 \alias{position,eSet-method}
 \alias{isSnp}

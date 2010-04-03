@@ -30,7 +30,7 @@
 	\item{\code{confs(object)}:}{accessor for crlmm genotype confidence scores}
 	}
 }
-
+\seealso{\code{\link{addFeatureAnnotation}}}
 \examples{
 
 	theCalls <- matrix(sample(1:3, 20, rep=TRUE), nc=2)
@@ -40,15 +40,15 @@
 	calls(obj)
 	confs(obj)
 
-	if(require("genomewidesnp6Crlmm")){
-		ids <- c("SNP_A-2131660", "SNP_A-1967418", "SNP_A-1969580", "SNP_A-4263484",
-			 "SNP_A-1978185", "SNP_A-4264431", "SNP_A-1980898", "SNP_A-1983139",
-			 "SNP_A-4265735", "SNP_A-1995832")
-		rownames(theCalls) <- rownames(p) <- rownames(theConfs) <- ids
-		obj <- new("SnpSet", call=theCalls, callProbability=theConfs,
-			   annotation="genomewidesnp6")
-		obj2 <- annotate(obj)
-		fvarLabels(obj2)
-	}
+##	if(require("genomewidesnp6Crlmm")){
+##		ids <- c("SNP_A-2131660", "SNP_A-1967418", "SNP_A-1969580", "SNP_A-4263484",
+##			 "SNP_A-1978185", "SNP_A-4264431", "SNP_A-1980898", "SNP_A-1983139",
+##			 "SNP_A-4265735", "SNP_A-1995832")
+##		rownames(theCalls) <- rownames(p) <- rownames(theConfs) <- ids
+##		obj <- new("SnpSet", call=theCalls, callProbability=theConfs,
+##			   annotation="genomewidesnp6")
+##		obj2 <- annotate(obj)
+##		fvarLabels(obj2)
+##	}
 }
 \keyword{manip}
