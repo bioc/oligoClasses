@@ -106,3 +106,18 @@ setMethod("getA", "AlleleSet",
             }
             return(tmp)
           })
+
+setMethod("close", "AlleleSet", function(con, ...){
+	object <- con
+	names <- ls(assayData(object))
+	L <- length(names)
+	for(i in 1:L) close(eval(substitute(assayData(object)[[NAME]], list(NAME=names[i]))))
+	return()
+})
+setMethod("open", "AlleleSet", function(con, ...){
+	object <- con
+	names <- ls(assayData(object))
+	L <- length(names)
+	for(i in 1:L) open(eval(substitute(assayData(object)[[NAME]], list(NAME=names[i]))))
+	return()
+})

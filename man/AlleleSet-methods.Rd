@@ -18,6 +18,8 @@
 \alias{B<-}
 \alias{B<-,AlleleSet-method}
 \alias{B<-,AlleleSet,matrix-method}
+\alias{open,AlleleSet-method}
+\alias{close,AlleleSet-method}
 
 
 %- Also NEED an '\alias' for EACH other topic documented here.
@@ -31,11 +33,14 @@ getA(object)
 getM(object)
 A(object, ...)
 B(object, ...)
+open(con, ...)
+close(con, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{object}{\code{SnpQSet}, \code{SnpCnvQSet} or
     \code{TilingFeatureSet2} object.}
+  \item{conn}{\code{AlleleSet} or \code{AlleleSet} extension.}
   \item{...}{arguments to be passed to \code{allele} - 'sense' and
     'antisense' are valid values if the array is pre-SNP_5.0}
 }
@@ -64,6 +69,14 @@ B(object, ...)
   average log-intensities computed across channels:
   \code{M = log2(channel1)-log2(channel2)}
   \code{A = (log2(channel1)+log2(channel2))/2}
+
+  When large data support is enabled with the ff package, the
+  AssayData elements of an \code{AlleleSet} object can be
+  \code{ff_matrix} or \code{ffdf}, in which case pointers to the ff
+  object are stored in the assay data.  The functions \code{open} and
+  \code{close} can be used to open or close the connection,
+  respectively.
+
 }
 \value{
   A 3-dimensional array (SNP's x Samples x Strand) with the requested

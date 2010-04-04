@@ -280,15 +280,15 @@ addFeatureAnnotation.crlmm <- function(object, ...){
 	chrom <- c(chr.snp, chr.np)
 	##We may not have annotation for all of the snps
 	if(!all(featureNames(object) %in% names(position))){
-		message("Dropping loci for which physical position  is not available.")
-		object <- object[featureNames(object) %in% names(position), ]
+		warning("physical position not available for all featureNames")
+		## Very dangerous with ff objects
+		##object <- object[featureNames(object) %in% names(position), ]
 	}
 	ix <- match(featureNames(object), names(position))
 	position <- position[ix]
 	chrom <- chrom[ix]
 	##require(SNPchip)
 	chrom <- chromosome2integer(chrom)
-
 	stopifnot(identical(names(position), featureNames(object)))
 	if(sum(duplicated(names(position))) > 0){
 		warning("Removing rows with NA identifiers...")
