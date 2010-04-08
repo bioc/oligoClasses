@@ -233,3 +233,7 @@ added classes AffyExonPDInfo and AffySTPDInfo
 ** addFeatureAnnotation.crlmm provides a warning rather than perform a
    subset operation on the eSet object.  Subset operations are
    dangerous with ff objects
+
+04-08-2010 - B Carvalho (1.9.54)
+
+** moved NEWS to inst/
