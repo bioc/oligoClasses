@@ -8,7 +8,7 @@
 ##               (leaving out of fftempdir b/c parallel processes
 ##               access the object very easily)
 
-initializeBigMatrix <- function(name, nr, nc, vmode="integer"){
+initializeBigMatrix <- function(name, nr, nc, vmode="integer", initdata=NA){
   if(isPackageLoaded("ff")){
     if(prod(nr, nc) > 2^31){
       ##Need multiple matrices
@@ -22,51 +22,50 @@ initializeBigMatrix <- function(name, nr, nc, vmode="integer"){
       for(i in 1:(L-1)){  ## the Lth object may have fewer than nc columns
         resultsff[[i]] <- createFF(name=name[i],
                                    dim=c(nr, S),
-                                   vmode=vmode)
+                                   vmode=vmode, initdata=initdata)
       }
       ##the Lth element
       leftOver <- nc - ((L-1)*S)
       resultsff[[L]] <- createFF(name=name[L],
                                  dim=c(nr, leftOver),
-                                 vmode=vmode)
-      resultsff[[L]][,] <- NA
+                                 vmode=vmode, initdata=initdata)
       results <- do.call(ffdf, resultsff)
       rm(resultsff); gc()
     } else {
       results <- createFF(name=name,
                           dim=c(nr, nc),
-                          vmode=vmode)
-      results[,] <- NA
+                          vmode=vmode, initdata=initdata)
     }
   }  else {
-    theNA <- switch(vmode,
-                    integer=NA_integer_,
-                    double=NA_real_,
-                    character=NA_character_,
-                    stop("Mode ", vmode, " not implemented for regular matrices"))
-    results <- matrix(theNA, nr, nc)
+    init <- switch(vmode,
+                   integer=as.integer(initdata),
+                   double=as.double(initdata),
+                   character=as.character(initdata),
+                   stop("Mode ", vmode, " not implemented for regular matrices"))
+    results <- matrix(init, nr, nc)
   }
   return(results)
 }
 
-initializeBigVector <- function(name, n, vmode="integer"){
+initializeBigVector <- function(name, n, vmode="integer", initdata=NA){
   if(isPackageLoaded("ff")){
-    results <- ff(vmode=vmode, length=n, pattern=file.path(ldPath(), basename(name)))
+    results <- ff(initdata=initdata, vmode=vmode, length=n,
+                  pattern=file.path(ldPath(), basename(name)))
   }  else {
-    theNA <- switch(vmode,
-                    integer=NA_integer_,
-                    double=NA_real_,
-                    character=NA_character_,
+    init <- switch(vmode,
+                   integer=as.integer(initdata),
+                    double=as.double(initdata),
+                    character=as.character(initdata),
                     stop("Mode ", vmode, " not implemented for regular matrices"))
-    results <- rep(theNA, n)
+    results <- rep(init, n)
   }
   return(results)
 }
 
 
 
-createFF <- function(name, dim, vmode="double")
-  ff(vmode=vmode, dim=dim, pattern=file.path(ldPath(), basename(name)))
+createFF <- function(name, dim, vmode="double", initdata=NULL)
+  ff(initdata=initdata, vmode=vmode, dim=dim, pattern=file.path(ldPath(), basename(name)))
 
 setMethod("annotatedDataFrameFrom", "ff_matrix",
           Biobase:::annotatedDataFrameFromMatrix)

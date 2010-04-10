@@ -237,3 +237,7 @@ added classes AffyExonPDInfo and AffySTPDInfo
 04-08-2010 - B Carvalho (1.9.54)
 
 ** moved NEWS to inst/
+
+04-10-2010 - B Carvalho (1.9.55)
+
+** initializeBig(Vector/Matrix) get a 'initdata' argument
