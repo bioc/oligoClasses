@@ -10,8 +10,8 @@
   status of support for large datasets - see Details).
 }
 \usage{
-initializeBigMatrix(name, nr, nc, vmode = "integer")
-initializeBigVector(name, n, vmode = "integer")
+initializeBigMatrix(name, nr, nc, vmode = "integer", initdata = NA)
+initializeBigVector(name, n, vmode = "integer", initdata = NA)
 }
 
 \arguments{
@@ -20,6 +20,7 @@ initializeBigVector(name, n, vmode = "integer")
   \item{nc}{number of columns}
   \item{n}{length of the vector}
   \item{vmode}{mode - "integer", "double"}
+  \item{initdata}{Default is NA} %%FIXME
 }
 \details{
 

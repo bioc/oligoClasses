@@ -17,7 +17,7 @@
 }
 \section{Methods}{
 \describe{
-\item{\code{signature(object = "eSet")}}{ ~~describe this method here }
+\item{\code{signature(object = "eSet")}}{... }
 }}
 \keyword{methods}
 \keyword{manip}

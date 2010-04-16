@@ -6,6 +6,7 @@
 \alias{allele,AlleleSet-method}
 \alias{bothStrands}
 \alias{bothStrands,AlleleSet-method}
+\alias{bothStrands,SnpFeatureSet-method}
 \alias{db,AlleleSet-method}
 \alias{getA,AlleleSet-method}
 \alias{getM,AlleleSet-method}
@@ -39,6 +40,8 @@ Class \code{"\linkS4class{Versioned}"}, by class "eSet", distance 3.
     values: 'sense', 'antisense'.}
     \item{bothStrands}{\code{signature(object = "AlleleSet")}: tests if
       data contains allele summaries on both strands for a given SNP.}
+    \item{bothStrands}{\code{signature(object = "SnpFeatureSet")}: tests if
+     data contains allele summaries on both strands for a given SnpFeatureSet.}
     \item{db}{\code{signature(object = "AlleleSet")}: link to database connection.}
     \item{getA}{\code{signature(object = "AlleleSet")}: average
       intensities (across alleles)}

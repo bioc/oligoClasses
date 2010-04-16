@@ -18,8 +18,11 @@
 \alias{B<-}
 \alias{B<-,AlleleSet-method}
 \alias{B<-,AlleleSet,matrix-method}
+\alias{open}
+\alias{close}
 \alias{open,AlleleSet-method}
 \alias{close,AlleleSet-method}
+
 
 
 %- Also NEED an '\alias' for EACH other topic documented here.
@@ -40,7 +43,7 @@ close(con, ...)
 \arguments{
   \item{object}{\code{SnpQSet}, \code{SnpCnvQSet} or
     \code{TilingFeatureSet2} object.}
-  \item{conn}{\code{AlleleSet} or \code{AlleleSet} extension.}
+  \item{con}{\code{AlleleSet} or \code{AlleleSet} extension.}
   \item{...}{arguments to be passed to \code{allele} - 'sense' and
     'antisense' are valid values if the array is pre-SNP_5.0}
 }
