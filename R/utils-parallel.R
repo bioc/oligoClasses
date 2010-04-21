@@ -20,10 +20,10 @@ ocParallelStatus <- function(verbose=TRUE){
       message("     - Load 'ff'")
       if (!sn){
         message("     - Load 'snow'")
-        message("     - Use options(cluster=makeCluster(...)")
+        message("     - Use options(cluster=makeCluster(...))")
       } else {
         if (!cl)
-          message("     - Use options(cluster=makeCluster(...)")
+          message("     - Use options(cluster=makeCluster(...))")
       }
     }else{
       if (sn){
@@ -31,12 +31,12 @@ ocParallelStatus <- function(verbose=TRUE){
           message("Enabled")
         }else{
           message("Disabled")
-          message("     - Use options(cluster=makeCluster(...)")
+          message("     - Use options(cluster=makeCluster(...))")
         }
       }else{
         message("Disabled")
         message("     - Load 'snow'")
-        message("     - Use options(cluster=makeCluster(...)")
+        message("     - Use options(cluster=makeCluster(...))")
       }
     }
     message(getBar())
