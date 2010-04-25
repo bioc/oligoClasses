@@ -92,8 +92,8 @@ requireClusterPkgSet <- function(packages){
   TRUE
 }
 
-requireClusterPkg <- function(...)
-  all(unlist(clusterCall(getCluster(), require, ...)))
+requireClusterPkg <- function(pkg, character.only=TRUE)
+  all(unlist(clusterCall(getCluster(), require, pkg, character.only=character.only)))
 
 ocLapply <- function(X, FUN, ..., neededPkgs){
   if (parStatus()){
@@ -102,11 +102,12 @@ ocLapply <- function(X, FUN, ..., neededPkgs){
     }else{
       neededPkgs <- unique(append(neededPkgs, "ff"))
     }
-    requireClusterPkgSet(neededPkgs)
-    parLapply(getCluster(), X, FUN, ...)
+    ok <- requireClusterPkgSet(neededPkgs)
+    res <- parLapply(getCluster(), X, FUN, ...)
   }else{
-    lapply(X, FUN, ...)
+    res <- lapply(X, FUN, ...)
   }
+  return(res)
 }
 
 splitIndicesByLength <- function(x, lg){
