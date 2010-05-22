@@ -324,3 +324,5 @@ isPackageLoaded <- function(pkg){
   pkg %in% search()
 }
 
+integerScoreToProbability <- function(x)  1-2^(-x/1000)
+

@@ -56,7 +56,7 @@ setMethod("chromosome", "eSet",
 		  return(featureData(object)$chromosome)
 	  })
 
-setReplaceMethod("chromosome", c("eSet", "ANY"),
+setReplaceMethod("chromosome", "eSet", 
 		 function(object, value){
 			 fData(object)$chromosome <-  value
 			 object
@@ -68,5 +68,5 @@ setMethod("position", "eSet",
 		  if(!("position" %in% fvarLabels(object))){
 			  stop("position not in fvarLabels")
 		  }
-		  pos <- featureData(object)$position
+		  featureData(object)$position
           })

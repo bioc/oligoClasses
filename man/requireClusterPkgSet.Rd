@@ -11,13 +11,15 @@
 
 \usage{
 requireClusterPkgSet(packages)
-requireClusterPkg(...)
+requireClusterPkg(pkg, character.only)
 }
 
 \arguments{
   \item{packages}{character vector with the names of the packages to be
     loaded on the compute nodes.}
-  \item{\dots}{same arguments as \code{require}}
+  \item{pkg}{name of a package given as a name or literal character string}	
+  \item{character.only}{a logical indicating whether `pkg' can be
+          assumed to be a character string}
 }
 \details{
   \code{requireClusterPkgSet} applies \code{require} for a set of
