@@ -245,3 +245,8 @@ added classes AffyExonPDInfo and AffySTPDInfo
 05-22-2010 - R. Scharpf (1.11.1)
 
 ** fixed man page for requireClusterPkgSet.  Added integerScoreToProbability function.
+
+06-30-2010 - R. Scharpf (1.11.2)
+
+** added checkExists utility to oligoClasses package 
+(checks objects in workspace or specified file directory before executing a function)
