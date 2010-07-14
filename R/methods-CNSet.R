@@ -15,20 +15,20 @@ setMethod("totalCopyNumber",
 	}
 	if(missing(i) & !missing(j)){
 		snp.index <- which(isSnp(object))	
-		cn.total <- as.matrix(CA(cnSet)[, j])
-		cb <- as.matrix(CB(cnSet)[snp.index, j]	)
+		cn.total <- as.matrix(CA(object)[, j])
+		cb <- as.matrix(CB(object)[snp.index, j]	)
 		cn.total[snp.index, ] <- cn.total[snp.index, ] + cb		
 	}
 	if(!missing(i) & missing(j)){
 		snp.index <- intersect(which(isSnp(object)), i)
-		cn.total <- as.matrix(CA(cnSet)[i, ])
-		cb <- as.matrix(CB(cnSet)[snp.index, ])	
+		cn.total <- as.matrix(CA(object)[i, ])
+		cb <- as.matrix(CB(object)[snp.index, ])	
 		cn.total[snp.index, ] <- cn.total[snp.index, ] + cb				
 	}
 	if(!missing(i) & !missing(j)){
 		snp.index <- intersect(which(isSnp(object)), i)		
-		cn.total <- as.matrix(CA(cnSet)[i, j])	
-		cb <- as.matrix(CB(cnSet)[snp.index, j])
+		cn.total <- as.matrix(CA(object)[i, j])	
+		cb <- as.matrix(CB(object)[snp.index, j])
 		cn.total[snp.index, ] <- cn.total[snp.index, ] + cb
 	}
 	cn.total <- cn.total/100

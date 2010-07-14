@@ -13,6 +13,7 @@
 \alias{CB<-,CNSet-method}
 \alias{CB<-,CNSet,matrix-method}
 \alias{initialize,CNSet-method}
+\alias{totalCopyNumber,CNSet,integer,integer-method}
 
 \title{Class "CNSet"}
 \description{A class to store copy number estimates as well as locus-level summaries of the normalized intensities}
@@ -47,7 +48,8 @@ Class \code{"\linkS4class{Versioned}"}, by class "SnpSuperSet", distance 5.
     \item{CB}{\code{signature(object = "CNSet")}: ... }
     \item{CB<-}{\code{signature(object = "CNSet", value = "matrix")}: ... }
    \item{initialize}{\code{signature(.Object = "CNSet")}: ... }
-   }
+  \item{totalCopyNumber}{\code{signature(object="CNSet", i="integer", j="integer")}: Computes total copy number for markers \code{i} and samples \code{j} of a \code{CNSet} object}
+}
 }
 \author{R. Scharpf}
 
@@ -55,12 +57,13 @@ Class \code{"\linkS4class{Versioned}"}, by class "SnpSuperSet", distance 5.
 	\code{\linkS4class{AlleleSet}}, \code{\linkS4class{SnpSuperSet}}
 }
 \examples{
-\dontrun{
+	##For purposes of illustration only
 	theCalls <- matrix(2, nc=2, nrow=10)
 	A <- matrix(sample(1:1000, 20), 10,2)
 	B <- matrix(sample(1:1000, 20), 10,2)
-	CA <- matrix(rnorm(20, 1), nrow=10)
-	CB <- matrix(rnorm(20, 1), nrow=10)
+        ## stored CA, CB as integers:
+	CA <- matrix(as.integer(rnorm(20, 100)), nrow=10)
+	CB <- matrix(as.integer(rnorm(20, 100)), nrow=10)
 	p <- matrix(runif(20), nc=2)
 	theConfs <- round(-1000*log2(1-p))
 	obj <- new("CNSet",
@@ -78,6 +81,7 @@ Class \code{"\linkS4class{Versioned}"}, by class "SnpSuperSet", distance 5.
 	B(obj)
 	CA(obj)
 	CB(obj)
+
 	##with annotation
 	if(require("genomewidesnp6Crlmm")){
 		ids <- c("SNP_A-2131660", "SNP_A-1967418", "SNP_A-1969580", "SNP_A-4263484",
@@ -92,13 +96,14 @@ Class \code{"\linkS4class{Versioned}"}, by class "SnpSuperSet", distance 5.
 			   callProbability=theConfs,
 			   CA=CA,
 			   CB=CB, annotation="genomewidesnp6")
+		featureData(obj2) <- addFeatureAnnotation(obj2)	   
 		fvarLabels(obj2)
-
 		## additional accessors
 		isSnp(obj2)
 		chromosome(obj2)
 		position(obj2)
-	}
+		total.copy.number <- totalCopyNumber(obj2, i=1:5, j=1:2)
+		}
 }
-}	
+	
 \keyword{classes}
