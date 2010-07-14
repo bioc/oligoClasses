@@ -360,7 +360,6 @@ checkExists <- function(name, path=".", FUN, FUN2, save.it=TRUE, load.it, ...){
 		}
 	} else{
 		message(name, " does not exist in .GlobalEnv")
-
 		fname <- file.path(path, paste(name, ".rda", sep=""))
 		if(file.exists(fname)){
 			message(fname, " exists")
@@ -370,8 +369,11 @@ checkExists <- function(name, path=".", FUN, FUN2, save.it=TRUE, load.it, ...){
 			}					
 			if(load.it){
 				message("Loading ", fname)
+				tmp <- ls()
 				load(fname)
-				if(!exists("object")) object <- get(name)
+				if(!exists("object")) object <- tryCatch(get(name), error=function(e) NULL)
+				##extremely ad-hoc
+				if(is.null(object)) object <- get(ls()[!(ls() %in% tmp) & !(ls() %in% c("object", "tmp"))])
 				return(object)
 			} else {
 				message("load.it is FALSE.  Running FUN")
