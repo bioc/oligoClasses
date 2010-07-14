@@ -37,4 +37,4 @@ setGeneric("CB<-", function(object, value) standardGeneric("CB<-"))
 setGeneric("genomeBuild", function(object) standardGeneric("genomeBuild"))
 setGeneric("geometry", function(object) standardGeneric("geometry"))
 
-setGeneric("totalCopyNumber", function(object,...) standardGeneric("totalCopyNumber"))
+setGeneric("totalCopyNumber", function(object, i, j, ...) standardGeneric("totalCopyNumber"))

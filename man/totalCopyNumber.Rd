@@ -13,23 +13,41 @@
 
 }
 \usage{
-	totalCopyNumber(object, i, j)
+	totalCopyNumber(object, i, j, ...)
 }
 
 \arguments{
+
   \item{object}{
+
   Object of class \code{CNSet} 
+
 }
+
   \item{i}{
-  numeric vector for subsetting the rows.
+
+  integer vector for subsetting the rows
+
 }
-  \item{j}{
-  numeric vector for subsetting the columns.
+
+\item{j}{
+
+  integer vector for subsetting the columns
+
 }
+
+\item{...}{
+
+     Ignored.
+
 }
+
+}
+
 \value{
 	\code{matrix}
 }
+
 \author{
 R. Scharpf
 }
