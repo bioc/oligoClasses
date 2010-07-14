@@ -82,4 +82,4 @@ setClass("CNSet", contains="SnpSuperSet")
 setClass("oligoSnpSet", contains="SnpSet")
 setClass("CopyNumberSet", contains="eSet")
 
-
+setClassUnion("integerOrMissing", c("integer", "missing"))

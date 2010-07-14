@@ -8,7 +8,7 @@ setReplaceMethod("CB", "CNSet", function(object, value) assayDataElementReplace(
 setReplaceMethod("CA", "CNSet", function(object, value) assayDataElementReplace(object, "CA", value))
 
 setMethod("totalCopyNumber",
-	  signature=signature(object="CNSet", i="integer", j="integer"),
+	  signature=signature(object="CNSet", i="integerOrMissing", j="integerOrMissing"),
 	  function(object, i, j, ...){
 	if(missing(i) & missing(j)){
 		if(inherits(CA(object), "ff") | inherits(CA(object), "ffdf")) stop("Must specify i and/or j for ff objects")

@@ -13,7 +13,7 @@
 \alias{CB<-,CNSet-method}
 \alias{CB<-,CNSet,matrix-method}
 \alias{initialize,CNSet-method}
-\alias{totalCopyNumber,CNSet,integer,integer-method}
+	\alias{totalCopyNumber,CNSet,integerOrMissing,integerOrMissing-method}
 
 \title{Class "CNSet"}
 \description{A class to store copy number estimates as well as locus-level summaries of the normalized intensities}

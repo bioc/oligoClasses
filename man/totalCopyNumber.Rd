@@ -20,7 +20,8 @@
 
   \item{object}{
 
-  Object of class \code{CNSet} 
+  Object of class \code{CNSet}.  This object must be annotated with
+  information on whether the marker is a SNP or nonpolymorphic.
 
 }
 
@@ -44,8 +45,24 @@
 
 }
 
+\details{
+
+This accessor was created to deal with objects in which the internal
+data structure of the \code{assayDataElements} may be either \code{ff}
+objects or simple matrices. For \code{ff} or \code{ffdf} objects, we
+require specification of \code{i} or \code{j} in order to prevent the
+accidental pulling the entire dataset (stored on disk) to memory.
+
+}
+
 \value{
 	\code{matrix}
+}
+
+\seealso{
+
+	\code{\link{addFeatureAnnotation}}
+
 }
 
 \author{

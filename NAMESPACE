@@ -1,6 +1,6 @@
 ## oligoClasses NAMESPACE
 ## Importing
-importClassesFrom(methods, ANY, character, data.frame, "function", integer, matrix, numeric)
+importClassesFrom(methods, ANY, character, data.frame, "function", integer, matrix, numeric, ordered, missing)
 importMethodsFrom(methods, initialize, show)
 importFrom(methods, "@<-", callNextMethod, new, validObject)
 
