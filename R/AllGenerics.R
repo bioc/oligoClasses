@@ -28,13 +28,11 @@ setGeneric("kind", function(object) standardGeneric("kind"))
 setGeneric("position", function(object) standardGeneric("position"))
 setGeneric("isSnp", function(object) standardGeneric("isSnp"))
 
-setGeneric("CA", function(object) standardGeneric("CA"))
-setGeneric("CB", function(object) standardGeneric("CB"))
-setGeneric("CA<-", function(object, value) standardGeneric("CA<-"))
-setGeneric("CB<-", function(object, value) standardGeneric("CB<-"))
+
+
 
 
 setGeneric("genomeBuild", function(object) standardGeneric("genomeBuild"))
 setGeneric("geometry", function(object) standardGeneric("geometry"))
 
-setGeneric("totalCopyNumber", function(object, i, j, ...) standardGeneric("totalCopyNumber"))
+
