@@ -36,5 +36,8 @@ No methods defined with class "SnpSuperSet" in the signature.
 }
 \examples{
 showClass("SnpSuperSet")
+## empty object from the class
+x <- new("matrix")
+new("SnpSuperSet", alleleA=x, alleleB=x, call=x, callProbability=x)
 }
 \keyword{classes}

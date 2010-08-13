@@ -68,7 +68,7 @@ exportMethods(getM, getA, annotatedDataFrameFrom, open, close)
 
 ##export(addFeatureAnnotation.pd)
 
-export(annotationPackages, addFeatureAnnotation, integerScoreToProbability, checkExists)
+export(annotationPackages, addFeatureAnnotation, checkExists)
 
 ## For debugging
 ## exportPattern("^[^\\.]")

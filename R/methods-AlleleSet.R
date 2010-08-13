@@ -107,15 +107,24 @@ setMethod("getA", "AlleleSet",
             return(tmp)
           })
 
+isFF <- function(object){
+	names <- ls(assayData(object))
+	ifelse(inherits(assayData(object)[[names[[1]]]], "ff") | inherits(assayData(object)[[names[[1]]]], "ffdf"), TRUE, FALSE)
+}
+
 setMethod("close", "AlleleSet", function(con, ...){
+	##con is just to keep the same generic arguments
 	object <- con
+	if(!isFF(object)) return()
 	names <- ls(assayData(object))
 	L <- length(names)
 	for(i in 1:L) close(eval(substitute(assayData(object)[[NAME]], list(NAME=names[i]))))
 	return()
 })
+
 setMethod("open", "AlleleSet", function(con, ...){
 	object <- con
+	if(!isFF(object)) return()
 	names <- ls(assayData(object))
 	L <- length(names)
 	for(i in 1:L) open(eval(substitute(assayData(object)[[NAME]], list(NAME=names[i]))))

@@ -325,7 +325,6 @@ isPackageLoaded <- function(pkg){
   pkg %in% search()
 }
 
-integerScoreToProbability <- function(x)  1-2^(-x/1000)
 
 checkExists <- function(.name, .path=".", .FUN, .FUN2, .save.it=TRUE, .load.it, ...){
 	##default of load.it depends on whether the object exists in .GlobalEnv

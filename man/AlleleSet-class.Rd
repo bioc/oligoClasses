@@ -56,5 +56,10 @@ Class \code{"\linkS4class{Versioned}"}, by class "eSet", distance 3.
 }
 \examples{
 showClass("AlleleSet")
+## an empty AlleleSet
+x <- new("matrix")
+new("AlleleSet", senseAlleleA=x, senseAlleleB=x, antisenseAlleleA=x, antisenseAlleleB=x)
+##or
+new("AlleleSet", alleleA=x, alleleB=x)
 }
 \keyword{classes}

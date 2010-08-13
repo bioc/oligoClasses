@@ -69,16 +69,18 @@ setClass("AlleleSet", contains="eSet")
 ###########################################################################  
 setClass("SnpSuperSet", contains=c("AlleleSet", "SnpSet"))
 
-###########################################################################
-##Summary-level classes - CNP
-###########################################################################
-setClass("CNSet", contains="SnpSuperSet")##, representation(batch="factor"))
-
 
 ###########################################################################
 ##SNP-level classes
 ###########################################################################  
-setClass("oligoSnpSet", contains="SnpSet")
-setClass("CopyNumberSet", contains="eSet")
+setClass("oligoSnpSet", contains="SnpSet") ## total copy number and genotypes
+setClass("CopyNumberSet", contains="eSet") ## total copy number (no genotypes available)
 
-setClassUnion("integerOrMissing", c("integer", "missing", "numeric"))
+###########################################################################
+##Summary-level classes - CNP
+###########################################################################
+setOldClass("ffdf")
+setClassUnion("list_or_ffdf", c("list", "ffdf"))
+setClass("CNSet", representation(lM="list_or_ffdf"), contains="SnpSuperSet")
+
+
