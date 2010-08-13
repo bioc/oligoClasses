@@ -71,8 +71,9 @@ setClass("SnpSuperSet", contains=c("AlleleSet", "SnpSet"))
 
 ###########################################################################
 ##Summary-level classes - CNP
-###########################################################################  
-setClass("CNSet", contains="SnpSuperSet")
+###########################################################################
+setClass("CNSet", contains="SnpSuperSet")##, representation(batch="factor"))
+
 
 ###########################################################################
 ##SNP-level classes
