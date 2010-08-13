@@ -341,22 +341,22 @@ checkExists <- function(.name, .path=".", .FUN, .FUN2, .save.it=TRUE, .load.it, 
 				message(".load.it is TRUE")
 				message("Loading ", fname)
 				load(fname)
-				if(!exists("object")) object <- get(.name)
-				return(object)
+				if(!exists(".object")) .object <- get(.name)
+				return(.object)
 			} else {
 				message(fname, " does not exist")
 				message("Running .FUN")
-				object <- .FUN(...)
+				.object <- .FUN(...)
 				if(.save.it) {
 					message("Saving ", fname)
-					save(object, file=fname)
+					save(.object, file=fname)
 				}
-				return(object)
+				return(.object)
 			}
 		} else {
 			message(".load.it is FALSE. Nothing to do")
-			object <- get(.name)
-			return(object)
+			.object <- get(.name)
+			return(.object)
 		}
 	} else{
 		message(.name, " does not exist in .GlobalEnv")
@@ -369,29 +369,29 @@ checkExists <- function(.name, .path=".", .FUN, .FUN2, .save.it=TRUE, .load.it, 
 			}					
 			if(.load.it){
 				message("Loading ", fname)
-				tmp <- ls()
+				.tmp <- ls()
 				load(fname)
-				if(!exists("object")) object <- tryCatch(get(.name), error=function(e) NULL)
+				if(!exists(".object")) .object <- tryCatch(get(.name), error=function(e) NULL)
 				##extremely ad-hoc
-				if(is.null(object)) object <- get(ls()[!(ls() %in% tmp) & !(ls() %in% c("object", "tmp"))])
-				return(object)
+				if(is.null(.object)) .object <- get(ls()[!(ls() %in% .tmp) & !(ls() %in% c(".object", ".tmp"))])
+				return(.object)
 			} else {
 				message(".load.it is FALSE.  Running .FUN")
-				object <- .FUN(...)
+				.object <- .FUN(...)
 				if(.save.it) {
 					message("Saving ", fname)
-					save(object, file=fname)
+					save(.object, file=fname)
 				}
-				return(object)
+				return(.object)
 			}
 		} else {
 			message(fname, " does not exist. Running .FUN")
-			object <- .FUN(...)
+			.object <- .FUN(...)
 			if(.save.it) {
 				message("Saving ", fname)
-				save(object, file=fname)
+				save(.object, file=fname)
 			}
-			return(object)
+			return(.object)
 		}
 	}
 }
