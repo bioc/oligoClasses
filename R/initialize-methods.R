@@ -45,7 +45,6 @@ setMethod("initialize", "oligoSnpSet",
 setValidity("oligoSnpSet", function(object) {
 	assayDataValidMembers(assayData(object), c("call", "callProbability", "copyNumber", "cnConfidence"))
 })
-
 ## RS: ask BC about this... initialization method for CNSet does not work when this is uncommented
 setValidity("AlleleSet",
             function(object){
@@ -62,24 +61,6 @@ setValidity("AlleleSet",
                 TRUE
               }
             })
-
-alleleSetNew <- 
-	  function(.Object,
-		   assayData,
-		   phenoData = annotatedDataFrameFrom(assayData, byrow=FALSE),
-                   featureData = annotatedDataFrameFrom(assayData, byrow=TRUE),
-                   experimentData = new("MIAME"),
-                   annotation = character(),
-                   protocolData = phenoData[,integer(0)], ...){
-		  if(missing(assayData)) assayData <- assayDataNew(...)
-		  new("AlleleSet",
-		      assayData=assayData,
-		      phenoData=phenoData,
-		      featureData=featureData,
-		      experimentData=experimentData,
-		      annotation=annotation,
-		      protocolData=protocolData)
-	  }
 setMethod("initialize", "SnpSuperSet", function(.Object,  ...) callNextMethod(.Object, ...))
 setMethod("initialize", "CNSet",
 	  function(.Object, lM, ...){

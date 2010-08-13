@@ -8,9 +8,10 @@
 \description{A class to store parameters for CN estimation as well as locus-level summaries of the normalized intensities}
 \section{Objects from the Class}{
 
-		 An object from the class is not intended to be
-		 initialized by the user, but returned by the
-		 \code{genotype} function.
+		 An object from the class is not generally intended to
+		 be initialized by the user, but returned by the
+		 \code{genotype} function.  The example below
+		 initializes an empty CNSet object.
 
 }
 \section{Slots}{
@@ -26,12 +27,10 @@
   }
 }
 \section{Extends}{
-Class \code{"\linkS4class{SnpSuperSet}"}, directly.
-Class \code{"\linkS4class{AlleleSet}"}, by class "SnpSuperSet", distance 2.
-Class \code{"\linkS4class{SnpSet}"}, by class "SnpSuperSet", distance 2.
-Class \code{"\linkS4class{eSet}"}, by class "SnpSuperSet", distance 3.
-Class \code{"\linkS4class{VersionedBiobase}"}, by class "SnpSuperSet", distance 4.
-Class \code{"\linkS4class{Versioned}"}, by class "SnpSuperSet", distance 5.
+Class \code{"\linkS4class{SnpSet}"}, directly.
+Class \code{"\linkS4class{eSet}"}, by class "SnpSet", distance 2.
+Class \code{"\linkS4class{VersionedBiobase}"}, by class "SnpSet", distance 3.
+Class \code{"\linkS4class{Versioned}"}, by class "SnpSet", distance 4.
 }
 \section{Methods}{
   \describe{

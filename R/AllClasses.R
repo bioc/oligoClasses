@@ -66,7 +66,8 @@ setClass("AlleleSet", contains="eSet")
 
 ###########################################################################
 ## Combo classes - SNP Summaries - alleles + calls/conf
-###########################################################################  
+###########################################################################
+## RS is no longer using this class
 setClass("SnpSuperSet", contains=c("AlleleSet", "SnpSet"))
 
 
@@ -81,6 +82,13 @@ setClass("CopyNumberSet", contains="eSet") ## total copy number (no genotypes av
 ###########################################################################
 setOldClass("ffdf")
 setClassUnion("list_or_ffdf", c("list", "ffdf"))
-setClass("CNSet", representation(lM="list_or_ffdf"), contains="SnpSuperSet")
+
+## AssayData elements in AlleleSet are platform dependent.
+##
+## It is nontrivial to define an initialization method for AlleleSet that can then be extended by
+## classes that inherit methods from it.
+##
+## Easier just to extend SnpSet directly and define accessors for CNSet
+setClass("CNSet", representation(lM="list_or_ffdf"), contains="SnpSet")
 
 

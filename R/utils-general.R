@@ -145,16 +145,6 @@ celfileDate <- function(filename) {
 	results
 }
 
- ## ---------------------------------------------------------------------------
-## not to be exported
-hapmapPedFile <- function(){
-	pedFile <- read.csv("~/projects/Beaty/inst/extdata/HapMap_samples.csv", as.is=TRUE)
-	pedFile <- pedFile[, 1:5]
-	colnames(pedFile) <- c("coriellId", "familyId", "individualId", "fatherId", "motherId")
-	return(pedFile)
-}
-
-
 addFeatureAnnotation <- function(object){
 	if(length(grep("pd.", annotation(object))) >= 1){
 		fD <- addFeatureAnnotation.pd(object)
@@ -249,12 +239,6 @@ addFeatureAnnotation.crlmm <- function(object, ...){
 	snpProbes <- get("snpProbes", envir=.oligoClassesPkgEnv)	
 	##Feature Data
 	isSnp <- 1L-as.integer(featureNames(object) %in% rownames(cnProbes))
-	isSnp <- rep(as.integer(0), nrow(object))
-	snpIndex <- function(object){
-		index <- match(snpNames(object), featureNames(object), nomatch=0)
-		index[index != 0]
-	}
-	isSnp[snpIndex(object)] <- as.integer(1)
 	names(isSnp) <- featureNames(object)
 	if(any(isSnp)){
 		snps <- featureNames(object)[isSnp == 1]

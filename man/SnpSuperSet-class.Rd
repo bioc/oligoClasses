@@ -7,7 +7,7 @@
 \title{Class "SnpSuperSet"}
 \description{A class to store locus-level summaries of the quantile normalized intensities, genotype calls, and genotype confidence scores}
 \section{Objects from the Class}{
-\code{new("SnpSuperSet", assayData, phenoData, featureData, experimentData, annotation, protocolData, call, callProbability, ...)}.
+\code{new("SnpSuperSet", allelea=alleleA, alleleB=alleleB, call=call, callProbability, ...)}.
 }
 \section{Slots}{
   \describe{
