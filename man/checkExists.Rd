@@ -13,26 +13,26 @@
 }
 
 \usage{
-checkExists(.name, path.check = ".", FUN.check, FUN2.check, save.it=TRUE, load.it, ...)
+checkExists(.name, .path = ".", .FUN, .FUN2, .save.it=TRUE, .load.it, ...)
 }
 
 
 \arguments{
-  \item{name}{
+  \item{.name}{
   Character string giving name of object in global environment
 }
-  \item{path}{
+  \item{.path}{
   Path to where the object is saved.
 }
-  \item{FUN}{
+  \item{.FUN}{
   Function to be executed if <name> is not in the global environment and the file does not exist.
 }
-  \item{FUN2}{
+  \item{.FUN2}{
 
   Not currently used.
 	  
 }
- \item{save.it}{
+ \item{.save.it}{
 
  Logical.  Whether to save the object to the directory indicaged by
  \code{path}. This argument is ignored if the object was loaded from
@@ -40,7 +40,7 @@ checkExists(.name, path.check = ".", FUN.check, FUN2.check, save.it=TRUE, load.i
 
 }
 
-\item{load.it}{
+\item{.load.it}{
 
 Logical.  If load.it is TRUE, we try to load the object from the
 indicated \code{path}.  The returned object will replace the object in
@@ -56,9 +56,6 @@ when the function is executed.
 }
 }
 
-\details{
-
-}
 \value{
 
 	Could be anything -- depends on what FUN, FUN2 perform.  
@@ -76,14 +73,14 @@ R. Scharpf
 path <- tempdir()
 dir.create(path)
 x <- 3+6
-x <- checkExists("x", path=path, FUN=function(y, z) y+z, y=3, z=6)
+x <- checkExists("x", .path=path, .FUN=function(y, z) y+z, y=3, z=6)
 rm(x)
-x <- checkExists("x", path=path, FUN=function(y, z) y+z, y=3, z=6)
+x <- checkExists("x", .path=path, .FUN=function(y, z) y+z, y=3, z=6)
 rm(x)
-x <- checkExists("x", path=path, FUN=function(y, z) y+z, y=3, z=6)
+x <- checkExists("x", .path=path, .FUN=function(y, z) y+z, y=3, z=6)
 rm(x)
 ##now there is a file called x.rda in tempdir().  The file will be loaded
-x <- checkExists("x", path=path, FUN=function(y, z) y+z, y=3, z=6)
+x <- checkExists("x", .path=path, .FUN=function(y, z) y+z, y=3, z=6)
 rm(x)
 unlink(path, recursive=TRUE)
 }
