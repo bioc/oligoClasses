@@ -72,4 +72,3 @@ export(annotationPackages, addFeatureAnnotation, checkExists)
 
 ## For debugging
 ## exportPattern("^[^\\.]")
-export(addFeatureAnnotation.crlmm)

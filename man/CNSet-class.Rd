@@ -12,14 +12,28 @@
 \alias{open,CNSet-method}
 	       
 \title{Class "CNSet"}
-\description{A class to store parameters for CN estimation as well as locus-level summaries of the normalized intensities}
+\description{
+
+	CNSet is a container for intermediate data and parameters
+	 pertaining to allele-specific copy number estimation. Methods
+	 for CNSet objects, including accessors for linear model
+	 parameters and allele-specific copy number are included here.
+
+
+}
 \section{Objects from the Class}{
 
 		 An object from the class is not generally intended to
 		 be initialized by the user, but returned by the
-		 \code{genotype} function.  The example below
-		 initializes an empty CNSet object.
+		 \code{genotype} function.
 
+		 The following creates a very basic \code{CNSet} with
+		 \code{assayData} containing the required alleleA,
+		 alleleB, call, and callProbability matrices.
+
+		 \code{new(CNSet, alleleA=new("matrix"), alleleB=new("matrix"), call=new("matrix"),
+			   callProbability=new("matrix"))}
+		 
 }
 \section{Slots}{
   \describe{
@@ -54,8 +68,48 @@ Class \code{"\linkS4class{Versioned}"}, by class "SnpSet", distance 4.
 }
 \examples{
 	##An empty CNSet
-	x <- new("matrix")
-	new("CNSet", alleleA=x, alleleB=x, call=x, callProbability=x, lM=list())
+  	if(require("genomewidesnp6Crlmm")){
+		require("genomewidesnp6Crlmm")
+		fns <- c("SNP_A-2131660", "SNP_A-1967418", "SNP_A-1969580", "SNP_A-4263484",
+			 "SNP_A-1978185", "SNP_A-4264431", "SNP_A-1980898", "SNP_A-1983139",
+			 "SNP_A-4265735", "SNP_A-1995832")
+		theCalls <- matrix(2, nc=2, nrow=10)
+		A <- matrix(sample(1:1000, 20), 10,2)
+		B <- matrix(sample(1:1000, 20), 10,2)
+		p <- matrix(runif(20), nc=2)
+		theConfs <- round(-1000*log2(1-p))
+		## Batch can be defined by the scan date of the array
+		##or the 96 well chemistry plate from which the
+		##samples were derived.  Here we indicate that the two
+		##samples were from the same batch.
+		batch <- rep(factor(1), ncol(A))
+		## each parameter is a R x C matrix, where the number
+		## of rows (R) corresponds to the number of features
+		## and the number of columns (C) corresponds to the
+		## number of batches.  In this toy example, the
+		## samples were assumed to be from the same batch.
+		## Ordinarily, one would have 50+ samples in a given
+		## batch.  
+		dns <- list(fns, batch="1")
+		##lM <- crlmm:::initializeParamObject(dns)
+		obj <- new("CNSet",
+			   alleleA=A,
+			   alleleB=B,
+			   call=theCalls,
+			   callProbability=theConfs,
+			   lM=list(),
+			   annotation="genomewidesnp6")
+		featureNames(obj) <- fns
+		## Accessors
+		calls(obj)
+		confs(obj)
+		A(obj)
+		B(obj)
+		featureData(obj) <- addFeatureAnnotation(obj)
+		isSnp(obj)
+		chromosome(obj)
+		position(obj)
+	}	
 }
 	
 \keyword{classes}
