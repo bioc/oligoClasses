@@ -64,7 +64,7 @@ exportMethods(annotation, db, initialize, genomeBuild,
               geometry, kind, manufacturer)
 
 ## Some general methods
-exportMethods(getM, getA, annotatedDataFrameFrom, open, close, totalCopyNumber)
+exportMethods(getM, getA, annotatedDataFrameFrom, open, close)
 
 ##export(addFeatureAnnotation.pd)
 
