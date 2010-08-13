@@ -327,67 +327,67 @@ isPackageLoaded <- function(pkg){
 
 integerScoreToProbability <- function(x)  1-2^(-x/1000)
 
-checkExists <- function(name, path=".", FUN, FUN2, save.it=TRUE, load.it, ...){
+checkExists <- function(.name, .path=".", .FUN, .FUN2, .save.it=TRUE, .load.it, ...){
 	##default of load.it depends on whether the object exists in .GlobalEnv
-	if(exists(name)){
+	if(exists(.name)){
 		message("Exists in .GlobalEnv")
-		if(missing(load.it)){
-			message("load.it is missing. Setting load.it to FALSE")
-			load.it <- FALSE
+		if(missing(.load.it)){
+			message(".load.it is missing. Setting .load.it to FALSE")
+			.load.it <- FALSE
 		}
-		if(load.it){
-			fname <- file.path(path, paste(name, ".rda", sep=""))
+		if(.load.it){
+			fname <- file.path(.path, paste(.name, ".rda", sep=""))
 			if(file.exists(fname)){
-				message("load.it is TRUE")
+				message(".load.it is TRUE")
 				message("Loading ", fname)
 				load(fname)
-				if(!exists("object")) object <- get(name)
+				if(!exists("object")) object <- get(.name)
 				return(object)
 			} else {
 				message(fname, " does not exist")
-				message("Running FUN")
-				object <- FUN(...)
-				if(save.it) {
+				message("Running .FUN")
+				object <- .FUN(...)
+				if(.save.it) {
 					message("Saving ", fname)
 					save(object, file=fname)
 				}
 				return(object)
 			}
 		} else {
-			message("load.it is FALSE. Nothing to do")
-			object <- get(name)
+			message(".load.it is FALSE. Nothing to do")
+			object <- get(.name)
 			return(object)
 		}
 	} else{
-		message(name, " does not exist in .GlobalEnv")
-		fname <- file.path(path, paste(name, ".rda", sep=""))
+		message(.name, " does not exist in .GlobalEnv")
+		fname <- file.path(.path, paste(.name, ".rda", sep=""))
 		if(file.exists(fname)){
 			message(fname, " exists")
-			if(missing(load.it)){
-				message("load.it is missing. Setting load.it to TRUE")
-				load.it <- TRUE
+			if(missing(.load.it)){
+				message(".load.it is missing. Setting .load.it to TRUE")
+				.load.it <- TRUE
 			}					
-			if(load.it){
+			if(.load.it){
 				message("Loading ", fname)
 				tmp <- ls()
 				load(fname)
-				if(!exists("object")) object <- tryCatch(get(name), error=function(e) NULL)
+				if(!exists("object")) object <- tryCatch(get(.name), error=function(e) NULL)
 				##extremely ad-hoc
 				if(is.null(object)) object <- get(ls()[!(ls() %in% tmp) & !(ls() %in% c("object", "tmp"))])
 				return(object)
 			} else {
-				message("load.it is FALSE.  Running FUN")
-				object <- FUN(...)
-				if(save.it) {
+				message(".load.it is FALSE.  Running .FUN")
+				object <- .FUN(...)
+				if(.save.it) {
 					message("Saving ", fname)
 					save(object, file=fname)
 				}
 				return(object)
 			}
 		} else {
-			message(fname, " does not exist. Running FUN")
-			object <- FUN(...)
-			if(save.it) {
+			message(fname, " does not exist. Running .FUN")
+			object <- .FUN(...)
+			if(.save.it) {
 				message("Saving ", fname)
 				save(object, file=fname)
 			}
@@ -397,36 +397,3 @@ checkExists <- function(name, path=".", FUN, FUN2, save.it=TRUE, load.it, ...){
 }
 				
 			
-##	if(!(exists(name)) & missing(load.it)) load.it <- TRUE
-##	if(exists(name) & missing(load.it)) load.it <- FALSE
-##	if(!(exists(name)) | load.it){
-##		if(!exists(name)) message(name, " not in .GlobalEnv")
-##		if(load.it) message(name, " exists in .GlobalEnv, but load.it is TRUE")
-##		fname <- file.path(path, paste(name, ".rda", sep=""))
-##		if(!file.exists(fname) | !load.it){
-##			if(!file.exists(fname)) message(fname, " does not exist.  Running FUN.")
-##			if(!load.it) message("load.it is FALSE. Running FUN.")
-##			object <- FUN(...)
-## 			if(save.it) {
-##				message("Saving ", fname)
-##				save(object, file=fname)
-##			}
-##			return(object)
-##		}  else {
-##			if(missing(FUN2)){
-##				message("Loading file ", fname)
-##				load(fname)
-##				if(!exists("object")) object <- get(name)
-##				##object <- get(name)
-##			} else {
-##				object <- FUN2(...)
-##			}
-##		}
-##	} else {
-##		message("Nothing to do")
-##		object <- get(name)
-##		return(object)
-##	}
-##	return(object)
-##}
-

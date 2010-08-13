@@ -13,7 +13,7 @@
 }
 
 \usage{
-checkExists(name, path = ".", FUN, FUN2, save.it=TRUE, load.it, ...)
+checkExists(.name, path.check = ".", FUN.check, FUN2.check, save.it=TRUE, load.it, ...)
 }
 
 
