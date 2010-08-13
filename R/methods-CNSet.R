@@ -1,11 +1,7 @@
-setMethod("CB", "CNSet", function(object){
-	assayDataElement(object, "CB")
-})
-setMethod("CA", "CNSet", function(object) {
-	assayDataElement(object, "CA")
-})
-setReplaceMethod("CB", "CNSet", function(object, value) assayDataElementReplace(object, "CB", value))
-setReplaceMethod("CA", "CNSet", function(object, value) assayDataElementReplace(object, "CA", value))
+
+
+##setReplaceMethod("CB", "CNSet", function(object, value) assayDataElementReplace(object, "CB", value))
+##setReplaceMethod("CA", "CNSet", function(object, value) assayDataElementReplace(object, "CA", value))
 
 setMethod("totalCopyNumber",
 	  signature=signature(object="CNSet", i="integerOrMissing", j="integerOrMissing"),
