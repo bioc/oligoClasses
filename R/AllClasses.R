@@ -63,8 +63,9 @@ setClass("GeneFeatureSet", contains="FeatureSet")
 
 ###########################################################################
 ##Summary-level classes - SNP - allele data
-###########################################################################  
-setClass("AlleleSet", contains="eSet")
+###########################################################################
+setClass("MarkerLevelSet", contains="eSet", representation("VIRTUAL"))
+setClass("AlleleSet", contains="MarkerLevelSet")
 
 ###########################################################################
 ## Combo classes - SNP Summaries - alleles + calls/conf
@@ -80,6 +81,6 @@ setClass("CNSet", contains="SnpSuperSet")
 ##SNP-level classes
 ###########################################################################  
 setClass("oligoSnpSet", contains="SnpSet")
-setClass("CopyNumberSet", contains="eSet")
+setClass("CopyNumberSet", contains="MarkerLevelSet")
 
 setClassUnion("integerOrMissing", c("integer", "missing", "numeric"))
