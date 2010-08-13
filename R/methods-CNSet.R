@@ -1,11 +1,18 @@
 setValidity("CNSet", function(object) assayDataValidMembers(assayData(object), c("alleleA", "alleleB", "call", "callProbability")))
+setMethod("allele", "CNSet",
+          function(object, allele){
+            stopifnot(!missing(allele))
+            allele <- match.arg(allele, c("A", "B"))
+	    what <- paste("allele", allele, sep="")
+            assayDataElement(object, what)
+          })
 setMethod("A", "CNSet", function(object, ...) allele(object, "A", ...))
 setMethod("B", "CNSet", function(object, ...) allele(object, "B", ...))
 setReplaceMethod("A", "CNSet", function(object, value) {
-	assayDataElementReplace(object, "CNSet", value)
+	assayDataElementReplace(object, "alleleA", value)
 })
 setReplaceMethod("B", "CNSet", function(object, value) {
-	assayDataElementReplace(object, "CNSet", value)
+	assayDataElementReplace(object, "alleleB", value)
 })
 setMethod("close", "CNSet", function(con, ...){
 	##con is just to keep the same generic arguments

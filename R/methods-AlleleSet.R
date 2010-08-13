@@ -107,9 +107,6 @@ setMethod("getA", "AlleleSet",
             return(tmp)
           })
 
-isFF <- function(object){
-	names <- ls(assayData(object))
-	ifelse(inherits(assayData(object)[[names[[1]]]], "ff") | inherits(assayData(object)[[names[[1]]]], "ffdf"), TRUE, FALSE)
-}
+
 
 

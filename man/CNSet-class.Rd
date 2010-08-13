@@ -2,8 +2,15 @@
 \Rdversion{1.1}
 \docType{class}
 \alias{CNSet-class}
-
 \alias{initialize,CNSet-method}
+\alias{allele,CNSet-method}
+\alias{A,CNSet-method}
+\alias{B,CNSet-method}
+\alias{A<-,CNSet-method}
+\alias{B<-,CNSet-method}
+\alias{close,CNSet-method}
+\alias{open,CNSet-method}
+	       
 \title{Class "CNSet"}
 \description{A class to store parameters for CN estimation as well as locus-level summaries of the normalized intensities}
 \section{Objects from the Class}{
