@@ -80,8 +80,8 @@ setClass("CopyNumberSet", contains="eSet") ## total copy number (no genotypes av
 ###########################################################################
 ##Summary-level classes - CNP
 ###########################################################################
-setOldClass("ffdf")
-setClassUnion("list_or_ffdf", c("list", "ffdf"))
+##setOldClass("ffdf")
+##setClassUnion("list_or_ffdf", c("list", "ffdf"))
 
 ## AssayData elements in AlleleSet are platform dependent.
 ##
@@ -89,6 +89,11 @@ setClassUnion("list_or_ffdf", c("list", "ffdf"))
 ## classes that inherit methods from it.
 ##
 ## Easier just to extend SnpSet directly and define accessors for CNSet
-setClass("CNSet", representation(lM="list_or_ffdf"), contains="SnpSet")
+##setIs("LinearModelParameter", "AssayData")
+##setClass("LinearModelParameter", contains="AssayData")
+setClassUnion("LinearModelParameter", c("AssayData", "environment", "list"))
+setClass("CNSet", representation(batch="factor", lM="LinearModelParameter"), contains="SnpSet")
+
+
 
 

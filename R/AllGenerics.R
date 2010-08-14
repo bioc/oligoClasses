@@ -33,5 +33,14 @@ setGeneric("genomeBuild", function(object) standardGeneric("genomeBuild"))
 setGeneric("geometry", function(object) standardGeneric("geometry"))
 setGeneric("lM", function(object) standardGeneric("lM"))
 setGeneric("lM<-", function(object, value) standardGeneric("lM<-"))
+setGeneric("batch", function(object) standardGeneric("batch"))
+setGeneric("batchNames", function(object) standardGeneric("batchNames"))
+setGeneric("batchNames<-", function(object,value) standardGeneric("batchNames<-"))
+
+
+
+
+
+
 
 

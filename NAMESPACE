@@ -69,9 +69,8 @@ exportMethods(getM, getA, annotatedDataFrameFrom, open, close)
 ##export(addFeatureAnnotation.pd)
 
 export(annotationPackages, addFeatureAnnotation, checkExists)
-
+exportMethods(batch, batchNames, "batchNames<-",
 exportMethods(lM, "lM<-")
-
 
 ## For debugging
 ## exportPattern("^[^\\.]")
