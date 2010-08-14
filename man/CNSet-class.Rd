@@ -2,15 +2,25 @@
 \Rdversion{1.1}
 \docType{class}
 \alias{CNSet-class}
-\alias{initialize,CNSet-method}
-\alias{allele,CNSet-method}
+\alias{[,CNSet-method}
 \alias{A,CNSet-method}
-\alias{B,CNSet-method}
 \alias{A<-,CNSet-method}
+\alias{allele,CNSet-method}
+\alias{B,CNSet-method}
 \alias{B<-,CNSet-method}
+\alias{batch,CNSet-method}
+\alias{batchNames,CNSet-method}
+\alias{batchNames<-,CNSet-method}
 \alias{close,CNSet-method}
+\alias{corr,CNSet,character-method}
+\alias{initialize,CNSet-method}
+\alias{lM,CNSet-method}
+\alias{nu,CNSet,character-method}
 \alias{open,CNSet-method}
-	       
+\alias{phi,CNSet,character-method}
+\alias{sigma2,CNSet,character-method}
+\alias{tau2,CNSet,character-method}
+
 \title{Class "CNSet"}
 \description{
 
@@ -19,32 +29,32 @@
 	 for CNSet objects, including accessors for linear model
 	 parameters and allele-specific copy number are included here.
 
-
 }
 \section{Objects from the Class}{
-
+		 
 		 An object from the class is not generally intended to
 		 be initialized by the user, but returned by the
-		 \code{genotype} function.
+		 \code{genotype} function in the \code{crlmm} package.
 
 		 The following creates a very basic \code{CNSet} with
 		 \code{assayData} containing the required alleleA,
 		 alleleB, call, and callProbability matrices.
 
-		 \code{new(CNSet, alleleA=new("matrix"), alleleB=new("matrix"), call=new("matrix"),
-			   callProbability=new("matrix"))}
+	 \code{new(CNSet, alleleA=new("matrix"), alleleB=new("matrix"), call=new("matrix"),
+		   callProbability=new("matrix"), batch=new("factor"))}
 		 
 }
 \section{Slots}{
   \describe{
-	  \item{\code{lM}:}{Object of class \code{"list_or_ffdf"}. For storing parameters related to copy number estimation.}
-	  \item{\code{assayData}:}{Object of class \code{"AssayData"} }
-	  \item{\code{phenoData}:}{Object of class \code{"AnnotatedDataFrame"} }
-	  \item{\code{featureData}:}{Object of class \code{"AnnotatedDataFrame"} }
-	  \item{\code{experimentData}:}{Object of class \code{"MIAME"} }
-	  \item{\code{annotation}:}{Object of class \code{"character"}}
-	  \item{\code{protocolData}:}{Object of class \code{"AnnotatedDataFrame"} }
-	  \item{\code{.__classVersion__}:}{Object of class \code{"Versions"}}
+    \item{\code{batch}:}{Object of class \code{"factor"} ~~ }
+    \item{\code{lM}:}{Object of class \code{"LinearModelParameter"} ~~ }
+    \item{\code{assayData}:}{Object of class \code{"AssayData"} ~~ }
+    \item{\code{phenoData}:}{Object of class \code{"AnnotatedDataFrame"} ~~ }
+    \item{\code{featureData}:}{Object of class \code{"AnnotatedDataFrame"} ~~ }
+    \item{\code{experimentData}:}{Object of class \code{"MIAME"} ~~ }
+    \item{\code{annotation}:}{Object of class \code{"character"} ~~ }
+    \item{\code{protocolData}:}{Object of class \code{"AnnotatedDataFrame"} ~~ }
+    \item{\code{.__classVersion__}:}{Object of class \code{"Versions"} ~~ }
   }
 }
 \section{Extends}{
@@ -55,19 +65,37 @@ Class \code{"\linkS4class{Versioned}"}, by class "SnpSet", distance 4.
 }
 \section{Methods}{
   \describe{
-  \item{A}{\code{signature(object = "CNSet")}: accessor for normalized intensities for A allele}
-  \item{B}{\code{signature(object = "CNSet")}: accessor for normalized intensities for B allele }
-  \item{calls}{\code{signature(object = "CNSet")}: accessor for crlmm genotype calls}
-  \item{confs}{\code{signature(object = "CNSet")}: accessor for genotype confidence scores}
+    \item{[}{\code{signature(x = "CNSet")}: ... }
+    \item{A}{\code{signature(object = "CNSet")}: ... }
+    \item{A<-}{\code{signature(object = "CNSet")}: ... }
+    \item{allele}{\code{signature(object = "CNSet")}: ... }
+    \item{B}{\code{signature(object = "CNSet")}: ... }
+    \item{B<-}{\code{signature(object = "CNSet")}: ... }
+    \item{batch}{\code{signature(object = "CNSet")}: ... }
+    \item{batchNames}{\code{signature(object = "CNSet")}: ... }
+    \item{batchNames<-}{\code{signature(object = "CNSet")}: ... }
+    \item{close}{\code{signature(con = "CNSet")}: ... }
+    \item{corr}{\code{signature(object = "CNSet", allele = "character")}: ... }
+    \item{initialize}{\code{signature(.Object = "CNSet")}: ... }
+    \item{lM}{\code{signature(object = "CNSet")}: ... }
+    \item{lM<-}{\code{signature(object = "CNSet", value = "LinearModelParameter")}: ... }
+    \item{nu}{\code{signature(object = "CNSet", allele = "character")}: ... }
+    \item{open}{\code{signature(con = "CNSet")}: ... }
+    \item{phi}{\code{signature(object = "CNSet", allele = "character")}: ... }
+    \item{sigma2}{\code{signature(object = "CNSet", allele = "character")}: ... }
+    \item{tau2}{\code{signature(object = "CNSet", allele = "character")}: ... }
+	 }
 }
+
+\author{
+R. Scharpf
 }
-\author{R. Scharpf}
 
 \seealso{
-	\code{\linkS4class{AlleleSet}}, \code{\linkS4class{SnpSuperSet}}
+	\code{\link{LinearModelParameter-class}}
 }
 \examples{
-	##An empty CNSet
+
   	if(require("genomewidesnp6Crlmm")){
 		require("genomewidesnp6Crlmm")
 		fns <- c("SNP_A-2131660", "SNP_A-1967418", "SNP_A-1969580", "SNP_A-4263484",
@@ -97,7 +125,7 @@ Class \code{"\linkS4class{Versioned}"}, by class "SnpSet", distance 4.
 			   alleleB=B,
 			   call=theCalls,
 			   callProbability=theConfs,
-			   lM=list(),
+			   batch=as.factor(rep(1, ncol(A))),
 			   annotation="genomewidesnp6")
 		featureNames(obj) <- fns
 		## Accessors
@@ -110,6 +138,6 @@ Class \code{"\linkS4class{Versioned}"}, by class "SnpSet", distance 4.
 		chromosome(obj)
 		position(obj)
 	}	
+
 }
-	
 \keyword{classes}

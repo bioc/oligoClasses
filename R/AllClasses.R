@@ -80,8 +80,9 @@ setClass("CopyNumberSet", contains="eSet") ## total copy number (no genotypes av
 ###########################################################################
 ##Summary-level classes - CNP
 ###########################################################################
-##setOldClass("ffdf")
-##setClassUnion("list_or_ffdf", c("list", "ffdf"))
+setOldClass("ffdf")
+setOldClass("ff_matrix")
+setClassUnion("list_or_ffdf", c("list", "ffdf"))
 
 ## AssayData elements in AlleleSet are platform dependent.
 ##
@@ -92,7 +93,17 @@ setClass("CopyNumberSet", contains="eSet") ## total copy number (no genotypes av
 ##setIs("LinearModelParameter", "AssayData")
 ##setClass("LinearModelParameter", contains="AssayData")
 setClassUnion("LinearModelParameter", c("AssayData", "environment", "list"))
-setClass("CNSet", representation(batch="factor", lM="LinearModelParameter"), contains="SnpSet")
+setClass("CNSet", contains = "SnpSuperSet",
+	 prototype = prototype(new("VersionedBiobase", versions=c(classVersion("eSet"), CNSet="1.0.0"))))
+setClass("CNSetLM", contains="CNSet", representation(lM="list_or_ffdf"))
+setMethod("initialize", "CNSetLM", function(.Object, lM=new("list"), ...){
+	.Defunct(msg="The CNSetLM class is defunct")	
+})
+setClass("CNSet", representation(batch="factor", lM="LinearModelParameter"),
+	 contains="SnpSet",
+	 prototype = prototype(
+	 new("VersionedBiobase",
+	     versions=c(classVersion("eSet"), CNSet="1.0.1"))))
 
 
 

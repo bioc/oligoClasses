@@ -1,5 +1,8 @@
 setMethod("show", "CNSet", function(object){
 	callNextMethod(object)
+	bns <- batchNames(object)
+	freq <- as.integer(table(batch(object)))
+	cat("batch:   ", paste(bns, freq, collapse=", "), "\n")
 	cat("lM: ", length(lM(object)), " parameters, ", nrow(object), " features, ", length(unique(batch(object))), " batches\n")
 	cat("   element names: ", paste(ls(lM(object))[1:4], collapse=",  "), "\n")
 	cat("                  ", paste(ls(lM(object))[5:8], collapse=",  "), "\n")
@@ -7,19 +10,40 @@ setMethod("show", "CNSet", function(object){
 	cat("                  ", paste(ls(lM(object))[13],  collapse=",  "),   "\n")
 })
 
-
 setMethod("[", "CNSet", function(x, i, j, ..., drop=FALSE){
 	x <- callNextMethod(x, i, j, ..., drop=drop)
-	if(!missing(i)){
-		if(class(lM(x)) == "ffdf"){
-			lM(x) <- lapply(physical(lM(x)), function(x, i){open(x); x[i, ]}, i=i)
-		} else {
-			lM(x) <- lapply(lM(x), function(x, i) x[i, , drop=FALSE], i=i)
-		}
+	if(!missing(j)){
+		batch(x) <- batch(x)[j]
+		nms <- unique(as.character(batch(x)))
+		## need to subset columns of LinearModelParameter
+		## Adapted from the '[' method for eSet in Biobase
+		## redefine 'j'
+		j <- nms %in% batchNames(x)
+		storage.mode <- storageMode(lM(x))
+		## i (if defined) is already subset by callNextMethod
+		orig <- lM(x)
+		lM(x) <-
+			switch(storage.mode,
+			       environment =,
+			       lockedEnvironment = {
+				       aData <- new.env(parent=emptyenv())
+				       for(nm in ls(orig)) aData[[nm]] <- orig[[nm]][i, j, ..., drop = drop]
+				       if ("lockedEnvironment" == storage.mode) Biobase:::assayDataEnvLock(aData)
+				       aData
+			       },
+			       list = {
+				       lapply(orig, function(obj) obj[i, j, ..., drop = drop])
+			       })
 	}
 	x
 })
 setMethod("batch", "CNSet", function(object) object@batch)
+
+setReplaceMethod("batch", signature=signature(object="CNSet"),
+	 function(object, value){
+		 object@batch <- as.factor(value)
+		 object
+})
 
 setMethod("batchNames", "CNSet", function(object)  batchNames(lM(object)))
 
@@ -77,4 +101,10 @@ setReplaceMethod("lM", signature=signature(object="CNSet", value="LinearModelPar
 			 object@lM <- value
 			 object
 		 })
+
+setMethod("nu", c("CNSet", "character"), function(object, allele) nu(lM(object), allele))
+setMethod("phi", c("CNSet", "character"), function(object, allele) phi(lM(object), allele))
+setMethod("sigma2", c("CNSet", "character"), function(object, allele) sigma2(lM(object), allele))
+setMethod("tau2", c("CNSet", "character"), function(object, allele) tau2(lM(object), allele))
+setMethod("corr", c("CNSet", "character"), function(object, allele) corr(lM(object), allele))
 

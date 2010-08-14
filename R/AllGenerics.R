@@ -34,11 +34,16 @@ setGeneric("geometry", function(object) standardGeneric("geometry"))
 setGeneric("lM", function(object) standardGeneric("lM"))
 setGeneric("lM<-", function(object, value) standardGeneric("lM<-"))
 setGeneric("batch", function(object) standardGeneric("batch"))
+setGeneric("batch<-", function(object, value) standardGeneric("batch<-"))
 setGeneric("batchNames", function(object) standardGeneric("batchNames"))
 setGeneric("batchNames<-", function(object,value) standardGeneric("batchNames<-"))
 
 
-
+setGeneric("corr", function(object, allele) standardGeneric("corr"))
+setGeneric("nu", function(object, allele) standardGeneric("nu"))
+setGeneric("phi", function(object, allele) standardGeneric("phi"))
+setGeneric("sigma2", function(object, allele) standardGeneric("sigma2"))
+setGeneric("tau2", function(object, allele) standardGeneric("tau2"))
 
 
 

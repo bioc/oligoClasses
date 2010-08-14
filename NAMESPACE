@@ -67,10 +67,12 @@ exportMethods(annotation, db, initialize, genomeBuild,
 exportMethods(getM, getA, annotatedDataFrameFrom, open, close)
 
 ##export(addFeatureAnnotation.pd)
+exportClasses(LinearModelParameter)
 
 export(annotationPackages, addFeatureAnnotation, checkExists)
-exportMethods(batch, batchNames, "batchNames<-",
+exportMethods(batch, batchNames, "batchNames<-")
 exportMethods(lM, "lM<-")
+exportMethods(nu, phi, sigma2, tau2, corr)
 
 ## For debugging
 ## exportPattern("^[^\\.]")
