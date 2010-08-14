@@ -48,6 +48,7 @@ exportClasses(ExpressionFeatureSet, SnpFeatureSet, SnpCnvFeatureSet,
 
 ##SNP-level Classes
 exportClasses(AlleleSet, oligoSnpSet, SnpSuperSet, CNSet)
+
 export(chromosome2integer)
 
 ##SNP-level methods
