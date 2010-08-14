@@ -380,7 +380,4 @@ checkExists <- function(.name, .path=".", .FUN, .FUN2, .save.it=TRUE, .load.it, 
 }
 				
 			
-isFF <- function(object){
-	names <- ls(assayData(object))
-	ifelse(inherits(assayData(object)[[names[[1]]]], "ff") | inherits(assayData(object)[[names[[1]]]], "ffdf"), TRUE, FALSE)
-}
+

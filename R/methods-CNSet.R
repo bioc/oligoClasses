@@ -21,6 +21,8 @@ setMethod("close", "CNSet", function(con, ...){
 	names <- ls(assayData(object))
 	L <- length(names)
 	for(i in 1:L) close(eval(substitute(assayData(object)[[NAME]], list(NAME=names[i]))))
+	physical <- get("physical")
+	lapply(physical(lM(con)), open)
 	return()
 })
 
@@ -30,10 +32,16 @@ setMethod("open", "CNSet", function(con, ...){
 	names <- ls(assayData(object))
 	L <- length(names)
 	for(i in 1:L) open(eval(substitute(assayData(object)[[NAME]], list(NAME=names[i]))))
+	physical <- get("physical")
+	lapply(physical(lM(con)), close)	
 	return()
 })
 	    
-
+setMethod("lM", "CNSet", function(object) object@lM)
+setReplaceMethod("lM", c("CNSet", "list_or_ffdf"), function(object, value){
+	object@lM <- value
+	object
+})
 
 
 

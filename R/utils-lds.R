@@ -73,6 +73,11 @@ setMethod("annotatedDataFrameFrom", "ff_matrix",
 is.ffmatrix <- function(object)
   is(object, "ff_matrix")
 
+isFF <- function(object){
+	names <- ls(assayData(object))
+	is(assayData(object)[[names[[1]]]], "ff") | is(assayData(object)[[names[[1]]]], "ffdf")
+}
+
 ldPath <- function(path){
   if (missing(path)){
     return(getOption("ldPath"))
