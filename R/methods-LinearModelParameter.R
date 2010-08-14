@@ -10,14 +10,14 @@ setReplaceMethod("batchNames", "LinearModelParameter",
 			 return(object)
 		 })
 
-setMethod("nu", c("LinearModelParameter", "character"), 
+setMethod("nu", c("LinearModelParameter", "character"),
 	  function(object, allele){
 		  getValue <- function(allele){
 			  switch(allele,
 				 A="nuA",
 				 B="nuB",
 				 stop("allele must be 'A' or 'B'"))
-		  }	
+		  }
 		  val <- getValue(allele)
 		  assayDataElement(object, val)
 })
@@ -31,7 +31,7 @@ setMethod("phi", c("LinearModelParameter", "character"),
 				 A="phiA",
 				 B="phiB",
 				 stop("allele must be 'A' or 'B'"))
-		  }	
+		  }
 		  val <- getValue(allele)
 		  assayDataElement(object, val)
 	  })
@@ -40,8 +40,8 @@ setMethod("sigma2", c("LinearModelParameter", "character"),
 	  function(object, allele){
 		  getValue <- function(allele){
 			  switch(allele,
-				 A="sigma2A",
-				 B="sigma2B",
+				 A="sig2A",
+				 B="sig2B",
 				 stop("allele must be 'A' or 'B'"))
 		  }
 		  val <- getValue(allele)
@@ -56,7 +56,7 @@ setMethod("tau2", c("LinearModelParameter", "character"),
 				 B="tau2B",
 				 stop("allele must be 'A' or 'B'"))
 		  }
-		  val <- getValue(allele)		  
+		  val <- getValue(allele)
 		  assayDataElement(object, val)
 	  })
 
@@ -69,7 +69,7 @@ setMethod("corr", c("LinearModelParameter", "character"),
 				 BB="corrBB",
 				 stop("allele must be 'AA', 'AB', or 'BB'"))
 		  }
-		  val <- getValue(allele)		  
+		  val <- getValue(allele)
 		  assayDataElement(object, val)
 	  })
 

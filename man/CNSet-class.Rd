@@ -12,8 +12,10 @@
 \alias{batchNames,CNSet-method}
 \alias{batchNames<-,CNSet-method}
 \alias{close,CNSet-method}
+\alias{coerce,CNSetLM,CNSet-method}
 \alias{corr,CNSet,character-method}
 \alias{initialize,CNSet-method}
+\alias{initialize,CNSetLM-method}
 \alias{lM,CNSet-method}
 \alias{nu,CNSet,character-method}
 \alias{open,CNSet-method}
@@ -37,8 +39,7 @@
 		 \code{genotype} function in the \code{crlmm} package.
 
 		 The following creates a very basic \code{CNSet} with
-		 \code{assayData} containing the required alleleA,
-		 alleleB, call, and callProbability matrices.
+		 \code{assayData} containing the required elements.
 
 	 \code{new(CNSet, alleleA=new("matrix"), alleleB=new("matrix"), call=new("matrix"),
 		   callProbability=new("matrix"), batch=new("factor"))}
@@ -75,6 +76,7 @@ Class \code{"\linkS4class{Versioned}"}, by class "SnpSet", distance 4.
     \item{batchNames}{\code{signature(object = "CNSet")}: ... }
     \item{batchNames<-}{\code{signature(object = "CNSet")}: ... }
     \item{close}{\code{signature(con = "CNSet")}: ... }
+    \item{coerce}{\code{signature(from="CNSetLM")}: ... }
     \item{corr}{\code{signature(object = "CNSet", allele = "character")}: ... }
     \item{initialize}{\code{signature(.Object = "CNSet")}: ... }
     \item{lM}{\code{signature(object = "CNSet")}: ... }

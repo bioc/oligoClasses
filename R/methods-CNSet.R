@@ -91,10 +91,10 @@ setMethod("open", "CNSet", function(con, ...){
 	L <- length(names)
 	for(i in 1:L) open(eval(substitute(assayData(object)[[NAME]], list(NAME=names[i]))))
 	physical <- get("physical")
-	lapply(physical(lM(con)), close)	
+	lapply(physical(lM(con)), close)
 	return()
 })
-	    
+
 setMethod("lM", "CNSet", function(object) object@lM)
 setReplaceMethod("lM", signature=signature(object="CNSet", value="LinearModelParameter"),
 		 function(object, value){
@@ -108,3 +108,35 @@ setMethod("sigma2", c("CNSet", "character"), function(object, allele) sigma2(lM(
 setMethod("tau2", c("CNSet", "character"), function(object, allele) tau2(lM(object), allele))
 setMethod("corr", c("CNSet", "character"), function(object, allele) corr(lM(object), allele))
 
+setAs("CNSetLM", "CNSet", function(from){
+	if("batch" %in% varLabels(protocolData(from))){
+		btch <- as.factor(protocolData(from)$batch)
+	} else {
+		stop("couldn't find batch in varLabels of protocolData.")
+	}
+	obj <- new("CNSet",
+		   alleleA=assayData(from)[["alleleA"]],
+		   alleleB=assayData(from)[["alleleB"]],
+		   call=assayData(from)[["call"]],
+		   callProbability=assayData(from)[["callProbability"]],
+		   featureData=featureData(from),
+		   phenoData=phenoData(from),
+		   experimentData=experimentData(from),
+		   protocolData=protocolData(from),
+		   batch=btch)
+	lm <- from@lM
+	lM(obj) <- assayDataNew(tau2A=lm[["tau2A"]],
+				tau2B=lm[["tau2B"]],
+				sig2A=lm[["sig2A"]],
+				sig2B=lm[["sig2B"]],
+				nuA=lm[["nuA"]],
+				nuB=lm[["nuB"]],
+				phiA=lm[["phiA"]],
+				phiB=lm[["phiB"]],
+				phiPrimeA=lm[["phiPrimeA"]],
+				phiPrimeB=lm[["phiPrimeB"]],
+				corrAB=lm[["corrAB"]],
+				corrAA=lm[["corrAA"]],
+				corrBB=lm[["corrBB"]])
+	return(obj)
+})

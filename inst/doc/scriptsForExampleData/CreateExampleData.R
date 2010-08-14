@@ -61,3 +61,5 @@ scqsExample <- new("SnpCnvQSet",
                    thetaB=atb,
                    annotation="example")
 save(scqsExample, file="../../data/scqsExample.rda")
+
+

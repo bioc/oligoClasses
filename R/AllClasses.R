@@ -81,9 +81,8 @@ setClass("CopyNumberSet", contains="eSet") ## total copy number (no genotypes av
 ##Summary-level classes - CNP
 ###########################################################################
 setOldClass("ffdf")
-setOldClass("ff_matrix")
+##setOldClass("ff_matrix")
 setClassUnion("list_or_ffdf", c("list", "ffdf"))
-
 ## AssayData elements in AlleleSet are platform dependent.
 ##
 ## It is nontrivial to define an initialization method for AlleleSet that can then be extended by
@@ -103,7 +102,7 @@ setClass("CNSet", representation(batch="factor", lM="LinearModelParameter"),
 	 contains="SnpSet",
 	 prototype = prototype(
 	 new("VersionedBiobase",
-	     versions=c(classVersion("eSet"), CNSet="1.0.1"))))
+	     versions=c(classVersion("SnpSet"), CNSet="1.0.1"))))
 
 
 

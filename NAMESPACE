@@ -68,9 +68,10 @@ exportMethods(getM, getA, annotatedDataFrameFrom, open, close)
 
 ##export(addFeatureAnnotation.pd)
 exportClasses(LinearModelParameter)
+exportClasses(ffdf)
 
 export(annotationPackages, addFeatureAnnotation, checkExists)
-exportMethods(batch, batchNames, "batchNames<-")
+exportMethods(batch, batchNames, "batchNames<-", coerce)
 exportMethods(lM, "lM<-")
 exportMethods(nu, phi, sigma2, tau2, corr)
 
