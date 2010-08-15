@@ -81,7 +81,7 @@ setClass("CopyNumberSet", contains="eSet") ## total copy number (no genotypes av
 ##Summary-level classes - CNP
 ###########################################################################
 setOldClass("ffdf")
-osetClassUnion("list_or_ffdf", c("list", "ffdf"))
+setClassUnion("list_or_ffdf", c("list", "ffdf"))
 ## AssayData elements in AlleleSet are platform dependent.
 ##
 ## It is nontrivial to define an initialization method for AlleleSet that can then be extended by
