@@ -2,6 +2,8 @@
 \Rdversion{1.1}
 \docType{class}
 \alias{ffdf-class}
+\alias{list_or_ffdf-class}
+
 
 \title{Class "ffdf"}
 
@@ -19,7 +21,6 @@
 \section{Extends}{
 Class \code{"\linkS4class{oldClass}"}, directly.
 Class \code{"\linkS4class{list_or_ffdf}"}, directly.
-Class \code{"\linkS4class{ff_or_matrix}"}, directly.
 }
 \section{Methods}{
 No methods defined with class "ffdf" in the signature.

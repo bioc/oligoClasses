@@ -1,6 +1,6 @@
 ###########################################################################
 ## General DBPDInfo Classes
-###########################################################################  
+###########################################################################
 setClass("DBPDInfo",
          representation=representation(
            getdb="function",
@@ -20,7 +20,7 @@ setClass("GenePDInfo", contains="stArrayDBPDInfo")
 
 ###########################################################################
 ## Manufacturer-specific PDInfo Classes
-###########################################################################  
+###########################################################################
 setClass("AffyTilingPDInfo", contains="TilingPDInfo",
          prototype=list(manufacturer="Affymetrix"))
 setClass("AffyExpressionPDInfo", contains="ExpressionPDInfo",
@@ -43,7 +43,7 @@ setClass("NgsTilingPDInfo", contains="TilingPDInfo",
 
 ###########################################################################
 ##Feature-level classes
-###########################################################################  
+###########################################################################
 setClass("FeatureSet",
          representation=representation(
            manufacturer="character",
@@ -73,7 +73,7 @@ setClass("SnpSuperSet", contains=c("AlleleSet", "SnpSet"))
 
 ###########################################################################
 ##SNP-level classes
-###########################################################################  
+###########################################################################
 setClass("oligoSnpSet", contains="SnpSet") ## total copy number and genotypes
 setClass("CopyNumberSet", contains="eSet") ## total copy number (no genotypes available)
 
@@ -81,7 +81,6 @@ setClass("CopyNumberSet", contains="eSet") ## total copy number (no genotypes av
 ##Summary-level classes - CNP
 ###########################################################################
 setOldClass("ffdf")
-##setOldClass("ff_matrix")
 setClassUnion("list_or_ffdf", c("list", "ffdf"))
 ## AssayData elements in AlleleSet are platform dependent.
 ##
@@ -96,7 +95,7 @@ setClass("CNSet", contains = "SnpSuperSet",
 	 prototype = prototype(new("VersionedBiobase", versions=c(classVersion("eSet"), CNSet="1.0.0"))))
 setClass("CNSetLM", contains="CNSet", representation(lM="list_or_ffdf"))
 setMethod("initialize", "CNSetLM", function(.Object, lM=new("list"), ...){
-	.Defunct(msg="The CNSetLM class is defunct")	
+	.Defunct(msg="The CNSetLM class is defunct")
 })
 setClass("CNSet", representation(batch="factor", lM="LinearModelParameter"),
 	 contains="SnpSet",
