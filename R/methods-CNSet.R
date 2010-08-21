@@ -108,6 +108,12 @@ setMethod("sigma2", c("CNSet", "character"), function(object, allele) sigma2(lM(
 setMethod("tau2", c("CNSet", "character"), function(object, allele) tau2(lM(object), allele))
 setMethod("corr", c("CNSet", "character"), function(object, allele) corr(lM(object), allele))
 
+setMethod("flags", signature(object="CNSet"), function(object) flags(lM(object)))
+setReplaceMethod("flags", signature=signature(object="CNSet", value="matrix"),
+		 function(object, value){
+			 linearParamElementReplace(object, "flags", value)
+})
+
 setAs("CNSetLM", "CNSet", function(from){
 	if("batch" %in% varLabels(protocolData(from))){
 		btch <- as.factor(protocolData(from)$batch)
@@ -137,6 +143,7 @@ setAs("CNSetLM", "CNSet", function(from){
 				phiPrimeB=lm[["phiPrimeB"]],
 				corrAB=lm[["corrAB"]],
 				corrAA=lm[["corrAA"]],
-				corrBB=lm[["corrBB"]])
+				corrBB=lm[["corrBB"]],
+				flags=initializeBigMatrix("flags", nrow(obj), length(batchNames(obj))))
 	return(obj)
 })

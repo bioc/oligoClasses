@@ -73,3 +73,4 @@ setMethod("corr", c("LinearModelParameter", "character"),
 		  assayDataElement(object, val)
 	  })
 
+setMethod("flags", signature(object="LinearModelParameter"), function(object) assayDataElement(object, "flags"))

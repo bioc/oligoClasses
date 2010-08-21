@@ -38,7 +38,7 @@ setMethod("initialize", "oligoSnpSet",
 					    cnConfidence=cnConfidence,
 					    annotation=annotation, ... )
 		  if(checkAnnotation(annotation))
-			  .Object <- annotate(.Object)  		  
+			  .Object <- annotate(.Object)
 		  return(.Object)
 	  })
 
@@ -68,18 +68,19 @@ initializeLmFrom <- function(object){
 	nr <- nrow(object)
 	nc <- length(unique(batch(object)))
 	lm <- assayDataNew(tau2A=initializeBigMatrix("tau2A", nr, nc),
-		    tau2B=initializeBigMatrix("tau2B", nr, nc),
-		    sig2A=initializeBigMatrix("sig2A", nr, nc),
-		    sig2B=initializeBigMatrix("sig2B", nr, nc),
-		    nuA=initializeBigMatrix("nuA", nr, nc),
-		    nuB=initializeBigMatrix("nuB", nr, nc),
-		    phiA=initializeBigMatrix("phiA", nr, nc),
-		    phiB=initializeBigMatrix("phiB", nr, nc),
-		    phiPrimeA=initializeBigMatrix("phiPrimeA", nr, nc),
-		    phiPrimeB=initializeBigMatrix("phiPrimeB", nr, nc),
-		    corrAB=initializeBigMatrix("corrAB", nr, nc),
-		    corrBB=initializeBigMatrix("corrBB", nr, nc),
-		    corrAA=initializeBigMatrix("corrAA", nr, nc))
+			   tau2B=initializeBigMatrix("tau2B", nr, nc),
+			   sig2A=initializeBigMatrix("sig2A", nr, nc),
+			   sig2B=initializeBigMatrix("sig2B", nr, nc),
+			   nuA=initializeBigMatrix("nuA", nr, nc),
+			   nuB=initializeBigMatrix("nuB", nr, nc),
+			   phiA=initializeBigMatrix("phiA", nr, nc),
+			   phiB=initializeBigMatrix("phiB", nr, nc),
+			   phiPrimeA=initializeBigMatrix("phiPrimeA", nr, nc),
+			   phiPrimeB=initializeBigMatrix("phiPrimeB", nr, nc),
+			   corrAB=initializeBigMatrix("corrAB", nr, nc),
+			   corrBB=initializeBigMatrix("corrBB", nr, nc),
+			   corrAA=initializeBigMatrix("corrAA", nr, nc),
+			   flags=initializeBigMatrix("flags", nr, nc))
 	return(lm)
 }
 setMethod("initialize", "CNSet",

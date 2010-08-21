@@ -44,7 +44,8 @@ setGeneric("nu", function(object, allele) standardGeneric("nu"))
 setGeneric("phi", function(object, allele) standardGeneric("phi"))
 setGeneric("sigma2", function(object, allele) standardGeneric("sigma2"))
 setGeneric("tau2", function(object, allele) standardGeneric("tau2"))
-
+setGeneric("flags", function(object) standardGeneric("flags"))
+setGeneric("flags<-", function(object, value) standardGeneric("flags<-"))
 
 
 

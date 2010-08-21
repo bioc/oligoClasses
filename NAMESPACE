@@ -72,7 +72,7 @@ exportClasses(LinearModelParameter)
 exportClasses(ffdf)
 
 export(annotationPackages, addFeatureAnnotation, checkExists)
-exportMethods(batch, batchNames, "batchNames<-", coerce)
+exportMethods(batch, batchNames, "batchNames<-", coerce, flags, "flags<-")
 exportMethods(lM, "lM<-")
 exportMethods(nu, phi, sigma2, tau2, corr)
 
