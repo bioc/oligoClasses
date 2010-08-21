@@ -81,6 +81,7 @@ setClass("CopyNumberSet", contains="eSet") ## total copy number (no genotypes av
 ##Summary-level classes - CNP
 ###########################################################################
 setOldClass("ffdf")
+setOldClass("ff_matrix")
 setClassUnion("list_or_ffdf", c("list", "ffdf"))
 ## AssayData elements in AlleleSet are platform dependent.
 ##
@@ -117,31 +118,61 @@ setClass("CNSet", representation(batch="factor",
 	 prototype = prototype(
 	                       new("VersionedBiobase",
 				   versions=c(classVersion("SnpSet"), CNSet="1.0.2"))))
+setClass("CNSet", representation(batch="factor",
+##				 lM="AssayData",
+				 batchStatistics="AssayData"),
+	 contains="SnpSet",
+	 prototype = prototype(
+	                       new("VersionedBiobase",
+				   versions=c(classVersion("SnpSet"), CNSet="1.0.3"))))
+
+
+## elements of batchStatistics
+##   - each element is R x C, R is number of markers / C is number of batches
+##  N.AA
+##  N.AB
+##  N.BB
+##  median.AA
+##  median.AB
+##  median.BB
+##  mad.AA
+##  mad.AB
+##  mad.BB
+##  linear model parameters also go here (13)
+##
+## Accessor / replacement methods for above in crlmm
+##
+## - Ns, medians, mads to pull across the 3 genotypes in oligoClasses
+## - lM still grabs the linear model parameters, but need to redefine
+##
+##
+
+
+
+
 
 
 setMethod("updateObject", signature(object="CNSet"),
           function(object, ..., verbose=FALSE) {
-              if (verbose) message("updateObject(object = 'MySet')")
-              object <- callNextMethod()
-              if (isCurrent(object)["MySet"]) return(object)
-              ## Create an updated instance.
-              if (!isVersioned(object))
-                  ## Radical surgery -- create a new, up-to-date instance
-                  new("MySet",
-                      assayData = updateObject(assayData(object),
-                        ...., verbose=verbose),
-                      phenoData = updateObject(phenoData(object),
-                        ..., verbose=verbose),
-                      experimentData = updateObject(experimentData(object),
-                        ..., verbose=verbose),
-                      annotation = updateObject(annotation(object),
-                        ..., verbose=verbose))
-              else {
-                  ## Make minor changes, and update version by consulting class definition
-                  classVersion(object)["MySet"] <-
-                      classVersion("MySet")["MySet"]
-                  object
-              }
+		  if (verbose) message("updateObject(object = 'CNSet')")
+		  obj <- tryCatch(callNextMethod(batch=batch(object)), error=function(e) NULL)
+		  if(is.null(obj)){
+			  ## must supply batch for batchStatistics to be added
+			  if(is(calls(object), "ffdf") | is(calls(object), "ff_matrix")) require(ff)
+			  obj <- new("CNSet",
+				     assayData = updateObject(assayData(object),
+				     ...., verbose=verbose),
+				     phenoData = updateObject(phenoData(object),
+				     ..., verbose=verbose),
+				     experimentData = updateObject(experimentData(object),
+				     ..., verbose=verbose),
+				     annotation = updateObject(annotation(object),
+				     ..., verbose=verbose),
+				     featureData=featureData(object),
+				     batch=batch(object))
+		  }
+		  if (isCurrent(obj)["CNSet"]) return(obj)
+		  obj
           })
 
 

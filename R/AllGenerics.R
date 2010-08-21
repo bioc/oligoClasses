@@ -37,15 +37,15 @@ setGeneric("batchNames", function(object) standardGeneric("batchNames"))
 setGeneric("batchNames<-", function(object,value) standardGeneric("batchNames<-"))
 
 
-setGeneric("corr", function(object, allele) standardGeneric("corr"))
 setGeneric("nu", function(object, allele) standardGeneric("nu"))
 setGeneric("phi", function(object, allele) standardGeneric("phi"))
 setGeneric("sigma2", function(object, allele) standardGeneric("sigma2"))
-setGeneric("tau2", function(object, allele) standardGeneric("tau2"))
+
 setGeneric("flags", function(object) standardGeneric("flags"))
 
-setGeneric("numberGenotype", function(object, ...) standardGeneric("numberGenotype"))
 
+setGeneric("batchStatistics", function(object) standardGeneric("batchStatistics"))
+setGeneric("batchStatistics<-", function(object,value) standardGeneric("batchStatistics<-"))
 
 
 

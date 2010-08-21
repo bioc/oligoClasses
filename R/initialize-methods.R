@@ -67,66 +67,56 @@ setMethod("initialize", "SnpSuperSet", function(.Object,  ...) callNextMethod(.O
 initializeLmFrom <- function(object){
 	nr <- nrow(object)
 	nc <- length(unique(batch(object)))
-	lm <- assayDataNew(tau2A=initializeBigMatrix("tau2A", nr, nc),
-			   tau2B=initializeBigMatrix("tau2B", nr, nc),
-			   sig2A=initializeBigMatrix("sig2A", nr, nc),
-			   sig2B=initializeBigMatrix("sig2B", nr, nc),
-			   nuA=initializeBigMatrix("nuA", nr, nc),
-			   nuB=initializeBigMatrix("nuB", nr, nc),
-			   phiA=initializeBigMatrix("phiA", nr, nc),
-			   phiB=initializeBigMatrix("phiB", nr, nc),
-			   phiPrimeA=initializeBigMatrix("phiPrimeA", nr, nc),
-			   phiPrimeB=initializeBigMatrix("phiPrimeB", nr, nc),
-			   corrAB=initializeBigMatrix("corrAB", nr, nc),
-			   corrBB=initializeBigMatrix("corrBB", nr, nc),
-			   corrAA=initializeBigMatrix("corrAA", nr, nc),
+	lm <- assayDataNew(N.AA=initializeBigMatrix("N.AA", nr, nc),
+			   N.AB=initializeBigMatrix("N.AB", nr, nc),
+			   N.BB=initializeBigMatrix("N.BB", nr, nc),
+			   medianA.AA=initializeBigMatrix("medianA.AA", nr, nc),
+			   medianA.AB=initializeBigMatrix("medianA.AB", nr, nc),
+			   medianA.BB=initializeBigMatrix("medianA.BB", nr, nc),
+			   medianB.AA=initializeBigMatrix("medianB.AA", nr, nc),
+			   medianB.AB=initializeBigMatrix("medianB.AB", nr, nc),
+			   medianB.BB=initializeBigMatrix("medianB.BB", nr, nc),
+			   madA.AA=initializeBigMatrix("madA.AA", nr, nc, vmode="double"),
+			   madA.AB=initializeBigMatrix("madA.AB", nr, nc, vmode="double"),
+			   madA.BB=initializeBigMatrix("madA.BB", nr, nc, vmode="double"),
+			   madB.AA=initializeBigMatrix("madB.AA", nr, nc, vmode="double"),
+			   madB.AB=initializeBigMatrix("madB.AB", nr, nc, vmode="double"),
+			   madB.BB=initializeBigMatrix("madB.BB", nr, nc, vmode="double"),
+			   tau2A.AA=initializeBigMatrix("tau2A.AA", nr, nc, vmode="double"),
+			   tau2A.BB=initializeBigMatrix("tau2A.BB", nr, nc, vmode="double"),
+			   tau2B.AA=initializeBigMatrix("tau2B.AA", nr, nc, vmode="double"),
+			   tau2B.BB=initializeBigMatrix("tau2B.BB", nr, nc, vmode="double"),
+			   nuA=initializeBigMatrix("nuA", nr, nc, vmode="double"),
+			   nuB=initializeBigMatrix("nuB", nr, nc, vmode="double"),
+			   phiA=initializeBigMatrix("phiA", nr, nc, vmode="double"),
+			   phiB=initializeBigMatrix("phiB", nr, nc, vmode="double"),
+			   phiPrimeA=initializeBigMatrix("phiPrimeA", nr, nc, vmode="double"),
+			   phiPrimeB=initializeBigMatrix("phiPrimeB", nr, nc, vmode="double"),
+			   corrAB=initializeBigMatrix("corrAB", nr, nc, vmode="double"),
+			   corrBB=initializeBigMatrix("corrBB", nr, nc, vmode="double"),
+			   corrAA=initializeBigMatrix("corrAA", nr, nc, vmode="double"),
 			   flags=initializeBigMatrix("flags", nr, nc))
 	return(lm)
 }
 
-initializeNumberGenotypeFrom <- function(object, batchnames, nr){
-	if(missing(nr)) nr <- nrow(object)
-	nc <- 3
-	nGt <- vector("list", length(batchnames))
-	elem.names <- paste("N_", batchnames, sep="")
-	for(i in seq_along(batchnames)) nGt[[i]] <- initializeBigMatrix(elem.names[i], nr, nc)
-	names(nGt) <- batchnames
-	nGt <- lapply(nGt, function(x){ colnames(x) <- c("AA", "AB", "BB"); return(x)})
-	aD <- do.call(assayDataNew, nGt)
-	return(aD)
-}
-
-
-setMethod("initialize", signature=signature(.Object="GenotypeSummary"),
-	  function(.Object, numberGenotypes, means, mads){
-		  .Object@numberGenotypes <- numberGenotypes
-		  .Object@means <- means
-		  .Object@mads <- mads
-	  })
 
 setMethod("initialize", "CNSet",
-	  function(.Object, lM, batch, numberGenotype, ...){
-		  .Object@numberGenotype <- assayDataNew()
-		  .Object@lM <- assayDataNew()
+	  function(.Object, batchStatistics, batch, ...){
+##		  if(missing(featureData) & missing(annotationPackage))
+##			  stop("must specify valid annotation package.  See annotationPackages()")
+##		  if(missing(featureData)) {
+##			  featureData <- featureDataFrom(annotationPackage)
+##		  } else stopifnot(all(c("chromosome", "isSnp", "position") %in% varLabels(featureData)))
+		  .Object@batchStatistics <- assayDataNew()
 		  .Object <- callNextMethod(.Object, ...)
+##		  .Object@featureData <- featureData
 		  if(missing(batch)){
 			  stop("Must specify factor 'batch'. See ?CNSet-class for details.")
 		  } else .Object@batch <- batch
-		  if(missing(lM)){
-			  lM(.Object) <- initializeLmFrom(.Object)
-		  } else lM(.Object) <- lM
+		  if(missing(batchStatistics)){
+			  batchStatistics(.Object) <- initializeLmFrom(.Object)
+		  } else batchStatistics(.Object) <- batchStatistics
 		  batchNames(.Object) <- unique(as.character(batch))
-		  if(missing(numberGenotype)){
-			  .Object@numberGenotype <- initializeNumberGenotypeFrom(.Object, batchNames(.Object))
-		  } else .Object@numberGenotype <- numberGenotype
-##		  if(missing(genotypeSummary)){
-##			  tmp <- initializeGenotypeSummaryFrom(.Object)
-##			  gtSum <- new("GenotypeSummary",
-##				       numberGenotypes=tmp[["numberGenotypes"]],
-##				       means=tmp[["means"]],
-##				       mads=tmp[["mads"]])
-##			  .Object@genotypeSummary <- gtSum
-##		  } else .Object@genotypeSummary <- genotypeSummary
 		  return(.Object)
 })
 

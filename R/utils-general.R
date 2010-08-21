@@ -31,7 +31,7 @@ isSupportedAnnotation <- function(x){
 
 annotationPackages <- function(){
 	c("pd.mapping50k.hind240", "pd.mapping50k.xba240",
-	  "pd.mapping50k.hind240,pd.mapping50k.xba240",	  
+	  "pd.mapping50k.hind240,pd.mapping50k.xba240",
 	  "pd.mapping250k.nsp",
 	  "pd.mapping250k.sty",
 	  "pd.mapping250k.nsp,pd.mapping250k.sty",
@@ -46,7 +46,7 @@ annotationPackages <- function(){
 	  "human610quadv1bCrlmm",
 	  "human660quadv1aCrlmm",
 	  "human1mduov3bCrlmm",
-	  "humanomni1quadv1bCrlmm")	  
+	  "humanomni1quadv1bCrlmm")
 }
 
 affyPlatforms <- function(){
@@ -77,23 +77,23 @@ pdPkgFromBioC <- function(pkgname, lib=.libPaths()[1], verbose=TRUE) {
     message("Attempting to obtain '", pkgname, "' from BioConductor website.")
     message("Checking to see if your internet connection works...")
   }
-  
+
   if (testBioCConnection()) {
     ## Check for file permissions
     if (file.access(lib, mode=0) < 0){
       if (verbose) message("Directory '", lib, "' does not seem to exist.")
       return(FALSE)
     }
-    
+
     if (file.access(lib, mode=2) < 0){
       if (verbose) message("You do not have write access to '", lib, "'.")
       return(FALSE)
     }
-      
+
     biocContribUrl <- sapply(biocReposList(), contrib.url)
     biocPkgs <- available.packages(biocContribUrl)
     if (! pkgname %in% biocPkgs[, "Package"]) {
-      if (verbose) 
+      if (verbose)
         message("Package '", pkgname, "' was not found in the BioConductor repository.\n",
                 "The 'pdInfoBuilder' package can often be used in situations like this.")
       return(FALSE)
@@ -105,14 +105,14 @@ pdPkgFromBioC <- function(pkgname, lib=.libPaths()[1], verbose=TRUE) {
       if (status){
         return(TRUE)
       }else{
-        if (verbose) 
+        if (verbose)
           message("There was a problem during download or installation.\n",
                   "Package '", pkgname, "' cannot be loaded. Please, try again.")
         return(FALSE)
       }
     }
   } else {
-    if (verbose) 
+    if (verbose)
       message("Could not access the Bioconductor repository.\n",
               "Please check your internet connection.")
     return(FALSE)
@@ -167,7 +167,7 @@ addFeatureAnnotation.pd <- function(object){
 	snps <- snp.index <- nps <- np.index <- vector("list", length(pkgs))
 	for(i in seq(along=pkgs)){
 		annotation(object) <- pkgs[i]
-		require(annotation(object), character.only=TRUE)		
+		require(annotation(object), character.only=TRUE)
                 snps[[i]] <- dbGetQuery(db(object), sql)
 		snp.index[[i]] <- match(snps[[i]]$man_fsetid, rownames(fD))
 
@@ -180,14 +180,14 @@ addFeatureAnnotation.pd <- function(object){
 	if(length(snps) > 1){
 		snps <- do.call(rbind, snps)
 		snp.index <- unlist(snp.index)
-		if("featureSetCNV" %in% dbListTables(db(object))){		
+		if("featureSetCNV" %in% dbListTables(db(object))){
 			nps <- do.call(rbind, nps)
 			np.index <- unlist(np.index)
 		}
 	} else {
 		snps <- snps[[1]]
-		snp.index <- snp.index[[1]]		
-		if("featureSetCNV" %in% dbListTables(db(object))){		
+		snp.index <- snp.index[[1]]
+		if("featureSetCNV" %in% dbListTables(db(object))){
 			nps <- nps[[1]]
 			np.index <- np.index[[1]]
 		}
@@ -195,12 +195,12 @@ addFeatureAnnotation.pd <- function(object){
 	fD[snp.index, "isSnp"] <- as.integer(1)
 	fD[snp.index, "chromosome"] <- chromosome2integer(snps$chrom)
 	fD[snp.index, "position"] <- as.integer(snps$physical_pos)
-	if("featureSetCNV" %in% dbListTables(db(object))){			
+	if("featureSetCNV" %in% dbListTables(db(object))){
 		fD[np.index, "isSnp"] <- as.integer(0)
 		fD[np.index, "chromosome"] <- chromosome2integer(nps$chrom)
 		fD[np.index, "position"] <- as.integer(nps$chrom_start)
 	}
-	jj <- match(c("chromosome", "position", "isSnp"), fvarLabels(object))	
+	jj <- match(c("chromosome", "position", "isSnp"), fvarLabels(object))
 	jj <- jj[!is.na(jj)]
 	if(length(jj) > 0){
 		fD <- cbind(fD, fData(object)[, -jj, drop=FALSE])
@@ -227,16 +227,37 @@ snpNames <- function(object){
 	featureNames(object)[index]
 }
 
-addFeatureAnnotation.crlmm <- function(object, ...){
-	##if(missing(CHR)) stop("Must specificy chromosome")
-	##message("Adding required feature annotation (chromosome, position, isSnp) to featureData slot")
-	cdfName <- annotation(object)
-	pkgname <- paste(cdfName, "Crlmm", sep="")	
+featureDataFrom <- function(annotationPackage){
+	stopifnot(isSupportedAnnotation(annotationPackage))
+	pkgname <- paste(cdfName, "Crlmm", sep="")
 	path <- system.file("extdata", package=pkgname)
 	loader("cnProbes.rda", pkgname=pkgname, envir=.oligoClassesPkgEnv)
 	cnProbes <- get("cnProbes", envir=.oligoClassesPkgEnv)
 	loader("snpProbes.rda", pkgname=pkgname, envir=.oligoClassesPkgEnv)
-	snpProbes <- get("snpProbes", envir=.oligoClassesPkgEnv)	
+	snpProbes <- get("snpProbes", envir=.oligoClassesPkgEnv)
+	fns <- c(rownames(snpProbes), rownames(cnProbes))
+	isSnp <- c(rep(1L, nrow(snpProbes)), rep(0L, nrow(cnProbes)))
+	positions <- as.integer(c(snpProbes[, "position"], cnProbes[, "position"]))
+	chroms <- c(snpProbes[, "chrom"], cnProbes[, "chrom"])
+	chroms <- chromosome2integer(chroms)
+	tmp.fd <- cbind(chroms,  positions, isSnp)
+	rownames(tmp.fd) <- fns
+	tmp.fd <- tmp.fd[order(tmp.fd[, "chroms"], tmp.fd[, "positions"]), ]
+	colnames(tmp.fd) <- c("chromosome", "position", "isSnp")
+	featureData <- new("AnnotatedDataFrame", data=data.frame(tmp.fd), varMetadata=data.frame(labelDescription=colnames(tmp.fd)))
+	return(featureData)
+}
+
+addFeatureAnnotation.crlmm <- function(object, ...){
+	##if(missing(CHR)) stop("Must specificy chromosome")
+	##message("Adding required feature annotation (chromosome, position, isSnp) to featureData slot")
+	cdfName <- annotation(object)
+	pkgname <- paste(cdfName, "Crlmm", sep="")
+	path <- system.file("extdata", package=pkgname)
+	loader("cnProbes.rda", pkgname=pkgname, envir=.oligoClassesPkgEnv)
+	cnProbes <- get("cnProbes", envir=.oligoClassesPkgEnv)
+	loader("snpProbes.rda", pkgname=pkgname, envir=.oligoClassesPkgEnv)
+	snpProbes <- get("snpProbes", envir=.oligoClassesPkgEnv)
 	##Feature Data
 	isSnp <- 1L-as.integer(featureNames(object) %in% rownames(cnProbes))
 	names(isSnp) <- featureNames(object)
@@ -245,7 +266,7 @@ addFeatureAnnotation.crlmm <- function(object, ...){
 		position.snp <- snpProbes[match(snps, rownames(snpProbes)), "position"]
 		names(position.snp) <- snps
 		J <- grep("chr", colnames(snpProbes))
-		chr.snp <- snpProbes[match(snps, rownames(snpProbes)), J]		
+		chr.snp <- snpProbes[match(snps, rownames(snpProbes)), J]
 	} else{
 		warning("None of the featureNames in the object match SNP probes for the indicated annotation package.  Either the annotation package is misspecified, or the featureNames of the object are incorrect")
 		message("The first 5 featureNames are ", featureNames(object)[1:5])
@@ -256,8 +277,8 @@ addFeatureAnnotation.crlmm <- function(object, ...){
 		nps <- featureNames(object)[isSnp == 0]
 		position.np <- cnProbes[match(nps, rownames(cnProbes)), "position"]
 		names(position.np) <- nps
-		
-		chr.np <- cnProbes[match(nps, rownames(cnProbes)), J]	
+
+		chr.np <- cnProbes[match(nps, rownames(cnProbes)), J]
 	} else {
 		chr.np <- position.np <- integer()
 	}
@@ -349,7 +370,7 @@ checkExists <- function(.name, .path=".", .FUN, .FUN2, .save.it=TRUE, .load.it, 
 			if(missing(.load.it)){
 				message(".load.it is missing. Setting .load.it to TRUE")
 				.load.it <- TRUE
-			}					
+			}
 			if(.load.it){
 				message("Loading ", fname)
 				.tmp <- ls()
@@ -378,6 +399,6 @@ checkExists <- function(.name, .path=".", .FUN, .FUN2, .save.it=TRUE, .load.it, 
 		}
 	}
 }
-				
-			
+
+
 

@@ -68,14 +68,16 @@ exportMethods(annotation, db, initialize, genomeBuild,
 exportMethods(getM, getA, annotatedDataFrameFrom, open, close)
 
 ##export(addFeatureAnnotation.pd)
-exportClasses(ffdf)
+exportClasses(ffdf, ff_matrix)
+
 
 export(annotationPackages, addFeatureAnnotation, checkExists)
 exportMethods(batch, batchNames, "batchNames<-", coerce, flags)
-exportMethods(lM, "lM<-")
-exportMethods(nu, phi, sigma2, tau2, corr, numberGenotype)
-
-exportClasses(ffdf, ff_matrix, ff_or_matrix)
+exportMethods(lM)
+exportMethods(nu, phi, sigma2)
+exportMethods(batchStatistics, "batchStatistics<-")
+exportMethods(updateObject)
+export(featureDataFrom)
 
 ## For debugging
 ## exportPattern("^[^\\.]")

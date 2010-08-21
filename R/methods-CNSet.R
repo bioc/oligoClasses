@@ -1,15 +1,28 @@
 setMethod("show", "CNSet", function(object){
+	if(is(calls(object), "ff_matrix") | is(calls(object), "ffdf")){
+		##to avoid warnings
+		if("SKW" %in% varLabels(object)) open(object$SKW)
+		if("SNR" %in% varLabels(object)) open(object$SNR)
+	}
 	callNextMethod(object)
 	bns <- batchNames(object)
 	freq <- as.integer(table(batch(object)))
 	cat("batch:   ", paste(bns, freq, collapse=", "), "\n")
-	cat("lM: ", length(lM(object)), " parameters, ", nrow(object), " features, ", length(unique(batch(object))), " batches\n")
-	cat("   element names: ", paste(ls(lM(object))[1:4], collapse=",  "), "\n")
-	cat("                  ", paste(ls(lM(object))[5:8], collapse=",  "), "\n")
-	cat("                  ", paste(ls(lM(object))[9:12],collapse=",  "), "\n")
-	cat("                  ", paste(ls(lM(object))[13:length(lM(object))],  collapse=",  "),   "\n")
-	nNms <- ls(numberGenotype(object))
-	cat("numberGenotype: ", paste(nNms, collapse=", "), "\n")
+	adim <- list(nrow(object), length(batchNames(object)))
+##	cat("batchStatistics:",
+##	    if (length(adim)>1)
+##	    paste(adim[[1]], "features,",
+##		  adim[[2]], "batches") else NULL,
+##                      "\n")
+##              cat("  element names:",
+##                  paste(assayDataElementNames(batchStatistics(object))[1:4], collapse=", "), "...\n")
+	cat("batchStatistics: ", length(ls(batchStatistics(object))), " elements, ", nrow(object), " features, ", length(unique(batch(object))), " batches\n")
+##	cat("   element names: ", paste(ls(batchStatistics(object))[1:4], collapse=",  "), "\n")
+##	cat("                  ", paste(ls(batchStatistics(object))[5:8], collapse=",  "), "\n")
+##	cat("                  ", paste(ls(batchStatistics(object))[9:12],collapse=",  "), "\n")
+##	cat("                  ", paste(ls(batchStatistics(object))[13:16], collapse=", "), "\n")
+##	cat("                  ", paste(ls(batchStatistics(object))[17:20], collapse=", "), "\n")
+##	cat("                  ", paste(ls(batchStatistics(object))[21:23], collapse=", "), "\n")
 })
 
 setMethod("[", "CNSet", function(x, i, j, ..., drop=FALSE){
@@ -21,10 +34,10 @@ setMethod("[", "CNSet", function(x, i, j, ..., drop=FALSE){
 		## Adapted from the '[' method for eSet in Biobase
 		## redefine 'j'
 		j <- nms %in% batchNames(x)
-		storage.mode <- storageMode(lM(x))
+		storage.mode <- storageMode(batchStatistics(x))
 		## i (if defined) is already subset by callNextMethod
-		orig <- lM(x)
-		lM(x) <-
+		orig <- batchStatistics(x)
+		batchStatistics(x) <-
 			switch(storage.mode,
 			       environment =,
 			       lockedEnvironment = {
@@ -66,10 +79,10 @@ setReplaceMethod("batch", signature=signature(object="CNSet"),
 ##    obj
 ##}
 
-setMethod("batchNames", "CNSet", function(object)  batchNames(lM(object)))
+setMethod("batchNames", "CNSet", function(object)  batchNames(batchStatistics(object)))
 
 setReplaceMethod("batchNames", "CNSet", function(object, value) {
-	batchNames(object@lM) <- value
+	batchNames(batchStatistics(object)) <- value
 	return(object)
 })
 
@@ -101,7 +114,7 @@ setMethod("close", "CNSet", function(con, ...){
 	L <- length(names)
 	for(i in 1:L) close(eval(substitute(assayData(object)[[NAME]], list(NAME=names[i]))))
 	physical <- get("physical")
-	lapply(physical(lM(con)), open)
+	lapply(physical(batchStatistics(con)), open)
 	return()
 })
 
@@ -111,36 +124,91 @@ setMethod("open", "CNSet", function(con, ...){
 	names <- ls(assayData(object))
 	L <- length(names)
 	for(i in 1:L) open(eval(substitute(assayData(object)[[NAME]], list(NAME=names[i]))))
-	physical <- get("physical")
-	lapply(physical(lM(con)), close)
+	names <- assayDataElementNames(batchStatistics(object))
+	L <- length(names)
+	for(i in 1:L) open(eval(substitute(batchStatistics(object)[[NAME]], list(NAME=names[i]))))
+	open(object$SKW)
+	open(object$SNR)
 	return()
 })
 
-setMethod("lM", "CNSet", function(object) object@lM)
-setReplaceMethod("lM", signature=signature(object="CNSet", value="AssayData"),
-		 function(object, value){
-			 object@lM <- value
-			 object
-		 })
+setMethod("lM", "CNSet", function(object){
+	bs <- batchStatistics(object)
+	elem.names <- ls(bs)
+	param.names <- c("tau2A", "tau2B", "sig2A", "sig2B", "nuA", "nuB", "phiA", "phiB",
+			 "phiPrimeA", "phiPrimeB", "corrAB", "corrBB", "corrAA")
+	index <- match(param.names, elem.names)
+	return(bs[index])
+})
+##setReplaceMethod("lM", signature=signature(object="CNSet", value="AssayData"),
+##		 function(object, value){
+##			 object@lM <- value
+##			 object
+##		 })
 
-setMethod("numberGenotype", signature=signature(object="CNSet"),
-	  function(object, element.name){
-		  if(missing(element.name)) {
-			  return(object@numberGenotype)
-		  } else {
-			  if(!element.name %in% ls(object@numberGenotype))
-				  stop(paste("element.name must be one of ", paste(ls(object@numberGenotype), collapse=", ")))
-			  return(assayDataElement(object@numberGenotype, element.name))
-		  }
-	  })
+setMethod("batchStatistics", signature=signature(object="CNSet"), function(object) object@batchStatistics)
+setReplaceMethod("batchStatistics", signature=signature(object="CNSet", value="AssayData"),
+	 function(object, value){
+		 object@batchStatistics <- value
+		 object
+	 })
 
-setMethod("nu", c("CNSet", "character"), function(object, allele) nu(lM(object), allele))
-setMethod("phi", c("CNSet", "character"), function(object, allele) phi(lM(object), allele))
-setMethod("sigma2", c("CNSet", "character"), function(object, allele) sigma2(lM(object), allele))
-setMethod("tau2", c("CNSet", "character"), function(object, allele) tau2(lM(object), allele))
-setMethod("corr", c("CNSet", "character"), function(object, allele) corr(lM(object), allele))
+##setMethod("Ns", signature=signature(object="CNSet"),
+##	  function(object, batchname){
+##		  if(missing(batchnames)) {
+##			  stop("must specify batchname")
+##		  } else {
+##			  if(!batchname %in% batchNames(object))
+##				  stop(paste("element.name must be one of ",  batchNames(object)))
+##			  Ns <- matrix(NA, nrow(object), 3)
+##			  colnames(NS) <- c("AA", "AB", "BB")
+##			  j <- match(batchname, batchNames(object))
+##			  Ns[, 1] <- assayDataElement(batchStatistics(object), "N.AA")[, j]
+##			  Ns[, 2] <- assayDataElement(batchStatistics(object), "N.AB")[, j]
+##			  Ns[, 3] <- assayDataElement(batchStatistics(object), "N.BB")[, j]
+##			  return(Ns)
+##		  }
+##	  })
+##setMethod("medians", signature=signature(object="CNSet"),
+##	  function(object, batchname){
+##		  if(missing(batchnames)) {
+##			  stop("must specify batchname")
+##		  } else {
+##			  if(!batchname %in% batchNames(object))
+##				  stop(paste("element.name must be one of ",  batchNames(object)))
+##			  Ns <- matrix(NA, nrow(object), 3)
+##			  colnames(NS) <- c("AA", "AB", "BB")
+##			  j <- match(batchname, batchNames(object))
+##			  Ns[, 1] <- assayDataElement(batchStatistics(object), "median.AA")[, j]
+##			  Ns[, 2] <- assayDataElement(batchStatistics(object), "median.AB")[, j]
+##			  Ns[, 3] <- assayDataElement(batchStatistics(object), "median.BB")[, j]
+##			  return(Ns)
+##		  }
+##	  })
+##setMethod("mads", signature=signature(object="CNSet"),
+##	  function(object, batchname){
+##		  if(missing(batchnames)) {
+##			  stop("must specify batchname")
+##		  } else {
+##			  if(!batchname %in% batchNames(object))
+##				  stop(paste("element.name must be one of ",  batchNames(object)))
+##			  Ns <- matrix(NA, nrow(object), 3)
+##			  colnames(NS) <- c("AA", "AB", "BB")
+##			  j <- match(batchname, batchNames(object))
+##			  Ns[, 1] <- assayDataElement(batchStatistics(object), "mad.AA")[, j]
+##			  Ns[, 2] <- assayDataElement(batchStatistics(object), "mad.AB")[, j]
+##			  Ns[, 3] <- assayDataElement(batchStatistics(object), "mad.BB")[, j]
+##			  return(Ns)
+##		  }
+##	  })
 
-setMethod("flags", signature(object="CNSet"), function(object) flags(lM(object)))
+setMethod("nu", c("CNSet", "character"), function(object, allele) nu(batchStatistics(object), allele))
+setMethod("phi", c("CNSet", "character"), function(object, allele) phi(batchStatistics(object), allele))
+##setMethod("phiPrime", c("CNSet", "character"), function(object, allele) phiPrime(batchStatistics(object), allele))
+setMethod("sigma2", c("CNSet", "character"), function(object, allele) sigma2(batchStatistics(object), allele))
+##setMethod("tau2", c("CNSet", "character"), function(object, allele) tau2(batchStatistics(object), allele))
+##setMethod("corr", c("CNSet", "character"), function(object, allele) corr(batchStatistics(object), allele))
+setMethod("flags", signature(object="CNSet"), function(object) flags(batchStatistics(object)))
 
 
 setAs("CNSetLM", "CNSet", function(from){
@@ -159,24 +227,35 @@ setAs("CNSetLM", "CNSet", function(from){
 		lm.names <- paste(lm.names, collapse=", ")
 		stop(paste("names(object@lM) must have the following names:", lm.names))
 	}
-	tmp <- assayDataNew(tau2A=lm[["tau2A"]],
-				tau2B=lm[["tau2B"]],
-				sig2A=lm[["sig2A"]],
-				sig2B=lm[["sig2B"]],
-				nuA=lm[["nuA"]],
-				nuB=lm[["nuB"]],
-				phiA=lm[["phiA"]],
-				phiB=lm[["phiB"]],
-				phiPrimeA=lm[["phiPrimeA"]],
-				phiPrimeB=lm[["phiPrimeB"]],
-				corrAB=lm[["corrAB"]],
-				corrAA=lm[["corrAA"]],
-				corrBB=lm[["corrBB"]],
-				flags=initializeBigMatrix("flags", nrow(from), length(unique(btch))))
+	nr <- nrow(from)
+	nc <- length(unique(btch))
+	tmp <- assayDataNew(N.AA=initializeBigMatrix("N.AA", nr, nc),
+			    N.AB=initializeBigMatrix("N.AB", nr, nc),
+			    N.BB=initializeBigMatrix("N.BB", nr, nc),
+			    median.AA=initializeBigMatrix("median.AA", nr, nc),
+			    median.AB=initializeBigMatrix("median.AB", nr, nc),
+			    median.BB=initializeBigMatrix("median.BB", nr, nc),
+			    mad.AA=initializeBigMatrix("mad.AA", nr, nc),
+			    mad.AB=initializeBigMatrix("mad.AB", nr, nc),
+			    mad.BB=initializeBigMatrix("mad.BB", nr, nc),
+			    tau2A=lm[["tau2A"]],
+			    tau2B=lm[["tau2B"]],
+			    sig2A=lm[["sig2A"]],
+			    sig2B=lm[["sig2B"]],
+			    nuA=lm[["nuA"]],
+			    nuB=lm[["nuB"]],
+			    phiA=lm[["phiA"]],
+			    phiB=lm[["phiB"]],
+			    phiPrimeA=lm[["phiPrimeA"]],
+			    phiPrimeB=lm[["phiPrimeB"]],
+			    corrAB=lm[["corrAB"]],
+			    corrAA=lm[["corrAA"]],
+			    corrBB=lm[["corrBB"]],
+			    flags=initializeBigMatrix("flags", nrow(from), length(unique(btch))))
 	##initialize container for Ns, but do not populate.
 ##	nr <- sum(fData(from)$isSnp, na.rm=TRUE)
 ##	Ns <- initializeNumberGenotypeFrom(from, unique(as.character(btch)), nr)
-	Ns <- initializeNumberGenotypeFrom(from, unique(as.character(btch)))
+##	Ns <- initializeNumberGenotypeFrom(from, unique(as.character(btch)))
 	obj <- new("CNSet",
 		   alleleA=assayData(from)[["alleleA"]],
 		   alleleB=assayData(from)[["alleleB"]],
@@ -187,7 +266,6 @@ setAs("CNSetLM", "CNSet", function(from){
 		   experimentData=experimentData(from),
 		   protocolData=protocolData(from),
 		   batch=btch,
-		   lM=tmp,
-		   numberGenotype=Ns)
+		   batchStatistics=tmp)
 	return(obj)
 })
