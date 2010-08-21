@@ -1,8 +1,14 @@
 setMethod("show", "CNSet", function(object){
 	if(is(calls(object), "ff_matrix") | is(calls(object), "ffdf")){
 		##to avoid warnings
-		if("SKW" %in% varLabels(object)) open(object$SKW)
-		if("SNR" %in% varLabels(object)) open(object$SNR)
+		if("SKW" %in% varLabels(object)) {
+			if(is(object$SKW, "ff"))
+				open(object$SKW)
+		}
+		if("SNR" %in% varLabels(object)){
+			if(is(object$SNR, "ff"))
+				open(object$SNR)
+		}
 	}
 	callNextMethod(object)
 	bns <- batchNames(object)
@@ -127,9 +133,7 @@ setMethod("open", "CNSet", function(con, ...){
 	names <- assayDataElementNames(batchStatistics(object))
 	L <- length(names)
 	for(i in 1:L) open(eval(substitute(batchStatistics(object)[[NAME]], list(NAME=names[i]))))
-	open(object$SKW)
-	open(object$SNR)
-	return()
+	return(TRUE)
 })
 
 setMethod("lM", "CNSet", function(object){

@@ -22,7 +22,7 @@ importMethodsFrom(Biobase, annotatedDataFrameFrom, annotation,
                   featureData, "featureData<-", featureNames,
                   fvarLabels, pData, "pData<-", phenoData,
                   "phenoData<-", sampleNames, se.exprs, "se.exprs<-",
-                  storageMode, "storageMode<-")
+                  storageMode, "storageMode<-", updateObject)
 
 ## Exporting
 
@@ -76,7 +76,6 @@ exportMethods(batch, batchNames, "batchNames<-", coerce, flags)
 exportMethods(lM)
 exportMethods(nu, phi, sigma2)
 exportMethods(batchStatistics, "batchStatistics<-")
-exportMethods(updateObject)
 export(featureDataFrom)
 
 ## For debugging
