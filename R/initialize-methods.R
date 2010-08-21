@@ -83,8 +83,31 @@ initializeLmFrom <- function(object){
 			   flags=initializeBigMatrix("flags", nr, nc))
 	return(lm)
 }
+
+initializeNumberGenotypeFrom <- function(object, batchnames, nr){
+	if(missing(nr)) nr <- nrow(object)
+	nc <- 3
+	nGt <- vector("list", length(batchnames))
+	elem.names <- paste("N_", batchnames, sep="")
+	for(i in seq_along(batchnames)) nGt[[i]] <- initializeBigMatrix(elem.names[i], nr, nc)
+	names(nGt) <- batchnames
+	nGt <- lapply(nGt, function(x){ colnames(x) <- c("AA", "AB", "BB"); return(x)})
+	aD <- do.call(assayDataNew, nGt)
+	return(aD)
+}
+
+
+setMethod("initialize", signature=signature(.Object="GenotypeSummary"),
+	  function(.Object, numberGenotypes, means, mads){
+		  .Object@numberGenotypes <- numberGenotypes
+		  .Object@means <- means
+		  .Object@mads <- mads
+	  })
+
 setMethod("initialize", "CNSet",
-	  function(.Object, lM, batch, ...){
+	  function(.Object, lM, batch, numberGenotype, ...){
+		  .Object@numberGenotype <- assayDataNew()
+		  .Object@lM <- assayDataNew()
 		  .Object <- callNextMethod(.Object, ...)
 		  if(missing(batch)){
 			  stop("Must specify factor 'batch'. See ?CNSet-class for details.")
@@ -93,8 +116,20 @@ setMethod("initialize", "CNSet",
 			  lM(.Object) <- initializeLmFrom(.Object)
 		  } else lM(.Object) <- lM
 		  batchNames(.Object) <- unique(as.character(batch))
+		  if(missing(numberGenotype)){
+			  .Object@numberGenotype <- initializeNumberGenotypeFrom(.Object, batchNames(.Object))
+		  } else .Object@numberGenotype <- numberGenotype
+##		  if(missing(genotypeSummary)){
+##			  tmp <- initializeGenotypeSummaryFrom(.Object)
+##			  gtSum <- new("GenotypeSummary",
+##				       numberGenotypes=tmp[["numberGenotypes"]],
+##				       means=tmp[["means"]],
+##				       mads=tmp[["mads"]])
+##			  .Object@genotypeSummary <- gtSum
+##		  } else .Object@genotypeSummary <- genotypeSummary
 		  return(.Object)
 })
+
 setValidity("CNSet", function(object){
 	if(!assayDataValidMembers(assayData(object), c("alleleA", "alleleB", "call", "callProbability"))){
 		message("assay data members must be 'alleleA', 'alleleB', 'call', 'callProbability'")
@@ -106,12 +141,29 @@ setValidity("CNSet", function(object){
 	}
 })
 
+initializeGenotypeSummaryFrom <- function(object){
+	nr <- nrow(object)
+	nc <- 3
+	bns <- batchNames(object)
+	elem.names <- paste("N_", bns, sep="")
+	nGt <- vector("list", length(bns))
+	for(i in seq_along(bns)) nGt[[i]] <- initializeBigMatrix(elem.names[i], nr, nc)
+	names(nGt) <- elem.names
+	numberGt <- do.call(assayDataNew, nGt)
 
-##setMethod("initialize", "CNSet",
-##	  function(.Object, lM, ...){
-##		  .Object@lM <- lM
-##		  .Object <- callNextMethod(.Object, ...)
-##	  })
+	elem.names <- paste("mns_", bns, sep="")
+	mns <- vector("list", length(bns))
+	for(i in seq_along(bns)) mns[[i]] <- initializeBigMatrix(elem.names[i], nr, nc)
+	mns <- do.call(assayDataNew, mns)
+
+	elem.names <- paste("mads_", bns, sep="")
+	mads <- vector("list", length(bns))
+	for(i in seq_along(bns)) mads[[i]] <- initializeBigMatrix(elem.names[i], nr, nc)
+	mads <- do.call(assayDataNew, mads)
+	return(list(numberGenotypes=numberGt, means=mns, mads=mads))
+}
+
+
 
 
 

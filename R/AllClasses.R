@@ -90,18 +90,70 @@ setClassUnion("list_or_ffdf", c("list", "ffdf"))
 ## Easier just to extend SnpSet directly and define accessors for CNSet
 ##setIs("LinearModelParameter", "AssayData")
 ##setClass("LinearModelParameter", contains="AssayData")
-setClassUnion("LinearModelParameter", c("AssayData", "environment", "list"))
+##setClassUnion("LinearModelParameter", c("AssayData", "environment", "list"))
+setClassUnion("NumberGenotype", c("AssayData", "environment", "list"))
 setClass("CNSet", contains = "SnpSuperSet",
 	 prototype = prototype(new("VersionedBiobase", versions=c(classVersion("eSet"), CNSet="1.0.0"))))
 setClass("CNSetLM", contains="CNSet", representation(lM="list_or_ffdf"))
 setMethod("initialize", "CNSetLM", function(.Object, lM=new("list"), ...){
 	.Defunct(msg="The CNSetLM class is defunct")
 })
-setClass("CNSet", representation(batch="factor", lM="LinearModelParameter"),
+
+setClass("GenotypeSummary",
+	 representation(numberGenotype="AssayData",
+			means="AssayData",
+			mads="AssayData"))
+##	 prototype=prototype(new("VersionedBiobase", versions=c(GenotypeSummary="1.0.0"))))
+setClass("CNSet", representation(batch="factor",
+				 lM="AssayData"),
 	 contains="SnpSet",
 	 prototype = prototype(
-	 new("VersionedBiobase",
-	     versions=c(classVersion("SnpSet"), CNSet="1.0.1"))))
+	                       new("VersionedBiobase",
+				   versions=c(classVersion("SnpSet"), CNSet="1.0.1"))))
+setClass("CNSet", representation(batch="factor",
+				 lM="AssayData",
+				 numberGenotype="AssayData"),
+	 contains="SnpSet",
+	 prototype = prototype(
+	                       new("VersionedBiobase",
+				   versions=c(classVersion("SnpSet"), CNSet="1.0.2"))))
+
+
+setMethod("updateObject", signature(object="CNSet"),
+          function(object, ..., verbose=FALSE) {
+              if (verbose) message("updateObject(object = 'MySet')")
+              object <- callNextMethod()
+              if (isCurrent(object)["MySet"]) return(object)
+              ## Create an updated instance.
+              if (!isVersioned(object))
+                  ## Radical surgery -- create a new, up-to-date instance
+                  new("MySet",
+                      assayData = updateObject(assayData(object),
+                        ...., verbose=verbose),
+                      phenoData = updateObject(phenoData(object),
+                        ..., verbose=verbose),
+                      experimentData = updateObject(experimentData(object),
+                        ..., verbose=verbose),
+                      annotation = updateObject(annotation(object),
+                        ..., verbose=verbose))
+              else {
+                  ## Make minor changes, and update version by consulting class definition
+                  classVersion(object)["MySet"] <-
+                      classVersion("MySet")["MySet"]
+                  object
+              }
+          })
+
+
+
+
+
+
+
+
+
+
+
 
 
 

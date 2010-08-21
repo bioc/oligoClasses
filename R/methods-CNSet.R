@@ -8,6 +8,8 @@ setMethod("show", "CNSet", function(object){
 	cat("                  ", paste(ls(lM(object))[5:8], collapse=",  "), "\n")
 	cat("                  ", paste(ls(lM(object))[9:12],collapse=",  "), "\n")
 	cat("                  ", paste(ls(lM(object))[13:length(lM(object))],  collapse=",  "),   "\n")
+	nNms <- ls(numberGenotype(object))
+	cat("numberGenotype: ", paste(nNms, collapse=", "), "\n")
 })
 
 setMethod("[", "CNSet", function(x, i, j, ..., drop=FALSE){
@@ -84,13 +86,10 @@ setMethod("A", "CNSet", function(object, ...) allele(object, "A", ...))
 setMethod("B", "CNSet", function(object, ...) allele(object, "B", ...))
 
 setReplaceMethod("A", "CNSet", function(object, value) {
-	open(assayDataElement(object, "alleleA")) ## should do nothing if matrix
 	obj <- assayDataElementReplace(object, "alleleA", value)
-	close(assayDataElement(object, "alleleA")) ## should do nothing if matrix
 })
 
 setReplaceMethod("B", "CNSet", function(object, value) {
-	open(assayDataElement(object, "alleleA")) ## should do nothing if matrix
 	assayDataElementReplace(object, "alleleB", value)
 })
 
@@ -118,11 +117,22 @@ setMethod("open", "CNSet", function(con, ...){
 })
 
 setMethod("lM", "CNSet", function(object) object@lM)
-setReplaceMethod("lM", signature=signature(object="CNSet", value="LinearModelParameter"),
+setReplaceMethod("lM", signature=signature(object="CNSet", value="AssayData"),
 		 function(object, value){
 			 object@lM <- value
 			 object
 		 })
+
+setMethod("numberGenotype", signature=signature(object="CNSet"),
+	  function(object, element.name){
+		  if(missing(element.name)) {
+			  return(object@numberGenotype)
+		  } else {
+			  if(!element.name %in% ls(object@numberGenotype))
+				  stop(paste("element.name must be one of ", paste(ls(object@numberGenotype), collapse=", ")))
+			  return(assayDataElement(object@numberGenotype, element.name))
+		  }
+	  })
 
 setMethod("nu", c("CNSet", "character"), function(object, allele) nu(lM(object), allele))
 setMethod("phi", c("CNSet", "character"), function(object, allele) phi(lM(object), allele))
@@ -131,10 +141,7 @@ setMethod("tau2", c("CNSet", "character"), function(object, allele) tau2(lM(obje
 setMethod("corr", c("CNSet", "character"), function(object, allele) corr(lM(object), allele))
 
 setMethod("flags", signature(object="CNSet"), function(object) flags(lM(object)))
-setReplaceMethod("flags", signature=signature(object="CNSet", value="matrix"),
-		 function(object, value){
-			 linearParamElementReplace(object, "flags", value)
-})
+
 
 setAs("CNSetLM", "CNSet", function(from){
 	if("batch" %in% varLabels(protocolData(from))){
@@ -166,6 +173,10 @@ setAs("CNSetLM", "CNSet", function(from){
 				corrAA=lm[["corrAA"]],
 				corrBB=lm[["corrBB"]],
 				flags=initializeBigMatrix("flags", nrow(from), length(unique(btch))))
+	##initialize container for Ns, but do not populate.
+##	nr <- sum(fData(from)$isSnp, na.rm=TRUE)
+##	Ns <- initializeNumberGenotypeFrom(from, unique(as.character(btch)), nr)
+	Ns <- initializeNumberGenotypeFrom(from, unique(as.character(btch)))
 	obj <- new("CNSet",
 		   alleleA=assayData(from)[["alleleA"]],
 		   alleleB=assayData(from)[["alleleB"]],
@@ -176,6 +187,7 @@ setAs("CNSetLM", "CNSet", function(from){
 		   experimentData=experimentData(from),
 		   protocolData=protocolData(from),
 		   batch=btch,
-		   lM=tmp)
+		   lM=tmp,
+		   numberGenotype=Ns)
 	return(obj)
 })

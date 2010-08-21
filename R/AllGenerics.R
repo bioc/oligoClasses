@@ -15,8 +15,6 @@ setGeneric("calls<-", function(object, value) standardGeneric("calls<-"))
 setGeneric("calls", function(object) standardGeneric("calls"))
 setGeneric("confs", function(object, transform=TRUE) standardGeneric("confs"))
 setGeneric("confs<-", function(object, value) standardGeneric("confs<-"))
-## setGeneric("callsConfidence", function(object) standardGeneric("callsConfidence"))
-## setGeneric("callsConfidence<-", function(object, value) standardGeneric("callsConfidence<-"))
 setGeneric("cnConfidence", function(object) standardGeneric("cnConfidence"))
 setGeneric("cnConfidence<-", function(object, value) standardGeneric("cnConfidence<-"))
 setGeneric("copyNumber", function(object) standardGeneric("copyNumber"))
@@ -45,7 +43,9 @@ setGeneric("phi", function(object, allele) standardGeneric("phi"))
 setGeneric("sigma2", function(object, allele) standardGeneric("sigma2"))
 setGeneric("tau2", function(object, allele) standardGeneric("tau2"))
 setGeneric("flags", function(object) standardGeneric("flags"))
-setGeneric("flags<-", function(object, value) standardGeneric("flags<-"))
+
+setGeneric("numberGenotype", function(object, ...) standardGeneric("numberGenotype"))
+
 
 
 

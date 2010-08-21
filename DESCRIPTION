@@ -27,7 +27,7 @@ Collate:  AllClasses.R
 	  methods-eSet.R	
           methods-AlleleSet.R
           methods-FeatureSet.R
-	  methods-LinearModelParameter.R
+	  methods-AssayData.R
           methods-SnpFeatureSet.R
 	  methods-oligoSnpSet.R
 	  methods-CopyNumberSet.R

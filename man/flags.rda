@@ -1,0 +1,38 @@
+\name{flags}
+\alias{flags}
+
+\title{
+
+  Flags for the polymorphic markers that can indicate possible problems
+  with CN estimation or the genotyping.
+
+}
+
+\description{
+
+  A SNP is flagged if any of the genotypes are not observed (e.g., a SNP
+  with a low minor allele frequency). The flag is batch-specific.
+
+}
+\usage{
+flags(object)
+}
+
+\arguments{
+  \item{object}{
+    An object of class \code{CNSet}.
+}
+}
+\details{
+
+
+
+}
+\value{
+    A matrix with rows corresponding to markers and columns corresponding
+  to batch.
+}
+
+\examples{
+}
+\keyword{manip}
