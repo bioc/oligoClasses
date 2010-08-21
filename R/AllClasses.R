@@ -158,7 +158,8 @@ setMethod("updateObject", signature(object="CNSet"),
 		  obj <- tryCatch(callNextMethod(batch=batch(object)), error=function(e) NULL)
 		  if(is.null(obj)){
 			  ## must supply batch for batchStatistics to be added
-			  if(is(calls(object), "ffdf") | is(calls(object), "ff_matrix")) require(ff)
+			  if(is(calls(object), "ffdf") | is(calls(object), "ff_matrix"))
+				  stopifnot(isPackageLoaded("ff"))
 			  obj <- new("CNSet",
 				     assayData = updateObject(assayData(object),
 				     ...., verbose=verbose),

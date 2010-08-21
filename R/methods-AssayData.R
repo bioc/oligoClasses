@@ -36,17 +36,17 @@ setMethod("phi", c("AssayData", "character"),
 		  assayDataElement(object, val)
 	  })
 
-setMethod("sigma2", c("AssayData", "character"),
-	  function(object, allele){
-		  getValue <- function(allele){
-			  switch(allele,
-				 A="sig2A",
-				 B="sig2B",
-				 stop("allele must be 'A' or 'B'"))
-		  }
-		  val <- getValue(allele)
-		  assayDataElement(object, val)
-	  })
+##setMethod("sigma2", c("AssayData", "character"),
+##	  function(object, allele){
+##		  getValue <- function(allele){
+##			  switch(allele,
+##				 A="sig2A",
+##				 B="sig2B",
+##				 stop("allele must be 'A' or 'B'"))
+##		  }
+##		  val <- getValue(allele)
+##		  assayDataElement(object, val)
+##	  })
 
 ##setMethod("tau2", c("AssayData", "character"),
 ##	  function(object, allele){
@@ -59,7 +59,7 @@ setMethod("sigma2", c("AssayData", "character"),
 ##		  val <- getValue(allele)
 ##		  assayDataElement(object, val)
 ##	  })
-##
+
 ##setMethod("corr", c("AssayData", "character"),
 ##	  function(object, allele){
 ##		  getValue <- function(allele){

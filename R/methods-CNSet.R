@@ -136,14 +136,15 @@ setMethod("open", "CNSet", function(con, ...){
 	return(TRUE)
 })
 
-setMethod("lM", "CNSet", function(object){
-	bs <- batchStatistics(object)
-	elem.names <- ls(bs)
-	param.names <- c("tau2A", "tau2B", "sig2A", "sig2B", "nuA", "nuB", "phiA", "phiB",
-			 "phiPrimeA", "phiPrimeB", "corrAB", "corrBB", "corrAA")
-	index <- match(param.names, elem.names)
-	return(bs[index])
-})
+##setMethod("lM", "CNSet", function(object){
+####	bs <- batchStatistics(object)
+####	elem.names <- ls(bs)
+####	param.names <- c("tau2A.AA", "tau2A.BB", "tau2B.AA", "tau2B.BB",
+####			 "nuA", "nuB", "phiA", "phiB",
+####			 "phiPrimeA", "phiPrimeB", "corrAB", "corrBB", "corrAA")
+####	index <- match(param.names, elem.names)
+####	return(bs[index])
+##})
 ##setReplaceMethod("lM", signature=signature(object="CNSet", value="AssayData"),
 ##		 function(object, value){
 ##			 object@lM <- value
@@ -224,6 +225,7 @@ setAs("CNSetLM", "CNSet", function(from){
 	lm <- from@lM
 	is.ffdf <- is(lm, "ffdf")
 	if(is.ffdf){
+		##stopifnot(isPackageLoaded("ff"))
 		lm <- physical(lm)
 	}
 	lm.names <- c("tau2A", "tau2B", "sig2A", "sig2B", "nuA", "nuB", "phiA", "phiB", "phiPrimeA", "phiPrimeB", "corrAB", "corrAA", "corrBB")
@@ -233,19 +235,30 @@ setAs("CNSetLM", "CNSet", function(from){
 	}
 	nr <- nrow(from)
 	nc <- length(unique(btch))
+	## mainly to avoid initializing new ff objects
+	tau2A.AA <- lm[["sig2A"]]
+	tau2A.BB <- lm[["tau2A"]]
+	tau2B.AA <- lm[["tau2B"]]
+	tau2B.BB <- lm[["sig2B"]]
 	tmp <- assayDataNew(N.AA=initializeBigMatrix("N.AA", nr, nc),
 			    N.AB=initializeBigMatrix("N.AB", nr, nc),
 			    N.BB=initializeBigMatrix("N.BB", nr, nc),
-			    median.AA=initializeBigMatrix("median.AA", nr, nc),
-			    median.AB=initializeBigMatrix("median.AB", nr, nc),
-			    median.BB=initializeBigMatrix("median.BB", nr, nc),
-			    mad.AA=initializeBigMatrix("mad.AA", nr, nc),
-			    mad.AB=initializeBigMatrix("mad.AB", nr, nc),
-			    mad.BB=initializeBigMatrix("mad.BB", nr, nc),
-			    tau2A=lm[["tau2A"]],
-			    tau2B=lm[["tau2B"]],
-			    sig2A=lm[["sig2A"]],
-			    sig2B=lm[["sig2B"]],
+			    medianA.AA=initializeBigMatrix("median.AA", nr, nc),
+			    medianA.AB=initializeBigMatrix("median.AB", nr, nc),
+			    medianA.BB=initializeBigMatrix("median.BB", nr, nc),
+			    medianB.AA=initializeBigMatrix("median.AA", nr, nc),
+			    medianB.AB=initializeBigMatrix("median.AB", nr, nc),
+			    medianB.BB=initializeBigMatrix("median.BB", nr, nc),
+			    madA.AA=initializeBigMatrix("mad.AA", nr, nc),
+			    madA.AB=initializeBigMatrix("mad.AB", nr, nc),
+			    madA.BB=initializeBigMatrix("mad.BB", nr, nc),
+			    madB.AA=initializeBigMatrix("mad.AA", nr, nc),
+			    madB.AB=initializeBigMatrix("mad.AB", nr, nc),
+			    madB.BB=initializeBigMatrix("mad.BB", nr, nc),
+			    tau2A.AA=tau2A.AA,
+			    tau2A.BB=tau2A.BB,
+			    tau2B.AA=tau2B.AA,
+			    tau2B.BB=tau2B.BB,
 			    nuA=lm[["nuA"]],
 			    nuB=lm[["nuB"]],
 			    phiA=lm[["phiA"]],

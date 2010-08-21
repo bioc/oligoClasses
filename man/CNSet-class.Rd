@@ -11,18 +11,21 @@
 \alias{batch,CNSet-method}
 \alias{batchNames,CNSet-method}
 \alias{batchNames<-,CNSet-method}
+\alias{batchStatistics,CNSet-method}
+\alias{batchStatistics<-,CNSet,AssayData-method}
 \alias{close,CNSet-method}
 \alias{coerce,CNSetLM,CNSet-method}
 \alias{corr,CNSet,character-method}
 \alias{flags,CNSet-method}
 \alias{initialize,CNSet-method}
 \alias{initialize,CNSetLM-method}
-\alias{lM,CNSet-method}
+%\alias{lM,CNSet-method}
 \alias{nu,CNSet,character-method}
 \alias{open,CNSet-method}
 \alias{phi,CNSet,character-method}
 \alias{sigma2,CNSet,character-method}
 \alias{tau2,CNSet,character-method}
+\alias{updateObject,CNSet-method}
 
 \title{Class "CNSet"}
 \description{
@@ -34,7 +37,7 @@
 
 }
 \section{Objects from the Class}{
-		 
+
 		 An object from the class is not generally intended to
 		 be initialized by the user, but returned by the
 		 \code{genotype} function in the \code{crlmm} package.
@@ -44,12 +47,12 @@
 
 	 \code{new(CNSet, alleleA=new("matrix"), alleleB=new("matrix"), call=new("matrix"),
 		   callProbability=new("matrix"), batch=new("factor"))}
-		 
+
 }
 \section{Slots}{
   \describe{
     \item{\code{batch}:}{Object of class \code{"factor"} ~~ }
-    \item{\code{lM}:}{Object of class \code{"LinearModelParameter"} ~~ }
+    \item{\code{batchStatistics}:}{Object of class \code{"AssayData"} ~~ }
     \item{\code{assayData}:}{Object of class \code{"AssayData"} ~~ }
     \item{\code{phenoData}:}{Object of class \code{"AnnotatedDataFrame"} ~~ }
     \item{\code{featureData}:}{Object of class \code{"AnnotatedDataFrame"} ~~ }
@@ -81,8 +84,8 @@ Class \code{"\linkS4class{Versioned}"}, by class "SnpSet", distance 4.
     \item{corr}{\code{signature(object = "CNSet", allele = "character")}: ... }
     \item{flags}{\code{signature(object="CNSet")}: SNP flags }
     \item{initialize}{\code{signature(.Object = "CNSet")}: ... }
-    \item{lM}{\code{signature(object = "CNSet")}: ... }
-    \item{lM<-}{\code{signature(object = "CNSet", value = "LinearModelParameter")}: ... }
+%    \item{lM}{\code{signature(object = "CNSet")}: ... }
+%    \item{lM<-}{\code{signature(object = "CNSet", value = "LinearModelParameter")}: ... }
     \item{nu}{\code{signature(object = "CNSet", allele = "character")}: ... }
     \item{open}{\code{signature(con = "CNSet")}: ... }
     \item{phi}{\code{signature(object = "CNSet", allele = "character")}: ... }
@@ -96,11 +99,9 @@ R. Scharpf
 }
 
 \seealso{
-	\code{\link{LinearModelParameter-class}}
 }
 \examples{
-
-  	if(require("genomewidesnp6Crlmm")){
+ 	if(require("genomewidesnp6Crlmm")){
 		require("genomewidesnp6Crlmm")
 		fns <- c("SNP_A-2131660", "SNP_A-1967418", "SNP_A-1969580", "SNP_A-4263484",
 			 "SNP_A-1978185", "SNP_A-4264431", "SNP_A-1980898", "SNP_A-1983139",
@@ -121,9 +122,8 @@ R. Scharpf
 		## number of batches.  In this toy example, the
 		## samples were assumed to be from the same batch.
 		## Ordinarily, one would have 50+ samples in a given
-		## batch.  
+		## batch.
 		dns <- list(fns, batch="1")
-		##lM <- crlmm:::initializeParamObject(dns)
 		obj <- new("CNSet",
 			   alleleA=A,
 			   alleleB=B,
@@ -131,6 +131,7 @@ R. Scharpf
 			   callProbability=theConfs,
 			   batch=as.factor(rep(1, ncol(A))),
 			   annotation="genomewidesnp6")
+		assayDataElementNames(batchStatistics(obj))
 		featureNames(obj) <- fns
 		## Accessors
 		calls(obj)
@@ -141,7 +142,7 @@ R. Scharpf
 		isSnp(obj)
 		chromosome(obj)
 		position(obj)
-	}	
+	}
 
 }
 \keyword{classes}

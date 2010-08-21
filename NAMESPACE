@@ -49,7 +49,7 @@ exportClasses(ExpressionFeatureSet, SnpFeatureSet, SnpCnvFeatureSet,
 ##SNP-level Classes
 exportClasses(AlleleSet, oligoSnpSet, SnpSuperSet, CNSet)
 
-export(chromosome2integer)
+export(chromosome2integer, i2p, p2i)
 
 ##SNP-level methods
 exportMethods(bothStrands, allele, calls, "calls<-", confs, "confs<-",
@@ -70,13 +70,12 @@ exportMethods(getM, getA, annotatedDataFrameFrom, open, close)
 ##export(addFeatureAnnotation.pd)
 exportClasses(ffdf, ff_matrix)
 
-
 export(annotationPackages, addFeatureAnnotation, checkExists)
 exportMethods(batch, batchNames, "batchNames<-", coerce, flags)
-exportMethods(lM)
-exportMethods(nu, phi, sigma2)
+##exportMethods(lM)
+exportMethods(nu, phi)
 exportMethods(batchStatistics, "batchStatistics<-")
-export(featureDataFrom)
+##export(featureDataFrom)
 
 ## For debugging
 ## exportPattern("^[^\\.]")

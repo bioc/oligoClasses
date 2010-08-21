@@ -63,7 +63,7 @@ R. Scharpf
 }
 
 \seealso{
-	\code{\link{LinearModelParameter-class}}, \code{\link{CNSet-class}}
+\code{\link{CNSet-class}}
 }
 \examples{
 
