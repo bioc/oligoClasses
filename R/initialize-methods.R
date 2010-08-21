@@ -89,8 +89,9 @@ setMethod("initialize", "CNSet",
 		  if(missing(batch)){
 			  stop("Must specify factor 'batch'. See ?CNSet-class for details.")
 		  } else .Object@batch <- batch
-		  if(missing(lM))
+		  if(missing(lM)){
 			  lM(.Object) <- initializeLmFrom(.Object)
+		  } else lM(.Object) <- lM
 		  batchNames(.Object) <- unique(as.character(batch))
 		  return(.Object)
 })

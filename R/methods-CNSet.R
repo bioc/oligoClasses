@@ -7,7 +7,7 @@ setMethod("show", "CNSet", function(object){
 	cat("   element names: ", paste(ls(lM(object))[1:4], collapse=",  "), "\n")
 	cat("                  ", paste(ls(lM(object))[5:8], collapse=",  "), "\n")
 	cat("                  ", paste(ls(lM(object))[9:12],collapse=",  "), "\n")
-	cat("                  ", paste(ls(lM(object))[13],  collapse=",  "),   "\n")
+	cat("                  ", paste(ls(lM(object))[13:length(lM(object))],  collapse=",  "),   "\n")
 })
 
 setMethod("[", "CNSet", function(x, i, j, ..., drop=FALSE){
@@ -45,6 +45,25 @@ setReplaceMethod("batch", signature=signature(object="CNSet"),
 		 object
 })
 
+##assayDataElement <- function(object, elt) assayData(object)[[elt]]
+##assayDataElementReplace <- function(obj, elt, value) {
+##    storage.mode <- storageMode(obj)
+##    switch(storageMode(obj),
+##           "lockedEnvironment" = {
+##               aData <- copyEnv(assayData(obj))
+##               if (is.null(value)) rm(list=elt, envir=aData)
+##               else aData[[elt]] <- value
+##               assayDataEnvLock(aData)
+##               assayData(obj) <- aData
+##           },
+##           "environment" = {
+##               if (is.null(value)) rm(list=elt, envir=assayData(obj))
+##               else assayData(obj)[[elt]] <- value
+##           },
+##           list = assayData(obj)[[elt]] <- value)
+##    obj
+##}
+
 setMethod("batchNames", "CNSet", function(object)  batchNames(lM(object)))
 
 setReplaceMethod("batchNames", "CNSet", function(object, value) {
@@ -65,10 +84,13 @@ setMethod("A", "CNSet", function(object, ...) allele(object, "A", ...))
 setMethod("B", "CNSet", function(object, ...) allele(object, "B", ...))
 
 setReplaceMethod("A", "CNSet", function(object, value) {
-	assayDataElementReplace(object, "alleleA", value)
+	open(assayDataElement(object, "alleleA")) ## should do nothing if matrix
+	obj <- assayDataElementReplace(object, "alleleA", value)
+	close(assayDataElement(object, "alleleA")) ## should do nothing if matrix
 })
 
 setReplaceMethod("B", "CNSet", function(object, value) {
+	open(assayDataElement(object, "alleleA")) ## should do nothing if matrix
 	assayDataElementReplace(object, "alleleB", value)
 })
 
@@ -120,18 +142,17 @@ setAs("CNSetLM", "CNSet", function(from){
 	} else {
 		stop("couldn't find batch in varLabels of protocolData.")
 	}
-	obj <- new("CNSet",
-		   alleleA=assayData(from)[["alleleA"]],
-		   alleleB=assayData(from)[["alleleB"]],
-		   call=assayData(from)[["call"]],
-		   callProbability=assayData(from)[["callProbability"]],
-		   featureData=featureData(from),
-		   phenoData=phenoData(from),
-		   experimentData=experimentData(from),
-		   protocolData=protocolData(from),
-		   batch=btch)
 	lm <- from@lM
-	lM(obj) <- assayDataNew(tau2A=lm[["tau2A"]],
+	is.ffdf <- is(lm, "ffdf")
+	if(is.ffdf){
+		lm <- physical(lm)
+	}
+	lm.names <- c("tau2A", "tau2B", "sig2A", "sig2B", "nuA", "nuB", "phiA", "phiB", "phiPrimeA", "phiPrimeB", "corrAB", "corrAA", "corrBB")
+	if(!all(lm.names %in% names(lm))){
+		lm.names <- paste(lm.names, collapse=", ")
+		stop(paste("names(object@lM) must have the following names:", lm.names))
+	}
+	tmp <- assayDataNew(tau2A=lm[["tau2A"]],
 				tau2B=lm[["tau2B"]],
 				sig2A=lm[["sig2A"]],
 				sig2B=lm[["sig2B"]],
@@ -144,6 +165,17 @@ setAs("CNSetLM", "CNSet", function(from){
 				corrAB=lm[["corrAB"]],
 				corrAA=lm[["corrAA"]],
 				corrBB=lm[["corrBB"]],
-				flags=initializeBigMatrix("flags", nrow(obj), length(batchNames(obj))))
+				flags=initializeBigMatrix("flags", nrow(from), length(unique(btch))))
+	obj <- new("CNSet",
+		   alleleA=assayData(from)[["alleleA"]],
+		   alleleB=assayData(from)[["alleleB"]],
+		   call=assayData(from)[["call"]],
+		   callProbability=assayData(from)[["callProbability"]],
+		   featureData=featureData(from),
+		   phenoData=phenoData(from),
+		   experimentData=experimentData(from),
+		   protocolData=protocolData(from),
+		   batch=btch,
+		   lM=tmp)
 	return(obj)
 })
