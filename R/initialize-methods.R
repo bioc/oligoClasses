@@ -24,6 +24,18 @@ setMethod("initialize", "CopyNumberSet",
 		  return(.Object)
           })
 
+
+setAs("CNSet", "CopyNumberSet",
+      function(from){
+	      new("CopyNumberSet",
+		  copyNumber=totalCopynumber(from, i=1:nrow(from), j=1:ncol(from)),
+		  annotation=annotation(from),
+		  featureData=featureData(from),
+		  phenoData=phenoData(from),
+		  experimentData=experimentData(from),
+		  protocolData=protocolData(from))
+      })
+
 setMethod("initialize", "oligoSnpSet",
 	  function(.Object,
 		   call=new("matrix"),

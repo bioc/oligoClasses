@@ -34,12 +34,12 @@ setMethod("show", "CNSet", function(object){
 setMethod("[", "CNSet", function(x, i, j, ..., drop=FALSE){
 	x <- callNextMethod(x, i, j, ..., drop=drop)
 	if(!missing(j)){
-		batch(x) <- batch(x)[j]
-		nms <- unique(as.character(batch(x)))
+		x@batch <- batch(x)[j]
+		nms <- sampleNames(batchStatistics(x))
 		## need to subset columns of LinearModelParameter
 		## Adapted from the '[' method for eSet in Biobase
 		## redefine 'j'
-		j <- nms %in% batchNames(x)
+		j <- which(nms %in% unique(as.character(batch(x))))
 		storage.mode <- storageMode(batchStatistics(x))
 		## i (if defined) is already subset by callNextMethod
 		orig <- batchStatistics(x)
