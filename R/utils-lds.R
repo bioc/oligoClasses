@@ -87,7 +87,7 @@ ldPath <- function(path){
   }
 }
 
-ldSetOptions <- function(nsamples=100, nprobesets=1000,
+ldSetOptions <- function(nsamples=100, nprobesets=20000,
                          path=getwd(), verbose=FALSE){
   ocProbesets(nprobesets)
   ocSamples(nsamples)
@@ -110,7 +110,7 @@ ldStatus <- function(verbose=FALSE){
     }else{
       message("Disabled")
       message("     - Load 'ff'")
-    }      
+    }
     message(getBar())
   }
   return(ld)
