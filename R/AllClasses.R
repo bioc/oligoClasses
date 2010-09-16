@@ -92,7 +92,7 @@ setClassUnion("list_or_ffdf", c("list", "ffdf"))
 ##setIs("LinearModelParameter", "AssayData")
 ##setClass("LinearModelParameter", contains="AssayData")
 ##setClassUnion("LinearModelParameter", c("AssayData", "environment", "list"))
-setClassUnion("NumberGenotype", c("AssayData", "environment", "list"))
+##setClassUnion("NumberGenotype", c("AssayData", "environment", "list"))
 setClass("CNSet", contains = "SnpSuperSet",
 	 prototype = prototype(new("VersionedBiobase", versions=c(classVersion("eSet"), CNSet="1.0.0"))))
 setClass("CNSetLM", contains="CNSet", representation(lM="list_or_ffdf"))
