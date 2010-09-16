@@ -10,7 +10,7 @@
   Set/check large dataset options.
 }
 \usage{
-ldSetOptions(nsamples=100, nprobesets=1000, path=getwd(), verbose=FALSE)
+ldSetOptions(nsamples=100, nprobesets=20000, path=getwd(), verbose=FALSE)
 ldStatus(verbose=FALSE)
 ldPath(path)
 }

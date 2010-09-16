@@ -15,6 +15,7 @@
 \alias{batchStatistics<-,CNSet,AssayData-method}
 \alias{close,CNSet-method}
 \alias{coerce,CNSetLM,CNSet-method}
+\alias{coerce,CNSet,CopyNumberSet-method}
 \alias{corr,CNSet,character-method}
 \alias{flags,CNSet-method}
 \alias{initialize,CNSet-method}
@@ -81,6 +82,7 @@ Class \code{"\linkS4class{Versioned}"}, by class "SnpSet", distance 4.
     \item{batchNames<-}{\code{signature(object = "CNSet")}: ... }
     \item{close}{\code{signature(con = "CNSet")}: ... }
     \item{coerce}{\code{signature(from="CNSetLM")}: ... }
+    \item{coerce}{\code{signature(from="CNSet")}: ... }
     \item{corr}{\code{signature(object = "CNSet", allele = "character")}: ... }
     \item{flags}{\code{signature(object="CNSet")}: SNP flags }
     \item{initialize}{\code{signature(.Object = "CNSet")}: ... }
