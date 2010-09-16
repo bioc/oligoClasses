@@ -133,6 +133,12 @@ setMethod("open", "CNSet", function(con, ...){
 	names <- assayDataElementNames(batchStatistics(object))
 	L <- length(names)
 	for(i in 1:L) open(eval(substitute(batchStatistics(object)[[NAME]], list(NAME=names[i]))))
+	if("SKW" %in% varLabels(object)){
+		if(is(object$SKW, "ff")) open(object$SKW)
+	}
+	if("SNR" %in% varLabels(object)){
+		if(is(object$SNR, "ff")) open(object$SNR)
+	}
 	return(TRUE)
 })
 
