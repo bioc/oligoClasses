@@ -119,38 +119,11 @@ setClass("CNSet", representation(batch="factor",
 	                       new("VersionedBiobase",
 				   versions=c(classVersion("SnpSet"), CNSet="1.0.2"))))
 setClass("CNSet", representation(batch="factor",
-##				 lM="AssayData",
 				 batchStatistics="AssayData"),
 	 contains="SnpSet",
 	 prototype = prototype(
 	                       new("VersionedBiobase",
 				   versions=c(classVersion("SnpSet"), CNSet="1.0.3"))))
-
-
-## elements of batchStatistics
-##   - each element is R x C, R is number of markers / C is number of batches
-##  N.AA
-##  N.AB
-##  N.BB
-##  median.AA
-##  median.AB
-##  median.BB
-##  mad.AA
-##  mad.AB
-##  mad.BB
-##  linear model parameters also go here (13)
-##
-## Accessor / replacement methods for above in crlmm
-##
-## - Ns, medians, mads to pull across the 3 genotypes in oligoClasses
-## - lM still grabs the linear model parameters, but need to redefine
-##
-##
-
-
-
-
-
 
 setMethod("updateObject", signature(object="CNSet"),
           function(object, ..., verbose=FALSE) {
