@@ -34,6 +34,7 @@ setMethod("show", "CNSet", function(object){
 setMethod("[", "CNSet", function(x, i, j, ..., drop=FALSE){
 	x <- callNextMethod(x, i, j, ..., drop=drop)
 	if(!missing(j)){
+		if(missing(i)) i <- 1:nrow(x)
 		x@batch <- batch(x)[j]
 		nms <- sampleNames(batchStatistics(x))
 		## need to subset columns of LinearModelParameter
