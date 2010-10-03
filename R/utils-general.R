@@ -235,6 +235,9 @@ featureDataFrom <- function(annotationPackage){
 	cnProbes <- get("cnProbes", envir=.oligoClassesPkgEnv)
 	loader("snpProbes.rda", pkgname=pkgname, envir=.oligoClassesPkgEnv)
 	snpProbes <- get("snpProbes", envir=.oligoClassesPkgEnv)
+	if("chr" %in% colnames(snpProbes)) {
+		colnames(cnProbes) <- colnames(snpProbes) <- c("chrom", "position")
+	}
 	fns <- c(rownames(snpProbes), rownames(cnProbes))
 	isSnp <- c(rep(1L, nrow(snpProbes)), rep(0L, nrow(cnProbes)))
 	positions <- as.integer(c(snpProbes[, "position"], cnProbes[, "position"]))

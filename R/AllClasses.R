@@ -99,12 +99,11 @@ setClass("CNSetLM", contains="CNSet", representation(lM="list_or_ffdf"))
 setMethod("initialize", "CNSetLM", function(.Object, lM=new("list"), ...){
 	.Defunct(msg="The CNSetLM class is defunct")
 })
-
-setClass("GenotypeSummary",
-	 representation(numberGenotype="AssayData",
-			means="AssayData",
-			mads="AssayData"))
-##	 prototype=prototype(new("VersionedBiobase", versions=c(GenotypeSummary="1.0.0"))))
+##setClass("GenotypeSummary",
+##	 representation(numberGenotype="AssayData",
+##			means="AssayData",
+##			mads="AssayData"))
+####	 prototype=prototype(new("VersionedBiobase", versions=c(GenotypeSummary="1.0.0"))))
 setClass("CNSet", representation(batch="factor",
 				 lM="AssayData"),
 	 contains="SnpSet",
