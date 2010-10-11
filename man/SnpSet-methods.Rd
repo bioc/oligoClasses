@@ -9,46 +9,67 @@
 \alias{confs<-}
 \alias{confs<-,SnpSet,matrix-method}
 \title{Accessors for Calls and Confidences on a SnpSet object}
+
 \description{
+
   \code{calls} returns the genotype calls. CRLMM stores genotype calls
   as integers (1 - AA; 2 - AB; 3 - BB).
 
-  \code{confs} returns the confidences associated to the genotype
+  \code{confs} returns the confidences associated with the genotype
   calls. The current implementation of CRLMM stores the confidences as
-  integers by using the transformation:
+  integers to save memory on disk by using the transformation:
 
-  conf = round(-1000*log2(1-p)),
+  round(-1000*log2(1-p)),
 
-  where 'p' is the posterior probability of the call.
+  where 'p' is the posterior probability of the call.  \code{confs} is
+  a convenience function that transforms the integer representation
+  back to a probability.  Note that if the assayData elements of the
+  \code{SnpSet} objects are \code{ff_matrix} or code{ffdf}, the
+  \code{confs} function will return a warning. For such objects, one
+  should first subset the \code{ff} object and coerce to a matrix,
+  then apply the above conversion.  The function
+  \code{snpCallProbability} for the \code{callProbability} slot of
+  \code{SnpSet} objects.  See the examples below.
+
+
 }
 
 \section{Methods}{
 	\describe{
 	\item{\code{initialize(SnpSet)}:}{Object instantiation, used by
-	  \code{new}; not to be called directly by the user.}  
+	  \code{new}; not to be called directly by the user.}
 	\item{\code{calls(object)}:}{accessor for genotype calls}
 	\item{\code{confs(object)}:}{accessor for crlmm genotype confidence scores}
 	}
 }
-\seealso{\code{\link{addFeatureAnnotation}}}
+\seealso{\code{\link{addFeatureAnnotation}}, \code{\link{snpCallProbability}}}
 \examples{
 
 	theCalls <- matrix(sample(1:3, 20, rep=TRUE), nc=2)
 	p <- matrix(runif(20), nc=2)
-	theConfs <- round(-1000*log2(1-p))
-	obj <- new("SnpSet", call=theCalls, callProbability=theConfs)
+	integerRepresentation <- matrix(as.integer(round(-1000*log(1-p))), 10, 2)
+	obj <- new("SnpSet", call=theCalls, callProbability=integerRepresentation)
 	calls(obj)
-	confs(obj)
+	p2 <- confs(obj)
+	dimnames(p2) <- NULL
+	all.equal(p2, p)	## small differences due to rounding
 
-##	if(require("genomewidesnp6Crlmm")){
-##		ids <- c("SNP_A-2131660", "SNP_A-1967418", "SNP_A-1969580", "SNP_A-4263484",
-##			 "SNP_A-1978185", "SNP_A-4264431", "SNP_A-1980898", "SNP_A-1983139",
-##			 "SNP_A-4265735", "SNP_A-1995832")
-##		rownames(theCalls) <- rownames(p) <- rownames(theConfs) <- ids
-##		obj <- new("SnpSet", call=theCalls, callProbability=theConfs,
-##			   annotation="genomewidesnp6")
-##		obj2 <- annotate(obj)
-##		fvarLabels(obj2)
-##	}
+	## example using ff
+	if(require(ff)){
+		ldPath(tempdir())
+		integerRepresentation <- initializeBigMatrix("tmp", 10, 2)
+		for(j in 1:2) integerRepresentation[, j] <- as.integer(round(-1000*log(1-p[, j])))
+		integerRepresentation
+		obj <- new("SnpSet", call=theCalls, callProbability=integerRepresentation)
+		calls(obj)
+		res <- tryCatch(confs(obj), error=function(e) NULL)
+		is.null(res)
+		integerRepresentation <- snpCallProbability(obj)
+		##coerce to matrix by subsetting desired rows and columns (here we choose all rows and columns)
+		integerRepresentation <- integerRepresentation[,]
+		p3 <- oligoClasses:::i2p(integerRepresentation)
+		dimnames(p3) <- NULL
+		all.equal(p2, p3)
+	}
 }
 \keyword{manip}

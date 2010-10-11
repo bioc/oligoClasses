@@ -9,12 +9,17 @@ i2p <- function(i)
   1-exp(-i/1000)
 
 setMethod("confs", "SnpSet", function(object, transform=TRUE) {
-	X <- assayData(object)$callProbability
+	X <- snpCallProbability(object)
+	if(is(X, "ff_matrix") | is(X, "ffdf")){
+		warning("callProbability slot is a ff_matrix or ffdf object.  First, coerce to a matrix, then apply the i2p helper function as indicated in the help file for confs. ")
+		return(NULL)
+	}
 	if (transform){
 		X <- i2p(X)
 	}
 	return(X)
 })
+
 setReplaceMethod("confs", signature(object="SnpSet", value="matrix"),
 		 function(object, value){
 			 ##convert probability to integer
@@ -37,20 +42,20 @@ setMethod("combine", signature=signature(x="SnpSet", y="SnpSet"),
 
 		  if(class(x) != class(y)){
 			  stop("objects must have the same class")
-		  }            
+		  }
 		  if(storageMode(assayData(x)) != storageMode(assayData(y))){
 			  stop("objects must have same storage mode for assayData")
 		  }
 
 		  fd <- combine(featureData(x), featureData(y))
-		  pd <- combine(phenoData(x), phenoData(y))            
+		  pd <- combine(phenoData(x), phenoData(y))
 		  ad.x <- as.list(assayData(x))
 		  ad.y <- as.list(assayData(y))
 		  ad.xy <- mapply(rbind, ad.x, ad.y, SIMPLIFY=FALSE)
 		  id.x <- match(rownames(ad.xy[[1]]), featureNames(fd))
 		  ee <- combine(experimentData(x), experimentData(y))
 		  assayData(x) <- ad.xy
-		  storageMode(assayData(x)) <- storageMode(assayData(y))            
+		  storageMode(assayData(x)) <- storageMode(assayData(y))
 		  experimentData(x) <- ee
 		  featureData(x) <- fd
 		  phenoData(x) <- pd
