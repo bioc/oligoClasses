@@ -35,7 +35,7 @@ batchNames(object) <- value
   \item{value}{
 
   For 'batchNames', the value must be a character string corresponding
-  of the unique batch names.  
+  of the unique batch names.
 
 }
 
@@ -66,7 +66,6 @@ R. Scharpf
 \code{\link{CNSet-class}}
 }
 \examples{
-
 x <- matrix(runif(250*96*2, 0, 2), 250, 96*2)
 test1 <- new("CNSet", alleleA=x, alleleB=x, call=x, callProbability=x,
 	     batch=as.factor(rep(letters[1:2], each=96)))
@@ -74,20 +73,25 @@ batchNames(test1) ##unique batches
 batch(test1)
 test1[1:20, 1:10]
 ##just NA's
-nu(test1, "A")
-
+nu(test1, "A")[1:10, ]
+## similarly for the B allele
+##nu(test1, "B")
+##phi(test1, "A")
+##phi(test1, "B")
 ## using ff objects
-library(ff)
-x2 <- initializeBigMatrix("smallx", nr=250, nc=96*2)
-x2[,] <- as.numeric(x)
-test2 <- new("CNSet", alleleA=x, alleleB=x, call=x, callProbability=x, batch=as.factor(rep(letters[1:2], each=96)))
-test2
-batchNames(test2) ##unique batches
-batch(test2)
-(test2.sub <- test2[1:20, 1:10])
-##just NA's
-nu(test2.sub, "A")
-
+if(require(ff)){
+	x2 <- initializeBigMatrix("smallx", nr=250, nc=96*2)
+	x2[,] <- as.numeric(x)
+	test2 <- new("CNSet", alleleA=x, alleleB=x, call=x, callProbability=x, batch=as.factor(rep(letters[1:2], each=96)))
+	test2
+	batchNames(test2) ##unique batches
+	batch(test2)
+	## ff objects
+	class(nu(test2, "A"))
+	(test2.sub <- test2[1:20, 1:10])
+	## after subsetting, all elements are matrices
+	class(nu(test2.sub, "A"))
+}
 }
 \keyword{methods}
 
