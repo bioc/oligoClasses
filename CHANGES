@@ -250,3 +250,7 @@ added classes AffyExonPDInfo and AffySTPDInfo
 
 ** added checkExists utility to oligoClasses package 
 (checks objects in workspace or specified file directory before executing a function)
+
+10-29-2010 - B Carvalho (1.13.2)
+
+** removed man/flags.rda
