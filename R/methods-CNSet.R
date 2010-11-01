@@ -293,3 +293,77 @@ setAs("CNSetLM", "CNSet", function(from){
 		   batchStatistics=tmp)
 	return(obj)
 })
+
+
+setMethod("relocateObject", signature(object="CNSet"), 
+	  function(object, from , to, cleanup=TRUE, ...){
+		  open(object)
+		  message(paste("Copying all files to path", to))
+		  fns <- list.files(from, full.names=T)
+		  file.copy(fns, to, recursive=TRUE)
+		  fns2 <- list.files(to)
+		  stopifnot(all.equal(basename(fns), fns2))
+		  ##AssayData
+		  storage.mode <- storageMode(assayData(object))
+		  orig <- assayData(object)
+		  assayData(object) <-
+			  switch(storage.mode,
+				 environment =,
+				 lockedEnvironment = {
+					 aData <- new.env(parent=emptyenv())
+					 for(nm in ls(orig)){
+						 obj <- orig[[nm]]
+						 filename(obj) <- file.path(to, basename(filename(obj)))
+						 physical(obj)$pattern <- file.path(to, basename(pattern(obj)))
+						 aData[[nm]] <- obj
+					 }
+					 if ("lockedEnvironment" == storage.mode) Biobase:::assayDataEnvLock(aData)
+					 aData
+				 },
+				 list = {
+					 relocate.fxn <- function(obj, to){
+						 obj <- orig[[nm]]
+						 filename(obj) <- file.path(to, basename(filename(obj)))
+						 physical(obj)$pattern <- file.path(to, basename(pattern(obj)))
+						 return(obj)
+					 }
+					 lapply(orig, relocate.fxn, to=to)
+				 })
+		  storage.mode <- storage.mode(batchStatistics(object))
+		  orig <- batchStatistics(object)
+		  batchStatistics(object) <-
+			  switch(storage.mode,
+				 environment =,
+				 lockedEnvironment = {
+					 aData <- new.env(parent=emptyenv())
+					 for(nm in ls(orig)){
+						 obj <- orig[[nm]]
+						 filename(obj) <- file.path(to, basename(filename(obj)))
+						 physical(obj)$pattern <- file.path(to, basename(pattern(obj)))
+						 aData[[nm]] <- obj
+					 }
+					 if ("lockedEnvironment" == storage.mode) Biobase:::assayDataEnvLock(aData)
+					 aData
+				 },
+				 list = {
+					 relocate.fxn <- function(obj, to){
+						 obj <- orig[[nm]]
+						 filename(obj) <- file.path(to, basename(filename(obj)))
+						 physical(obj)$pattern <- file.path(to, basename(pattern(obj)))
+						 return(obj)
+					 }
+					 lapply(orig, relocate.fxn, to=to)
+				 })
+		  ##Finally, remove any ff objects that might be in the phenodata
+		  pD <- new("AnnotatedDataFrame", data=data.frame(list(SNR=object$SNR[, ],
+						  SKW=object$SKW[,],
+						  gender=object$gender)),
+			    varMetadata=data.frame(labelDescription=c("SNR", "SKW", "gender"), row.names=c("SNR", "SKW", "gender")))
+		  sampleNames(pD) <- sampleNames(object)
+		  phenoData(object) <- pD
+		  if(cleanup){
+			  if(validObject(object)) unlink(from, recursive=TRUE)
+		  }
+		  ##pData(object) <- pData(object)[,]
+		  object
+	  })

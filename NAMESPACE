@@ -79,3 +79,4 @@ exportMethods(batchStatistics, "batchStatistics<-")
 
 ## For debugging
 ## exportPattern("^[^\\.]")
+exportMethods(annotate)
