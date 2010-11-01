@@ -3,7 +3,7 @@ setMethod("annotate", "eSet", function(object){
 	featureData <- object@featureData
 	position <- grep("position", varLabels(featureData))
 	chromosome <- grep("chromosome", varLabels(featureData))
-	isSnp <- grep("isSnp", varLabels(featureData))Q
+	isSnp <- grep("isSnp", varLabels(featureData))
 	if(length(annotation) < 1){
 		if((length(position) < 1| length(chromosome) <1 | length(isSnp) <1)){
 			stop("must specify annotation if 'chromosome', 'position', and 'isSnp' are missing")

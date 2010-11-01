@@ -72,7 +72,7 @@ exportMethods(getM, getA, annotatedDataFrameFrom, open, close)
 exportClasses(ff_matrix,ffdf)
 
 export(annotationPackages, addFeatureAnnotation, checkExists)
-exportMethods(batch, batchNames, "batchNames<-", coerce, flags)
+exportMethods(batch, batchNames, "batchNames<-", coerce, flags, relocateObject)
 exportMethods(nu, phi)
 exportMethods(batchStatistics, "batchStatistics<-")
 ##export(featureDataFrom)

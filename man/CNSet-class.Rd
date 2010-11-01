@@ -24,6 +24,7 @@
 \alias{nu,CNSet,character-method}
 \alias{open,CNSet-method}
 \alias{phi,CNSet,character-method}
+\alias{relocateObject,CNSet-method}
 \alias{sigma2,CNSet,character-method}
 \alias{tau2,CNSet,character-method}
 \alias{updateObject,CNSet-method}
@@ -90,7 +91,9 @@ Class \code{"\linkS4class{Versioned}"}, by class "SnpSet", distance 4.
 %    \item{lM<-}{\code{signature(object = "CNSet", value = "LinearModelParameter")}: ... }
     \item{nu}{\code{signature(object = "CNSet", allele = "character")}: ... }
     \item{open}{\code{signature(con = "CNSet")}: ... }
-    \item{phi}{\code{signature(object = "CNSet", allele = "character")}: ... }
+    \item{phi}{\code{signature(object = "CNSet", allele =
+    "character")}: ... }
+    \item{relocateObject}{\code{signature(object="CNSet")}}   
     \item{sigma2}{\code{signature(object = "CNSet", allele = "character")}: ... }
     \item{tau2}{\code{signature(object = "CNSet", allele = "character")}: ... }
 	 }
@@ -100,8 +103,7 @@ Class \code{"\linkS4class{Versioned}"}, by class "SnpSet", distance 4.
 R. Scharpf
 }
 
-\seealso{
-}
+\seealso{ \code{\link{relocateObject}} }
 \examples{
  	if(require("genomewidesnp6Crlmm")){
 		require("genomewidesnp6Crlmm")
