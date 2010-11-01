@@ -295,7 +295,7 @@ setAs("CNSetLM", "CNSet", function(from){
 })
 
 
-setMethod("relocateObject", signature(object="CNSet"), 
+setMethod("relocateObject", signature=signature(object="CNSet"), 
 	  function(object, from , to, cleanup=TRUE, ...){
 		  open(object)
 		  message(paste("Copying all files to path", to))
