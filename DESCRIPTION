@@ -1,11 +1,11 @@
 Package: oligoClasses
-Version: 1.13.3
-Title: Classes for high-throughput arrays supported by oligo
-Author: Benilton Carvalho <carvalho@bclab.org> and Robert Scharpf <rscharpf@jhsph.edu>
-Maintainer: Benilton Carvalho <carvalho@bclab.org> and Robert Scharpf <rscharpf@jhsph.edu>
-Depends:  Biobase (>= 2.7.3), methods
+Version: 1.13.4
+Title: Classes for high-throughput arrays supported by oligo and crlmm
+Author: Benilton Carvalho <Benilton.Carvalho@cancer.org.uk> and Robert Scharpf <rscharpf@jhsph.edu>
+Maintainer: Benilton Carvalho <Benilton.Carvalho@cancer.org.uk> and Robert Scharpf <rscharpf@jhsph.edu>
+Depends:  Biobase (>= 2.11.6), methods
 Suggests: RSQLite
-Imports:  graphics, Biostrings (>= 2.15.11), affyio (>= 1.15.2)
+Imports:  graphics, Biostrings (>= 2.19.0), affyio (>= 1.19.2)
 Enhances: ff, snow
 Suggests: pd.genomewidesnp.6,
 	  pd.genomewidesnp.5,
