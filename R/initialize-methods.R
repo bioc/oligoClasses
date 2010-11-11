@@ -114,17 +114,11 @@ initializeLmFrom <- function(object){
 
 setMethod("initialize", "CNSet",
 	  function(.Object, batchStatistics, batch, ...){
-##		  if(missing(featureData) & missing(annotationPackage))
-##			  stop("must specify valid annotation package.  See annotationPackages()")
-##		  if(missing(featureData)) {
-##			  featureData <- featureDataFrom(annotationPackage)
-##		  } else stopifnot(all(c("chromosome", "isSnp", "position") %in% varLabels(featureData)))
 		  .Object@batchStatistics <- assayDataNew()
-		  .Object <- callNextMethod(.Object, ...)
-##		  .Object@featureData <- featureData
 		  if(missing(batch)){
 			  stop("Must specify factor 'batch'. See ?CNSet-class for details.")
 		  } else .Object@batch <- batch
+		  .Object <- callNextMethod(.Object, ...)
 		  if(missing(batchStatistics)){
 			  batchStatistics(.Object) <- initializeLmFrom(.Object)
 		  } else batchStatistics(.Object) <- batchStatistics
@@ -137,10 +131,11 @@ setValidity("CNSet", function(object){
 		message("assay data members must be 'alleleA', 'alleleB', 'call', 'callProbability'")
 		return(FALSE)
 	}
-	if(length(batch) == ncol(object)){
-		message("Factor 'batch' must be the same length as the number of samples.  See ?CNSet-class for details")
-		return(FALSE)
-	}
+	if(length(batch(object)) != ncol(object)){
+ 		message("Factor 'batch' must be the same length as the number of samples.  See ?CNSet-class for details")
+ 		return(FALSE)
+ 	}
+	TRUE
 })
 
 initializeGenotypeSummaryFrom <- function(object){
