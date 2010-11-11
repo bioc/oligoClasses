@@ -141,6 +141,10 @@ setValidity("CNSet", function(object){
 		message("Factor 'batch' must be the same length as the number of samples.  See ?CNSet-class for details")
 		return(FALSE)
 	}
+	nm <- ls(batchStatistics(object))
+	if(ncol(batchStatistics(object)[[nm]]) != length(unique(batch))){
+		message("Number of columns in elements of @batchStatistics must be the same as the number of unique batches")
+	}
 })
 
 initializeGenotypeSummaryFrom <- function(object){
