@@ -1,6 +1,6 @@
 \name{relocateObject}
 \alias{relocateObject}
-\title{ Safely moves all files saved in PATH to a new directory by updating the pointers inside of the ff objects.}
+\title{Changes filename and pattern attributes for ff objects. }
 \description{
 	See details
 }
@@ -19,14 +19,15 @@ relocateObject(object, ...)
 \details{
 
 When crlmm is used in conjunction with the ff package, large files are
-saved as ff_matrix of ffdf objects to avoid excessive RAM.  The R
-object in RAM contains pointers to the location on disk.  If the files
-on disk are moved, the data can no longer be accessed through the R
-object in memory.  However, if the pointers contained in the R object
-are modified to point to the new location, the data can be accessed as
-usual.  The relocate function edits the pointers of all ff objects
-embedded within the CNSet class. In particular, all elements stored in
-slot assayData and all elements stored in slot batchStatistics.
+saved as ff_matrix of ffdf objects to avoid excessive RAM.  The R object
+in RAM contains pointers to the location on disk.  If the files on disk
+are moved, the data can no longer be accessed through the R object in
+memory.  However, if the pointers contained in the R object are modified
+to point to the new location, the data can be accessed as usual.  The
+\code{relocateObject} function edits the pointers of all ff objects
+embedded within the \code{CNSet} class. In particular, all elements
+stored in slot \code{assayData} and all elements stored in slot
+\code{batchStatistics}.
 
 }
 \value{
@@ -57,10 +58,9 @@ R. Scharpf and L. Mireless
 		A(gtSet)[1:5, ]
 		pattern(A(gtSet))
 		filename(A(gtSet))
-
+                ## Move all ff files to directory called 'testing'
 		outdir2 <- file.path(getwd(), "testing")
-		relocateObject(gtSet, from=outdir,
-			       to=outdir2)
+		relocateObject(gtSet, to=outdir2)
 		## note the pointers have changed
 		pattern(A(gtSet))
 		filename(A(gtSet))
