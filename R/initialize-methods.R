@@ -137,10 +137,11 @@ setValidity("CNSet", function(object){
 		message("assay data members must be 'alleleA', 'alleleB', 'call', 'callProbability'")
 		return(FALSE)
 	}
-	if(length(batch(object)) == ncol(object)){
+	if(length(batch(object)) != ncol(object)){
 		message("Factor 'batch' must be the same length as the number of samples.  See ?CNSet-class for details")
 		return(FALSE)
 	}
+	TRUE
 	## the initialize method creates a cnSet with an empty batch statistics slot.  Therefore this method would fail
 ##	nm <- ls(batchStatistics(object))[[1]]
 ##	if(ncol(batchStatistics(object)[[nm]]) != length(unique(as.character(batch(object))))){

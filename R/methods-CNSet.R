@@ -33,32 +33,32 @@ setMethod("show", "CNSet", function(object){
 
 setMethod("[", "CNSet", function(x, i, j, ..., drop=FALSE){
 	x <- callNextMethod(x, i, j, ..., drop=drop)
-	if(!missing(j)){
-		if(missing(i)) i <- 1:nrow(x)
-		x@batch <- batch(x)[j]
-		nms <- sampleNames(batchStatistics(x))
-		## need to subset columns of LinearModelParameter
-		## Adapted from the '[' method for eSet in Biobase
-		## redefine 'j'
-		j <- which(nms %in% unique(as.character(batch(x))))
-		storage.mode <- storageMode(batchStatistics(x))
-		## i (if defined) is already subset by callNextMethod
-		orig <- batchStatistics(x)
-		batchStatistics(x) <-
-			switch(storage.mode,
-			       environment =,
-			       lockedEnvironment = {
-				       aData <- new.env(parent=emptyenv())
-				       for(nm in ls(orig)) aData[[nm]] <- orig[[nm]][i, j, ..., drop = drop]
-				       if ("lockedEnvironment" == storage.mode) Biobase:::assayDataEnvLock(aData)
-				       aData
-			       },
-			       list = {
-				       lapply(orig, function(obj) obj[i, j, ..., drop = drop])
-			       })
-	}
-	x
+	if(missing(j)) j <- 1:ncol(x)
+	if(missing(i)) i <- 1:nrow(x)
+	x@batch <- batch(x)[j]
+	nms <- sampleNames(batchStatistics(x))
+	## need to subset columns of LinearModelParameter
+	## Adapted from the '[' method for eSet in Biobase
+	## redefine 'j'
+	j <- which(nms %in% unique(as.character(batch(x))))
+	storage.mode <- storageMode(batchStatistics(x))
+	## i (if defined) is already subset by callNextMethod
+	orig <- batchStatistics(x)
+	batchStatistics(x) <-
+		switch(storage.mode,
+		       environment =,
+		       lockedEnvironment = {
+			       aData <- new.env(parent=emptyenv())
+			       for(nm in ls(orig)) aData[[nm]] <- orig[[nm]][i, j, ..., drop = drop]
+			       if ("lockedEnvironment" == storage.mode) Biobase:::assayDataEnvLock(aData)
+			       aData
+		       },
+		       list = {
+			       lapply(orig, function(obj) obj[i, j, ..., drop = drop])
+		       })
+	return(x)
 })
+
 setMethod("batch", "CNSet", function(object) object@batch)
 
 setReplaceMethod("batch", signature=signature(object="CNSet"),
@@ -389,21 +389,20 @@ relocateObject <- function(object, to, cleanup=TRUE){
 		       ) # ends switch
 	##Finally, remove any ff objects that might be in the phenodata
 	tmp <- object$SNR
-	physical(tmp)$filename <- file.path(to, basename(filename(tmp)))
-	physical(tmp)$pattern <- file.path(to, basename(pattern(tmp)))
-	SNR <- tmp
-	tmp <- object$SKW
-	physical(tmp)$filename <- file.path(to, basename(filename(tmp)))
-	physical(tmp)$pattern <- file.path(to, basename(pattern(tmp)))
-	SKW <- tmp
-	pD <- new("AnnotatedDataFrame", data=data.frame(list(SNR=SNR[,],
-	                                    SKW=SKW[,],
-	                                    gender=object$gender)),
-		  varMetadata=data.frame(labelDescription=c("SNR", "SKW", "gender"), row.names=c("SNR", "SKW", "gender")))
-	sampleNames(pD) <- sampleNames(object)
-	phenoData(object) <- pD
-	if(cleanup){
-		if(validObject(object)) unlink(from, recursive=TRUE)
+	if(is.ff(tmp)){
+		physical(tmp)$filename <- file.path(to, basename(filename(tmp)))
+		physical(tmp)$pattern <- file.path(to, basename(pattern(tmp)))
+		SNR <- tmp
+		tmp <- object$SKW
+		physical(tmp)$filename <- file.path(to, basename(filename(tmp)))
+		physical(tmp)$pattern <- file.path(to, basename(pattern(tmp)))
+		SKW <- tmp
+		pD <- new("AnnotatedDataFrame", data=data.frame(list(SNR=SNR[,],
+						SKW=SKW[,],
+						gender=object$gender)),
+			  varMetadata=data.frame(labelDescription=c("SNR", "SKW", "gender"), row.names=c("SNR", "SKW", "gender")))
+		sampleNames(pD) <- sampleNames(object)
+		phenoData(object) <- pD
 	}
 	object
 }
