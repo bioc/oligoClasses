@@ -294,7 +294,7 @@ setAs("CNSetLM", "CNSet", function(from){
 	return(obj)
 })
 
-relocateObject <- function(object, to, cleanup=TRUE){
+relocateObject <- function(object, to){
 	stopifnot(isPackageLoaded("ff"))
 	is.ff <- function(x) class(x)[1] == "ff_matrix"
 	is.ffdf <- function(x) is(x, "ffdf")

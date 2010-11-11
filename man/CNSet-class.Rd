@@ -24,7 +24,6 @@
 \alias{nu,CNSet,character-method}
 \alias{open,CNSet-method}
 \alias{phi,CNSet,character-method}
-\alias{relocateObject,CNSet-method}
 \alias{sigma2,CNSet,character-method}
 \alias{tau2,CNSet,character-method}
 \alias{updateObject,CNSet-method}
@@ -93,8 +92,7 @@ Class \code{"\linkS4class{Versioned}"}, by class "SnpSet", distance 4.
     \item{open}{\code{signature(con = "CNSet")}: ... }
     \item{phi}{\code{signature(object = "CNSet", allele =
     "character")}: ... }
-    \item{relocateObject}{\code{signature(object="CNSet")}}   
-    \item{sigma2}{\code{signature(object = "CNSet", allele = "character")}: ... }
+   \item{sigma2}{\code{signature(object = "CNSet", allele = "character")}: ... }
     \item{tau2}{\code{signature(object = "CNSet", allele = "character")}: ... }
 	 }
 }

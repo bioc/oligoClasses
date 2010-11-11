@@ -24,6 +24,9 @@ importMethodsFrom(Biobase, annotatedDataFrameFrom, annotation,
                   "phenoData<-", sampleNames, se.exprs, "se.exprs<-",
                   storageMode, "storageMode<-", updateObject)
 
+##importMethodsFrom(ff, pattern, filename, "pattern<-", "filename<-",
+##		  physical, "physical<-")
+
 ## Exporting
 
 export(pdPkgFromBioC, requireAnnotation, affyPlatforms, celfileDate,

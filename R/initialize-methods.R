@@ -120,11 +120,11 @@ setMethod("initialize", "CNSet",
 ##			  featureData <- featureDataFrom(annotationPackage)
 ##		  } else stopifnot(all(c("chromosome", "isSnp", "position") %in% varLabels(featureData)))
 		  .Object@batchStatistics <- assayDataNew()
-		  .Object <- callNextMethod(.Object, ...)
-##		  .Object@featureData <- featureData
 		  if(missing(batch)){
 			  stop("Must specify factor 'batch'. See ?CNSet-class for details.")
 		  } else .Object@batch <- batch
+		  .Object <- callNextMethod(.Object, ...)
+##		  .Object@featureData <- featureData
 		  if(missing(batchStatistics)){
 			  batchStatistics(.Object) <- initializeLmFrom(.Object)
 		  } else batchStatistics(.Object) <- batchStatistics

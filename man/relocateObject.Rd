@@ -5,15 +5,15 @@
 	See details
 }
 \usage{
-relocateObject(object, ...)
+relocateObject(object, to)
 }
 
 \arguments{
   \item{object}{
 	  An object of class \code{CNSet}.
   }
-  \item{\dots}{
-	  Not used.
+  \item{to}{
+    Character string indicating complete path to ff objects.
   }
 }
 \details{
@@ -42,8 +42,7 @@ R. Scharpf and L. Mireless
 }
 \examples{
 	\dontrun{
-		library(ff)
-		library(crlmm)
+		require(ff)
 		cdfName <- "genomewidesnp6"
 		pathToCels <- "/thumper/ctsa/snpmicroarray/hapmap/raw/affy/1m"
 		outdir <- file.path(getwd(), "ff")
