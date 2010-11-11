@@ -352,7 +352,7 @@ checkExists <- function(.name, .path=".", .FUN, .FUN2, .save.it=TRUE, .load.it, 
 				return(.object)
 			} else {
 				message(fname, " does not exist")
-				message("Running .FUN")
+				message("Running ", .FUN)
 				.object <- .FUN(...)
 				if(.save.it) {
 					message("Saving ", fname)

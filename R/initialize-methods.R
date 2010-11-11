@@ -137,11 +137,11 @@ setValidity("CNSet", function(object){
 		message("assay data members must be 'alleleA', 'alleleB', 'call', 'callProbability'")
 		return(FALSE)
 	}
-	if(length(batch) == ncol(object)){
+	if(length(batch(object)) == ncol(object)){
 		message("Factor 'batch' must be the same length as the number of samples.  See ?CNSet-class for details")
 		return(FALSE)
 	}
-	nm <- ls(batchStatistics(object))
+	nm <- ls(batchStatistics(object))[[1]]
 	if(ncol(batchStatistics(object)[[nm]]) != length(unique(batch))){
 		message("Number of columns in elements of @batchStatistics must be the same as the number of unique batches")
 	}
