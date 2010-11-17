@@ -304,6 +304,16 @@ relocateObject <- function(object, to){
 	##AssayData
 	storage.mode <- storageMode(assayData(object))
 	orig <- assayData(object)
+	physical <- get("physical")
+	filename <- get("filename")
+	pattern <- get("pattern")
+	f2 <- function(X, dirname){
+		X$filename <- file.path(dirname, basename(filename(X)))
+		X$pattern <- file.path(dirname, basename(pattern(X)))
+		physical(X)$filename <- file.path(dirname, basename(filename(X)))
+		physical(X)$pattern <- file.path(dirname, basename(pattern(X)))
+		X
+	}
 	assayData(object) <-
 		switch(storage.mode,
 		       environment=,
@@ -316,13 +326,7 @@ relocateObject <- function(object, to){
 					       physical(obj)$filename = file.path(to, basename(filename(obj)))
 				       }
 				       else if (is.ffdf(obj)) {
-					       f2 <- function(X, dirname){
-						       X$filename <- file.path(dirname, basename(filename(X)))
-						       X$pattern <- file.path(dirname, basename(pattern(X)))
-						       physical(X)$filename <- file.path(dirname, basename(filename(X)))
-						       physical(X)$pattern <- file.path(dirname, basename(pattern(X)))
-						       X
-					       }
+
 					       ##important to not assign this to obj.  A list is returned (not a ffdf object, but the pointer is changed)
 					       lapply(physical(obj), f2, dirname=to)
 				       }
