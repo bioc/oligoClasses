@@ -1,6 +1,7 @@
 THISPKG <- "oligoClasses"
 .oligoClassesPkgEnv <- new.env(parent=emptyenv())
 
+
 .onAttach <- function(libname, pkgname) {
   version <- packageDescription("oligoClasses", field="Version")
   message(getBar())
@@ -14,10 +15,10 @@ THISPKG <- "oligoClasses"
             ldSetOptions(verbose=FALSE)
             ldStatus(TRUE)
           })
-  
+
   setHook(packageEvent("snow", "attach"),
           function(...){
             ocParallelStatus()
           })
-  
+
 }
