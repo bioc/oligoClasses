@@ -123,7 +123,10 @@ setMethod("close", "CNSet", function(con, ...){
 	physical <- get("physical")
 	names <- ls(batchStatistics(object))
 	L <- length(names)
-	for(i in 1:L) close(eval(substitute(assayData(object)[[NAME]], list(NAME=names[i]))))
+	for(i in 1:L) {
+		tmp <- eval(substitute(assayData(object)[[NAME]], list(NAME=names[i])))
+		if(!is.null(tmp)) close(tmp)
+	}
 	##lapply(physical(batchStatistics(con)), open)
 	return()
 })
