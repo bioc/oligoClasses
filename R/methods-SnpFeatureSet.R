@@ -24,7 +24,7 @@ setMethod("allele", "SnpFeatureSet",
               ## remember: select different than value below (works also
               ## on axiom)
               ac <- switch(allele, A=1, B=0)
-              cc <- switch(allele, A='channel1', B='channel2')
+              cc <- switch(allele, A='channel2', B='channel1')
               ccc <- setdiff(c('channel1', 'channel2'), cc)
               if (axiom){
                   sql <- paste('SELECT man_fsetid, fsetid, fid, allele, allelea, alleleb, count',
