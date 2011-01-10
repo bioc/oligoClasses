@@ -29,6 +29,8 @@ ocParallelStatus <- function(verbose=TRUE){
       if (sn){
         if (cl){
           message("Enabled")
+          ocProbesets(getOption('ocProbesets'))
+          ocSamples(getOption('ocSamples'))
         }else{
           message("Disabled")
           message("     - Use options(cluster=makeCluster(...))")
@@ -49,6 +51,8 @@ ocProbesets <- function(n){
     return(getOption("ocProbesets"))
   }else{
     options(ocProbesets=n)
+    if (parStatus())
+        clusterCall(getCluster(), options, ocProbesets=n)
     invisible(TRUE)
   }
 }
@@ -58,6 +62,8 @@ ocSamples <- function(n){
     return(getOption("ocSamples"))
   }else{
     options(ocSamples=n)
+    if (parStatus())
+        clusterCall(getCluster(), options, ocSamples=n)
     invisible(TRUE)
   }
 }
