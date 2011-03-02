@@ -300,122 +300,131 @@ setAs("CNSetLM", "CNSet", function(from){
 	return(obj)
 })
 
-relocateObject <- function(object, to){
-	stopifnot(isPackageLoaded("ff"))
-	is.ff <- function(x) class(x)[1] == "ff_matrix"
-	is.ffdf <- function(x) is(x, "ffdf")
-	##AssayData
-	storage.mode <- storageMode(assayData(object))
-	orig <- assayData(object)
-	physical <- get("physical")
-	filename <- get("filename")
-	pattern <- get("pattern")
-	f2 <- function(X, dirname){
-		X$filename <- file.path(dirname, basename(filename(X)))
-		X$pattern <- file.path(dirname, basename(pattern(X)))
-		physical(X)$filename <- file.path(dirname, basename(filename(X)))
-		physical(X)$pattern <- file.path(dirname, basename(pattern(X)))
-		X
-	}
-	assayData(object) <-
-		switch(storage.mode,
-		       environment=,
-		       lockedEnvironment={
-			       aData <- new.env(parent=emptyenv())
-			       for (nm in ls(orig)) {
-				       obj <- orig[[nm]]
-				       if (is.ff(obj)) {
-					       physical(obj)$pattern <- file.path(to, basename(pattern(obj)))
-					       physical(obj)$filename = file.path(to, basename(filename(obj)))
-				       }
-				       else if (is.ffdf(obj)) {
-
-					       ##important to not assign this to obj.  A list is returned (not a ffdf object, but the pointer is changed)
-					       lapply(physical(obj), f2, dirname=to)
-				       }
-				       else message("Unable to change filename and pattern for assayData.")
-				       aData[[nm]] <- obj
-			       }
-			       if ("lockedEnvironment" == storage.mode) Biobase:::assayDataEnvLock(aData)
-			       aData
-		       },
-					#haven't tested yet when storage.mode returns list.
-		       list = {
-			       relocate.fxn <- function(obj,to){
-				       obj <- orig[[nmm]]
-				       filename(obj) <- file.path(to, basename(filename(obj)))
-				       physical(obj)$pattern <- file.path(to, basename(pattern(obj)))
-				       return(obj)
-			       }
-			       lapply(orig, relocate.fxn, to=to)
-		       }
-		       ) # ends switch
-	storage.mode <- storage.mode(batchStatistics(object))
-	orig <- batchStatistics(object)
-	batchStatistics(object) <-
-		switch(storage.mode,
-		       environment =,
-		       lockedEnvironment = {
-			       aData <- new.env(parent=emptyenv())
-			       for(nm in ls(orig)){
-				       obj <- orig[[nm]]
-				       if (is.ff(obj)){
-					       physical(obj)$pattern = file.path(to, basename(pattern(obj)))
-					       physical(obj)$filename = file.path(to, basename(filename(obj)))
-				       }
-				       else if (is.ffdf(obj)) {
-					       f2 <- function(X, dirname){
-						       X$filename <- file.path(dirname, basename(filename(X)))
-						       X$pattern <- file.path(dirname, basename(pattern(X)))
-						       physical(X)$filename <- file.path(dirname, basename(filename(X)))
-						       physical(X)$pattern <- file.path(dirname, basename(pattern(X)))
-						       X
-					       }
-					       ##important to not assign this to obj.  A list is returned (not a ffdf object, but the pointer is changed)
-					       lapply(physical(obj), f2, dirname=to)
+## relocateObject was a function...
+## BC changed to a method as it was
+## causing a cyclic dependency
+## NB: relocateObject was already set
+##     as a generic function
+setMethod('relocateObject', 'CNSet',
+          function(object, to){
+              stopifnot(isPackageLoaded("ff"))
+              is.ff <- function(x) class(x)[1] == "ff_matrix"
+              is.ffdf <- function(x) is(x, "ffdf")
+              ##AssayData
+              storage.mode <- storageMode(assayData(object))
+              orig <- assayData(object)
+              physical <- get("physical")
+              filename <- get("filename")
+              pattern <- get("pattern")
+              f2 <- function(X, dirname){
+                  X$filename <- file.path(dirname, basename(filename(X)))
+                  X$pattern <- file.path(dirname, basename(pattern(X)))
+                  physical(X)$filename <- file.path(dirname, basename(filename(X)))
+                  physical(X)$pattern <- file.path(dirname, basename(pattern(X)))
+                  X
+              }
+              assayData(object) <-
+                  switch(storage.mode,
+                         environment=,
+                         lockedEnvironment={
+                             aData <- new.env(parent=emptyenv())
+                             for (nm in ls(orig)) {
+                                 obj <- orig[[nm]]
+                                 if (is.ff(obj)) {
+                                     physical(obj)$pattern <- file.path(to, basename(pattern(obj)))
+                                     physical(obj)$filename = file.path(to, basename(filename(obj)))
+                                 }
+                                 else if (is.ffdf(obj)) {
+                                     ## important to not assign this to
+                                     ## obj.  A list is returned (not a
+                                     ## ffdf object, but the pointer is
+                                     ## changed)
+                                     lapply(physical(obj), f2, dirname=to)
+                                 }
+                                 else message("Unable to change filename and pattern for assayData.")
+                                 aData[[nm]] <- obj
+                             }
+                             if ("lockedEnvironment" == storage.mode) Biobase:::assayDataEnvLock(aData)
+                             aData
+                         },
+                         ##haven't tested yet when storage.mode returns list.
+                         list = {
+                             relocate.fxn <- function(obj,to){
+                                 obj <- orig[[nmm]]
+                                 filename(obj) <- file.path(to, basename(filename(obj)))
+                                 physical(obj)$pattern <- file.path(to, basename(pattern(obj)))
+                                 return(obj)
+                             }
+                             lapply(orig, relocate.fxn, to=to)
+                         }
+                         ) # ends switch
+              storage.mode <- storage.mode(batchStatistics(object))
+              orig <- batchStatistics(object)
+              batchStatistics(object) <-
+                  switch(storage.mode,
+                         environment =,
+                         lockedEnvironment = {
+                             aData <- new.env(parent=emptyenv())
+                             for(nm in ls(orig)){
+                                 obj <- orig[[nm]]
+                                 if (is.ff(obj)){
+                                     physical(obj)$pattern = file.path(to, basename(pattern(obj)))
+                                     physical(obj)$filename = file.path(to, basename(filename(obj)))
+                                 }
+                                 else if (is.ffdf(obj)) {
+                                     f2 <- function(X, dirname){
+                                         X$filename <- file.path(dirname, basename(filename(X)))
+                                         X$pattern <- file.path(dirname, basename(pattern(X)))
+                                         physical(X)$filename <- file.path(dirname, basename(filename(X)))
+                                         physical(X)$pattern <- file.path(dirname, basename(pattern(X)))
+                                         X
+                                     }
+                                     ##important to not assign this to obj.  A list is returned (not a ffdf object, but the pointer is changed)
+                                     lapply(physical(obj), f2, dirname=to)
 ##					       fff <- function(X,dirname){
 ##						       physical(X)$pattern = file.path(dirname, basename(physical(X)$pattern))
 ##						       physical(X)$filename = file.path(dirname, basename(physical(X)$filename))
 ##						       return(X)
 ##					       }
 ##					       obj2 = lapply(obj, fff, dirname=to)
-				       }
-				       else message("Unable to change filename and pattern for batchStatistics.")
-				       aData[[nm]] <- obj
-			       }
-			       if ("lockedEnvironment" == storage.mode) Biobase:::assayDataEnvLock(aData)
-			       aData
-		       },
-		       ## haven't tested yet when storage.mode returns list
-		       list = {
-			       relocate.fxn <- function(obj, to){
-				       obj <- orig[[nm]]
-				       filename(obj) <- file.path(to, basename(filename(obj)))
-				       physical(obj)$pattern <- file.path(to, basename(pattern(obj)))
-				       return(obj)
-			       }
-			       lapply(orig, relocate.fxn, to=to)
-		       }
-		       ) # ends switch
-	##Finally, remove any ff objects that might be in the phenodata
-	tmp <- object$SNR
-	if(is.ff(tmp)){
-		physical(tmp)$filename <- file.path(to, basename(filename(tmp)))
-		physical(tmp)$pattern <- file.path(to, basename(pattern(tmp)))
-		SNR <- tmp
-		tmp <- object$SKW
-		physical(tmp)$filename <- file.path(to, basename(filename(tmp)))
-		physical(tmp)$pattern <- file.path(to, basename(pattern(tmp)))
-		SKW <- tmp
-		pD <- new("AnnotatedDataFrame", data=data.frame(list(SNR=SNR[,],
-						SKW=SKW[,],
-						gender=object$gender)),
-			  varMetadata=data.frame(labelDescription=c("SNR", "SKW", "gender"), row.names=c("SNR", "SKW", "gender")))
-		sampleNames(pD) <- sampleNames(object)
-		phenoData(object) <- pD
-	}
-	object
-}
+                                 }
+                                 else message("Unable to change filename and pattern for batchStatistics.")
+                                 aData[[nm]] <- obj
+                             }
+                             if ("lockedEnvironment" == storage.mode) Biobase:::assayDataEnvLock(aData)
+                             aData
+                         },
+                         ## haven't tested yet when storage.mode returns list
+                         list = {
+                             relocate.fxn <- function(obj, to){
+                                 obj <- orig[[nm]]
+                                 filename(obj) <- file.path(to, basename(filename(obj)))
+                                 physical(obj)$pattern <- file.path(to, basename(pattern(obj)))
+                                 return(obj)
+                             }
+                             lapply(orig, relocate.fxn, to=to)
+                         }
+                         ) # ends switch
+              ##Finally, remove any ff objects that might be in the phenodata
+              tmp <- object$SNR
+              if(is.ff(tmp)){
+                  physical(tmp)$filename <- file.path(to, basename(filename(tmp)))
+                  physical(tmp)$pattern <- file.path(to, basename(pattern(tmp)))
+                  SNR <- tmp
+                  tmp <- object$SKW
+                  physical(tmp)$filename <- file.path(to, basename(filename(tmp)))
+                  physical(tmp)$pattern <- file.path(to, basename(pattern(tmp)))
+                  SKW <- tmp
+                  pD <- new("AnnotatedDataFrame", data=data.frame(list(SNR=SNR[,],
+                                                  SKW=SKW[,],
+                                                  gender=object$gender)),
+                            varMetadata=data.frame(labelDescription=c("SNR", "SKW", "gender"), row.names=c("SNR", "SKW", "gender")))
+                  sampleNames(pD) <- sampleNames(object)
+                  phenoData(object) <- pD
+              }
+              object
+          }
+          )
 
 
 
