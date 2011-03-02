@@ -19,6 +19,8 @@ relocateObject(object, to)
 }
 \details{
 
+This function is experimental
+
 When crlmm is used in conjunction with the ff package, large files are
 saved as ff_matrix of ffdf objects to avoid excessive RAM.  The R object
 in RAM contains pointers to the location on disk.  If the files on disk

@@ -47,6 +47,5 @@ setGeneric("flags", function(object) standardGeneric("flags"))
 setGeneric("batchStatistics", function(object) standardGeneric("batchStatistics"))
 setGeneric("batchStatistics<-", function(object,value) standardGeneric("batchStatistics<-"))
 
-
-setGeneric("relocateObject", function(object, ...) standardGeneric("relocateObject"))
+##setGeneric("relocateObject", function(object, ...) standardGeneric("relocateObject"))
 
