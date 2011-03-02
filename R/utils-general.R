@@ -212,7 +212,7 @@ addFeatureAnnotation.pd <- function(object){
 }
 
 chromosome2integer <- function(chrom){
-	chrom[chrom == "X"] <- 23; chrom[chrom == "Y"] <- 24; chrom[chrom == "XY"] <- 25; chrom[chrom=="M" | chrom == "MT"] <- 26
+	chrom[chrom == "X"] <- 23; chrom[chrom == "Y"] <- 24; chrom[chrom == "XY"] <- 25; chrom[chrom=="M" | chrom == "MT" | chrom == "Mt"] <- 26
 	as.integer(chrom)
 }
 
