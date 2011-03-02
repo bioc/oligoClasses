@@ -114,17 +114,11 @@ initializeLmFrom <- function(object){
 
 setMethod("initialize", "CNSet",
 	  function(.Object, batchStatistics, batch, ...){
-##		  if(missing(featureData) & missing(annotationPackage))
-##			  stop("must specify valid annotation package.  See annotationPackages()")
-##		  if(missing(featureData)) {
-##			  featureData <- featureDataFrom(annotationPackage)
-##		  } else stopifnot(all(c("chromosome", "isSnp", "position") %in% varLabels(featureData)))
 		  .Object@batchStatistics <- assayDataNew()
 		  if(missing(batch)){
 			  stop("Must specify factor 'batch'. See ?CNSet-class for details.")
 		  } else .Object@batch <- batch
 		  .Object <- callNextMethod(.Object, ...)
-##		  .Object@featureData <- featureData
 		  if(missing(batchStatistics)){
 			  batchStatistics(.Object) <- initializeLmFrom(.Object)
 		  } else batchStatistics(.Object) <- batchStatistics
@@ -138,16 +132,10 @@ setValidity("CNSet", function(object){
 		return(FALSE)
 	}
 	if(length(batch(object)) != ncol(object)){
-		message("Factor 'batch' must be the same length as the number of samples.  See ?CNSet-class for details")
-		return(FALSE)
-	}
+ 		message("Factor 'batch' must be the same length as the number of samples.  See ?CNSet-class for details")
+ 		return(FALSE)
+ 	}
 	TRUE
-	## the initialize method creates a cnSet with an empty batch statistics slot.  Therefore this method would fail
-##	nm <- ls(batchStatistics(object))[[1]]
-##	if(ncol(batchStatistics(object)[[nm]]) != length(unique(as.character(batch(object))))){
-##		message("Number of columns in elements of @batchStatistics must be the same as the number of unique batches")
-##      	return(FALSE)
-##	}
 })
 
 initializeGenotypeSummaryFrom <- function(object){
