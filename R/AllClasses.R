@@ -149,7 +149,7 @@ setMethod("updateObject", signature(object="CNSet"),
 				     annotation = updateObject(annotation(object),
 				     ..., verbose=verbose),
 				     featureData=featureData(object),
-				     batch=batch(object))
+				     batch=as.character(batch(object)))
 		  }
 		  if (isCurrent(obj)["CNSet"]) return(obj)
 		  obj
