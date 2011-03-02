@@ -311,7 +311,7 @@ relocateObject <- function(object, to){
 	filename <- get("filename")
 	pattern <- get("pattern")
 	f2 <- function(X, dirname){
-		browser()
+		##browser()
 		X$filename <- file.path(dirname, basename(filename(X)))
 		X$pattern <- file.path(dirname, basename(pattern(X)))
 		physical(X)$filename <- file.path(dirname, basename(filename(X)))
