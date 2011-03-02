@@ -1,5 +1,6 @@
 \name{relocateObject}
 \alias{relocateObject}
+\alias{relocateObject,CNSet-class}
 \title{Changes filename and pattern attributes for ff objects. }
 \description{
 	See details
