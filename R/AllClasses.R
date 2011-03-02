@@ -124,6 +124,13 @@ setClass("CNSet", representation(batch="factor",
 	                       new("VersionedBiobase",
 				   versions=c(classVersion("SnpSet"), CNSet="1.0.3"))))
 
+setClass("CNSet", representation(batch="character",
+				 batchStatistics="AssayData"),
+	 contains="SnpSet",
+	 prototype = prototype(
+	                       new("VersionedBiobase",
+				   versions=c(classVersion("SnpSet"), CNSet="1.0.4"))))
+
 setMethod("updateObject", signature(object="CNSet"),
           function(object, ..., verbose=FALSE) {
 		  if (verbose) message("updateObject(object = 'CNSet')")
