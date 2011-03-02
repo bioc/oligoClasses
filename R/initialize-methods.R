@@ -36,6 +36,20 @@ setAs("CNSet", "CopyNumberSet",
 		  protocolData=protocolData(from))
       })
 
+setAs("CNSet", "oligoSnpSet", function(from, to){
+	row.index <- 1:nrow(from)
+	col.index <- 1:ncol(from)
+	new("oligoSnpSet",
+	    copyNumber=totalCopynumber(from, i=row.index, j=col.index),
+	    call=calls(from)[row.index, col.index],
+	    callProbability=snpCallProbability(from)[row.index, col.index],
+	    annotation=annotation(from),
+	    featureData=featureData(from),
+	    phenoData=phenoData(from),
+	    experimentData=experimentData(from),
+	    protocolData=protocolData(from))
+})
+
 setMethod("initialize", "oligoSnpSet",
 	  function(.Object,
 		   call=new("matrix"),

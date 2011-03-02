@@ -1,7 +1,7 @@
 \name{CopyNumberSet-methods}
 \docType{methods}
 \alias{CopyNumberSet-methods}
-\alias{copyNumber}
+\alias{copyNumber, ...}
 \alias{copyNumber,CopyNumberSet-method}
 \alias{copyNumber<-}
 \alias{copyNumber<-,CopyNumberSet,matrix-method}
@@ -25,7 +25,10 @@ cnConfidence(object)
 \arguments{
 
 \item{object}{\code{CopyNumberSet} object}
-
+\item{\dots}{Ignored for CopyNumberSet and oligoSnpSet. For CNSet,
+specification of the marker indices and/or column indices is required
+through arguments \code{i} and \code{j}, respectively.
+}
 }
 
 \value{
