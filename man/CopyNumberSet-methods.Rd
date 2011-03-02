@@ -1,7 +1,7 @@
 \name{CopyNumberSet-methods}
 \docType{methods}
 \alias{CopyNumberSet-methods}
-\alias{copyNumber, ...}
+\alias{copyNumber}
 \alias{copyNumber,CopyNumberSet-method}
 \alias{copyNumber<-}
 \alias{copyNumber<-,CopyNumberSet,matrix-method}
@@ -17,7 +17,7 @@
 
 \usage{
 
-copyNumber(object)
+copyNumber(object, ...)
 cnConfidence(object)
 
 }

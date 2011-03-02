@@ -16,6 +16,8 @@
 \alias{close,CNSet-method}
 \alias{coerce,CNSetLM,CNSet-method}
 \alias{coerce,CNSet,CopyNumberSet-method}
+\alias{coerce,CNSet,oligoSnpSet}
+\alias{coerce,CNSet,oligoSnpSet-method}
 \alias{corr,CNSet,character-method}
 \alias{flags,CNSet-method}
 \alias{initialize,CNSet-method}
