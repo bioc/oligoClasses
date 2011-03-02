@@ -41,8 +41,8 @@ setAs("CNSet", "oligoSnpSet", function(from, to){
 	col.index <- 1:ncol(from)
 	new("oligoSnpSet",
 	    copyNumber=totalCopynumber(from, i=row.index, j=col.index),
-	    call=calls(from)[row.index, col.index, drop=FALSE],
-	    callProbability=snpCallProbability(from)[row.index, col.index, drop=FALSE],
+	    call=as.matrix(calls(from)[row.index, col.index, drop=FALSE]),
+	    callProbability=as.matrix(snpCallProbability(from)[row.index, col.index, drop=FALSE]),
 	    annotation=annotation(from),
 	    featureData=featureData(from),
 	    phenoData=phenoData(from),
