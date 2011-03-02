@@ -79,6 +79,7 @@ setMethod("initialize", "SnpSuperSet", function(.Object,  ...) callNextMethod(.O
 initializeLmFrom <- function(object){
 	nr <- nrow(object)
 	nc <- length(unique(batch(object)))
+	if(nc > 1) nc <- nc+1 ## add extra column for grand mean
 	lm <- assayDataNew(N.AA=initializeBigMatrix("N.AA", nr, nc),
 			   N.AB=initializeBigMatrix("N.AB", nr, nc),
 			   N.BB=initializeBigMatrix("N.BB", nr, nc),
@@ -122,7 +123,10 @@ setMethod("initialize", "CNSet",
 		  if(missing(batchStatistics)){
 			  batchStatistics(.Object) <- initializeLmFrom(.Object)
 		  } else batchStatistics(.Object) <- batchStatistics
-		  batchNames(.Object) <- unique(as.character(batch))
+		  bns <- unique(as.character(batch))
+		  if(length(bns) > 1){
+			  batchNames(.Object) <- c(bns, "grandMean")
+		  } else batchNames(.Object) <- bns
 		  return(.Object)
 })
 
