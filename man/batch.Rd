@@ -68,7 +68,7 @@ R. Scharpf
 \examples{
 x <- matrix(runif(250*96*2, 0, 2), 250, 96*2)
 test1 <- new("CNSet", alleleA=x, alleleB=x, call=x, callProbability=x,
-	     batch=as.factor(rep(letters[1:2], each=96)))
+	     batch=as.character(rep(letters[1:2], each=96)))
 batchNames(test1) ##unique batches
 batch(test1)
 test1[1:20, 1:10]
@@ -82,7 +82,7 @@ nu(test1, "A")[1:10, ]
 if(require(ff)){
 	x2 <- initializeBigMatrix("smallx", nr=250, nc=96*2)
 	x2[,] <- as.numeric(x)
-	test2 <- new("CNSet", alleleA=x, alleleB=x, call=x, callProbability=x, batch=as.factor(rep(letters[1:2], each=96)))
+	test2 <- new("CNSet", alleleA=x, alleleB=x, call=x, callProbability=x, batch=as.character(rep(letters[1:2], each=96)))
 	test2
 	batchNames(test2) ##unique batches
 	batch(test2)

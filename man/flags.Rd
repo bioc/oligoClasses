@@ -35,7 +35,7 @@ flags(object)
 \examples{
 x <- matrix(runif(250*96*2, 0, 2), 250, 96*2)
 test1 <- new("CNSet", alleleA=x, alleleB=x, call=x, callProbability=x,
-	      batch=as.factor(rep(letters[1:2], each=96)))
+	      batch=as.character(rep(letters[1:2], each=96)))
 dim(flags(test1))
 }
 \keyword{manip}
