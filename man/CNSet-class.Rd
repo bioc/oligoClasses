@@ -133,7 +133,7 @@ R. Scharpf
 			   alleleB=B,
 			   call=theCalls,
 			   callProbability=theConfs,
-			   batch=as.factor(rep(1, ncol(A))),
+			   batch=as.character(rep(1, ncol(A))),
 			   annotation="genomewidesnp6")
 		assayDataElementNames(batchStatistics(obj))
 		featureNames(obj) <- fns
