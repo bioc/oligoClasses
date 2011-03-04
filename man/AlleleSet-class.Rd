@@ -4,6 +4,7 @@
 \alias{AlleleSet-class}
 \alias{allele}
 \alias{allele,AlleleSet-method}
+\alias{allele,SnpFeatureSet-method}
 \alias{bothStrands}
 \alias{bothStrands,AlleleSet-method}
 \alias{bothStrands,SnpFeatureSet-method}

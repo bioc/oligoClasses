@@ -93,17 +93,22 @@ setClassUnion("list_or_ffdf", c("list", "ffdf"))
 ##setClass("LinearModelParameter", contains="AssayData")
 ##setClassUnion("LinearModelParameter", c("AssayData", "environment", "list"))
 ##setClassUnion("NumberGenotype", c("AssayData", "environment", "list"))
+
 setClass("CNSet", contains = "SnpSuperSet",
 	 prototype = prototype(new("VersionedBiobase", versions=c(classVersion("eSet"), CNSet="1.0.0"))))
-setClass("CNSetLM", contains="CNSet", representation(lM="list_or_ffdf"))
-setMethod("initialize", "CNSetLM", function(.Object, lM=new("list"), ...){
-	.Defunct(msg="The CNSetLM class is defunct")
-})
+
 ##setClass("GenotypeSummary",
 ##	 representation(numberGenotype="AssayData",
 ##			means="AssayData",
 ##			mads="AssayData"))
 ####	 prototype=prototype(new("VersionedBiobase", versions=c(GenotypeSummary="1.0.0"))))
+
+
+setClass("CNSetLM", contains="CNSet", representation(lM="list_or_ffdf"))
+setMethod("initialize", "CNSetLM", function(.Object, lM=new("list"), ...){
+	.Defunct(msg="The CNSetLM class is defunct")
+})
+
 setClass("CNSet", representation(batch="factor",
 				 lM="AssayData"),
 	 contains="SnpSet",
@@ -130,6 +135,7 @@ setClass("CNSet", representation(batch="character",
 	 prototype = prototype(
 	                       new("VersionedBiobase",
 				   versions=c(classVersion("SnpSet"), CNSet="1.0.4"))))
+
 
 setMethod("updateObject", signature(object="CNSet"),
           function(object, ..., verbose=FALSE) {
