@@ -63,7 +63,7 @@ setMethod("batch", "CNSet", function(object) object@batch)
 
 setReplaceMethod("batch", signature=signature(object="CNSet"),
 	 function(object, value){
-		 object@batch <- as.factor(value)
+		 object@batch <- as.character(value)
 		 object
 })
 
