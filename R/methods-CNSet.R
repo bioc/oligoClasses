@@ -231,7 +231,7 @@ setMethod("flags", signature(object="CNSet"), function(object) flags(batchStatis
 
 setAs("CNSetLM", "CNSet", function(from){
 	if("batch" %in% varLabels(protocolData(from))){
-		btch <- as.factor(protocolData(from)$batch)
+		btch <- as.character(protocolData(from)$batch)
 	} else {
 		stop("couldn't find batch in varLabels of protocolData.")
 	}
