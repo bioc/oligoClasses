@@ -24,7 +24,7 @@
   where 'p' is the posterior probability of the call.  \code{confs} is
   a convenience function that transforms the integer representation
   back to a probability.  Note that if the assayData elements of the
-  \code{SnpSet} objects are \code{ff_matrix} or code{ffdf}, the
+  \code{SnpSet} objects are \code{ff_matrix} or \code{ffdf}, the
   \code{confs} function will return a warning. For such objects, one
   should first subset the \code{ff} object and coerce to a matrix,
   then apply the above conversion.  The function
