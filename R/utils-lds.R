@@ -65,7 +65,7 @@ initializeBigVector <- function(name, n, vmode="integer", initdata=NA){
 
 
 createFF <- function(name, dim, vmode="double", initdata=NULL)
-  ff(initdata=initdata, vmode=vmode, dim=dim, pattern=file.path(ldPath(), basename(name)))
+	ff(initdata=initdata, vmode=vmode, dim=dim, pattern=file.path(ldPath(), basename(name)))
 
 setMethod("annotatedDataFrameFrom", "ff_matrix",
           Biobase:::annotatedDataFrameFromMatrix)
@@ -133,3 +133,4 @@ initializeLMObject <- function(dimnames){
 	}
 	return(ll)
 }
+
