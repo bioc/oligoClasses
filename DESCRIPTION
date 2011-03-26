@@ -1,5 +1,5 @@
 Package: oligoClasses
-Version: 1.13.19
+Version: 1.13.20
 Title: Classes for high-throughput arrays supported by oligo and crlmm
 Author: Benilton Carvalho <Benilton.Carvalho@cancer.org.uk> and Robert Scharpf <rscharpf@jhsph.edu>
 Maintainer: Benilton Carvalho <Benilton.Carvalho@cancer.org.uk> and Robert Scharpf <rscharpf@jhsph.edu>
@@ -17,14 +17,14 @@ Suggests: pd.genomewidesnp.6,
 	  genomewidesnp5Crlmm
 Description: This package contains class definitions, validity checks, and initialization methods for classes used by the oligo and crlmm packages.
 License: GPL (>= 2)
-LazyLoad: yes	     
+LazyLoad: yes
 Collate:  AllClasses.R
           AllGenerics.R
 	  utils-general.R
 	  utils-lds.R
 	  utils-parallel.R
           initialize-methods.R
-	  methods-eSet.R	
+	  methods-eSet.R
           methods-AlleleSet.R
           methods-FeatureSet.R
 	  methods-AssayData.R

@@ -9,6 +9,10 @@ setMethod("show", "CNSet", function(object){
 			if(is(object$SNR, "ff"))
 				open(object$SNR)
 		}
+		if("gender" %in% varLabels(object)){
+			if(is(object$gender, "ff"))
+				open(object$gender)
+		}
 	}
 	callNextMethod(object)
 	bns <- batchNames(object)
