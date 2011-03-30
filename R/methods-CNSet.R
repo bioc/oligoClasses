@@ -1,5 +1,6 @@
 setMethod("show", "CNSet", function(object){
-	if(is(calls(object), "ff_matrix") | is(calls(object), "ffdf")){
+	is.ff <- is(calls(object), "ff_matrix") | is(calls(object), "ffdf")
+	if(is.ff){
 		##to avoid warnings
 		if("SKW" %in% varLabels(object)) {
 			if(is(object$SKW, "ff"))
@@ -14,6 +15,8 @@ setMethod("show", "CNSet", function(object){
 				open(object$gender)
 		}
 	}
+	ad.class <- class(A(object))[1]
+	cat("CNSet (assayData/batchStatistics elements:", ad.class, ")")
 	callNextMethod(object)
 	bns <- batchNames(object)
 	freq <- as.integer(table(batch(object)))
