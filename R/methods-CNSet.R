@@ -152,6 +152,13 @@ setMethod("open", "CNSet", function(con, ...){
 	}
 	return(TRUE)
 })
+## does nothing if not an ff object
+setMethod("open", "numeric", function(con, ...) return(con))
+setMethod("open", "matrix", function(con, ...) return(con))
+setMethod("close", "numeric", function(con, ...) return(con))
+setMethod("close", "matrix", function(con, ...) return(con))
+
+
 
 ##setMethod("lM", "CNSet", function(object){
 ####	bs <- batchStatistics(object)

@@ -39,10 +39,20 @@ setAs("CNSet", "CopyNumberSet",
 setAs("CNSet", "oligoSnpSet", function(from, to){
 	row.index <- 1:nrow(from)
 	col.index <- 1:ncol(from)
+	is.lds <- ifelse(is(calls(from), "ff_matrix") | is(calls(from), "ffdf"), TRUE, FALSE)
+	if(is.lds) stopifnot(isPackageLoaded("ff"))
+	if(is.lds){
+		## initialize a big matrix for raw copy number
+		message("creating an ff object for storing total copy number")
+		total_cn <- initializeBigMatrix(name="total_cn", nrow(from), ncol(object), vmode="double")
+		for(j in 1:ncol(from)){
+			total_cn[, j] <- totalCopynumber(from, i=row.index, j=j)
+		}
+	} else total_cn <- totalCopynumber(from, i=row.index, j=col.index)
 	new("oligoSnpSet",
-	    copyNumber=totalCopynumber(from, i=row.index, j=col.index),
-	    call=as.matrix(calls(from)[row.index, col.index, drop=FALSE]),
-	    callProbability=as.matrix(snpCallProbability(from)[row.index, col.index, drop=FALSE]),
+	    copyNumber=total_cn,
+	    call=calls(from),
+	    callProbability=snpCallProbability(from),
 	    annotation=annotation(from),
 	    featureData=featureData(from),
 	    phenoData=phenoData(from),
