@@ -19,6 +19,7 @@ setMethod("show", "CNSet", function(object){
 	cat("CNSet (assayData/batchStatistics elements: ", ad.class, ")\n", sep="")
 	callNextMethod(object)
 	bns <- batchNames(object)
+	bns <- bns[-length(bns)]
 	freq <- as.integer(table(batch(object)))
 	cat("batch:   ", paste(bns, freq, collapse=", "), "\n")
 	adim <- list(nrow(object), length(batchNames(object)))
