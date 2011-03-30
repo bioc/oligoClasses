@@ -18,8 +18,6 @@
 \alias{B<-}
 \alias{B<-,AlleleSet-method}
 \alias{B<-,AlleleSet,matrix-method}
-\alias{open}
-\alias{close}
 \alias{open,AlleleSet-method}
 \alias{close,AlleleSet-method}
 
@@ -36,14 +34,12 @@ getA(object)
 getM(object)
 A(object, ...)
 B(object, ...)
-open(con, ...)
-close(con, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{object}{\code{SnpQSet}, \code{SnpCnvQSet} or
     \code{TilingFeatureSet2} object.}
-  \item{con}{\code{AlleleSet} or \code{AlleleSet} extension.}
+%  \item{con}{\code{AlleleSet} or \code{AlleleSet} extension.}
   \item{...}{arguments to be passed to \code{allele} - 'sense' and
     'antisense' are valid values if the array is pre-SNP_5.0}
 }
@@ -52,14 +48,14 @@ close(con, ...)
 
   For SNP data, SNPRMA summarizes the SNP information into 4 quantities (log2-scale):
   \itemize{
-    \item{antisenseThetaA}{antisense allele A. (Not applicable for Affymetrix 5.0 and 6.0 platforms.)}  
+    \item{antisenseThetaA}{antisense allele A. (Not applicable for Affymetrix 5.0 and 6.0 platforms.)}
     \item{antisenseThetaB}{antisense allele B. (Not applicable for Affymetrix 5.0 and 6.0 platforms.)}
     \item{senseThetaA}{sense allele A.  (Not applicable for Affymetrix 5.0 and 6.0 platforms.)}
     \item{senseThataB}{sense allele B.  (Not applicable for Affymetrix 5.0 and 6.0 platforms.)}
     \item{alleleA}{Affymetrix 5.0 and 6.0 platforms}
     \item{alleleB}{Affymetrix 5.0 and 6.0 platforms}
   }
-  
+
   The average log-intensities are given by:
   \code{(antisenseThetaA+antisenseThetaB)/2} and
   \code{(senseThetaA+senseThetaB)/2}.
