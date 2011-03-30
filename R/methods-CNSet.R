@@ -16,26 +16,13 @@ setMethod("show", "CNSet", function(object){
 		}
 	}
 	ad.class <- class(A(object))[1]
-	cat("CNSet (assayData/batchStatistics elements:", ad.class, ")")
+	cat("CNSet (assayData/batchStatistics elements: ", ad.class, ")\n", sep="")
 	callNextMethod(object)
 	bns <- batchNames(object)
 	freq <- as.integer(table(batch(object)))
 	cat("batch:   ", paste(bns, freq, collapse=", "), "\n")
 	adim <- list(nrow(object), length(batchNames(object)))
-##	cat("batchStatistics:",
-##	    if (length(adim)>1)
-##	    paste(adim[[1]], "features,",
-##		  adim[[2]], "batches") else NULL,
-##                      "\n")
-##              cat("  element names:",
-##                  paste(assayDataElementNames(batchStatistics(object))[1:4], collapse=", "), "...\n")
 	cat("batchStatistics: ", length(ls(batchStatistics(object))), " elements, ", nrow(object), " features, ", length(unique(batch(object))), " batches\n")
-##	cat("   element names: ", paste(ls(batchStatistics(object))[1:4], collapse=",  "), "\n")
-##	cat("                  ", paste(ls(batchStatistics(object))[5:8], collapse=",  "), "\n")
-##	cat("                  ", paste(ls(batchStatistics(object))[9:12],collapse=",  "), "\n")
-##	cat("                  ", paste(ls(batchStatistics(object))[13:16], collapse=", "), "\n")
-##	cat("                  ", paste(ls(batchStatistics(object))[17:20], collapse=", "), "\n")
-##	cat("                  ", paste(ls(batchStatistics(object))[21:23], collapse=", "), "\n")
 })
 
 setMethod("[", "CNSet", function(x, i, j, ..., drop=FALSE){
