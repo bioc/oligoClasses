@@ -62,6 +62,7 @@ setAs("CNSet", "oligoSnpSet", function(from, to){
 				tcn[, j] <- totalCopynumber(cnSet, i=row.index, j=1:ncol(cnSet))
 				rm(cnSet); gc()
 			}
+			cat("\n")
 		} else {
 			tcn <- totalCopynumber(from, i=row.index, j=col.index)
 		}
