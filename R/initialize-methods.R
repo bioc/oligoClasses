@@ -44,13 +44,30 @@ setAs("CNSet", "oligoSnpSet", function(from, to){
 	if(is.lds){
 		## initialize a big matrix for raw copy number
 		message("creating an ff object for storing total copy number")
-		total_cn <- initializeBigMatrix(name="total_cn", nrow(from), ncol(object), vmode="double")
+		tcn <- initializeBigMatrix(name="total_cn", nrow(from), ncol(object), vmode="double")
 		for(j in 1:ncol(from)){
-			total_cn[, j] <- totalCopynumber(from, i=row.index, j=j)
+			tcn[, j] <- totalCopynumber(from, i=row.index, j=j)
 		}
-	} else total_cn <- totalCopynumber(from, i=row.index, j=col.index)
+	} else {
+		if(ncol(from) > 5){
+			##this can be memory intensive, so we try to be careful
+			col.index <- splitIndicesByLength(seq(length=ncol(from)), 5)
+			tcn <- matrix(NA, nrow(from), ncol(from))
+			dimnames(tcn) <- list(featureNames(from), sampleNames(from))
+			rows <- 1:nrow(from)
+			for(i in seq_along(col.index)){
+				cat(".")
+				j <- col.index[[i]]
+				cnSet <- from[, j]
+				tcn[, j] <- totalCopynumber(cnSet, i=row.index, j=1:ncol(cnSet))
+				rm(cnSet); gc()
+			}
+		} else {
+			tcn <- totalCopynumber(from, i=row.index, j=col.index)
+		}
+	}
 	new("oligoSnpSet",
-	    copyNumber=total_cn,
+	    copyNumber=tcn,
 	    call=calls(from),
 	    callProbability=snpCallProbability(from),
 	    annotation=annotation(from),
