@@ -30,7 +30,7 @@ setMethod("[", "CNSet", function(x, i, j, ..., drop=FALSE){
 	x <- callNextMethod(x, i, j, ..., drop=drop)
 	## one problem with the above -- the elements of assayData can be data.frame instead of matrix
 	orig <- assayData(x)
-	storage.mode <- assayDataStorageMode(orig)
+	storage.mode <- storageMode(assayData(orig))
 	if(is(A(x), "data.frame")){
 		assayData(x) <- switch(storage.mode,
 				       environment=,
