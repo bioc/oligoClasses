@@ -28,6 +28,20 @@ setMethod("show", "CNSet", function(object){
 
 setMethod("[", "CNSet", function(x, i, j, ..., drop=FALSE){
 	x <- callNextMethod(x, i, j, ..., drop=drop)
+	## one problem with the above -- the elements of assayData can be data.frame instead of matrix
+	if(is(A(x), "data.frame")){
+		assayData(x) <- switch(storage.mode,
+				       environment=,
+				       lockedEnvironment={
+					       aData <- new.env(parent=emptyenv())
+					       for(nm in ls(orig)) aData[[nm]] <- as.matrix(orig[[nm]])
+					       if ("lockedEnvironment" == storage.mode) Biobase:::assayDataEnvLock(aData)
+					       aData
+				       },
+			       },
+		list = {
+			lapply(orig, function(obj) obj[i, j, ..., drop = drop])
+		})
 	if(missing(j)) j <- 1:ncol(x)
 	if(missing(i)) i <- 1:nrow(x)
 	x@batch <- batch(x)[j]
