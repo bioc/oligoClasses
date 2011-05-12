@@ -21,7 +21,7 @@ setMethod("show", "CNSet", function(object){
 	bns <- batchNames(object)
 	bns <- bns[-length(bns)]
 	freq <- as.integer(table(batch(object)))
-	cat("batch:   ", paste(bns, freq, collapse=", "), "\n")
+	cat("batch:   ", paste(bns, freq, sep=", "), "\n")
 	adim <- list(nrow(object), length(batchNames(object)))
 	cat("batchStatistics: ", length(ls(batchStatistics(object))), " elements, ", nrow(object), " features, ", length(unique(batch(object))), " batches\n")
 })
