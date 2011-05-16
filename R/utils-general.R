@@ -229,6 +229,7 @@ snpNames <- function(object){
 
 featureDataFrom <- function(annotationPackage){
 	stopifnot(isSupportedAnnotation(annotationPackage))
+	cdfName <- strsplit(annotationPackage, "Crlmm")[[1]][[1]]
 	pkgname <- paste(cdfName, "Crlmm", sep="")
 	path <- system.file("extdata", package=pkgname)
 	loader("cnProbes.rda", pkgname=pkgname, envir=.oligoClassesPkgEnv)

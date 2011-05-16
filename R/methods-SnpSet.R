@@ -8,11 +8,22 @@ p2i <- function(p)
 i2p <- function(i)
   1-exp(-i/1000)
 
+warningMsg <- function(X){
+	.class=class(X)
+	warning("callProbability slot is of class", .class, ".\n")
+	cat("\nTo obtain the confidence scores, the data needs to be extracted from disk and represented as a matrix. The '[' method does both.  For example,\n", fill=TRUE)
+	message("> x <- confs(object)[,] ## 'x' is a matrix\n")
+	cat("* Note however that 'x' may be very large and swamp  the available RAM. A better approach would be to specify which rows (i) and columns (j) are read only those rows and columns from disk.\n", fill=TRUE)
+	message("> x < confs(object)[i, j] \n")
+	message("Finally, 'x' still needs to be translated to a probability.  This can be done by", fill=TRUE)
+	message("> p <- i2p(x)")
+}
+
 setMethod("confs", "SnpSet", function(object, transform=TRUE) {
 	X <- snpCallProbability(object)
 	if(is(X, "ff_matrix") | is(X, "ffdf")){
-		warning("callProbability slot is a ff_matrix or ffdf object.  First, coerce to a matrix, then apply the i2p helper function as indicated in the help file for confs. ")
-		return(NULL)
+		warningMsg(X)
+		return(X)
 	}
 	if (transform){
 		X <- i2p(X)
