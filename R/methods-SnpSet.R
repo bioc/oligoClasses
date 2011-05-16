@@ -10,7 +10,7 @@ i2p <- function(i)
 
 warningMsg <- function(X){
 	.class=class(X)
-	warning("callProbability slot is of class", .class, ".\n")
+	warning("callProbability slot is of class ", .class, ".\n")
 	cat("\nTo obtain the confidence scores, the data needs to be extracted from disk and represented as a matrix. The '[' method does both.  For example,\n", fill=TRUE)
 	message("> x <- confs(object)[,] ## 'x' is a matrix\n")
 	cat("* Note however that 'x' may be very large and swamp  the available RAM. A better approach would be to specify which rows (i) and columns (j) are read only those rows and columns from disk.\n", fill=TRUE)
