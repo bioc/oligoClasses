@@ -162,8 +162,10 @@ setMethod("open", "CNSet", function(con, ...){
 ## does nothing if not an ff object
 setMethod("open", "numeric", function(con, ...) return(con))
 setMethod("open", "matrix", function(con, ...) return(con))
+setMethod("open", "array", function(con, ...) return(con))
 setMethod("close", "numeric", function(con, ...) return(con))
 setMethod("close", "matrix", function(con, ...) return(con))
+setMethod("close", "array", function(con, ...) return(con))
 
 
 
