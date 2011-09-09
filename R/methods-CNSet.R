@@ -47,10 +47,6 @@ setMethod("[", "CNSet", function(x, i, j, ..., drop=FALSE){
 				       lapply(orig, as.matrix)
 			       })
 	}
-	## one problem with the above -- the elements of assayData can be data.frame instead of matrix
-##	phenoData(x) <- phenoData(x)[j, ...]
-##	featureData(x) <- featureData(x)[i, ...]
-##	protocolData(x) <- protocolData(x)[j, ...]
 	if(missing(j)) j <- 1:ncol(x)
 	if(missing(i)) i <- 1:nrow(x)
 	x@batch <- batch(x)[j]
