@@ -3,8 +3,10 @@
 \alias{close}
 \alias{open,matrix-method}
 \alias{open,numeric-method}
+\alias{open,array-method}
 \alias{close,matrix-method}
 \alias{close,numeric-method}
+\alias{close,array-method}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
   Open and close methods for matrices and numeric vectors

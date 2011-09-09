@@ -1,11 +1,10 @@
 THISPKG <- "oligoClasses"
 .oligoClassesPkgEnv <- new.env(parent=emptyenv())
 
-
 .onAttach <- function(libname, pkgname) {
 	version <- packageDescription("oligoClasses", field="Version")
-	message(getBar())
-	message("Welcome to oligoClasses version ", version)
+	##message(getBar())
+	packageStartupMessage("Welcome to oligoClasses version ", version)
 	ldSetOptions()
 	bm <- ldStatus(TRUE)
 	snow <- ocParallelStatus()

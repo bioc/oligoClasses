@@ -26,6 +26,7 @@
 \alias{nu,CNSet,character-method}
 \alias{open,CNSet-method}
 \alias{phi,CNSet,character-method}
+\alias{show,CNSet-method}
 \alias{sigma2,CNSet,character-method}
 \alias{tau2,CNSet,character-method}
 \alias{updateObject,CNSet-method}
