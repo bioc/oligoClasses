@@ -44,7 +44,7 @@ setAs("CNSet", "oligoSnpSet", function(from, to){
 	if(is.lds){
 		## initialize a big matrix for raw copy number
 		message("creating an ff object for storing total copy number")
-		tcn <- initializeBigMatrix(name="total_cn", nrow(from), ncol(object), vmode="double")
+		tcn <- initializeBigMatrix(name="total_cn", nrow(from), ncol(from), vmode="double")
 		for(j in 1:ncol(from)){
 			tcn[, j] <- totalCopynumber(from, i=row.index, j=j)
 		}
