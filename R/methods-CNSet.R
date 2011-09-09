@@ -28,6 +28,23 @@ setMethod("show", "CNSet", function(object){
 
 setMethod("[", "CNSet", function(x, i, j, ..., drop=FALSE){
 	x <- callNextMethod(x, i, j, ..., drop=FALSE)
+	## ensure that assayData elements are matrices after subset operation
+	isdf <- sapply(assayData(x), function(x) is(x, "data.frame"))
+	if(any(isdf)){
+		orig <- assayData(x)
+		assayData(x) <-
+			switch(storage.mode,
+			       environment =,
+			       lockedEnvironment = {
+				       aData <- new.env(parent=emptyenv())
+				       for(nm in ls(orig)) aData[[nm]] <- as.matrix(orig[[nm]])##[i, j, ..., drop = drop]
+				       if ("lockedEnvironment" == storage.mode) Biobase:::assayDataEnvLock(aData)
+				       aData
+			       },
+			       list = {
+				       lapply(orig, as.matrix)
+			       })
+	}
 	## one problem with the above -- the elements of assayData can be data.frame instead of matrix
 ##	phenoData(x) <- phenoData(x)[j, ...]
 ##	featureData(x) <- featureData(x)[i, ...]
