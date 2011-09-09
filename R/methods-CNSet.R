@@ -169,6 +169,7 @@ setMethod("close", "array", function(con, ...) return(con))
 
 
 
+
 ##setMethod("lM", "CNSet", function(object){
 ####	bs <- batchStatistics(object)
 ####	elem.names <- ls(bs)
