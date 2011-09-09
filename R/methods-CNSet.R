@@ -27,11 +27,13 @@ setMethod("show", "CNSet", function(object){
 })
 
 setMethod("[", "CNSet", function(x, i, j, ..., drop=FALSE){
+	browser()
 	x <- callNextMethod(x, i, j, ..., drop=FALSE)
 	## ensure that assayData elements are matrices after subset operation
-	isdf <- sapply(assayData(x), function(x) is(x, "data.frame"))
-	if(any(isdf)){
+	isdf <- is(A(x), "data.frame")
+	if(isdf){
 		orig <- assayData(x)
+		storage.mode <- Biobase:::assayDataStorageMode(orig)
 		assayData(x) <-
 			switch(storage.mode,
 			       environment =,
