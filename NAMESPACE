@@ -78,3 +78,5 @@ export(annotationPackages, addFeatureAnnotation, checkExists, isFF)
 exportMethods(batch, batchNames, "batchNames<-", coerce, flags, show)
 exportMethods(nu, phi)
 exportMethods(batchStatistics, "batchStatistics<-")
+
+exportClasses(RangedDataCBS, RangedDataHMM)
