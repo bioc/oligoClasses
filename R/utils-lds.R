@@ -8,6 +8,22 @@
 ##               (leaving out of fftempdir b/c parallel processes
 ##               access the object very easily)
 
+initializeBigArray <- function(name, dim, vmode="integer", initdata=NA){
+	if(isPackageLoaded("ff")){
+		createFF(name=name,
+			 dim=dim,
+			 vmode=vmode, initdata=initdata)
+	} else {
+		init <- switch(vmode,
+			       integer=as.integer(initdata),
+			       double=as.double(initdata),
+			       character=as.character(initdata),
+			       stop("Mode ", vmode, " not implemented for regular matrices"))
+		results <- array(init, dim=dim)
+	}
+	return(results)
+}
+
 initializeBigMatrix <- function(name, nr, nc, vmode="integer", initdata=NA){
   if(isPackageLoaded("ff")){
     if(prod(nr, nc) > 2^31){
@@ -36,7 +52,7 @@ initializeBigMatrix <- function(name, nr, nc, vmode="integer", initdata=NA){
                           dim=c(nr, nc),
                           vmode=vmode, initdata=initdata)
     }
-  }  else {
+   }  else {
     init <- switch(vmode,
                    integer=as.integer(initdata),
                    double=as.double(initdata),
