@@ -2,7 +2,7 @@
 \alias{RangedDataCBS}
 \alias{RangedDataHMM}
 \alias{RangedDataCNV}
-\alias{coverage}
+\alias{coverage2}
 \alias{state}
 \alias{coerce,RangedData,RangedDataCBS-method}
 \alias{coerce,RangedData,RangedDataHMM-method}
@@ -25,7 +25,7 @@
 RangedDataCNV(ranges = IRanges(), values, start, end, chromosome, coverage, sampleId, startIndexInChromosome, endIndexInChromosome, ...)
 RangedDataCBS(ranges = IRanges(), seg.mean = vector("numeric",  length(ranges)), ...)
 RangedDataHMM(ranges=IRanges(), state=vector("integer",length(ranges)),...)
-coverage(object)
+coverage2(object)
 state(object)
 %trioNames(object)
 }
@@ -65,17 +65,10 @@ state(object)
 
 \value{
 
-  \code{coverage}, \code{state}, \code{trioNames} return a column
-  (covariate) of the \code{RangedData} object.
-
-  Coverage refers to the number of markers in the interval.  State is a
-  method for \code{RangedDataHMM} objects and returns the copy number
-  state, typically estimated from a HMM.
-
-%  \code{trioNames} returns the family (trio) for which the individual
-%  belongs.  A error message is returned if 'family' is not a column name
-%  in the \code{RangedData} object.
-
+  \code{coverage2} and \code{state} return a column (covariate) of the
+  \code{RangedData} object. Coverage refers to the number of markers in
+  the interval.  State is a method for \code{RangedDataHMM} objects and
+  returns the copy number state, typically estimated from a HMM.
 
 }
 
@@ -108,7 +101,7 @@ if(require("IRanges")){
   ## accessors
   chromosome(rd)
   sampleNames(rd)
-  coverage(rd)
+  coverage2(rd)
 
   rd.hmm <- RangedDataHMM(ranges=ranges,
 			  chromosome=chrom,
@@ -118,7 +111,7 @@ if(require("IRanges")){
   ## accessors
   chromosome(rd.hmm)
   sampleNames(rd.hmm)
-  coverage(rd.hmm)
+  coverage2(rd.hmm)
   state(rd.hmm)
 }
 }

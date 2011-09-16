@@ -89,7 +89,7 @@ exportMethods(nu, phi)
 exportMethods(batchStatistics, "batchStatistics<-")
 
 exportClasses(RangedDataCopyNumber, RangedDataCNV, RangedDataCBS, RangedDataHMM)
-exportMethods(state, coverage, featuresInRange)
+exportMethods(state, coverage2, featuresInRange)
 export(RangedDataCNV,
        RangedDataCBS,
        RangedDataHMM)

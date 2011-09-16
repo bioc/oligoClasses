@@ -51,7 +51,8 @@ setGeneric("batchStatistics<-", function(object,value) standardGeneric("batchSta
 
 ## generics for RangedData objects
 ##setGeneric("nMarkers", function(object) standardGeneric("nMarkers"))
-setGeneric("coverage", function(object) standardGeneric("coverage"))
+##setGeneric("coverage", function(object) standardGeneric("coverage"))
+setGeneric("coverage2", function(object) standardGeneric("coverage2"))
 setGeneric("state", function(object) standardGeneric("state"))
 
 setGeneric("featuresInRange", function(object, range, FRAME=0, FRAME.LEFT, FRAME.RIGHT, ...)
