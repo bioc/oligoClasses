@@ -113,7 +113,7 @@ if(require("IRanges")){
   rd.hmm <- RangedDataHMM(ranges=ranges,
 			  chromosome=chrom,
 			  sampleId=id,
-			  num.mark=num.mark,
+			  coverage=num.mark,
 			  state=2L)
   ## accessors
   chromosome(rd.hmm)
