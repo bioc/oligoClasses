@@ -1,4 +1,8 @@
-setMethod("copyNumber", "CopyNumberSet", function(object) assayData(object)[["copyNumber"]])
+##setMethod("copyNumber", "CopyNumberSet", function(object) assayData(object)[["copyNumber"]])
+setMethod("copyNumber", "CopyNumberSet", function(object) {
+	cn <- assayDataElement(object, "copyNumber")
+	return(cn)
+})
 
 setReplaceMethod("copyNumber", signature(object="CopyNumberSet", value="matrix"),
                  function(object, value){
