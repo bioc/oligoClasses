@@ -1,5 +1,7 @@
 \name{findOverlaps}
 \alias{findOverlaps,RangedDataCNV,SnpSet-method}
+\alias{findOverlaps,RangedDataCNV,CNSet-method}
+\alias{findOverlaps,RangedDataCNV,AnnotatedDataFrame-method}
 \alias{findOverlaps}
 \title{Find markers that overlap with a query set of ranges}
 \description{
@@ -15,7 +17,8 @@ findOverlaps(query, subject, maxgap = 0L, minoverlap = 1L, type = c("any", "star
     A \code{RangedDataCNV} object.
 }
   \item{subject}{
-    A \code{SnpSet}  object.
+    A \code{SnpSet}, a \code{CNSet} or the \code{featureData} from these
+    classes.  The \code{featureData} must be an \code{AnnotatedDataFrame}.
 }
   \item{maxgap}{
     Passed to \code{findOverlaps} method for a \code{IRanges} query and

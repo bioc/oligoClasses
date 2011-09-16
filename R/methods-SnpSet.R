@@ -75,11 +75,11 @@ setMethod("combine", signature=signature(x="SnpSet", y="SnpSet"),
 
 setMethod("chromosome", signature(object="AnnotatedDataFrame"), function(object) object$chromosome)
 setMethod("position", signature(object="AnnotatedDataFrame"), function(object) object$position)
-setMethod("findOverlaps", signature(query="RangedDataCNV", subject="SnpSet"),
+
+setMethod("findOverlaps", signature(query="RangedDataCNV", subject="AnnotatedDataFrame"),
 	  function (query, subject, maxgap = 0L, minoverlap = 1L, type = c("any",
 								  "start", "end", "within", "equal"), select = c("all", "first",
 												      "last", "arbitrary"), ...){
-		  subject <- featureData(subject)
 		  subject2 <- subject
 		  nachrom <- is.na(chromosome(subject)) | chromosome(subject) > 24
 		  if(any(nachrom)){
@@ -127,6 +127,28 @@ setMethod("findOverlaps", signature(query="RangedDataCNV", subject="SnpSet"),
 			  mm[, 2] <- index
 		  }
 		  return(mm)
+	  })
+
+setMethod("findOverlaps", signature(query="RangedDataCNV", subject="SnpSet"),
+	  function (query, subject, maxgap = 0L, minoverlap = 1L, type = c("any",
+								  "start", "end", "within", "equal"), select = c("all", "first",
+												      "last", "arbitrary"), ...){
+		  findOverlaps(query=query, subject=featureData(subject),
+			       maxgap=maxgap,
+			       minoverlap=minoverlap,
+			       type=type,
+			       select=select, ...)
+	  })
+
+setMethod("findOverlaps", signature(query="RangedDataCNV", subject="CNSet"),
+	  function (query, subject, maxgap = 0L, minoverlap = 1L, type = c("any",
+								  "start", "end", "within", "equal"), select = c("all", "first",
+												      "last", "arbitrary"), ...){
+		  findOverlaps(query=query, subject=featureData(subject),
+			       maxgap=maxgap,
+			       minoverlap=minoverlap,
+			       type=type,
+			       select=select, ...)
 	  })
 
 
