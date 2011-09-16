@@ -89,7 +89,7 @@ setMethod("featuresInRange", signature(object="SnpSet", range="RangedDataCNV"),
 		  }
 		  start <- start-FRAME.LEFT
 		  end <- end+FRAME.RIGHT
-		  if(missing(pos) | missing(chrom)){
-			  which(position(object) >= start & position(object) <= end & chromosome(object) == CHR)
-		  } else which(pos >= start & pos <= end & chrom == CHR)
+##		  if(missing(pos) | missing(chrom)){
+		  which(position(object) >= start & position(object) <= end & chromosome(object) == CHR)
+##		  } else which(pos >= start & pos <= end & chrom == CHR)
 	  })
