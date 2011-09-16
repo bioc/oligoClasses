@@ -24,11 +24,13 @@ importMethodsFrom(Biobase, annotatedDataFrameFrom, annotation,
                   "phenoData<-", sampleNames, se.exprs, "se.exprs<-",
                   storageMode, "storageMode<-", updateObject)
 
+
 importClassesFrom(IRanges, RangedData, DataTable, List, DataTableORNULL, Vector, Annotated)
 importFrom(IRanges, IRanges, RangedData, RangedDataList,
 	   findOverlaps, countOverlaps,
 	   ranges, values,
 	   matchMatrix, queryHits, subjectHits)
+
 
 ##importMethodsFrom(ff, pattern, filename, "pattern<-", "filename<-",
 ##		  physical, "physical<-")
@@ -80,6 +82,7 @@ exportMethods(getM, getA, annotatedDataFrameFrom, open, close)
 ##exportClasses(ffdf, ff_matrix)
 exportClasses(ff_matrix,ffdf)
 
+
 export(annotationPackages, addFeatureAnnotation, checkExists)
 exportMethods(batch, batchNames, "batchNames<-", coerce, flags, show)
 exportMethods(nu, phi)
@@ -90,3 +93,4 @@ exportMethods(state, coverage)
 export(RangedDataCNV,
        RangedDataCBS,
        RangedDataHMM)
+

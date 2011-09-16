@@ -161,6 +161,7 @@ setMethod("updateObject", signature(object="CNSet"),
 		  obj
           })
 
+
 ##---------------------------------------------------------------------------
 ## classes for ranges
 
@@ -174,6 +175,7 @@ setClass("RangedDataCBS", contains="RangedDataCNV")
 setValidity("RangedDataCBS", function(object) all(c("seg.mean", "start.index", "end.index") %in% colnames(object)))
 setClass("RangedDataHMM", contains="RangedDataCNV")
 setValidity("RangedDataHMM", function(object) "state" %in% colnames(object))
+
 
 
 
