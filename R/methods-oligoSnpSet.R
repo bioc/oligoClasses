@@ -1,13 +1,13 @@
 setMethod("copyNumber", "oligoSnpSet", function(object) {
 	cn <- assayDataElement(object, "copyNumber")
-	if(vmode(cn) == "double") {
-		return(cn)
-	}
-	if(vmode(cn) == "integer"){
-		if(is(cn, "ff")) return(cn)
-		cn <- cn/100
-		return(cn)
-	}
+##	if(is(cn, "numeric")) {
+##		return(cn)
+##	}
+##	if(is(cn, "integer")){
+##		cn <- cn/100
+##		return(cn)
+##	}
+	return(cn)
 })
 
 
