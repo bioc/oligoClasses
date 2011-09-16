@@ -27,6 +27,8 @@ setMethod("show", "CNSet", function(object){
 })
 
 setMethod("[", "CNSet", function(x, i, j, ..., drop=FALSE){
+	isff <- is(A(x), "ff") | is(A(x), "ffdf")
+	if(isff) open(x)
 	x <- callNextMethod(x, i, j, ..., drop=FALSE)
 	## ensure that assayData elements are matrices after subset operation
 	isdf <- is(A(x), "data.frame")
