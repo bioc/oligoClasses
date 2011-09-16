@@ -79,7 +79,6 @@ setMethod("findOverlaps", signature(query="RangedDataCNV", subject="SnpSet"),
 	  function (query, subject, maxgap = 0L, minoverlap = 1L, type = c("any",
 								  "start", "end", "within", "equal"), select = c("all", "first",
 												      "last", "arbitrary"), ...){
-
 		  subject <- featureData(subject)
 		  subject2 <- subject
 		  nachrom <- is.na(chromosome(subject)) | chromosome(subject) > 24
@@ -88,6 +87,7 @@ setMethod("findOverlaps", signature(query="RangedDataCNV", subject="SnpSet"),
 		  }
 		  start <- start(query)
 		  end <- end(query)
+
 		  CHR <- chromosome(query)
 		  ##featuresInXlim(object, start=start(range), end=end(range), CHR=range$chrom, ...)
 		  if("frame" %in% names(list(...))) {

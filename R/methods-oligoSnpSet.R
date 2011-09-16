@@ -34,7 +34,6 @@ setReplaceMethod("cnConfidence", signature(object="oligoSnpSet", value="matrix")
 
 setAs("oligoSnpSet", "data.frame",
       function(from, to){
-	      ##browser()
 	      cn <- copyNumber(from)
 	      gt <- calls(from)
 	      cn <- as.numeric(cn)
