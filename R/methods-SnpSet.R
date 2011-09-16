@@ -72,3 +72,24 @@ setMethod("combine", signature=signature(x="SnpSet", y="SnpSet"),
 		  phenoData(x) <- pd
 		  x
           })
+
+setMethod("featuresInRange", signature(object="SnpSet", range="RangedDataCNV"),
+	  function(object, range, FRAME=0, FRAME.LEFT, FRAME.RIGHT, ...){
+		  start <- start(range)
+		  end <- end(range)
+		  CHR <- chromosome(range)
+		  ##featuresInXlim(object, start=start(range), end=end(range), CHR=range$chrom, ...)
+		  if(missing(FRAME.LEFT)) FRAME.LEFT <- FRAME
+		  if(missing(FRAME.RIGHT)) FRAME.RIGHT <- FRAME
+		  if(missing(start)) start <- 0
+		  if(missing(end)){
+			  ##require(SNPchip)
+			  data(chromosomeAnnotation, package="SNPchip")
+			  end <- chromosomeAnnotation[CHR, "chromosomeSize"]
+		  }
+		  start <- start-FRAME.LEFT
+		  end <- end+FRAME.RIGHT
+		  if(missing(pos) | missing(chrom)){
+			  which(position(object) >= start & position(object) <= end & chromosome(object) == CHR)
+		  } else which(pos >= start & pos <= end & chrom == CHR)
+	  })
