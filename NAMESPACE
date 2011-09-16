@@ -27,9 +27,10 @@ importMethodsFrom(Biobase, annotatedDataFrameFrom, annotation,
 
 importClassesFrom(IRanges, RangedData, DataTable, List, DataTableORNULL, Vector, Annotated)
 importFrom(IRanges, IRanges, RangedData, RangedDataList,
-	   findOverlaps, countOverlaps,
+	   countOverlaps,
 	   ranges, values,
 	   matchMatrix, queryHits, subjectHits)
+importMethodsFrom(IRanges, findOverlaps)
 
 
 ##importMethodsFrom(ff, pattern, filename, "pattern<-", "filename<-",
@@ -89,8 +90,9 @@ exportMethods(nu, phi)
 exportMethods(batchStatistics, "batchStatistics<-")
 
 exportClasses(RangedDataCopyNumber, RangedDataCNV, RangedDataCBS, RangedDataHMM, CopyNumberSet)
-exportMethods(state, coverage2, featuresInRange)
-export(RangedDataCNV,
+exportMethods(coverage2, featuresInRange, findOverlaps, state)
+export(findOverlaps,
+       RangedDataCNV,
        RangedDataCBS,
        RangedDataHMM)
 

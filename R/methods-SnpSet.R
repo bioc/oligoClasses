@@ -81,15 +81,9 @@ setMethod("featuresInRange", signature(object="SnpSet", range="RangedDataCNV"),
 		  ##featuresInXlim(object, start=start(range), end=end(range), CHR=range$chrom, ...)
 		  if(missing(FRAME.LEFT)) FRAME.LEFT <- FRAME
 		  if(missing(FRAME.RIGHT)) FRAME.RIGHT <- FRAME
-		  if(missing(start)) start <- 0
-		  if(missing(end)){
-			  ##require(SNPchip)
-			  data(chromosomeAnnotation, package="SNPchip")
-			  end <- chromosomeAnnotation[CHR, "chromosomeSize"]
-		  }
-		  start <- start-FRAME.LEFT
-		  end <- end+FRAME.RIGHT
-##		  if(missing(pos) | missing(chrom)){
+		  data(chromosomeAnnotation, package="SNPchip")
+		  chr.end <- chromosomeAnnotation[CHR, "chromosomeSize"]
+		  start <- max(start-FRAME.LEFT, 0)
+		  end <- min(end+FRAME.RIGHT, chr.end)
 		  which(position(object) >= start & position(object) <= end & chromosome(object) == CHR)
-##		  } else which(pos >= start & pos <= end & chrom == CHR)
 	  })
