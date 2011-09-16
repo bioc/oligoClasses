@@ -31,3 +31,20 @@ setReplaceMethod("cnConfidence", signature(object="oligoSnpSet", value="matrix")
 ##			 dimnames(X) <- dns
 			 assayDataElementReplace(object, "cnConfidence", value)
                  })
+
+setAs("oligoSnpSet", "data.frame",
+      function(from, to){
+	      ##browser()
+	      cn <- copyNumber(from)
+	      gt <- calls(from)
+	      cn <- as.numeric(cn)
+	      gt <- as.integer(gt)
+	      x <- rep(position(from)/1e6, ncol(from))
+	      ##x <- rep(position(object)[marker.index], 4)/1e6
+	      is.snp <- rep(isSnp(from), ncol(from))
+	      id <- rep(sampleNames(from), each=nrow(from))
+	      df <- data.frame(x=x, cn=cn, gt=gt, id=id,
+			       is.snp=is.snp,
+			       stringsAsFactors=FALSE)
+	      return(df)
+      })

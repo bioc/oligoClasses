@@ -46,11 +46,25 @@ Class \code{"\linkS4class{Versioned}"}, by class "eSet", distance 3.
   R. Scharpf
 }
 
+\note{
+
+  This container is primarily for platforms for which genotypes are
+  unavailable.  As \code{oligoSnpSet} extends this class, methods
+  related to total copy number that do not depend on genotypes can be
+  defined at this level.
+
+
+}
+
 \seealso{
+
   For genotyping platforms, total copy number estimates and genotype
   calls can be stored in the \code{\linkS4class{oligoSnpSet}} class.
+
 }
 \examples{
 showClass("CopyNumberSet")
+cnset <- new("CopyNumberSet")
+ls(assayData(cnset))
 }
 \keyword{classes}

@@ -104,7 +104,7 @@ Class \code{"\linkS4class{Versioned}"}, by class "SnpSet", distance 4.
 R. Scharpf
 }
 
-\seealso{ \code{\link{relocateObject}} }
+\seealso{ }
 \examples{
  	if(require("genomewidesnp6Crlmm")){
 		require("genomewidesnp6Crlmm")

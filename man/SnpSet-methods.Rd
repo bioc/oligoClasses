@@ -1,5 +1,5 @@
 \name{SnpSet-methods}
-\docType{methods}
+%\docType{methods}
 \alias{calls}
 \alias{calls,SnpSet-method}
 \alias{calls<-}
@@ -11,7 +11,25 @@
 \title{Accessors for Calls and Confidences on a SnpSet object}
 
 \description{
+  Utility functions for accessing data in \code{SnpSet} objects.
+}
 
+\usage{
+calls(object)
+calls(object) <- value
+confs(object, transform=TRUE)
+confs(object) <- value
+}
+
+\arguments{
+  \item{object}{A \link{SnpSet} object.}
+  \item{transform}{Logical. Whether to transform the integer
+  representation of the confidence score (for memory efficiency) to a
+  probability. See details.}
+  \item{value}{A matrix.}
+}
+
+\details{
   \code{calls} returns the genotype calls. CRLMM stores genotype calls
   as integers (1 - AA; 2 - AB; 3 - BB).
 
@@ -34,15 +52,38 @@
 
 }
 
-\section{Methods}{
-	\describe{
-	\item{\code{initialize(SnpSet)}:}{Object instantiation, used by
-	  \code{new}; not to be called directly by the user.}
-	\item{\code{calls(object)}:}{accessor for genotype calls}
-	\item{\code{confs(object)}:}{accessor for crlmm genotype confidence scores}
-	}
+\note{
+  Note that the replacement method for \code{confs<-} expects a matrix
+  of probabilities and will automatically convert the probabilities to
+  an integer representation.  See details for the conversion.
+
+  The accessor \code{\link{snpCallProbability}} is an accessor for the
+  'callProbability' element of the \code{assayData}.  The name can be
+  misleading, however, as the accessor will not return a probability if
+  the call probabilities are represented as integers.
+
+
 }
-\seealso{\code{\link{addFeatureAnnotation}}, \code{\link{snpCallProbability}}}
+
+%\section{Methods}{
+%	\describe{
+%	\item{\code{initialize(SnpSet)}:}{Object instantiation, used by
+%	  \code{new}; not to be called directly by the user.}
+%	\item{\code{calls(object)}:}{accessor for genotype calls}
+%	\item{\code{confs(object)}:}{accessor for crlmm genotype confidence scores}
+%	}
+%}
+\seealso{
+
+  See \code{\link{addFeatureAnnotation}} for adding chromosome, physical
+  position, and an indicator for whether the marker is polymorphic to
+  the \code{featureData} slot of a \code{SnpSet} object.
+
+
+
+  The helper functions \code{\link{p2i}} converts probabilities to
+  integers and \code{\link{i2p}} converts integers to probabilities.
+}
 \examples{
 
 	theCalls <- matrix(sample(1:3, 20, rep=TRUE), nc=2)
@@ -53,6 +94,10 @@
 	p2 <- confs(obj)
 	dimnames(p2) <- NULL
 	all.equal(p2, p)	## small differences due to rounding
+
+        int <- snpCallProbability(obj) ## not necessarily a probability
+        p3 <- i2p(int)  ## to convert back to a probability
+        all.equal(p3, p2)
 
 	## example using ff
 	if(require(ff)){
