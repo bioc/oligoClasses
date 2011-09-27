@@ -87,7 +87,6 @@ setMethod("findOverlaps", signature(query="RangedDataCNV", subject="AnnotatedDat
 		  }
 		  start <- start(query)
 		  end <- end(query)
-
 		  CHR <- chromosome(query)
 		  ##featuresInXlim(object, start=start(range), end=end(range), CHR=range$chrom, ...)
 		  if("frame" %in% names(list(...))) {
