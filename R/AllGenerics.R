@@ -58,3 +58,4 @@ setGeneric("state", function(object) standardGeneric("state"))
 
 setGeneric("featuresInRange", function(object, range, FRAME=0, FRAME.LEFT, FRAME.RIGHT, ...)
 	   standardGeneric("featuresInRange"))
+setGeneric("openff", function(object) standardGeneric("openff"))

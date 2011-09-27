@@ -29,7 +29,7 @@ setMethod("show", "CNSet", function(object){
 setMethod("[", "CNSet", function(x, i, j, ..., drop=FALSE){
 	##isff <- is(A(x), "ff") | is(A(x), "ffdf")
 	##if(isff) open(x)
-	open(x)
+	openff(x)
 	x <- callNextMethod(x, i, j, ..., drop=FALSE)
 ##	if(isff) close(x)
 ##	x <- xx; rm(x)
@@ -131,21 +131,27 @@ setMethod("close", "CNSet", function(con, ...){
 	return()
 })
 
+setMethod("openff", signature(object="CNSet"),
+	  function(object){
+		  if(isFF(object)){
+			  names <- ls(assayData(object))
+			  L <- length(names)
+			  for(i in 1:L) open(eval(substitute(assayData(object)[[NAME]], list(NAME=names[i]))))
+			  names <- assayDataElementNames(batchStatistics(object))
+			  L <- length(names)
+			  for(i in 1:L) open(eval(substitute(batchStatistics(object)[[NAME]], list(NAME=names[i]))))
+		  }
+		  if("SKW" %in% varLabels(object)){
+			  if(is(object$SKW, "ff")) open(object$SKW)
+		  }
+		  if("SNR" %in% varLabels(object)){
+			  if(is(object$SNR, "ff")) open(object$SNR)
+		  }
+	  })
+
 setMethod("open", "CNSet", function(con, ...){
 	object <- con
-	if(!isFF(object)) return()
-	names <- ls(assayData(object))
-	L <- length(names)
-	for(i in 1:L) open(eval(substitute(assayData(object)[[NAME]], list(NAME=names[i]))))
-	names <- assayDataElementNames(batchStatistics(object))
-	L <- length(names)
-	for(i in 1:L) open(eval(substitute(batchStatistics(object)[[NAME]], list(NAME=names[i]))))
-	if("SKW" %in% varLabels(object)){
-		if(is(object$SKW, "ff")) open(object$SKW)
-	}
-	if("SNR" %in% varLabels(object)){
-		if(is(object$SNR, "ff")) open(object$SNR)
-	}
+	openff(object)
 	return(TRUE)
 })
 ## does nothing if not an ff object

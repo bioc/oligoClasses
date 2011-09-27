@@ -5,7 +5,7 @@
 \alias{copyNumber<-}
 \alias{cnConfidence}
 \alias{cnConfidence<-}
-\title{  Methods for class CopyNumberSet.}
+\title{Methods for class CopyNumberSet.}
 \description{
 	Accessors and CopyNumberSet
 }
