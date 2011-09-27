@@ -94,7 +94,6 @@ confs(object) <- value
 	p2 <- confs(obj)
 	dimnames(p2) <- NULL
 	all.equal(p2, p)	## small differences due to rounding
-
         int <- snpCallProbability(obj) ## not necessarily a probability
         p3 <- i2p(int)  ## to convert back to a probability
         all.equal(p3, p2)
