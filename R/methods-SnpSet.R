@@ -75,79 +75,8 @@ setMethod("combine", signature=signature(x="SnpSet", y="SnpSet"),
 
 
 
-setMethod("findOverlaps", signature(query="RangedDataCNV", subject="AnnotatedDataFrame"),
-	  function (query, subject, maxgap = 0L, minoverlap = 1L, type = c("any",
-								  "start", "end", "within", "equal"), select = c("all", "first",
-												      "last", "arbitrary"), ...){
-		  subject2 <- subject
-		  nachrom <- is.na(chromosome(subject)) | chromosome(subject) > 24
-		  if(any(nachrom)){
-			  subject <- subject[!nachrom, ]
-		  }
-		  start <- start(query)
-		  end <- end(query)
-		  CHR <- chromosome(query)
-		  ##featuresInXlim(object, start=start(range), end=end(range), CHR=range$chrom, ...)
-		  if("frame" %in% names(list(...))) {
-			  frame <- list(...)[["frame"]]
-		  } else frame <- rep(0, nrow(query))
-		  if(any(frame > 0)){
-			  data(chromosomeAnnotation, package="SNPchip")
-			  chr.end <- chromosomeAnnotation[CHR, "chromosomeSize"]
-			  start <- start-frame
-			  start[start < 0] <- 0
-			  end <- end+frame
-			  end[end > chr.end] <- chr.end
-		  }
-		  ir.query <- IRanges(start, end)
-		  ## depends on platform
-		  ir.subject <- IRanges(position(subject)-12, position(subject)+12)
-		  mm <- matchMatrix(findOverlaps(ir.query, ir.subject))
-		  ## remove matches that are not the same chromosome
-		  subj.index <- mm[,2]
-		  quer.index <- mm[, 1]
-		  same.chrom <- chromosome(query)[quer.index] == chromosome(subject)[subj.index]
-		  ##subj.index <- subj.index[same.chrom]
-		  ##quer.index <- quer.index[same.chrom]
-		  ## narrow the hits to those that are in the same chromosome
-		  ##which(position(object) >= start & position(object) <= end & chromosome(object) == CHR)
-		  ##} else which(pos >= start & pos <= end & chrom == CHR)
-		  mm <- mm[same.chrom, ]
-		  ## Now, map the subject indices back to the indices in
-		  ## the original object
-		  if(any(nachrom)){
-			  ## 'sampleNames' can be used to retrieve the feature names
-			  subject.index <- mm[, 2]
-			  fns.subject <- sampleNames(subject)[subject.index]
-			  fns.subject2 <- sampleNames(subject2)
-			  index <- match(fns.subject, fns.subject2)
-			  stopifnot(all(!is.na(index)))
-			  mm[, 2] <- index
-		  }
-		  return(mm)
-	  })
 
-setMethod("findOverlaps", signature(query="RangedDataCNV", subject="SnpSet"),
-	  function (query, subject, maxgap = 0L, minoverlap = 1L, type = c("any",
-								  "start", "end", "within", "equal"), select = c("all", "first",
-												      "last", "arbitrary"), ...){
-		  findOverlaps(query=query, subject=featureData(subject),
-			       maxgap=maxgap,
-			       minoverlap=minoverlap,
-			       type=type,
-			       select=select, ...)
-	  })
 
-setMethod("findOverlaps", signature(query="RangedDataCNV", subject="CNSet"),
-	  function (query, subject, maxgap = 0L, minoverlap = 1L, type = c("any",
-								  "start", "end", "within", "equal"), select = c("all", "first",
-												      "last", "arbitrary"), ...){
-		  findOverlaps(query=query, subject=featureData(subject),
-			       maxgap=maxgap,
-			       minoverlap=minoverlap,
-			       type=type,
-			       select=select, ...)
-	  })
 
 
 ## need this to work for a RangedData object with multiple ranges
