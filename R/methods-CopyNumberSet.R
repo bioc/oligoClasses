@@ -14,3 +14,14 @@ setReplaceMethod("cnConfidence", signature(object="CopyNumberSet", value="matrix
                  function(object, value){
 			 assayDataElementReplace(object, "cnConfidence", value)
                  })
+
+setMethod("checkOrder", signature(object="CopyNumberSet"),
+	  function(object, verbose=FALSE){
+		  .checkOrder(object, verbose)
+	  })
+
+setMethod("order", "CopyNumberSet",
+	  function(..., na.last=TRUE, decreasing=FALSE){
+		  object <- list(...)[[1]]
+		  chromosomePositionOrder(object)
+	  })

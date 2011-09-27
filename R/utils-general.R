@@ -404,5 +404,13 @@ checkExists <- function(.name, .path=".", .FUN, .FUN2, .save.it=TRUE, .load.it, 
 	}
 }
 
-
+chromosomePositionOrder <- function(object){
+	is.ordered <- checkOrder(object)
+	if(!is.ordered){
+		message("Ordering ", class(object), " object by chromosome and physical position")
+		index <- order(chromosome(object), position(object))
+		object <- object[index, ]
+	}
+	return(object)
+}
 

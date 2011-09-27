@@ -165,3 +165,15 @@ setMethod("featuresInRange", signature(object="SnpSet", range="RangedDataCNV"),
 		  end <- min(end+FRAME.RIGHT, chr.end)
 		  which(position(object) >= start & position(object) <= end & chromosome(object) == CHR)
 	  })
+
+setMethod("order", "SnpSet",
+	  function(..., na.last=TRUE, decreasing=FALSE){
+		  object <- list(...)[[1]]
+		  chromosomePositionOrder(object)
+	  })
+
+
+setMethod("checkOrder", signature(object="SnpSet"),
+	  function(object, verbose=FALSE){
+		  .checkOrder(object, verbose)
+	  })

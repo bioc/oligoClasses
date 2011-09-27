@@ -30,7 +30,7 @@ importFrom(IRanges, IRanges, RangedData, RangedDataList,
 	   countOverlaps,
 	   ranges, values,
 	   matchMatrix, queryHits, subjectHits)
-importMethodsFrom(IRanges, findOverlaps)
+importMethodsFrom(IRanges, findOverlaps, order)
 
 
 ##importMethodsFrom(ff, pattern, filename, "pattern<-", "filename<-",
@@ -91,7 +91,8 @@ exportMethods(batchStatistics, "batchStatistics<-")
 
 
 exportClasses(RangedDataCopyNumber, RangedDataCNV, RangedDataCBS, RangedDataHMM, CopyNumberSet)
-exportMethods(coverage2, featuresInRange, findOverlaps, state, openff, closeff)
+exportMethods(coverage2, featuresInRange, findOverlaps, state, openff,
+	      closeff, order, checkOrder)
 export(findOverlaps,
        RangedDataCNV,
        RangedDataCBS,
