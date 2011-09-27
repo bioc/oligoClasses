@@ -192,17 +192,3 @@ setValidity("RangedDataHMM", function(object) "state" %in% colnames(object))
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
