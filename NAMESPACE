@@ -91,7 +91,7 @@ exportMethods(batchStatistics, "batchStatistics<-")
 
 
 exportClasses(RangedDataCopyNumber, RangedDataCNV, RangedDataCBS, RangedDataHMM, CopyNumberSet)
-exportMethods(coverage2, featuresInRange, findOverlaps, state)
+exportMethods(coverage2, featuresInRange, findOverlaps, state, openff, closeff)
 export(findOverlaps,
        RangedDataCNV,
        RangedDataCBS,

@@ -1,6 +1,8 @@
 \name{fileConnections}
 \alias{open}
+\alias{openff}
 \alias{close}
+\alias{closeff}
 \alias{open,matrix-method}
 \alias{open,numeric-method}
 \alias{open,array-method}
@@ -21,19 +23,20 @@
 }
 \usage{
 open(con, ...)
+openff(object)
+closeff(object)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{con}{
     matrix or vector
-}
-  \item{\dots}{
-    ignored
-}
+  }
+  \item{object}{ A \code{CNSet} object.}
+  \item{\dots}{Ignored}
 }
 
 \value{
-  Returns matrix or numeric, depending on the class of \code{con}.
+  not applicable
 }
 \author{
 R. Scharpf
