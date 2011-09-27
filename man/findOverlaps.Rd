@@ -7,8 +7,10 @@
 \alias{findOverlaps}
 \title{Find markers that overlap with a query set of ranges}
 \description{
-  Find indices of markers in a \code{SnpSet} object (the 'subject') that
-  overlap with a query set of ranges given by a \code{RangedDataCNV} object.
+
+  Methods for finding overlapping genomic ranges.
+
+
 }
 \usage{
 findOverlaps(query, subject, maxgap = 0L, minoverlap = 1L, type = c("any", "start", "end", "within", "equal"), select = c("all", "first", "last", "arbitrary"), ...)
@@ -53,11 +55,24 @@ A \code{RangesMatching} object.
 
 \details{
 
-    Returns the 'match matrix' from a \code{findOverlaps} query of two
-  IRanges objects.  The first column are indices of the ranges in the
-  \code{query} (instance of class \code{RangedDataCNV}).  The second
-  column are the indices of markers in the \code{subject} (instance of
-  class \code{SnpSet}).
+  When both \code{query} and \code{subject} are
+  \code{\linkS4class{RangedDataCNV}} objects, we require that the
+  overlapping ranges have the same chromosome and sample id.  If
+  \code{query} and \code{subject} are \code{\linkS4class{RangedDataHMM}}
+  objects we additionally require that the \code{state} value in the
+  \code{\linkS4class{RangedDataHMM}} objects match. For example, if the
+  same genomic interval for a subject is called a 'deletion' in
+  \code{query} and 'normal' in \code{subject}, the interval is not
+  matched. The primary purpose of such queries is to assess the
+  concordance of hidden Markov models applied to the same dataset.
+
+  If \code{subject} is a \code{\linkS4class{SnpSet}},
+  \code{\linkS4class{CNSet}}, or \code{\linkS4class{AnnotatedDataFrame}}
+  with 'chromosome', and 'position' \code{varLabels}, the method returns
+  a \code{\linkS4class{RangesMatching}} object indicating which markers
+  in \code{subject} overlap with the \code{query} ranges.  This method
+  can be useful for finding the set of markers in \code{subject} that
+  reside within a given genomic interval in the \code{query}.
 
 }
 
