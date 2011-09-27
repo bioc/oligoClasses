@@ -113,9 +113,7 @@ setReplaceMethod("B", "CNSet", function(object, value) {
 	assayDataElementReplace(object, "alleleB", value)
 })
 
-setMethod("close", "CNSet", function(con, ...){
-	##con is just to keep the same generic arguments
-	object <- con
+setMethod("closeff", signature(object="CNSet"), function(object){
 	if(!isFF(object)) return()
 	names <- ls(assayData(object))
 	L <- length(names)
@@ -127,8 +125,11 @@ setMethod("close", "CNSet", function(con, ...){
 		tmp <- eval(substitute(assayData(object)[[NAME]], list(NAME=names[i])))
 		if(!is.null(tmp)) close(tmp)
 	}
-	##lapply(physical(batchStatistics(con)), open)
-	return()
+}
+
+setMethod("close", "CNSet", function(con, ...){
+	object <- con
+	closeff(object)
 })
 
 setMethod("openff", signature(object="CNSet"),
