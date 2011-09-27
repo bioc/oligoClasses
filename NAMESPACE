@@ -94,6 +94,8 @@ exportClasses(RangedDataCopyNumber, RangedDataCNV, RangedDataCBS, RangedDataHMM,
 exportMethods(coverage2, featuresInRange, findOverlaps, state, openff,
 	      closeff, order, checkOrder)
 export(findOverlaps,
+       order, ## why is it necessary to export both the generic and method
+              ## order() in VanillaICE will not work otherwise
        RangedDataCNV,
        RangedDataCBS,
        RangedDataHMM)
