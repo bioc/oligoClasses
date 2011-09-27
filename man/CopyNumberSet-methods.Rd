@@ -2,9 +2,20 @@
 \docType{methods}
 \alias{CopyNumberSet-methods}
 \alias{copyNumber}
+<<<<<<< HEAD
 \alias{copyNumber<-}
 \alias{cnConfidence}
 \alias{cnConfidence<-}
+=======
+%\alias{copyNumber,CopyNumberSet-method}
+\alias{copyNumber<-}
+%\alias{copyNumber<-,CopyNumberSet,matrix-method}
+\alias{cnConfidence}
+\alias{cnConfidence<-}
+%\alias{cnConfidence,CopyNumberSet-method}
+%\alias{cnConfidence<-,CopyNumberSet,matrix-method}
+\alias{initialize,CopyNumberSet-method}
+>>>>>>> Export CopyNumberSet class
 \title{  Methods for class CopyNumberSet.}
 \description{
 	Accessors and CopyNumberSet
