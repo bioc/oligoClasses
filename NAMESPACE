@@ -96,3 +96,4 @@ export(findOverlaps,
        RangedDataCBS,
        RangedDataHMM)
 
+
