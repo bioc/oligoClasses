@@ -256,7 +256,10 @@ addFeatureAnnotation.crlmm <- function(object, ...){
 	##if(missing(CHR)) stop("Must specificy chromosome")
 	##message("Adding required feature annotation (chromosome, position, isSnp) to featureData slot")
 	cdfName <- annotation(object)
-	pkgname <- paste(cdfName, "Crlmm", sep="")
+	nm <- grep("Crlmm", cdfName)
+	if(length(nm) == 0){
+		pkgname <- paste(cdfName, "Crlmm", sep="")
+	} else pkgname <- cdfName
 	path <- system.file("extdata", package=pkgname)
 	loader("cnProbes.rda", pkgname=pkgname, envir=.oligoClassesPkgEnv)
 	cnProbes <- get("cnProbes", envir=.oligoClassesPkgEnv)

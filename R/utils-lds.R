@@ -152,3 +152,11 @@ initializeLMObject <- function(dimnames){
 	return(ll)
 }
 
+
+## does nothing if not an ff object
+setMethod("open", "numeric", function(con, ...) return(NULL))
+setMethod("open", "matrix", function(con, ...) return(NULL))
+setMethod("open", "array", function(con, ...) return(NULL))
+setMethod("close", "numeric", function(con, ...) return(NULL))
+setMethod("close", "matrix", function(con, ...) return(NULL))
+setMethod("close", "array", function(con, ...) return(NULL))

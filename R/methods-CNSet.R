@@ -159,13 +159,7 @@ setMethod("open", "CNSet", function(con, ...){
 	openff(object)
 	return(TRUE)
 })
-## does nothing if not an ff object
-setMethod("open", "numeric", function(con, ...) return(con))
-setMethod("open", "matrix", function(con, ...) return(con))
-setMethod("open", "array", function(con, ...) return(con))
-setMethod("close", "numeric", function(con, ...) return(con))
-setMethod("close", "matrix", function(con, ...) return(con))
-setMethod("close", "array", function(con, ...) return(con))
+
 
 setMethod("nu", c("CNSet", "character"), function(object, allele) nu(batchStatistics(object), allele))
 setMethod("phi", c("CNSet", "character"), function(object, allele) phi(batchStatistics(object), allele))
