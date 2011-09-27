@@ -49,11 +49,12 @@ setMethod("db", "eSet",
 	  })
 
 setMethod("chromosome", "eSet",
-	  function(object){
+	  function(object, na.rm=FALSE){
 		  if(!("chromosome" %in% fvarLabels(object))){
 			  stop("chromosome not in fvarLabels")
 		  }
-		  return(featureData(object)$chromosome)
+		  chrom <- chromosome(featureData(object), na.rm)
+		  return(chrom)
 	  })
 
 setReplaceMethod("chromosome", "eSet",
@@ -64,9 +65,10 @@ setReplaceMethod("chromosome", "eSet",
 
 
 setMethod("position", "eSet",
-          function(object){
+          function(object, na.rm=FALSE){
 		  if(!("position" %in% fvarLabels(object))){
 			  stop("position not in fvarLabels")
 		  }
-		  featureData(object)$position
+		  pos <- position(featureData(object), na.rm)
+		  return(pos)
           })

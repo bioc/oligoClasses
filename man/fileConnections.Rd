@@ -1,8 +1,10 @@
 \name{fileConnections}
 \alias{open}
 \alias{openff}
+\alias{openff,CNSet-method}
 \alias{close}
 \alias{closeff}
+\alias{closeff,CNSet-method}
 \alias{open,matrix-method}
 \alias{open,numeric-method}
 \alias{open,array-method}

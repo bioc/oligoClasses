@@ -51,7 +51,7 @@ setMethod("state", signature(object="RangedDataCNV"), function(object) object$st
 setMethod("coverage2", signature(object="RangedDataCNV"), function(object) object$num.mark)
 
 setMethod("sampleNames", signature(object="RangedDataCNV"), function(object) object$id)
-setMethod("chromosome", signature(object="RangedDataCNV"), function(object) object$chrom)
+setMethod("chromosome", signature(object="RangedDataCNV"), function(object, na.rm=FALSE) object$chrom)
 setAs("RangedData", "RangedDataCBS", function(from){
 	RangedDataCBS(ranges=ranges(from),
 		      values=values(from))

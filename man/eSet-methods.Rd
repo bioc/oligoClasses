@@ -20,14 +20,15 @@
       }
 
 \usage{
-chromosome(object)
+chromosome(object,na.rm=FALSE)
 chromosome(object) <- value
-position(object)
+position(object,na.rm=FALSE)
 isSnp(object)
 }
 
 \arguments{
   \item{object}{A \code{eSet} object or \code{AnnotatedDataFrame}.}
+  \item{na.rm}{Logical.  Whether to exlude NA's.}
   \item{value}{A \code{integer} vector.}
 }
 \keyword{methods}

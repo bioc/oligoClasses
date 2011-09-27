@@ -73,8 +73,7 @@ setMethod("combine", signature=signature(x="SnpSet", y="SnpSet"),
 		  x
           })
 
-setMethod("chromosome", signature(object="AnnotatedDataFrame"), function(object) object$chromosome)
-setMethod("position", signature(object="AnnotatedDataFrame"), function(object) object$position)
+
 
 setMethod("findOverlaps", signature(query="RangedDataCNV", subject="AnnotatedDataFrame"),
 	  function (query, subject, maxgap = 0L, minoverlap = 1L, type = c("any",
