@@ -60,3 +60,4 @@ setGeneric("featuresInRange", function(object, range, FRAME=0, FRAME.LEFT, FRAME
 	   standardGeneric("featuresInRange"))
 setGeneric("openff", function(object) standardGeneric("openff"))
 setGeneric("closeff", function(object) standardGeneric("closeff"))
+setGeneric("checkOrder", function(object, verbose=FALSE) standardGeneric("checkOrder"))
