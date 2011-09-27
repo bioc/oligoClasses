@@ -25,6 +25,8 @@ setMethod("initialize", "CopyNumberSet",
           })
 
 
+
+
 setAs("CNSet", "CopyNumberSet",
       function(from){
 	      new("CopyNumberSet",
@@ -206,6 +208,9 @@ initializeGenotypeSummaryFrom <- function(object){
 	mads <- do.call(assayDataNew, mads)
 	return(list(numberGenotypes=numberGt, means=mns, mads=mads))
 }
+
+
+
 
 
 

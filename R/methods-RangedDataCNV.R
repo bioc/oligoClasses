@@ -161,10 +161,10 @@ setMethod("findOverlaps", signature(query="RangedDataCNV",
 		  mm <- matchMatrix(res)
 		  chrq <- chrq[mm[,1]]
 		  chrs <- chrs[mm[,2]]
-		  irq <- irq[mm[,1]]
-		  irs <- irs[mm[,2]]
-		  index <- chrq == chrs & irq == irs
-		  res@matchMatrix <- mm[index, ]
+		  idq <- idq[mm[,1]]
+		  ids <- ids[mm[,2]]
+		  index <- chrq == chrs & idq == ids
+		  res@matchMatrix <- mm[index, , drop=FALSE]
 		  return(res)
 	  })
 
