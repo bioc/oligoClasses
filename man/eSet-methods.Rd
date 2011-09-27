@@ -11,6 +11,8 @@
 \alias{position,AnnotatedDataFrame-method}
 \alias{isSnp}
 \alias{isSnp,eSet-method}
+\alias{snpNames}
+\alias{snpNames,eSet-method}
 \title{Accessors for eSet extensions}
 \description{
 
@@ -24,6 +26,7 @@ chromosome(object,na.rm=FALSE)
 chromosome(object) <- value
 position(object,na.rm=FALSE)
 isSnp(object)
+snpNames(object)
 }
 
 \arguments{

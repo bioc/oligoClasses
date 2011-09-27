@@ -92,7 +92,7 @@ exportMethods(batchStatistics, "batchStatistics<-")
 
 exportClasses(RangedDataCopyNumber, RangedDataCNV, RangedDataCBS, RangedDataHMM, CopyNumberSet)
 exportMethods(coverage2, featuresInRange, findOverlaps, state, openff,
-	      closeff, order, checkOrder)
+	      closeff, order, checkOrder, snpNames)
 export(findOverlaps,
        order, ## why is it necessary to export both the generic and method
               ## order() in VanillaICE will not work otherwise

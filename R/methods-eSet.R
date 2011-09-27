@@ -31,16 +31,32 @@ setMethod("annotate", "eSet", function(object){
 	return(object)
 })
 
-setMethod("isSnp", "eSet", function(object) {
-	labels <- fvarLabels(object)
-	if("isSnp" %in% labels){
-		res <- fData(object)[, "isSnp"]
-	} else{
-		res <- as.integer(featureNames(object) %in% snpNames(object))
-	}
-	return(res==1)
-})
+setMethod("isSnp", signature(object="eSet"),
+	  function(object) {
+		  labels <- fvarLabels(object)
+		  if("isSnp" %in% labels){
+			  res <- fData(object)[, "isSnp"]
+		  } else{
+			  res <- as.integer(featureNames(object) %in% snpNames(object))
+		  }
+		  return(res==1)
+	  })
 
+setMethod("snpNames", signature(object="eSet"),
+	  function(object){
+	nm <- grep("Crlmm", annotation(object))
+	if(length(nm)==0){
+		pkgname <- paste(annotation(object), "Crlmm", sep="")
+	} else pkgname <- annotation(object)
+	path <- system.file("extdata", package=pkgname)
+	load(file.path(path, "snpProbes.rda"))
+	snpProbes <- get("snpProbes")
+	snps <- rownames(snpProbes)
+	snps <- snps[snps %in% featureNames(object)]
+	index <- match(snps, featureNames(object), nomatch=0)
+	index <- index[index != 0]
+	featureNames(object)[index]
+})
 
 setMethod("db", "eSet",
           function(object) {

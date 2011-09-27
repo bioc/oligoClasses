@@ -25,6 +25,7 @@ setGeneric("db", function(object) standardGeneric("db"))
 setGeneric("kind", function(object) standardGeneric("kind"))
 setGeneric("position", function(object, na.rm=FALSE) standardGeneric("position"))
 setGeneric("isSnp", function(object) standardGeneric("isSnp"))
+setGeneric("snpNames", function(object) standardGeneric("snpNames"))
 
 
 setGeneric("genomeBuild", function(object) standardGeneric("genomeBuild"))

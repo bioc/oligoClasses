@@ -216,16 +216,18 @@ chromosome2integer <- function(chrom){
 	as.integer(chrom)
 }
 
-snpNames <- function(object){
-	path <- system.file("extdata", package=paste(annotation(object), "Crlmm", sep=""))
-	load(file.path(path, "snpProbes.rda"))
-	snpProbes <- get("snpProbes")
-	snps <- rownames(snpProbes)
-	snps <- snps[snps %in% featureNames(object)]
-	index <- match(snps, featureNames(object), nomatch=0)
-	index <- index[index != 0]
-	featureNames(object)[index]
-}
+
+
+##
+####		  nm <- grep("Crlmm", object)
+####		  if(length(nm)==0){
+####			  pkgname <- paste(object, "Crlmm", sep="")
+####		  } else pkgname <- object
+####		  path <- system.file("extdata", package=pkgname)
+####		  load(file.path(path, "snpProbes.rda"))
+####		  snpProbes <- get("snpProbes")
+####		  return(snpProbes)
+##	  })
 
 featureDataFrom <- function(annotationPackage){
 	stopifnot(isSupportedAnnotation(annotationPackage))
