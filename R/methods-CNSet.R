@@ -113,7 +113,8 @@ setReplaceMethod("B", "CNSet", function(object, value) {
 	assayDataElementReplace(object, "alleleB", value)
 })
 
-setMethod("closeff", signature(object="CNSet"), function(object){
+setMethod("closeff",
+	  signature(object="CNSet"), function(object){
 	if(!isFF(object)) return()
 	names <- ls(assayData(object))
 	L <- length(names)
@@ -125,7 +126,7 @@ setMethod("closeff", signature(object="CNSet"), function(object){
 		tmp <- eval(substitute(assayData(object)[[NAME]], list(NAME=names[i])))
 		if(!is.null(tmp)) close(tmp)
 	}
-}
+})
 
 setMethod("close", "CNSet", function(con, ...){
 	object <- con
