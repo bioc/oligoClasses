@@ -147,6 +147,9 @@ setMethod("openff", signature(object="CNSet"),
 		  if("SNR" %in% varLabels(object)){
 			  if(is(object$SNR, "ff")) open(object$SNR)
 		  }
+		  if("SNR" %in% varLabels(object)){
+			  if(is(object$gender, "ff")) open(object$gender)
+		  }
 	  })
 
 setMethod("open", "CNSet", function(con, ...){
