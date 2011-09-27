@@ -23,5 +23,5 @@ setMethod("checkOrder", signature(object="CopyNumberSet"),
 setMethod("order", "CopyNumberSet",
 	  function(..., na.last=TRUE, decreasing=FALSE){
 		  object <- list(...)[[1]]
-		  chromosomePositionOrder(object)
+		  chromosomePositionOrder(object, ...)
 	  })

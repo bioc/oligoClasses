@@ -98,7 +98,7 @@ setMethod("featuresInRange", signature(object="SnpSet", range="RangedDataCNV"),
 setMethod("order", "SnpSet",
 	  function(..., na.last=TRUE, decreasing=FALSE){
 		  object <- list(...)[[1]]
-		  chromosomePositionOrder(object)
+		  chromosomePositionOrder(object, ...)
 	  })
 
 
