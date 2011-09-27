@@ -7,6 +7,7 @@
 \alias{copyNumber,CopyNumberSet-method}
 \alias{copyNumber<-,CopyNumberSet,matrix-method}
 \alias{initialize,CopyNumberSet-method}
+\alias{checkOrder,CopyNumberSet-method}
 
 \title{Class \code{"CopyNumberSet"}}
 \description{

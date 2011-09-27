@@ -33,7 +33,7 @@ Reorders the object by chromosome and physical position.
 }
 
 \seealso{
-  \code{\link{mad}}, \code{\link{cnEmission}}, \code{\link{chromosome}}, \code{\link{position}}
+  \code{\link{chromosome}}, \code{\link{position}}
 }
 
 \examples{

@@ -8,7 +8,9 @@
 \alias{confs,SnpSet-method}
 \alias{confs<-}
 \alias{confs<-,SnpSet,matrix-method}
-\title{Accessors for Calls and Confidences on a SnpSet object}
+\alias{checkOrder,SnpSet-method}
+
+\title{Accessors and methods for SnpSet objects}
 
 \description{
   Utility functions for accessing data in \code{SnpSet} objects.
@@ -26,7 +28,7 @@ confs(object) <- value
   \item{transform}{Logical. Whether to transform the integer
   representation of the confidence score (for memory efficiency) to a
   probability. See details.}
-  \item{value}{A matrix.}
+\item{value}{A matrix.}
 }
 
 \details{
@@ -49,6 +51,8 @@ confs(object) <- value
   \code{snpCallProbability} for the \code{callProbability} slot of
   \code{SnpSet} objects.  See the examples below.
 
+  \code{checkOrder} checks whether the object is ordered by chromosome
+  and physical position, evaluating to TRUE or FALSE.
 
 }
 
@@ -61,7 +65,6 @@ confs(object) <- value
   'callProbability' element of the \code{assayData}.  The name can be
   misleading, however, as the accessor will not return a probability if
   the call probabilities are represented as integers.
-
 
 }
 
@@ -79,10 +82,11 @@ confs(object) <- value
   position, and an indicator for whether the marker is polymorphic to
   the \code{featureData} slot of a \code{SnpSet} object.
 
-
-
   The helper functions \code{\link{p2i}} converts probabilities to
   integers and \code{\link{i2p}} converts integers to probabilities.
+
+  See \code{\link{order}} and \code{\link{checkOrder}}.
+
 }
 \examples{
 
