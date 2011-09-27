@@ -14,7 +14,8 @@ Suggests: pd.genomewidesnp.6,
 	  pd.mapping250k.sty,
 	  pd.mapping250k.nsp,
 	  genomewidesnp6Crlmm,
-	  genomewidesnp5Crlmm
+	  genomewidesnp5Crlmm,
+	  VanillaICE
 Description: This package contains class definitions, validity checks, and initialization methods for classes used by the oligo and crlmm packages.
 License: GPL (>= 2)
 LazyLoad: yes

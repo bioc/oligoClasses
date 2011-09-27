@@ -2,6 +2,8 @@
 \alias{findOverlaps,RangedDataCNV,SnpSet-method}
 \alias{findOverlaps,RangedDataCNV,CNSet-method}
 \alias{findOverlaps,RangedDataCNV,AnnotatedDataFrame-method}
+\alias{findOverlaps,RangedDataCNV,RangedDataCNV-method}
+\alias{findOverlaps,RangedDataHMM,RangedDataHMM-method}
 \alias{findOverlaps}
 \title{Find markers that overlap with a query set of ranges}
 \description{
@@ -45,7 +47,7 @@ findOverlaps(query, subject, maxgap = 0L, minoverlap = 1L, type = c("any", "star
 
 \value{
 
-  A matrix. See details.
+A \code{RangesMatching} object.
 
 }
 
@@ -63,7 +65,24 @@ findOverlaps(query, subject, maxgap = 0L, minoverlap = 1L, type = c("any", "star
 R. Scharpf
 }
 
-%\examples{
-%}
+
+\examples{
+	if(require("VanillaICE")){
+		data(hmmResults, package="VanillaICE")
+		data(oligoSetExample)
+		## Find markers in a oligoSnpSet object that overlap with the
+		## 2nd range:
+		rmatching <- findOverlaps(hmmResults[2, ], oligoSet)
+		index.in.range <- matchMatrix(rmatching)[,2]
+		features.in.range <- featureNames(oligoSet)[index.in.range]
+		##
+		## For two RangedDataHMM objects, returns only the ranges
+		## that have the same sample name, chromosome, and HMM state
+		## A trivial example:
+		hmmResults2 <- hmmResults
+		hmmResults2$state <- rep(3, nrow(hmmResults))
+		findOverlaps(hmmResults, hmmResults2)
+	}
+}
 \keyword{methods}
 \keyword{manip}
