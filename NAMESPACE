@@ -32,7 +32,6 @@ importFrom(IRanges, IRanges, RangedData, RangedDataList,
 	   matchMatrix, queryHits, subjectHits)
 importMethodsFrom(IRanges, findOverlaps)
 
-
 ##importMethodsFrom(ff, pattern, filename, "pattern<-", "filename<-",
 ##		  physical, "physical<-")
 
