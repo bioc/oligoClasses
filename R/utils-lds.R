@@ -8,6 +8,7 @@
 ##               (leaving out of fftempdir b/c parallel processes
 ##               access the object very easily)
 
+
 initializeBigArray <- function(name, dim, vmode="integer", initdata=NA){
 	if(isPackageLoaded("ff")){
 		createFF(name=name,
@@ -23,6 +24,7 @@ initializeBigArray <- function(name, dim, vmode="integer", initdata=NA){
 	}
 	return(results)
 }
+
 
 initializeBigMatrix <- function(name, nr, nc, vmode="integer", initdata=NA){
   if(isPackageLoaded("ff")){

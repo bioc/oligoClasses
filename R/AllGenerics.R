@@ -55,5 +55,6 @@ setGeneric("batchStatistics<-", function(object,value) standardGeneric("batchSta
 setGeneric("coverage2", function(object) standardGeneric("coverage2"))
 setGeneric("state", function(object) standardGeneric("state"))
 
+
 setGeneric("featuresInRange", function(object, range, FRAME=0, FRAME.LEFT, FRAME.RIGHT, ...)
 	   standardGeneric("featuresInRange"))

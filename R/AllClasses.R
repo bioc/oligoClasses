@@ -161,19 +161,6 @@ setMethod("updateObject", signature(object="CNSet"),
 		  obj
           })
 
-##---------------------------------------------------------------------------
-## classes for ranges
-
-setClass("RangedDataCopyNumber", contains="RangedData",
-	 representation("VIRTUAL"))
-setClass("RangedDataCNV", contains="RangedDataCopyNumber")
-setValidity("RangedDataCNV", function(object){
-	all(c("chrom", "id", "num.mark") %in% colnames(object))
-})
-setClass("RangedDataCBS", contains="RangedDataCNV")
-setValidity("RangedDataCBS", function(object) all(c("seg.mean", "start.index", "end.index") %in% colnames(object)))
-setClass("RangedDataHMM", contains="RangedDataCNV")
-setValidity("RangedDataHMM", function(object) "state" %in% colnames(object))
 
 ##---------------------------------------------------------------------------
 ## classes for ranges
@@ -188,6 +175,21 @@ setClass("RangedDataCBS", contains="RangedDataCNV")
 setValidity("RangedDataCBS", function(object) all(c("seg.mean", "start.index", "end.index") %in% colnames(object)))
 setClass("RangedDataHMM", contains="RangedDataCNV")
 setValidity("RangedDataHMM", function(object) "state" %in% colnames(object))
+
+##---------------------------------------------------------------------------
+## classes for ranges
+
+setClass("RangedDataCopyNumber", contains="RangedData",
+	 representation("VIRTUAL"))
+setClass("RangedDataCNV", contains="RangedDataCopyNumber")
+setValidity("RangedDataCNV", function(object){
+	all(c("chrom", "id", "num.mark") %in% colnames(object))
+})
+setClass("RangedDataCBS", contains="RangedDataCNV")
+setValidity("RangedDataCBS", function(object) all(c("seg.mean", "start.index", "end.index") %in% colnames(object)))
+setClass("RangedDataHMM", contains="RangedDataCNV")
+setValidity("RangedDataHMM", function(object) "state" %in% colnames(object))
+
 
 
 

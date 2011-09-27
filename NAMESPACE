@@ -32,6 +32,7 @@ importFrom(IRanges, IRanges, RangedData, RangedDataList,
 	   matchMatrix, queryHits, subjectHits)
 importMethodsFrom(IRanges, findOverlaps)
 
+
 ##importMethodsFrom(ff, pattern, filename, "pattern<-", "filename<-",
 ##		  physical, "physical<-")
 
@@ -82,6 +83,7 @@ exportMethods(getM, getA, annotatedDataFrameFrom, open, close)
 ##exportClasses(ffdf, ff_matrix)
 exportClasses(ff_matrix,ffdf)
 
+
 export(annotationPackages, addFeatureAnnotation, checkExists)
 exportMethods(batch, batchNames, "batchNames<-", coerce, flags, show)
 exportMethods(nu, phi)
@@ -93,5 +95,4 @@ export(findOverlaps,
        RangedDataCNV,
        RangedDataCBS,
        RangedDataHMM)
-
 
