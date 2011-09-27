@@ -89,6 +89,7 @@ exportMethods(batch, batchNames, "batchNames<-", coerce, flags, show)
 exportMethods(nu, phi)
 exportMethods(batchStatistics, "batchStatistics<-")
 
+
 exportClasses(RangedDataCopyNumber, RangedDataCNV, RangedDataCBS, RangedDataHMM, CopyNumberSet)
 exportMethods(coverage2, featuresInRange, findOverlaps, state)
 export(findOverlaps,
