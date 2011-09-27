@@ -416,6 +416,7 @@ checkExists <- function(.name, .path=".", .FUN, .FUN2, .save.it=TRUE, .load.it, 
 	TRUE
 
 }
+
 chromosomePositionOrder <- function(object, verbose=FALSE){
 	is.ordered <- checkOrder(object)
 	if(!is.ordered){
