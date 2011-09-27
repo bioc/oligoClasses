@@ -83,7 +83,6 @@ exportMethods(getM, getA, annotatedDataFrameFrom, open, close)
 ##exportClasses(ffdf, ff_matrix)
 exportClasses(ff_matrix,ffdf)
 
-
 export(annotationPackages, addFeatureAnnotation, checkExists)
 exportMethods(batch, batchNames, "batchNames<-", coerce, flags, show)
 exportMethods(nu, phi)
