@@ -147,13 +147,19 @@ setMethod("findOverlaps", signature(query="RangedDataCNV",
 				    subject="RangedDataCNV"),
 	  function(query, subject, maxgap = 0L, minoverlap = 1L,
 		   type = c("any", "start", "end", "within", "equal"),
-		   select = c("all", "first", "last", "arbitrary"), ...){
+		   select = c("all", "first", "last", "arbitrary"),
+		   match.id=TRUE, ...){
 		  irq <- IRanges(start(query), end(query))
 		  irs <- IRanges(start(subject), end(subject))
 		  chrq <- chromosome(query)
 		  chrs <- chromosome(subject)
-		  idq <- sampleNames(query)
-		  ids <- sampleNames(subject)
+		  if("match.id" %in% names(list(...))){
+			  match.id <- list(...)[["match.id"]]
+		  } else match.id <- TRUE
+		  if(match.id){
+			  idq <- sampleNames(query)
+			  ids <- sampleNames(subject)
+		  }
 		  res <- findOverlaps(irq, irs, maxgap=maxgap,
 				      minoverlap=minoverlap,
 				      type=type,
@@ -161,9 +167,11 @@ setMethod("findOverlaps", signature(query="RangedDataCNV",
 		  mm <- matchMatrix(res)
 		  chrq <- chrq[mm[,1]]
 		  chrs <- chrs[mm[,2]]
-		  idq <- idq[mm[,1]]
-		  ids <- ids[mm[,2]]
-		  index <- chrq == chrs & idq == ids
+		  if(match.id){
+			  idq <- idq[mm[,1]]
+			  ids <- ids[mm[,2]]
+			  index <- chrq == chrs & idq == ids
+		  } else index <- chrq == chrs
 		  res@matchMatrix <- mm[index, , drop=FALSE]
 		  return(res)
 	  })
@@ -183,3 +191,10 @@ setMethod("findOverlaps", signature(query="RangedDataHMM",
 		  res@matchMatrix <- mm[index, ]
 		  return(res)
 	  })
+
+setReplaceMethod("sampleNames", signature(object="RangedDataCNV",
+					  value="character"),
+		 function(object, value){
+			 object$id <- value
+			 return(object)
+		 })

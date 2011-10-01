@@ -21,7 +21,8 @@ importMethodsFrom(Biobase, annotatedDataFrameFrom, annotation,
                   experimentData, "experimentData<-", exprs, "exprs<-",
                   featureData, "featureData<-", featureNames,
                   fvarLabels, pData, "pData<-", phenoData,
-                  "phenoData<-", sampleNames, se.exprs, "se.exprs<-",
+                  "phenoData<-", sampleNames, "sampleNames<-",
+		  se.exprs, "se.exprs<-",
                   storageMode, "storageMode<-", updateObject)
 
 
@@ -92,7 +93,7 @@ exportMethods(batchStatistics, "batchStatistics<-")
 
 exportClasses(RangedDataCopyNumber, RangedDataCNV, RangedDataCBS, RangedDataHMM, CopyNumberSet)
 exportMethods(coverage2, featuresInRange, findOverlaps, state, openff,
-	      closeff, order, checkOrder, snpNames)
+	      closeff, order, checkOrder, snpNames, "sampleNames<-")
 export(findOverlaps,
        order, ## why is it necessary to export both the generic and method
               ## order() in VanillaICE will not work otherwise
