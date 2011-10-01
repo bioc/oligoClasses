@@ -160,7 +160,6 @@ setMethod("open", "CNSet", function(con, ...){
 	return(TRUE)
 })
 
-
 setMethod("nu", c("CNSet", "character"), function(object, allele) nu(batchStatistics(object), allele))
 setMethod("phi", c("CNSet", "character"), function(object, allele) phi(batchStatistics(object), allele))
 setMethod("sigma2", c("CNSet", "character"), function(object, allele) sigma2(batchStatistics(object), allele))
