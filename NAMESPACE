@@ -95,6 +95,3 @@ export(baf, lrr,
        order, ## why is it necessary to export both the generic and method
               ## order() in VanillaICE will not work otherwise
        RangedDataCNV,
-       RangedDataCBS,
-       RangedDataHMM,
-       sampleNames)
