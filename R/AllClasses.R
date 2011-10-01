@@ -191,4 +191,3 @@ setClass("RangedDataHMM", contains="RangedDataCNV")
 setValidity("RangedDataHMM", function(object) "state" %in% colnames(object))
 
 
-

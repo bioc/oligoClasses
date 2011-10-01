@@ -102,4 +102,3 @@ export(baf, lrr,
        RangedDataCBS,
        RangedDataHMM,
        sampleNames)
-

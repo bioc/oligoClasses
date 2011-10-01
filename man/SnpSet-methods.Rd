@@ -32,6 +32,7 @@ confs(object) <- value
 }
 
 \details{
+
   \code{calls} returns the genotype calls. CRLMM stores genotype calls
   as integers (1 - AA; 2 - AB; 3 - BB).
 
@@ -88,6 +89,7 @@ confs(object) <- value
   See \code{\link{order}} and \code{\link{checkOrder}}.
 
 }
+
 \examples{
 
 	theCalls <- matrix(sample(1:3, 20, rep=TRUE), nc=2)

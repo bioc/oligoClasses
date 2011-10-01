@@ -49,5 +49,6 @@ isSnp(object,pkgname)
 
 }
 \seealso{\code{\link{chromosome2integer}}, \code{\link{annotationPackages}}}
+
 \keyword{methods}
 \keyword{manip}

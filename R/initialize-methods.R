@@ -25,8 +25,6 @@ setMethod("initialize", signature(.Object="CopyNumberSet"),
           })
 
 
-
-
 setAs("CNSet", "CopyNumberSet",
       function(from){
 	      new("CopyNumberSet",
@@ -46,7 +44,6 @@ setAs("CNSet", "oligoSnpSet", function(from, to){
 	if(is.lds){
 		## initialize a big matrix for raw copy number
 		message("creating an ff object for storing total copy number")
-
 		tcn <- initializeBigMatrix(name="total_cn", nrow(from), ncol(from), vmode="double")
 		for(j in 1:ncol(from)){
 			tcn[, j] <- totalCopynumber(from, i=row.index, j=j)
@@ -212,11 +209,4 @@ initializeGenotypeSummaryFrom <- function(object){
 	mads <- do.call(assayDataNew, mads)
 	return(list(numberGenotypes=numberGt, means=mns, mads=mads))
 }
-
-
-
-
-
-
-
 

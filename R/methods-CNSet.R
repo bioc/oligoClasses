@@ -239,4 +239,3 @@ setReplaceMethod("batchStatistics", signature=signature(object="CNSet", value="A
 		 object@batchStatistics <- value
 		 object
 	 })
-

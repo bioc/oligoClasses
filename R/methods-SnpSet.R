@@ -73,12 +73,6 @@ setMethod("combine", signature=signature(x="SnpSet", y="SnpSet"),
 		  x
           })
 
-
-
-
-
-
-
 ## need this to work for a RangedData object with multiple ranges
 setMethod("featuresInRange", signature(object="SnpSet", range="RangedDataCNV"),
 	  function(object, range, FRAME=0, FRAME.LEFT, FRAME.RIGHT, ...){
