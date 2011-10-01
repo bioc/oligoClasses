@@ -104,6 +104,10 @@ confs(object) <- value
         p3 <- i2p(int)  ## to convert back to a probability
         all.equal(p3, p2)
 
+        int <- snpCallProbability(obj) ## not necessarily a probability
+        p3 <- i2p(int)  ## to convert back to a probability
+        all.equal(p3, p2)
+
 	## example using ff
 	if(require(ff)){
 		ldPath(tempdir())
