@@ -10,7 +10,6 @@
 
   Methods for finding overlapping genomic ranges.
 
-
 }
 \usage{
 findOverlaps(query, subject, maxgap = 0L, minoverlap = 1L, type = c("any", "start", "end", "within", "equal"), select = c("all", "first", "last", "arbitrary"), ...)
@@ -49,7 +48,7 @@ findOverlaps(query, subject, maxgap = 0L, minoverlap = 1L, type = c("any", "star
 
 \value{
 
-A \code{RangesMatching} object.
+  A \code{RangesMatching} object.
 
 }
 
@@ -79,7 +78,6 @@ A \code{RangesMatching} object.
 \author{
 R. Scharpf
 }
-
 
 \examples{
 	if(require("VanillaICE")){
