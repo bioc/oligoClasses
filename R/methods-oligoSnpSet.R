@@ -15,6 +15,7 @@ setMethod("copyNumber", "oligoSnpSet", function(object) {
 	return(cn)
 })
 
+
 setReplaceMethod("copyNumber", signature(object="oligoSnpSet", value="matrix"),
                  function(object, value){
 			 ##value <- matrix(as.integer(value*100), nrow(value), ncol(value), dimnames=dimnames(value))
