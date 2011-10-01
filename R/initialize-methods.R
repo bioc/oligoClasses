@@ -1,4 +1,4 @@
-setMethod("initialize", "CopyNumberSet",
+setMethod("initialize", signature(.Object="CopyNumberSet"),
           function(.Object,
                    assayData = assayDataNew(copyNumber = copyNumber,
                                             cnConfidence = cnConfidence, ...),
@@ -70,8 +70,12 @@ setAs("CNSet", "oligoSnpSet", function(from, to){
 			tcn <- totalCopynumber(from, i=row.index, j=col.index)
 		}
 	}
+	message("Transforming copy number to log2 scale")
+	tcn[tcn < 0.1] <- 0.1
+	tcn[tcn > 8] <- 8
+	log.tcn <- log2(tcn)
 	new("oligoSnpSet",
-	    copyNumber=tcn,
+	    copyNumber=log.tcn,
 	    call=calls(from),
 	    callProbability=snpCallProbability(from),
 	    annotation=annotation(from),
