@@ -29,7 +29,6 @@ cnConfidence(object) <- value
 \value{
 
 	\code{copyNumber} returns a matrix of copy number estimates.
-
 	\code{cnConfidence} returns a matrix of confidence scores for
 	the copy number estimates.
 
