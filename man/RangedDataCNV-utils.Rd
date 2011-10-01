@@ -6,8 +6,8 @@
 \alias{state}
 \alias{coerce,RangedData,RangedDataCBS-method}
 \alias{coerce,RangedData,RangedDataHMM-method}
-%\alias{trioNames}
-%\alias{trioNames,RangedDataCNV-method}
+%\alias{sampleNames<-}
+\alias{sampleNames<-,RangedDataCNV,character-method}
 
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
@@ -25,29 +25,26 @@
 RangedDataCNV(ranges = IRanges(), values, start, end, chromosome, coverage, sampleId, startIndexInChromosome, endIndexInChromosome, ...)
 RangedDataCBS(ranges = IRanges(), seg.mean = vector("numeric",  length(ranges)), ...)
 RangedDataHMM(ranges=IRanges(), state=vector("integer",length(ranges)),...)
+%samplesNames(object) <- value
 coverage2(object)
 state(object)
 %trioNames(object)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{object}{ A \code{RangedDataHMM} or a \code{RangedDataCNV}
-    object.}
-
-  \item{ranges}{
-    an instance of \code{IRanges} class.}
-
-    \item{values}{A \code{DataFrame} object.}
-    \item{start}{integer -- physical position indicating start of copy number
-      segment}
-    \item{end}{integer -- physical position indicating end of copy
-      number segment}
-    \item{chromosome}{integer indicating chromosome}
-    \item{sampleId}{character string}
-    \item{startIndexInChromosome}{index of marker within the chromosome
+  \item{object}{ A \code{RangedDataHMM} or a \code{RangedDataCNV} object.}
+  \item{ranges}{An instance of \code{IRanges} class.}
+  \item{values}{A \code{DataFrame} object.}
+  \item{start}{integer -- physical position indicating start of copy number
+    segment}
+  \item{end}{integer -- physical position indicating end of copy
+    number segment}
+  \item{chromosome}{integer indicating chromosome}
+  \item{sampleId}{character string}
+  \item{startIndexInChromosome}{index of marker within the chromosome
     for the beginning of the copy number segment.  The physical position
     of this marker is given by 'start'. Optional}
-    \item{endIndexInChromosome}{index of marker within the chromosome
+  \item{endIndexInChromosome}{index of marker within the chromosome
     for the end of the copy number segment.  The physical position
     of this marker is given by 'end'. Optional}
   \item{seg.mean}{
@@ -56,8 +53,9 @@ state(object)
   \item{coverage}{number of markers in a segment}
   \item{state}{typically an integer corresponding to the inferred copy number from a hidden
     markov model}
-  \item{\dots}{
-    Additional covariates that can be accessed by \code{$} method}
+  \item{\dots}{Additional covariates that can be accessed by \code{$}
+    method}
+%  \item{value}{A character vector of sample identifiers}
 }
 
 \details{ \code{RangedDataCNV}, \code{RangedDataHMM}, and
