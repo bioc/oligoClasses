@@ -24,8 +24,8 @@ setGeneric("chromosome<-", function(object, value) standardGeneric("chromosome<-
 setGeneric("db", function(object) standardGeneric("db"))
 setGeneric("kind", function(object) standardGeneric("kind"))
 setGeneric("position", function(object, na.rm=FALSE) standardGeneric("position"))
-setGeneric("isSnp", function(object) standardGeneric("isSnp"))
-setGeneric("snpNames", function(object) standardGeneric("snpNames"))
+setGeneric("isSnp", function(object, pkgname) standardGeneric("isSnp"))
+##setGeneric("snpNames", function(object) standardGeneric("snpNames"))
 
 
 setGeneric("genomeBuild", function(object) standardGeneric("genomeBuild"))
@@ -62,3 +62,5 @@ setGeneric("featuresInRange", function(object, range, FRAME=0, FRAME.LEFT, FRAME
 setGeneric("openff", function(object) standardGeneric("openff"))
 setGeneric("closeff", function(object) standardGeneric("closeff"))
 setGeneric("checkOrder", function(object, verbose=FALSE) standardGeneric("checkOrder"))
+setGeneric("baf", function(object) standardGeneric("baf"))
+setGeneric("lrr", function(object) standardGeneric("lrr"))
