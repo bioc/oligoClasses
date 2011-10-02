@@ -98,3 +98,4 @@ setMethod("order", "SnpSet",
 setMethod("checkOrder", signature(object="SnpSet"),
 	  function(object, verbose=FALSE){
 		  .checkOrder(object, verbose)
+	  })
