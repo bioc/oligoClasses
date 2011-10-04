@@ -38,12 +38,22 @@ setAs("oligoSnpSet", "data.frame",
 	      gt <- calls(from)
 	      cn <- as.numeric(cn)
 	      gt <- as.integer(gt)
+	      baf.present <- "baf" %in% ls(assayData(from))
+	      if(baf.present){
+		      bf <- as.numeric(assayDataElement(from, "baf"))
+	      }
 	      x <- rep(position(from)/1e6, ncol(from))
 	      ##x <- rep(position(object)[marker.index], 4)/1e6
 	      is.snp <- rep(isSnp(from), ncol(from))
 	      id <- rep(sampleNames(from), each=nrow(from))
-	      df <- data.frame(x=x, cn=cn, gt=gt, id=id,
-			       is.snp=is.snp,
-			       stringsAsFactors=FALSE)
+	      if(!baf.present){
+		      df <- data.frame(x=x, cn=cn, gt=gt, id=id,
+				       is.snp=is.snp,
+				       stringsAsFactors=FALSE)
+	      } else {
+		      df <- data.frame(x=x, cn=cn, gt=gt, baf=bf, id=id,
+				       is.snp=is.snp,
+				       stringsAsFactors=FALSE)
+	      }
 	      return(df)
       })
