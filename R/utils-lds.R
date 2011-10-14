@@ -11,9 +11,9 @@
 
 initializeBigArray <- function(name=basename(tempfile()), dim=c(0L,0L,0L), vmode="integer", initdata=NA){
 	if(isPackageLoaded("ff")){
-		createFF(name=name,
-			 dim=dim,
-			 vmode=vmode, initdata=initdata)
+		results <- createFF(name=name,
+				    dim=dim,
+				    vmode=vmode, initdata=initdata)
 	} else {
 		init <- switch(vmode,
 			       integer=as.integer(initdata),
