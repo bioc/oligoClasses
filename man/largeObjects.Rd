@@ -10,8 +10,8 @@
   status of support for large datasets - see Details).
 }
 \usage{
-initializeBigMatrix(name, nr, nc, vmode = "integer", initdata = NA)
-initializeBigVector(name, n, vmode = "integer", initdata = NA)
+initializeBigMatrix(name=basename(tempfile()), nr=0L, nc=0L, vmode = "integer", initdata = NA)
+initializeBigVector(name=basename(tempfile()), n=0L, vmode = "integer", initdata = NA)
 }
 
 \arguments{
@@ -28,7 +28,7 @@ initializeBigVector(name, n, vmode = "integer", initdata = NA)
   to appropriately create big vectors or matrices for packages like
   oligo and crlmm (and friends). These objects are created conditioned
   on the status of support for large datasets.
-  
+
 }
 \value{
   If the 'ff' package is loaded (in the search path), then an 'ff'

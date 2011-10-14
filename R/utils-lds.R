@@ -9,7 +9,7 @@
 ##               access the object very easily)
 
 
-initializeBigArray <- function(name, dim, vmode="integer", initdata=NA){
+initializeBigArray <- function(name=basename(tempfile()), dim=c(0L,0L,0L), vmode="integer", initdata=NA){
 	if(isPackageLoaded("ff")){
 		createFF(name=name,
 			 dim=dim,
@@ -26,7 +26,7 @@ initializeBigArray <- function(name, dim, vmode="integer", initdata=NA){
 }
 
 
-initializeBigMatrix <- function(name, nr, nc, vmode="integer", initdata=NA){
+initializeBigMatrix <- function(name=basename(tempfile()), nr=0L, nc=0L, vmode="integer", initdata=NA){
   if(isPackageLoaded("ff")){
     if(prod(nr, nc) > 2^31){
       ##Need multiple matrices
@@ -65,7 +65,7 @@ initializeBigMatrix <- function(name, nr, nc, vmode="integer", initdata=NA){
   return(results)
 }
 
-initializeBigVector <- function(name, n, vmode="integer", initdata=NA){
+initializeBigVector <- function(name=basename(tempfile()), n=0L, vmode="integer", initdata=NA){
   if(isPackageLoaded("ff")){
     results <- ff(initdata=initdata, vmode=vmode, length=n,
                   pattern=file.path(ldPath(), basename(name)))
