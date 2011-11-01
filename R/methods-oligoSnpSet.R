@@ -39,8 +39,12 @@ setAs("oligoSnpSet", "data.frame",
 	      cn <- as.numeric(cn)
 	      gt <- as.integer(gt)
 	      baf.present <- "baf" %in% ls(assayData(from))
+	      lrr.present <- "lrr" %in% ls(assayData(from))
 	      if(baf.present){
 		      bf <- as.numeric(assayDataElement(from, "baf"))
+	      }
+	      if(lrr.present){
+		      logRRatio <- as.numeric(assayDataElement(from, "lrr"))
 	      }
 	      x <- rep(position(from)/1e6, ncol(from))
 	      ##x <- rep(position(object)[marker.index], 4)/1e6
@@ -54,6 +58,9 @@ setAs("oligoSnpSet", "data.frame",
 		      df <- data.frame(x=x, cn=cn, gt=gt, baf=bf, id=id,
 				       is.snp=is.snp,
 				       stringsAsFactors=FALSE)
+	      }
+	      if(lrr.present){
+		      df$lrr <- logRRatio
 	      }
 	      return(df)
       })
