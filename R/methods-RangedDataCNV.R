@@ -126,7 +126,7 @@ setMethod("findOverlaps", signature(query="RangedDataCNV", subject="AnnotatedDat
 		  ## narrow the hits to those that are in the same chromosome
 		  ##which(position(object) >= start & position(object) <= end & chromosome(object) == CHR)
 		  ##} else which(pos >= start & pos <= end & chrom == CHR)
-		  mm <- mm[same.chrom, ]
+		  mm <- mm[same.chrom, , drop=FALSE]
 		  ## Now, map the subject indices back to the indices in
 		  ## the original object
 		  if(any(nachrom)){
@@ -188,7 +188,7 @@ setMethod("findOverlaps", signature(query="RangedDataHMM",
 		  stateq <- stateq[mm[, 1]]
 		  states <- states[mm[, 2]]
 		  index <- which(stateq == states)
-		  res@matchMatrix <- mm[index, ]
+		  res@matchMatrix <- mm[index, , drop=FALSE]
 		  return(res)
 	  })
 

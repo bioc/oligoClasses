@@ -1,5 +1,9 @@
 Package: oligoClasses
+<<<<<<< HEAD
 Version: 1.17.0
+=======
+Version: 1.15.60
+>>>>>>> for findOverlaps methods: use drop=FALSE when subsetting matchMatrix
 Title: Classes for high-throughput arrays supported by oligo and crlmm
 Author: Benilton Carvalho <Benilton.Carvalho@cancer.org.uk> and Robert Scharpf <rscharpf@jhsph.edu>
 Maintainer: Benilton Carvalho <Benilton.Carvalho@cancer.org.uk> and Robert Scharpf <rscharpf@jhsph.edu>
