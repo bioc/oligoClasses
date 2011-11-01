@@ -62,5 +62,6 @@ setAs("oligoSnpSet", "data.frame",
 	      if(lrr.present){
 		      df$lrr <- logRRatio
 	      }
+	      df$id <- factor(df$id, ordered=TRUE, levels=unique(df$id))
 	      return(df)
       })
