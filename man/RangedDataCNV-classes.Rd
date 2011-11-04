@@ -7,6 +7,7 @@
 \alias{RangedDataHMM-class}
 \alias{chromosome,RangedDataCNV-method}
 \alias{coverage2,RangedDataCNV-method}
+\alias{mean,RangedDataCBS-methods}
 \alias{featuresInRange,SnpSet,RangedDataCNV-method}
 \alias{sampleNames,RangedDataCNV-method}
 \alias{state,RangedDataCNV-method}
@@ -57,15 +58,51 @@ Class \code{"\linkS4class{Vector}"}, by class "RangedDataCNV", distance 5.
 Class \code{"\linkS4class{Annotated}"}, by class "RangedDataCNV", distance 6.
 }
 
-\section{Methods}{
+\section{Accessors for \code{RangedDataCNV}}{
   \describe{
-    \item{coverage}{\code{signature(object = "RangedDataCNV")}: ... }
-%    \item{prune}{\code{signature(object = "TrioSetList", ranges = "RangedDataCNV")}: ... }
-%    \item{prune}{\code{signature(object = "TrioSet", ranges = "RangedDataCNV")}: ... }
-    \item{state}{\code{signature(object = "RangedDataCNV")}: ... }
-    \item{todf}{\code{signature(object = "RangedDataCNV", range = "ANY")}: ... }
-	 }
+    In the following code descriptions, \code{object} belongs to class
+
+    \item{}{\code{coverage2(object)}: numeric vector indicating the
+      number of markers in each range.  The length of the vector is the
+      same as \code{nrow(object)}.}
+
+    \item{}{\code{sampleNames(object)}: character vector of sample ids
+    for each range.  The length of the vector is the same as \code{nrow(object)}.}
+
+  }
+
 }
+
+\section{Accessors for \code{RangedDataCBS} objects}{
+  \describe{
+    In the following code descriptions, \code{object} belongs to class
+    \code{RangedDataCBS}
+    \item{}{\code{mean(object)}: numeric vector of segment means}
+  }
+}
+
+\section{Accessors for \code{RangedDataHMM} objects}{
+  \describe{
+    In the following code descriptions, \code{object} belongs to class
+    \code{RangedDataCBS}
+
+    \item{}{\code{state(object)}: character vector of hidden states from
+      the HMM}
+
+  }
+}
+
+\section{Coercion methods}{
+  \describe{
+    In the following code descriptions, \code{object} belongs to class
+
+    \item{}{\code{todf(object)}: coersion to a \code{data.frame} }
+
+  }
+}
+
+
+
 
 \author{
 R. Scharpf

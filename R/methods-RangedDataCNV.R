@@ -49,7 +49,7 @@ setMethod("state", signature(object="RangedDataCNV"), function(object) object$st
 ##setMethod("nMarkers", signature(object="RangedDataCNV"), function(object) object$num.mark)
 ##setMethod("coverage", signature(object="RangedDataCNV"), function(object) coverage2(object))
 setMethod("coverage2", signature(object="RangedDataCNV"), function(object) object$num.mark)
-
+setMethod("mean", signature(x="RangedDataCBS"), function(x,...) x$seg.mean)
 setMethod("sampleNames", signature(object="RangedDataCNV"), function(object) object$id)
 setMethod("chromosome", signature(object="RangedDataCNV"), function(object, na.rm=FALSE) object$chrom)
 setAs("RangedData", "RangedDataCBS", function(from){
