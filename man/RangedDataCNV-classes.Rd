@@ -7,7 +7,7 @@
 \alias{RangedDataHMM-class}
 \alias{chromosome,RangedDataCNV-method}
 \alias{coverage2,RangedDataCNV-method}
-\alias{mean,RangedDataCBS-methods}
+\alias{mean,RangedDataCBS-method}
 \alias{featuresInRange,SnpSet,RangedDataCNV-method}
 \alias{sampleNames,RangedDataCNV-method}
 \alias{state,RangedDataCNV-method}
