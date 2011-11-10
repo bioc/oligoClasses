@@ -4,6 +4,7 @@ importClassesFrom(methods, ANY, character, data.frame, "function", integer, matr
 importMethodsFrom(methods, initialize, show)
 importFrom(methods, "@<-", callNextMethod, new, validObject)
 
+importFrom(BiocGenerics, updateObject)
 importFrom(affyio, read.celfile.header, read.celfile)
 importClassesFrom(Biostrings, DNAStringSet)
 
@@ -23,7 +24,7 @@ importMethodsFrom(Biobase, annotatedDataFrameFrom, annotation,
                   fvarLabels, pData, "pData<-", phenoData,
                   "phenoData<-", sampleNames, "sampleNames<-",
 		  se.exprs, "se.exprs<-",
-                  storageMode, "storageMode<-", updateObject)
+                  storageMode, "storageMode<-")
 
 
 importClassesFrom(IRanges, RangedData, DataTable, List, DataTableORNULL, Vector, Annotated)
