@@ -20,7 +20,7 @@ setMethod("checkOrder", signature(object="CopyNumberSet"),
 		  .checkOrder(object, verbose)
 	  })
 
-setMethod("order", "CopyNumberSet",
-	  function(..., na.last=TRUE, decreasing=FALSE){
-		  chromosomePositionOrder(...)
-	  })
+##setMethod("order", "CopyNumberSet",
+##	  function(object, ..., na.last=TRUE, decreasing=FALSE){
+##		  chromosomePositionOrder(...)
+##	  })

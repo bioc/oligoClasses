@@ -89,10 +89,10 @@ setMethod("featuresInRange", signature(object="SnpSet", range="RangedDataCNV"),
 		  which(position(object) >= start & position(object) <= end & chromosome(object) == CHR)
 	  })
 
-setMethod("order", "SnpSet",
-	  function(..., na.last=TRUE, decreasing=FALSE){
-		  chromosomePositionOrder(...)
-	  })
+##setMethod("order", "SnpSet",
+##	  function(..., na.last=TRUE, decreasing=FALSE){
+##		  chromosomePositionOrder(...)
+##	  })
 
 
 setMethod("checkOrder", signature(object="SnpSet"),

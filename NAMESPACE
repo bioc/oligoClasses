@@ -32,7 +32,7 @@ importFrom(IRanges, IRanges, RangedData, RangedDataList,
 	   countOverlaps,
 	   ranges, values,
 	   matchMatrix, queryHits, subjectHits)
-importMethodsFrom(IRanges, findOverlaps, order)
+importMethodsFrom(IRanges, findOverlaps)
 
 
 
@@ -94,11 +94,11 @@ exportMethods(batchStatistics, "batchStatistics<-")
 
 exportClasses(RangedDataCopyNumber, RangedDataCNV, RangedDataCBS, RangedDataHMM, CopyNumberSet)
 exportMethods(coverage2, featuresInRange, findOverlaps, state, openff,
-	      closeff, order, checkOrder, "sampleNames<-", mean)
+	      closeff, checkOrder, "sampleNames<-", mean)
 export(baf, lrr,
+       chromosomePositionOrder,
        findOverlaps,
-       order, ## why is it necessary to export both the generic and method
-              ## order() in VanillaICE will not work otherwise
+       ##order, ## why is it necessary to export both the generic and method
        RangedDataCNV,
        RangedDataCBS,
        RangedDataHMM)
