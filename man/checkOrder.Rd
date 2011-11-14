@@ -1,5 +1,6 @@
 \name{checkOrder}
 \alias{checkOrder}
+\alias{chromosomePositionOrder}
 \title{Checks whether a eSet-derived class is ordered by chromosome and
   physical position}
 \description{
@@ -9,6 +10,7 @@ Checks whether a \code{eSet}-derived class (e.g., a \code{SnpSet} or
 }
 \usage{
 checkOrder(object, verbose = FALSE)
+chromosomePositionOrder(object, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -17,6 +19,9 @@ checkOrder(object, verbose = FALSE)
   }
   \item{verbose}{
     Logical.
+  }
+  \item{\dots}{
+    additional arguments to \code{order}
   }
 }
 \details{
@@ -35,7 +40,7 @@ R. Scharpf
 \examples{
 data(oligoSetExample)
 checkOrder(oligoSet)
-oligoSet2 <- order(oligoSet)
+oligoSet2 <- chromosomePositionOrder(oligoSet)
 checkOrder(oligoSet2)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
