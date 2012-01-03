@@ -34,8 +34,12 @@ setMethod("confs", "SnpSet", function(object, transform=TRUE) {
 setReplaceMethod("confs", signature(object="SnpSet", value="matrix"),
 		 function(object, value){
 			 ##convert probability to integer
-                         X <- matrix(p2i(value), nrow(X), ncol(X),
-                                     dimnames=dimnames(value))
+			 if(max(value) > 1){
+				 X <- matrix(p2i(value), nrow(X), ncol(X),
+					     dimnames=dimnames(value))
+			 } else {
+				 X <- value
+			 }
 			 assayDataElementReplace(object, "callProbability", X)
 		 })
 
