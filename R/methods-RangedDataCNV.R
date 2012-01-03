@@ -1,3 +1,4 @@
+
 RangedDataCNV <- function(ranges=IRanges(),
 			  values,
 			  start,
@@ -12,8 +13,9 @@ RangedDataCNV <- function(ranges=IRanges(),
 		object <- new("RangedDataCNV", ranges=ranges, values=values)
 		return(object)
 	}
-	if(!missing(end) && !missing(start))
+	if(!missing(end) && !missing(start)){
 		ranges <- IRanges(start, end)
+	}
 	if(missing(chromosome))
 		chromosome <- vector("integer", length(ranges))
 	if(missing(coverage))
@@ -142,6 +144,43 @@ setMethod("findOverlaps", signature(query="RangedDataCNV", subject="AnnotatedDat
 			  index <- match(fns.subject, fns.subject2)
 			  stopifnot(all(!is.na(index)))
 			  mm[, 2] <- index
+		  }
+		  res@matchMatrix <- mm
+		  return(res)
+	  })
+
+setMethod("findOverlaps", signature(query="AnnotatedDataFrame", subject="RangedDataCNV"),
+	  function (query, subject, maxgap = 0L, minoverlap = 1L, type = c("any",
+								  "start", "end", "within", "equal"), select = c("all", "first",
+												      "last", "arbitrary"), ...){
+		  query2 <- query
+		  nachrom <- is.na(chromosome(query)) | chromosome(query) > 24
+		  if(any(nachrom)){
+			  query <- query[!nachrom, ]
+		  }
+		  start <- start(subject)
+		  end <- end(subject)
+		  CHR <- chromosome(subject)
+		  ir.subject <- IRanges(start, end)
+		  ir.query <- IRanges(position(query), position(query))
+		  res <- findOverlaps(query=ir.query,
+				      subject=ir.subject,
+				      maxgap=maxgap,
+				      minoverlap=minoverlap,
+				      type=type,
+				      select=select, ...)
+		  mm <- matchMatrix(res)
+		  subj.index <- mm[,2]
+		  quer.index <- mm[, 1]
+		  same.chrom <- chromosome(query)[quer.index] == chromosome(subject)[subj.index]
+		  mm <- mm[same.chrom, , drop=FALSE]
+		  if(any(nachrom)){
+			  query.index <- mm[, 1]
+			  fns.query <- sampleNames(query)[query.index]
+			  fns.query2 <- sampleNames(query2)
+			  index <- match(fns.query, fns.query2)
+			  stopifnot(all(!is.na(index)))
+			  mm[, 1] <- index
 		  }
 		  res@matchMatrix <- mm
 		  return(res)
