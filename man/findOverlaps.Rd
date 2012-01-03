@@ -2,6 +2,7 @@
 \alias{findOverlaps,RangedDataCNV,SnpSet-method}
 \alias{findOverlaps,RangedDataCNV,CNSet-method}
 \alias{findOverlaps,RangedDataCNV,AnnotatedDataFrame-method}
+\alias{findOverlaps,AnnotatedDataFrame,RangedDataCNV-method}
 \alias{findOverlaps,RangedDataCNV,RangedDataCNV-method}
 \alias{findOverlaps,RangedDataHMM,RangedDataHMM-method}
 \alias{findOverlaps}

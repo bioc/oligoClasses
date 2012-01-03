@@ -99,8 +99,8 @@ setMethod("findOverlaps", signature(query="RangedDataCNV", subject="AnnotatedDat
 		  if(any(nachrom)){
 			  subject <- subject[!nachrom, ]
 		  }
-		  start <- start(query)
-		  end <- end(query)
+##		  start <- start(query)
+##		  end <- end(query)
 		  CHR <- chromosome(query)
 		  ##featuresInXlim(object, start=start(range), end=end(range), CHR=range$chrom, ...)
 ##		  if("frame" %in% names(list(...))) {
@@ -114,9 +114,9 @@ setMethod("findOverlaps", signature(query="RangedDataCNV", subject="AnnotatedDat
 ##			  end <- end+frame
 ##			  end[end > chr.end] <- chr.end
 ##		  }
-		  ir.query <- IRanges(start, end)
+		  ir.query <- IRanges(start(query), end(query))
 		  ## depends on platform
-		  ir.subject <- IRanges(position(subject)-12, position(subject)+12)
+		  ir.subject <- IRanges(position(subject), position(subject))
 		  res <- findOverlaps(query=ir.query,
 				      subject=ir.subject,
 				      maxgap=maxgap,
@@ -158,10 +158,10 @@ setMethod("findOverlaps", signature(query="AnnotatedDataFrame", subject="RangedD
 		  if(any(nachrom)){
 			  query <- query[!nachrom, ]
 		  }
-		  start <- start(subject)
-		  end <- end(subject)
+		  ##start <- start(subject)
+		  ##end <- end(subject)
 		  CHR <- chromosome(subject)
-		  ir.subject <- IRanges(start, end)
+		  ir.subject <- IRanges(start(subject), end(subject))
 		  ir.query <- IRanges(position(query), position(query))
 		  res <- findOverlaps(query=ir.query,
 				      subject=ir.subject,

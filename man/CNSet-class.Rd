@@ -62,7 +62,9 @@
     \item{\code{featureData}:}{Object of class \code{"AnnotatedDataFrame"} ~~ }
     \item{\code{experimentData}:}{Object of class \code{"MIAME"} ~~ }
     \item{\code{annotation}:}{Object of class \code{"character"} ~~ }
-    \item{\code{protocolData}:}{Object of class \code{"AnnotatedDataFrame"} ~~ }
+    \item{\code{protocolData}:}{Object of class
+      \code{"AnnotatedDataFrame"} ~~ }
+    \item{\code{mixtureParams}:}{Object of class \code{"matrix"}~~}
     \item{\code{.__classVersion__}:}{Object of class \code{"Versions"} ~~ }
   }
 }
