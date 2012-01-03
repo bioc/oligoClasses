@@ -161,8 +161,10 @@ initializeLmFrom <- function(object){
 
 
 setMethod("initialize", "CNSet",
-	  function(.Object, batchStatistics, batch, ...){
+	  function(.Object, batchStatistics, batch,
+		   mixtureParams=matrix(), ...){
 		  .Object@batchStatistics <- assayDataNew()
+		  ##.Object@mixtureParams <- mixtureParams
 		  if(missing(batch)){
 			  stop("Must specify factor 'batch'. See ?CNSet-class for details.")
 		  } else .Object@batch <- batch

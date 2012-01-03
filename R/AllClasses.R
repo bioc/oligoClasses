@@ -136,6 +136,13 @@ setClass("CNSet", representation(batch="character",
 	                       new("VersionedBiobase",
 				   versions=c(classVersion("SnpSet"), CNSet="1.0.4"))))
 
+setClass("CNSet", representation(batch="character",
+				 batchStatistics="AssayData",
+				 mixtureParams="matrix"),
+	 contains="SnpSet",
+	 prototype = prototype(
+	                       new("VersionedBiobase",
+				   versions=c(classVersion("SnpSet"), CNSet="1.0.5"))))
 
 setMethod("updateObject", signature(object="CNSet"),
           function(object, ..., verbose=FALSE) {
@@ -155,7 +162,8 @@ setMethod("updateObject", signature(object="CNSet"),
 				     annotation = updateObject(annotation(object),
 				     ..., verbose=verbose),
 				     featureData=featureData(object),
-				     batch=as.character(batch(object)))
+				     batch=as.character(batch(object)),
+				     mixtureParams=matrix(NA, 4, ncol(object)))
 		  }
 		  if (isCurrent(obj)["CNSet"]) return(obj)
 		  obj
@@ -172,9 +180,14 @@ setValidity("RangedDataCNV", function(object){
 	if(nrow(object) > 0){
 		all(c("chrom", "id", "num.mark") %in% colnames(object))
 	}
-y})
+})
 setClass("RangedDataCBS", contains="RangedDataCNV")
-setValidity("RangedDataCBS", function(object) all(c("seg.mean", "start.index", "end.index") %in% colnames(object)))
+setValidity("RangedDataCBS", function(object){
+	if(nrow(object) > 0){
+		all(c("seg.mean", "start.index", "end.index") %in% colnames(object))
+	}
+})
+
 setClass("RangedDataHMM", contains="RangedDataCNV")
 setValidity("RangedDataHMM", function(object) "state" %in% colnames(object))
 
