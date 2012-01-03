@@ -169,8 +169,10 @@ setClass("RangedDataCopyNumber", contains="RangedData",
 	 representation("VIRTUAL"))
 setClass("RangedDataCNV", contains="RangedDataCopyNumber")
 setValidity("RangedDataCNV", function(object){
-	all(c("chrom", "id", "num.mark") %in% colnames(object))
-})
+	if(nrow(object) > 0){
+		all(c("chrom", "id", "num.mark") %in% colnames(object))
+	}
+y})
 setClass("RangedDataCBS", contains="RangedDataCNV")
 setValidity("RangedDataCBS", function(object) all(c("seg.mean", "start.index", "end.index") %in% colnames(object)))
 setClass("RangedDataHMM", contains="RangedDataCNV")

@@ -230,9 +230,9 @@ chromosome2integer <- function(chrom){
 ##	  })
 
 featureDataFrom <- function(annotationPackage){
-	stopifnot(isSupportedAnnotation(annotationPackage))
 	cdfName <- strsplit(annotationPackage, "Crlmm")[[1]][[1]]
 	pkgname <- paste(cdfName, "Crlmm", sep="")
+	stopifnot(isSupportedAnnotation(pkgname))
 	path <- system.file("extdata", package=pkgname)
 	loader("cnProbes.rda", pkgname=pkgname, envir=.oligoClassesPkgEnv)
 	cnProbes <- get("cnProbes", envir=.oligoClassesPkgEnv)

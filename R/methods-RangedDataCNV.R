@@ -30,7 +30,12 @@ RangedDataCNV <- function(ranges=IRanges(),
 			 id=sampleId,
 			 start.index=startIndexInChromosome,
 			 end.index=endIndexInChromosome, ...)##, ...)
-	new("RangedDataCNV", ranges=ranges(rd), values=IRanges:::values(rd))
+	if(nrow(rd) > 0){
+		obj <- new("RangedDataCNV", ranges=ranges(rd), values=IRanges:::values(rd))
+	} else {
+		obj <- new("RangedDataCNV")
+	}
+	return(obj)
 }
 
 RangedDataCBS <- function(ranges=IRanges(),
