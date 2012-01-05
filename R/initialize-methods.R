@@ -227,7 +227,7 @@ setMethod("initialize", "CNSet",
 		   protocolData=phenoData[, integer(0)],
 		   experimentData=new("MIAME"),
 		   annotation=character(),
-		   featureData=GenomeAnnotatedDataFrameFrom(alleleA, annotation),
+		   featureData=GenomeAnnotatedDataFrameFrom(assayData, annotation),
 		   batch=character(ncol(alleleA)),
 		   batchStatistics=initializeLmFrom2(alleleA, batch),
 		   mixtureParams=matrix(), ...){

@@ -83,9 +83,9 @@ setMethod("updateObject", signature(object="AnnotatedDataFrame"),
 setMethod("coerce", signature(from="AnnotatedDataFrame", to="GenomeAnnotatedDataFrame"),
 	  function(from, to){
 		  new("GenomeAnnotatedDataFrame",
-		      isSnp=from$isSnp,
-		      position=from$position,
-		      chromosome=from$chromosome,
+		      isSnp=as.logical(from$isSnp),
+		      position=as.integer(from$position),
+		      chromosome=as.integer(from$chromosome),
 		      row.names=featureNames(from))
 	  })
 
