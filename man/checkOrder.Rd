@@ -12,7 +12,6 @@ Checks whether a \code{eSet}-derived class (e.g., a \code{SnpSet} or
 checkOrder(object, verbose = FALSE)
 chromosomePositionOrder(object, ...)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{object}{
     A \code{SnpSet} or \code{CopyNumberSet}.
@@ -39,11 +38,10 @@ R. Scharpf
 }
 \examples{
 data(oligoSetExample)
-checkOrder(oligoSet)
-oligoSet2 <- chromosomePositionOrder(oligoSet)
-checkOrder(oligoSet2)
+if(!checkOrder(oligoSet)){
+   oligoSet <- chromosomePositionOrder(oligoSet)
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
+checkOrder(oligoSet)
+}
 \keyword{manip}
 

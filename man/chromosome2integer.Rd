@@ -8,7 +8,7 @@
 	chromosome2integer(chrom)
 }
 \arguments{
-	\item{chrom}{chromosome}
+  \item{chrom}{chromosome}'
 }
 \details{
   This is useful when sorting SNPs in an object by chromosome and
@@ -21,7 +21,7 @@
 }
 \examples{
 	chromosome2integer(c(1:22, "X", "Y", "XY", "M"))
-}	
+}
 \author{R. Scharpf}
 \keyword{manip}
 

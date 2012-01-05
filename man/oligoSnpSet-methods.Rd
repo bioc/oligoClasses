@@ -11,6 +11,7 @@
 \alias{cnConfidence<-,oligoSnpSet,matrix-method}
 \alias{callsConfidence,oligoSnpSet-method}
 \alias{callsConfidence<-,oligoSnpSet,matrix-method}
+\alias{updateObject,oligoSnpSet-method}
 \title{Methods for oligoSnpSet class}
 \description{Methods for oligoSnpSet}
 \keyword{methods}

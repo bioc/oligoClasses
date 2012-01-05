@@ -18,10 +18,12 @@ setMethod("show", "CNSet", function(object){
 	ad.class <- class(A(object))[1]
 	cat("CNSet (assayData/batchStatistics elements: ", ad.class, ")\n", sep="")
 	callNextMethod(object)
-	bns <- batchNames(object)
-	bns <- bns[-length(bns)]
+	bns <- head(batchNames(object))
+	##bns <- bns[-length(bns)]
 	freq <- as.integer(table(batch(object)))
-	cat("batch:   ", paste(bns, freq, sep=", "), "\n")
+	index <- names(table(batch(object))) %in% bns
+	freq <- freq[index]
+	cat("batch:   ", paste(bns, ":", freq, sep="", collapse=", "), "\n")
 	adim <- list(nrow(object), length(batchNames(object)))
 	cat("batchStatistics: ", length(ls(batchStatistics(object))), " elements, ", nrow(object), " features, ", length(unique(batch(object))), " batches\n")
 })
@@ -238,3 +240,54 @@ setReplaceMethod("batchStatistics", signature=signature(object="CNSet", value="A
 		 object@batchStatistics <- value
 		 object
 	 })
+
+
+setMethod(snpCall, "CNSet", function(object, ...) {
+	assayDataElement(object, "call")
+})
+
+setMethod(snpCallProbability, "CNSet", function(object, ...) {
+	assayDataElement(object, "callProbability")
+})
+
+setReplaceMethod("snpCall", c("CNSet", "matrix"),
+                 function(object, ..., value)
+	 {
+		 assayDataElementReplace(object, "call", value)
+	 })
+
+setReplaceMethod("snpCallProbability", c("CNSet", "matrix"),
+                 function(object, ..., value)
+{
+	assayDataElementReplace(object, "callProbability", value)
+})
+
+setMethod("calls", "CNSet", function(object) assayData(object)$call)
+setReplaceMethod("calls", signature(object="CNSet", value="matrix"),
+                 function(object, value)
+                 assayDataElementReplace(object, "call", value))
+
+setMethod("confs", "CNSet", function(object, transform=TRUE) {
+	X <- snpCallProbability(object)
+	if(is(X, "ff_matrix") | is(X, "ffdf")){
+		warningMsg(X)
+		return(X)
+	}
+	if (transform){
+		X <- i2p(X)
+	}
+	return(X)
+})
+
+setReplaceMethod("confs", signature(object="CNSet", value="matrix"),
+		 function(object, value){
+			 ##convert probability to integer
+			 if(max(value) > 1){
+				 X <- matrix(p2i(value), nrow(X), ncol(X),
+					     dimnames=dimnames(value))
+			 } else {
+				 X <- value
+			 }
+			 assayDataElementReplace(object, "callProbability", X)
+		 })
+

@@ -1,13 +1,3 @@
-checkAnnotation <- function(x){
-	if(length(x) == 0) return(FALSE)
-	x <- strsplit(x, ",")[[1]]
-	if(length(x) == 1){
-		return(isSupportedAnnotation(x))
-	}
-	if(length(x) == 2)
-		return(all(sapply(x, isSupportedAnnotation)))
-}
-
 loader <- function(theFile, envir, pkgname){
 	theFile <- file.path(system.file(package=pkgname),
 			     "extdata", theFile)
@@ -17,52 +7,12 @@ loader <- function(theFile, envir, pkgname){
 }
 
 requireAnnotation <- function(pkgname, lib=.libPaths()[1], verbose=TRUE){
-  stopifnot(is.character(pkgname), !missing(pkgname))
-  status <- require(pkgname, character.only=TRUE, quietly=!verbose)
-  if (!status)
-    status <- pdPkgFromBioC(pkgname, lib=lib, verbose=verbose)
-  status
+	stopifnot(is.character(pkgname), !missing(pkgname))
+	status <- require(pkgname, character.only=TRUE, quietly=!verbose)
+	if (!status)
+		status <- pdPkgFromBioC(pkgname, lib=lib, verbose=verbose)
+	status
 }
-
-isSupportedAnnotation <- function(x){
-	validAnn <- annotationPackages()
-	x %in% validAnn
-}
-
-annotationPackages <- function(){
-	c("pd.mapping50k.hind240", "pd.mapping50k.xba240",
-	  "pd.mapping50k.hind240,pd.mapping50k.xba240",
-	  "pd.mapping250k.nsp",
-	  "pd.mapping250k.sty",
-	  "pd.mapping250k.nsp,pd.mapping250k.sty",
-	  "pd.genomewidesnp.5",
-	  "pd.genomewidesnp.6",
-	  "genomewidesnp6Crlmm",
-	  "genomewidesnp5Crlmm",
-	  "human370v1cCrlmm",
-	  "human370quadv3cCrlmm",
-	  "human550v3bCrlmm",
-	  "human650v3aCrlmm",
-	  "human610quadv1bCrlmm",
-	  "human660quadv1aCrlmm",
-	  "human1mduov3bCrlmm",
-	  "humanomni1quadv1bCrlmm")
-}
-
-affyPlatforms <- function(){
-  platforms <- c("pd.mapping50k.xba240",
-                 "pd.mapping50k.hind240",
-                 "pd.mapping250k.nsp",
-                 "pd.mapping250k.sty",
-                 "pd.genomewidesnp.5",
-                 "pd.genomewidesnp.6")
-  combined <- rep(NA, 2)
-  combined[1] <- paste(sort(platforms[1:2]), collapse=",")
-  combined[2] <- paste(sort(platforms[3:4]), collapse=",")
-  platforms <- c(platforms, combined)
-  platforms
-}
-
 
 
 ## Package Downloader/Installer
@@ -145,189 +95,7 @@ celfileDate <- function(filename) {
 	results
 }
 
-addFeatureAnnotation <- function(object){
-	if(length(grep("pd.", annotation(object))) >= 1){
-		fD <- addFeatureAnnotation.pd(object)
-	} else {
-		fD <- addFeatureAnnotation.crlmm(object)
-	}
-	return(fD)
-}
 
-addFeatureAnnotation.pd <- function(object){
-	##message("Adding required feature annotation (chromosome, position, isSnp) to featureData slot")
-	fs <- featureNames(object)
-	tmp <- paste("('", paste(fs, collapse="', '"), "')", sep="")
-	fD <- matrix(integer(), length(fs), 3)
-	rownames(fD) <- fs
-	colnames(fD) <- c("chromosome", "position", "isSnp")
-	sql <- paste("SELECT man_fsetid, chrom, physical_pos FROM featureSet WHERE man_fsetid IN ", tmp)
-	##Check if two objects have been combined
-	pkgs <- strsplit(annotation(object), ",")[[1]]
-	snps <- snp.index <- nps <- np.index <- vector("list", length(pkgs))
-	for(i in seq(along=pkgs)){
-		annotation(object) <- pkgs[i]
-		require(annotation(object), character.only=TRUE)
-                snps[[i]] <- dbGetQuery(db(object), sql)
-		snp.index[[i]] <- match(snps[[i]]$man_fsetid, rownames(fD))
-
-		if("featureSetCNV" %in% dbListTables(db(object))){
-			sql <- paste("SELECT man_fsetid, chrom, chrom_start FROM featureSetCNV WHERE man_fsetid IN ", tmp)
-			nps[[i]] <- dbGetQuery(db(object), sql)
-			np.index[[i]] <- match(nps[[i]]$man_fsetid, rownames(fD))
-		}
-	}
-	if(length(snps) > 1){
-		snps <- do.call(rbind, snps)
-		snp.index <- unlist(snp.index)
-		if("featureSetCNV" %in% dbListTables(db(object))){
-			nps <- do.call(rbind, nps)
-			np.index <- unlist(np.index)
-		}
-	} else {
-		snps <- snps[[1]]
-		snp.index <- snp.index[[1]]
-		if("featureSetCNV" %in% dbListTables(db(object))){
-			nps <- nps[[1]]
-			np.index <- np.index[[1]]
-		}
-	}
-	fD[snp.index, "isSnp"] <- as.integer(1)
-	fD[snp.index, "chromosome"] <- chromosome2integer(snps$chrom)
-	fD[snp.index, "position"] <- as.integer(snps$physical_pos)
-	if("featureSetCNV" %in% dbListTables(db(object))){
-		fD[np.index, "isSnp"] <- as.integer(0)
-		fD[np.index, "chromosome"] <- chromosome2integer(nps$chrom)
-		fD[np.index, "position"] <- as.integer(nps$chrom_start)
-	}
-	jj <- match(c("chromosome", "position", "isSnp"), fvarLabels(object))
-	jj <- jj[!is.na(jj)]
-	if(length(jj) > 0){
-		fD <- cbind(fD, fData(object)[, -jj, drop=FALSE])
-	} else fD <- cbind(fD, fData(object))
-	featureData <- new("AnnotatedDataFrame", data=fD,
-			   varMetadata=data.frame(labelDescription=colnames(fD)))
-	##Figure out how to add an indicator for SNP/CN probe
-	return(featureData)
-}
-
-chromosome2integer <- function(chrom){
-	chrom[chrom == "X"] <- 23; chrom[chrom == "Y"] <- 24; chrom[chrom == "XY"] <- 25; chrom[chrom=="M" | chrom == "MT" | chrom == "Mt"] <- 26
-	as.integer(chrom)
-}
-
-
-
-##
-####		  nm <- grep("Crlmm", object)
-####		  if(length(nm)==0){
-####			  pkgname <- paste(object, "Crlmm", sep="")
-####		  } else pkgname <- object
-####		  path <- system.file("extdata", package=pkgname)
-####		  load(file.path(path, "snpProbes.rda"))
-####		  snpProbes <- get("snpProbes")
-####		  return(snpProbes)
-##	  })
-
-featureDataFrom <- function(annotationPackage){
-	cdfName <- strsplit(annotationPackage, "Crlmm")[[1]][[1]]
-	pkgname <- paste(cdfName, "Crlmm", sep="")
-	stopifnot(isSupportedAnnotation(pkgname))
-	path <- system.file("extdata", package=pkgname)
-	loader("cnProbes.rda", pkgname=pkgname, envir=.oligoClassesPkgEnv)
-	cnProbes <- get("cnProbes", envir=.oligoClassesPkgEnv)
-	loader("snpProbes.rda", pkgname=pkgname, envir=.oligoClassesPkgEnv)
-	snpProbes <- get("snpProbes", envir=.oligoClassesPkgEnv)
-	if("chr" %in% colnames(snpProbes)) {
-		colnames(cnProbes) <- colnames(snpProbes) <- c("chrom", "position")
-	}
-	fns <- c(rownames(snpProbes), rownames(cnProbes))
-	isSnp <- c(rep(1L, nrow(snpProbes)), rep(0L, nrow(cnProbes)))
-	positions <- as.integer(c(snpProbes[, "position"], cnProbes[, "position"]))
-	chroms <- c(snpProbes[, "chrom"], cnProbes[, "chrom"])
-	chroms <- chromosome2integer(chroms)
-	tmp.fd <- cbind(chroms,  positions, isSnp)
-	rownames(tmp.fd) <- fns
-	tmp.fd <- tmp.fd[order(tmp.fd[, "chroms"], tmp.fd[, "positions"]), ]
-	colnames(tmp.fd) <- c("chromosome", "position", "isSnp")
-	featureData <- new("AnnotatedDataFrame", data=data.frame(tmp.fd), varMetadata=data.frame(labelDescription=colnames(tmp.fd)))
-	return(featureData)
-}
-
-addFeatureAnnotation.crlmm <- function(object, ...){
-	##if(missing(CHR)) stop("Must specificy chromosome")
-	##message("Adding required feature annotation (chromosome, position, isSnp) to featureData slot")
-	cdfName <- annotation(object)
-	nm <- grep("Crlmm", cdfName)
-	if(length(nm) == 0){
-		pkgname <- paste(cdfName, "Crlmm", sep="")
-	} else pkgname <- cdfName
-	path <- system.file("extdata", package=pkgname)
-	loader("cnProbes.rda", pkgname=pkgname, envir=.oligoClassesPkgEnv)
-	cnProbes <- get("cnProbes", envir=.oligoClassesPkgEnv)
-	loader("snpProbes.rda", pkgname=pkgname, envir=.oligoClassesPkgEnv)
-	snpProbes <- get("snpProbes", envir=.oligoClassesPkgEnv)
-	##Feature Data
-	isSnp <- 1L-as.integer(featureNames(object) %in% rownames(cnProbes))
-	names(isSnp) <- featureNames(object)
-	if(any(isSnp)){
-		snps <- featureNames(object)[isSnp == 1]
-		position.snp <- snpProbes[match(snps, rownames(snpProbes)), "position"]
-		names(position.snp) <- snps
-		J <- grep("chr", colnames(snpProbes))
-		chr.snp <- snpProbes[match(snps, rownames(snpProbes)), J]
-	} else{
-		warning("None of the featureNames in the object match SNP probes for the indicated annotation package.  Either the annotation package is misspecified, or the featureNames of the object are incorrect")
-		message("The first 5 featureNames are ", featureNames(object)[1:5])
-		message("The annotation for the object is ", annotation(object))
-		chr.snp <- position.snp <- integer()
-	}
-	if(any(!isSnp)){
-		nps <- featureNames(object)[isSnp == 0]
-		position.np <- cnProbes[match(nps, rownames(cnProbes)), "position"]
-		names(position.np) <- nps
-
-		chr.np <- cnProbes[match(nps, rownames(cnProbes)), J]
-	} else {
-		chr.np <- position.np <- integer()
-	}
-	position <- c(position.snp, position.np)
-	chrom <- c(chr.snp, chr.np)
-	##We may not have annotation for all of the snps
-	if(!all(featureNames(object) %in% names(position))){
-		warning("physical position not available for all featureNames")
-		## Very dangerous with ff objects
-		##object <- object[featureNames(object) %in% names(position), ]
-	}
-	ix <- match(featureNames(object), names(position))
-	position <- position[ix]
-	chrom <- chrom[ix]
-	##require(SNPchip)
-	chrom <- chromosome2integer(chrom)
-	stopifnot(identical(names(position), featureNames(object)))
-	if(sum(duplicated(names(position))) > 0){
-		warning("Removing rows with NA identifiers...")
-		##RS: fix this
-		I <- which(!is.na(names(position)))
-	}  else I <- seq(along=names(position))
-	tmp.fd <- data.frame(cbind(chrom[I],
-				   position[I],
-				   isSnp[I]))
-	colnames(tmp.fd) <- c("chromosome", "position", "isSnp")
-	if("chromosome" %in% fvarLabels(object))
-		tmp.fd <- tmp.fd[, -grep("chromosome", colnames(tmp.fd)), drop=FALSE]
-	if("position" %in% fvarLabels(object))
-		tmp.fd <- tmp.fd[, -grep("position", colnames(tmp.fd)), drop=FALSE]
-	if("isSnp" %in% fvarLabels(object))
-		tmp.fd <- tmp.fd[, -grep("isSnp", colnames(tmp.fd)), drop=FALSE]
-	rownames(tmp.fd) <- featureNames(object)
-	tmp <- new("AnnotatedDataFrame",
-		   data=tmp.fd,
-		   varMetadata=data.frame(labelDescription=colnames(tmp.fd)))
-	fd <- cbind(pData(tmp), fData(object))
-	fD <- new("AnnotatedDataFrame", data=fd, varMetadata=data.frame(labelDescription=colnames(fd), row.names=colnames(fd)))
-	return(fD)
-}
 
 ## a bar that I like to use when sending messages to the user
 getBar <- function(width=getOption("width"))
@@ -409,26 +177,7 @@ checkExists <- function(.name, .path=".", .FUN, .FUN2, .save.it=TRUE, .load.it, 
 	}
 }
 
-.checkOrder <- function(object, verbose=FALSE){
-	d <- diff(order(chromosome(object), position(object)))
-	if(any(d < 0)){
-		if(verbose)
-			warning("Object should be ordered by chromosome and physical position.\n",
-				"Try \n",
-				"> object <- order(object) \n")
-		return(FALSE)
-	}
-	TRUE
 
-}
 
-chromosomePositionOrder <- function(object, ...){
-	is.ordered <- checkOrder(object)
-	if(!is.ordered){
-		##if(verbose) message("Ordering ", class(object), " object by chromosome and physical position")
-		index <- order(chromosome(object), position(object), ...)
-		object <- object[index, ]
-	}
-	return(object)
-}
+
 

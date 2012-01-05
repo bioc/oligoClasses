@@ -26,7 +26,7 @@ Collate:  AllClasses.R
 	  utils-lds.R
 	  utils-parallel.R
           initialize-methods.R
-	  methods-eSet.R
+	  methods-gSet.R
           methods-AlleleSet.R
 	  methods-AnnotatedDataFrame.R
           methods-FeatureSet.R
@@ -38,6 +38,7 @@ Collate:  AllClasses.R
           methods-PDInfo.R
 	  methods-RangedDataCNV.R
 	  methods-SnpSet.R
+	  methods-GenomeAnnotatedDataFrame.R
           show-methods.R
 	  zzz.R
 biocViews: Infrastructure

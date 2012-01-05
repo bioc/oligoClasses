@@ -3,7 +3,7 @@
 \alias{db-methods}
 \alias{db,FeatureSet-method}
 \alias{db,DBPDInfo-method}
-\alias{db,eSet-method}
+\alias{db,SnpSet-method}
 \alias{db,SnpCnvQSet-method}
 \alias{db,SnpQSet-method}
 \title{Get the connection to the SQLite Database}

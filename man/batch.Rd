@@ -4,20 +4,17 @@
 \alias{batchNames<-}
 
 \title{
-
 	The batch variable for the samples.
-
 }
 
 \description{
 
-Copy number estimates are susceptible to systematic differences
-  between groups of samples that were processed at different times or
-  by different labs.  Analysis algorithms that do not adjust for batch
-  effects are prone to spurious measures of association.  While
-  'batch' is often unknown, a useful surrogates are the scan date of
-  the arrays or the 96 well chemistry plate on which the samples were
-  arrayed during lab processing.
+Copy number estimates are susceptible to systematic differences between
+  groups of samples that were processed at different times or by
+  different labs.  While 'batch' is often unknown, a useful surrogates
+  is often the scan date of the arrays (e.g., the month of the calendar
+  year) or the 96 well chemistry plate on which the samples were arrayed
+  during lab processing.
 
 }
 
@@ -41,57 +38,26 @@ batchNames(object) <- value
 
 }
 
-\details{
-
-}
-
 \value{
 
-	The method 'batch' returns a factor that has the same length
-	as the number of samples in the \code{CNSet} object.
-
-	The method 'batchNames' returns the unique batches as a
-	character string.  The batch labels for each element in the
-	\code{LinearModelParameter} class can be reassigned using the
-	'batchNames<-' replacement method.
+  The method 'batch' returns a \code{character} vector that has the same
+  length as the number of samples in the \code{CNSet} object.
 
 }
 
 \author{
 R. Scharpf
-
 }
 
 \seealso{
 \code{\link{CNSet-class}}
 }
 \examples{
-x <- matrix(runif(250*96*2, 0, 2), 250, 96*2)
-test1 <- new("CNSet", alleleA=x, alleleB=x, call=x, callProbability=x,
-	     batch=as.character(rep(letters[1:2], each=96)))
-batchNames(test1) ##unique batches
-batch(test1)
-test1[1:20, 1:10]
-##just NA's
-nu(test1, "A")[1:10, ]
-## similarly for the B allele
-##nu(test1, "B")
-##phi(test1, "A")
-##phi(test1, "B")
-## using ff objects
-if(require(ff)){
-	x2 <- initializeBigMatrix("smallx", nr=250, nc=96*2)
-	x2[,] <- as.numeric(x)
-	test2 <- new("CNSet", alleleA=x, alleleB=x, call=x, callProbability=x, batch=as.character(rep(letters[1:2], each=96)))
-	test2
-	batchNames(test2) ##unique batches
-	batch(test2)
-	## ff objects
-	class(nu(test2, "A"))
-	(test2.sub <- test2[1:20, 1:10])
-	## after subsetting, all elements are matrices
-	class(nu(test2.sub, "A"))
-}
+a <- matrix(1:25, 5, 5)
+colnames(a) <- letters[1:5]
+object <- new("CNSet", alleleA=a, batch=rep("batch1", 5))
+batch(object)
+batchNames(object)
 }
 \keyword{methods}
 

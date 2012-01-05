@@ -6,7 +6,6 @@
 \alias{state}
 \alias{coerce,RangedData,RangedDataCBS-method}
 \alias{coerce,RangedData,RangedDataHMM-method}
-%\alias{sampleNames<-}
 \alias{sampleNames<-,RangedDataCNV,character-method}
 
 %- Also NEED an '\alias' for EACH other topic documented here.

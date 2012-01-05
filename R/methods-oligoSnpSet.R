@@ -65,3 +65,4 @@ setAs("oligoSnpSet", "data.frame",
 	      df$id <- factor(df$id, ordered=TRUE, levels=unique(df$id))
 	      return(df)
       })
+
