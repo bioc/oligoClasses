@@ -217,14 +217,13 @@ setMethod("updateObject", signature(object="CNSet"),
 			  obj <- new("CNSet",
 				     assayData = updateObject(assayData(object),
 				     ...., verbose=verbose),
-				     phenoData = updateObject(phenoData(object),
-				     ..., verbose=verbose),
-				     experimentData = updateObject(experimentData(object),
-				     ..., verbose=verbose),
+				     phenoData = phenoData(object),
+			             experimentData = experimentData(object),
 				     annotation = updateObject(annotation(object),
 				     ..., verbose=verbose),
-				     featureData=featureData(object),
+				     featureData=updateObject(featureData(object), ..., verbose=verbose),
 				     batch=as.character(batch(object)),
+				     batchStatistics=batchStatistics(object),
 				     mixtureParams=matrix(NA, 4, ncol(object)))
 		  }
 		  if (isCurrent(obj)["CNSet"]) return(obj)
