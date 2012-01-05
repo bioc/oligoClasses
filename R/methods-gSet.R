@@ -8,8 +8,7 @@ setMethod("isSnp", signature(object="character"),
 		  path <- system.file("extdata", package=pkgname)
 		  load(file.path(path, "snpProbes.rda"))
 		  snpProbes <- get("snpProbes")
-		  res <- as.integer(object %in% snpProbes)
-		  return(res)
+		  object %in% snpProbes
 	  })
 
 setMethod("db", "gSet",

@@ -1,3 +1,12 @@
+setValidity("RangedDataCNV", function(object){
+	all(c("chrom", "id", "num.mark") %in% colnames(object))
+})
+setValidity("RangedDataCBS", function(object){
+	if(nrow(object) > 0){
+		all(c("seg.mean", "start.index", "end.index") %in% colnames(object))
+	}
+})
+setValidity("RangedDataHMM", function(object) "state" %in% colnames(object))
 
 RangedDataCNV <- function(ranges=IRanges(),
 			  values,

@@ -144,7 +144,8 @@ setMethod("isSnp", signature(object="SnpSet"),
 			  } else pkgname <- annotation(object)
 			  res <- isSnp(featureNames(object), pkgname)
 		  }
-		  return(res==1)
+		  ##return(res==1)
+		  return(res)
 	  })
 
 setMethod("db", "SnpSet",

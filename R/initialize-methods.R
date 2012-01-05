@@ -24,6 +24,13 @@ setMethod("initialize", signature(.Object="CopyNumberSet"),
 		  return(.Object)
           })
 
+setValidity("CopyNumberSet", function(object){
+	assayDataValidMembers(assayData(object), c("copyNumber", "cnConfidence"))
+	msg <- isValidGenomeAnnotatedDataFrame(featureData(object))
+	if(is.character(msg)) return(msg) else TRUE
+})
+
+
 
 setAs("CNSet", "CopyNumberSet",
       function(from){
@@ -107,9 +114,13 @@ setMethod("initialize", "oligoSnpSet",
 		  return(.Object)
 	  })
 
-setValidity("oligoSnpSet", function(object) {
+setValidity("oligoSnpSet", function(object){
 	assayDataValidMembers(assayData(object), c("call", "callProbability", "copyNumber", "cnConfidence"))
+	msg <- isValidGenomeAnnotatedDataFrame(featureData(object))
+	if(is.character(msg)) return(msg)
+	validObject(phenoData(object))
 })
+
 ## RS: ask BC about this... initialization method for CNSet does not work when this is uncommented
 setValidity("AlleleSet",
             function(object){
@@ -245,6 +256,8 @@ setValidity("CNSet", function(object){
 	if(length(batch(object)) != ncol(object)){
  		return("'batch' must be the same length as the number of samples.  ")
  	}
+	msg <- isValidGenomeAnnotatedDataFrame(featureData(object))
+	if(is.character(msg)) return(msg) else TRUE
 })
 
 initializeGenotypeSummaryFrom <- function(object){

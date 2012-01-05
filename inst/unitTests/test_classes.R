@@ -1,3 +1,8 @@
+test_dataExamples <- function(){
+	data(oligoSetExample)
+	checkTrue(validObject(oligoSet))
+}
+
 test_GenomeAnnotatedDataFrame_construction <- function(){
 	checkTrue(validObject(new("GenomeAnnotatedDataFrame")))
 	checkTrue(validObject(GenomeAnnotatedDataFrameFrom(NULL)))

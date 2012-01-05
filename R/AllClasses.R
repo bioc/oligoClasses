@@ -74,16 +74,7 @@ setClass("SnpSuperSet", contains=c("AlleleSet", "SnpSet"))
 ## GenomeAnnotatedDataFrame
 ###########################################################################
 setClass("GenomeAnnotatedDataFrame", contains="AnnotatedDataFrame")
-setValidity("GenomeAnnotatedDataFrame",
-	    function(object){
-		    if(!all(c("isSnp", "position", "chromosome") %in% varLabels(object)))
-			    return("'isSnp', 'position', and 'chromosome' are required varLabels of the AnnotatedDataFrame for features")
-		    if(!is(chromosome(object), "integer") | !is(position(object), "integer"))
-			    return("chromosome and position must be integers. See function 'chromosome2integer'")
-		    if(!all(isSnp(object) %in% 0:1)){
-			    return("isSnp must be binary: 0 (nonpolymorphic) or 1 (polymorphic)")
-		    }
-	    })
+
 setMethod("updateObject", signature(object="AnnotatedDataFrame"),
 	  function(object, ..., verbose=FALSE){
 		  as(object, "GenomeAnnotatedDataFrame")
@@ -251,45 +242,11 @@ setMethod("updateObject", signature(object="CNSet"),
 setClass("RangedDataCopyNumber", contains="RangedData",
 	 representation("VIRTUAL"))
 setClass("RangedDataCNV", contains="RangedDataCopyNumber")
-setValidity("RangedDataCNV", function(object){
-	if(nrow(object) > 0){
-		all(c("chrom", "id", "num.mark") %in% colnames(object))
-	}
-})
 setClass("RangedDataCBS", contains="RangedDataCNV")
-setValidity("RangedDataCBS", function(object){
-	if(nrow(object) > 0){
-		all(c("seg.mean", "start.index", "end.index") %in% colnames(object))
-	}
-})
-
 setClass("RangedDataHMM", contains="RangedDataCNV")
-setValidity("RangedDataHMM", function(object) "state" %in% colnames(object))
 
-##---------------------------------------------------------------------------
-## classes for ranges
 
-setClass("RangedDataCopyNumber", contains="RangedData",
-	 representation("VIRTUAL"))
-setClass("RangedDataCNV", contains="RangedDataCopyNumber")
-setValidity("RangedDataCNV", function(object){
-	all(c("chrom", "id", "num.mark") %in% colnames(object))
-})
-setClass("RangedDataCBS", contains="RangedDataCNV")
-setValidity("RangedDataCBS", function(object) all(c("seg.mean", "start.index", "end.index") %in% colnames(object)))
-setClass("RangedDataHMM", contains="RangedDataCNV")
-setValidity("RangedDataHMM", function(object) "state" %in% colnames(object))
 
-##---------------------------------------------------------------------------
-## classes for ranges
 
-setClass("RangedDataCopyNumber", contains="RangedData",
-	 representation("VIRTUAL"))
-setClass("RangedDataCNV", contains="RangedDataCopyNumber")
-setValidity("RangedDataCNV", function(object){
-	all(c("chrom", "id", "num.mark") %in% colnames(object))
-})
-setClass("RangedDataCBS", contains="RangedDataCNV")
-setValidity("RangedDataCBS", function(object) all(c("seg.mean", "start.index", "end.index") %in% colnames(object)))
-setClass("RangedDataHMM", contains="RangedDataCNV")
-setValidity("RangedDataHMM", function(object) "state" %in% colnames(object))
+
+

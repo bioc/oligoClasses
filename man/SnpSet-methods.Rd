@@ -79,10 +79,6 @@ confs(object) <- value
 %}
 \seealso{
 
-  See \code{\link{addFeatureAnnotation}} for adding chromosome, physical
-  position, and an indicator for whether the marker is polymorphic to
-  the \code{featureData} slot of a \code{SnpSet} object.
-
   The helper functions \code{\link{p2i}} converts probabilities to
   integers and \code{\link{i2p}} converts integers to probabilities.
 
@@ -97,33 +93,9 @@ confs(object) <- value
 	integerRepresentation <- matrix(as.integer(round(-1000*log(1-p))), 10, 2)
 	obj <- new("SnpSet", call=theCalls, callProbability=integerRepresentation)
 	calls(obj)
-	p2 <- confs(obj)
-	dimnames(p2) <- NULL
-	all.equal(p2, p)	## small differences due to rounding
+        confs(obj)  ## coerces to probability scale
         int <- snpCallProbability(obj) ## not necessarily a probability
         p3 <- i2p(int)  ## to convert back to a probability
-        all.equal(p3, p2)
 
-        int <- snpCallProbability(obj) ## not necessarily a probability
-        p3 <- i2p(int)  ## to convert back to a probability
-        all.equal(p3, p2)
-
-	## example using ff
-	if(require(ff)){
-		ldPath(tempdir())
-		integerRepresentation <- initializeBigMatrix("tmp", 10, 2)
-		for(j in 1:2) integerRepresentation[, j] <- as.integer(round(-1000*log(1-p[, j])))
-		integerRepresentation
-		obj <- new("SnpSet", call=theCalls, callProbability=integerRepresentation)
-		calls(obj)
-		res <- tryCatch(confs(obj), error=function(e) NULL)
-		is.null(res)
-		integerRepresentation <- snpCallProbability(obj)
-		##coerce to matrix by subsetting desired rows and columns (here we choose all rows and columns)
-		integerRepresentation <- integerRepresentation[,]
-		p3 <- oligoClasses:::i2p(integerRepresentation)
-		dimnames(p3) <- NULL
-		all.equal(p2, p3)
-	}
 }
 \keyword{manip}
