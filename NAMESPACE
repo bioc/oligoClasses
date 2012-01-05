@@ -94,7 +94,7 @@ exportMethods(batchStatistics, "batchStatistics<-")
 
 exportClasses(RangedDataCopyNumber, RangedDataCNV, RangedDataCBS, RangedDataHMM, CopyNumberSet)
 exportMethods(coverage2, featuresInRange, findOverlaps, state, openff,
-	      closeff, checkOrder, "sampleNames<-", mean)
+	      closeff, checkOrder, "sampleNames<-", mean, updateObject)
 export(baf, lrr,
        chromosomePositionOrder,
        findOverlaps,
