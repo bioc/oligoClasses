@@ -3,7 +3,6 @@ setMethod("initialize", signature(.Object="CopyNumberSet"),
                    assayData = assayDataNew(copyNumber = copyNumber,
                                             cnConfidence = cnConfidence, ...),
                    phenoData = annotatedDataFrameFrom(assayData, byrow=FALSE),
-                   featureData = annotatedDataFrameFrom(assayData, byrow=TRUE),
                    experimentData = new("MIAME"),
                    annotation = character(),
                    protocolData = phenoData[,integer(0)],
@@ -11,6 +10,7 @@ setMethod("initialize", signature(.Object="CopyNumberSet"),
                    cnConfidence = matrix(numeric(),
                                             nrow=nrow(copyNumber), ncol=ncol(copyNumber),
                                             dimnames=dimnames(copyNumber)),
+		   featureData=GenomeAnnotatedDataFrameFrom(assayData, annotation),
                    ...) {
 		  .Object <- callNextMethod(.Object,
 					    assayData = assayData,
@@ -19,8 +19,8 @@ setMethod("initialize", signature(.Object="CopyNumberSet"),
 					    experimentData = experimentData,
 					    annotation = annotation,
 					    protocolData = protocolData)
-		  if(checkAnnotation(annotation))
-			  .Object <- annotate(.Object)
+##		  if(checkAnnotation(annotation))
+##			  .Object <- annotate(.Object)
 		  return(.Object)
           })
 
@@ -89,15 +89,21 @@ setMethod("initialize", "oligoSnpSet",
 		   callProbability=matrix(numeric(), nrow=nrow(call), ncol=ncol(call), dimnames=dimnames(call)),
 		   copyNumber=matrix(numeric(), nrow=nrow(call), ncol=ncol(call),  dimnames=dimnames(call)),
 		   cnConfidence=matrix(numeric(), nrow=nrow(call), ncol=ncol(call), dimnames=dimnames(call)),
-		   annotation=character(), ...){
+		   assayData=assayDataNew(call=call,
+                       		          callProbability=callProbability,
+		                          copyNumber=copyNumber,
+		                          cnConfidence=cnConfidence),
+		   annotation=character(),
+		   featureData, ##=GenomeAnnotatedDataFrameFrom(call, annotation),
+		   ...){
+		  if(missing(featureData)){
+			  featureData <- GenomeAnnotatedDataFrameFrom(assayData, annotation)
+		  }
 		  .Object <- callNextMethod(.Object,
-					    call=call,
-					    callProbability=callProbability,
-					    copyNumber=copyNumber,
-					    cnConfidence=cnConfidence,
-					    annotation=annotation, ... )
-		  if(checkAnnotation(annotation))
-			  .Object <- annotate(.Object)
+					    assayData=assayData,
+					    annotation=annotation,
+					    featureData=featureData,
+					    ... )
 		  return(.Object)
 	  })
 
@@ -159,19 +165,80 @@ initializeLmFrom <- function(object){
 	return(lm)
 }
 
+initializeLmFrom2 <- function(object, batch){
+	nr <- nrow(object)
+	nc <- length(unique(batch))
+	if(nc > 1) nc <- nc+1 ## add extra column for grand mean
+	lm <- assayDataNew(N.AA=initializeBigMatrix("N.AA", nr, nc),
+			   N.AB=initializeBigMatrix("N.AB", nr, nc),
+			   N.BB=initializeBigMatrix("N.BB", nr, nc),
+			   medianA.AA=initializeBigMatrix("medianA.AA", nr, nc),
+			   medianA.AB=initializeBigMatrix("medianA.AB", nr, nc),
+			   medianA.BB=initializeBigMatrix("medianA.BB", nr, nc),
+			   medianB.AA=initializeBigMatrix("medianB.AA", nr, nc),
+			   medianB.AB=initializeBigMatrix("medianB.AB", nr, nc),
+			   medianB.BB=initializeBigMatrix("medianB.BB", nr, nc),
+			   madA.AA=initializeBigMatrix("madA.AA", nr, nc, vmode="double"),
+			   madA.AB=initializeBigMatrix("madA.AB", nr, nc, vmode="double"),
+			   madA.BB=initializeBigMatrix("madA.BB", nr, nc, vmode="double"),
+			   madB.AA=initializeBigMatrix("madB.AA", nr, nc, vmode="double"),
+			   madB.AB=initializeBigMatrix("madB.AB", nr, nc, vmode="double"),
+			   madB.BB=initializeBigMatrix("madB.BB", nr, nc, vmode="double"),
+			   tau2A.AA=initializeBigMatrix("tau2A.AA", nr, nc, vmode="double"),
+			   tau2A.BB=initializeBigMatrix("tau2A.BB", nr, nc, vmode="double"),
+			   tau2B.AA=initializeBigMatrix("tau2B.AA", nr, nc, vmode="double"),
+			   tau2B.BB=initializeBigMatrix("tau2B.BB", nr, nc, vmode="double"),
+			   nuA=initializeBigMatrix("nuA", nr, nc, vmode="double"),
+			   nuB=initializeBigMatrix("nuB", nr, nc, vmode="double"),
+			   phiA=initializeBigMatrix("phiA", nr, nc, vmode="double"),
+			   phiB=initializeBigMatrix("phiB", nr, nc, vmode="double"),
+			   phiPrimeA=initializeBigMatrix("phiPrimeA", nr, nc, vmode="double"),
+			   phiPrimeB=initializeBigMatrix("phiPrimeB", nr, nc, vmode="double"),
+			   corrAB=initializeBigMatrix("corrAB", nr, nc, vmode="double"),
+			   corrBB=initializeBigMatrix("corrBB", nr, nc, vmode="double"),
+			   corrAA=initializeBigMatrix("corrAA", nr, nc, vmode="double"),
+			   flags=initializeBigMatrix("flags", nr, nc))
+	return(lm)
+}
+
 
 setMethod("initialize", "CNSet",
-	  function(.Object, batchStatistics, batch,
+	  function(.Object,
+		   alleleA=new("matrix"),
+		   alleleB=alleleA,
+		   call=alleleA,
+		   callProbability=alleleA,
+		   assayData=assayDataNew(alleleA=alleleA,
+		                          alleleB=alleleB,
+		                          call=call,
+		                          callProbability=callProbability, ...),
+		   phenoData=annotatedDataFrameFrom(assayData, byrow=FALSE),
+		   protocolData=phenoData[, integer(0)],
+		   experimentData=new("MIAME"),
+		   annotation=character(),
+		   featureData=GenomeAnnotatedDataFrameFrom(alleleA, annotation),
+		   batch=character(ncol(alleleA)),
+		   batchStatistics=initializeLmFrom2(alleleA, batch),
 		   mixtureParams=matrix(), ...){
-		  .Object@batchStatistics <- assayDataNew()
+		  ##.Object@batchStatistics <- assayDataNew()
 		  ##.Object@mixtureParams <- mixtureParams
-		  if(missing(batch)){
-			  stop("Must specify factor 'batch'. See ?CNSet-class for details.")
-		  } else .Object@batch <- batch
-		  .Object <- callNextMethod(.Object, ...)
-		  if(missing(batchStatistics)){
-			  batchStatistics(.Object) <- initializeLmFrom(.Object)
-		  } else batchStatistics(.Object) <- batchStatistics
+##		  if(missing(batch)){
+##			  ##stop("Must specify factor 'batch'. See ?CNSet-class for details.")
+##			  batch <- character(ncol
+##		  } else .Object@batch <- batch
+		  .Object <- callNextMethod(.Object,
+					    assayData=assayData,
+					    phenoData=phenoData,
+					    featureData=featureData,
+					    experimentData=experimentData,
+					    annotation=annotation,
+					    protocolData=protocolData,
+					    batchStatistics=batchStatistics,
+					    mixtureParams=mixtureParams,
+					    batch=batch, ...)
+##		  if(missing(batchStatistics)){
+##			  batchStatistics(.Object) <- initializeLmFrom(.Object)
+##		  } else batchStatistics(.Object) <- batchStatistics
 		  bns <- unique(as.character(batch))
 		  if(length(bns) > 1){
 			  batchNames(.Object) <- c(bns, "grandMean")
@@ -179,16 +246,14 @@ setMethod("initialize", "CNSet",
 		  return(.Object)
 })
 
+
 setValidity("CNSet", function(object){
 	if(!assayDataValidMembers(assayData(object), c("alleleA", "alleleB", "call", "callProbability"))){
-		message("assay data members must be 'alleleA', 'alleleB', 'call', 'callProbability'")
-		return(FALSE)
+		return("assay data members must be 'alleleA', 'alleleB', 'call', 'callProbability'")
 	}
 	if(length(batch(object)) != ncol(object)){
- 		message("Factor 'batch' must be the same length as the number of samples.  See ?CNSet-class for details")
- 		return(FALSE)
+ 		return("'batch' must be the same length as the number of samples.  ")
  	}
-	TRUE
 })
 
 initializeGenotypeSummaryFrom <- function(object){

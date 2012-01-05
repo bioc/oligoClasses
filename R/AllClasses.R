@@ -70,12 +70,64 @@ setClass("AlleleSet", contains="eSet")
 ## RS is no longer using this class
 setClass("SnpSuperSet", contains=c("AlleleSet", "SnpSet"))
 
+###########################################################################
+## GenomeAnnotatedDataFrame
+###########################################################################
+setClass("GenomeAnnotatedDataFrame", contains="AnnotatedDataFrame")
+setValidity("GenomeAnnotatedDataFrame",
+	    function(object){
+		    if(!all(c("isSnp", "position", "chromosome") %in% varLabels(object)))
+			    return("'isSnp', 'position', and 'chromosome' are required varLabels of the AnnotatedDataFrame for features")
+		    if(!is(chromosome(object), "integer") | !is(position(object), "integer"))
+			    return("chromosome and position must be integers. See function 'chromosome2integer'")
+		    if(!all(isSnp(object) %in% 0:1)){
+			    return("isSnp must be binary: 0 (nonpolymorphic) or 1 (polymorphic)")
+		    }
+	    })
+setMethod("updateObject", signature(object="AnnotatedDataFrame"),
+	  function(object, ..., verbose=FALSE){
+		  as(object, "GenomeAnnotatedDataFrame")
+	 })
+
+setMethod("coerce", signature(from="AnnotatedDataFrame", to="GenomeAnnotatedDataFrame"),
+	  function(from, to){
+		  new("GenomeAnnotatedDataFrame",
+		      isSnp=from$isSnp,
+		      position=from$position,
+		      chromosome=from$chromosome,
+		      row.names=featureNames(from))
+	  })
 
 ###########################################################################
 ##SNP-level classes
 ###########################################################################
-setClass("oligoSnpSet", contains="SnpSet") ## total copy number and genotypes
-setClass("CopyNumberSet", contains="eSet") ## total copy number (no genotypes available)
+setClass("gSet", contains="eSet",
+	 representation(featureData="GenomeAnnotatedDataFrame",
+			"VIRTUAL"))
+
+setClass("oligoSnpSet", contains="SnpSet",
+	 representation(featureData="GenomeAnnotatedDataFrame")) ## total copy number and genotypes
+
+setMethod("updateObject", signature(object="oligoSnpSet"),
+          function(object, ..., verbose=FALSE) {
+		  if (verbose) message("updateObject(object = 'oligoSnpSet')")
+		  obj <- tryCatch(callNextMethod(object), error=function(e) NULL)
+		  if(is.null(obj)){
+			  obj <- new("oligoSnpSet",
+				     assayData = updateObject(assayData(object),
+				     ...., verbose=verbose),
+				     phenoData = phenoData(object),
+				     experimentData = updateObject(experimentData(object),
+				     ..., verbose=verbose),
+				     annotation = updateObject(annotation(object),
+				     ..., verbose=verbose),
+				     featureData=updateObject(featureData(object), ..., verbose=FALSE))
+		  }
+		  if (all(isCurrent(obj))) return(obj)
+		  obj
+          })
+
+setClass("CopyNumberSet", contains="gSet") ## total copy number (no genotypes available)
 
 ###########################################################################
 ##Summary-level classes - CNP
@@ -143,6 +195,16 @@ setClass("CNSet", representation(batch="character",
 	 prototype = prototype(
 	                       new("VersionedBiobase",
 				   versions=c(classVersion("SnpSet"), CNSet="1.0.5"))))
+
+setClass("CNSet", contains="gSet",
+	 representation(batch="character",
+			batchStatistics="AssayData",
+			mixtureParams="matrix"),
+			##featureData="GenomeAnnotatedDataFrame"),
+	 prototype = prototype(
+	 new("VersionedBiobase",
+	     versions=c(classVersion("SnpSet"), CNSet="1.0.6"))))
+
 
 setMethod("updateObject", signature(object="CNSet"),
           function(object, ..., verbose=FALSE) {

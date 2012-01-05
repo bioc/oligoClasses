@@ -34,8 +34,6 @@ importFrom(IRanges, IRanges, RangedData, RangedDataList,
 	   matchMatrix, queryHits, subjectHits)
 importMethodsFrom(IRanges, findOverlaps)
 
-
-
 ##importMethodsFrom(ff, pattern, filename, "pattern<-", "filename<-",
 ##		  physical, "physical<-")
 
@@ -92,9 +90,16 @@ exportMethods(batch, batchNames, "batchNames<-", coerce, flags, show)
 exportMethods(nu, phi)
 exportMethods(batchStatistics, "batchStatistics<-")
 
-exportClasses(RangedDataCopyNumber, RangedDataCNV, RangedDataCBS, RangedDataHMM, CopyNumberSet)
+exportClasses(gSet,
+	      RangedDataCopyNumber,
+	      RangedDataCNV,
+	      RangedDataCBS,
+	      RangedDataHMM,
+	      CopyNumberSet,
+	      GenomeAnnotatedDataFrame)
 exportMethods(coverage2, featuresInRange, findOverlaps, state, openff,
-	      closeff, checkOrder, "sampleNames<-", mean, updateObject)
+	      closeff, checkOrder, "sampleNames<-", mean, updateObject,
+	      GenomeAnnotatedDataFrameFrom)
 export(baf, lrr,
        chromosomePositionOrder,
        findOverlaps,
@@ -102,4 +107,5 @@ export(baf, lrr,
        RangedDataCNV,
        RangedDataCBS,
        RangedDataHMM)
+
 

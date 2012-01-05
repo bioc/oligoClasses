@@ -13,11 +13,15 @@
 \alias{batchNames<-,CNSet-method}
 \alias{batchStatistics,CNSet-method}
 \alias{batchStatistics<-,CNSet,AssayData-method}
+\alias{calls,CNSet-method}
+\alias{calls<-,CNSet,matrix-method}
 \alias{close,CNSet-method}
 \alias{coerce,CNSetLM,CNSet-method}
 \alias{coerce,CNSet,CopyNumberSet-method}
 \alias{coerce,CNSet,oligoSnpSet}
 \alias{coerce,CNSet,oligoSnpSet-method}
+\alias{confs,CNSet-method}
+\alias{confs<-,CNSet,matrix-method}
 \alias{corr,CNSet,character-method}
 \alias{flags,CNSet-method}
 \alias{initialize,CNSet-method}
@@ -68,88 +72,89 @@
     \item{\code{.__classVersion__}:}{Object of class \code{"Versions"} ~~ }
   }
 }
-\section{Extends}{
-Class \code{"\linkS4class{SnpSet}"}, directly.
-Class \code{"\linkS4class{eSet}"}, by class "SnpSet", distance 2.
-Class \code{"\linkS4class{VersionedBiobase}"}, by class "SnpSet", distance 3.
-Class \code{"\linkS4class{Versioned}"}, by class "SnpSet", distance 4.
-}
+
 \section{Methods}{
+
+  The argument \code{object} for the following methods is a \code{CNSet}.
+
   \describe{
-    \item{[}{\code{signature(x = "CNSet")}: ... }
-    \item{A}{\code{signature(object = "CNSet")}: ... }
-    \item{A<-}{\code{signature(object = "CNSet")}: ... }
-    \item{allele}{\code{signature(object = "CNSet")}: ... }
-    \item{B}{\code{signature(object = "CNSet")}: ... }
-    \item{B<-}{\code{signature(object = "CNSet")}: ... }
-    \item{batch}{\code{signature(object = "CNSet")}: ... }
-    \item{batchNames}{\code{signature(object = "CNSet")}: ... }
-    \item{batchNames<-}{\code{signature(object = "CNSet")}: ... }
-    \item{close}{\code{signature(con = "CNSet")}: ... }
-    \item{coerce}{\code{signature(from="CNSetLM")}: ... }
-    \item{coerce}{\code{signature(from="CNSet")}: ... }
-    \item{corr}{\code{signature(object = "CNSet", allele = "character")}: ... }
-    \item{flags}{\code{signature(object="CNSet")}: SNP flags }
-    \item{initialize}{\code{signature(.Object = "CNSet")}: ... }
-%    \item{lM}{\code{signature(object = "CNSet")}: ... }
-%    \item{lM<-}{\code{signature(object = "CNSet", value = "LinearModelParameter")}: ... }
-    \item{nu}{\code{signature(object = "CNSet", allele = "character")}: ... }
-    \item{open}{\code{signature(con = "CNSet")}: ... }
-    \item{phi}{\code{signature(object = "CNSet", allele =
-    "character")}: ... }
-   \item{sigma2}{\code{signature(object = "CNSet", allele = "character")}: ... }
-    \item{tau2}{\code{signature(object = "CNSet", allele = "character")}: ... }
-	 }
-}
+    \item{}{\code{object[i, j]}: subset the \code{CNSet} object by
+    markers (i) and/or samples (j). }
+
+    \item{}{\code{A(objet)}: accessor for the normalized intensities of
+    allele A}
+
+  \item{}{\code{A(object) <- value}: replace intensities for the A
+    allele intensities by \code{value}. The object \code{value} must be
+    a \code{matrix}, \code{ff_matrix}, or \code{ffdf}.}
+
+
+    \item{}{\code{allele(object, allele)}: accessor for the normalized
+    intensities for the A or B allele. The argument for \code{allele}
+    must be either 'A' or 'B'}
+
+  \item{}{\code{B(objet)}: accessor for the normalized intensities of
+    allele B}
+
+  \item{}{\code{B(object) <- value}: replace intensities for the B
+    allele intensities by \code{value}. The object \code{value} must be
+    a \code{matrix}, \code{ff_matrix}, or \code{ffdf}.}
+
+  \item{}{\code{batch(object)}: vector of batch labels for each sample.}
+
+  \item{}{\code{batchNames(object)}: the unique batch names}
+
+  %\item{batchNames<-}{\code{signature(object = "CNSet")}: ... }
+
+  \item{}{\code{batchNames(object) <- value}: relabel the batches}
+
+  \item{}{\code{calls(object)}: accessor for genotype calls coded as 1
+    (AA), 2 (AB), or 3 (BB).  Nonpolymorphic markers are \code{NA}.}
+
+    \item{}{\code{confs(object)}: accessor for the genotype confidence scores.}
+
+  \item{}{\code{close(object)}: close any open file connections to
+  \code{ff} objects stored in the \code{CNSet} object.}
+
+   %\item{coerce}{\code{signature(from="CNSet")}: ... }
+   \item{}{\code{as(object, "oligoSnpSet")}: coerce a \code{CNSet}
+   object to an object of class \code{oligoSnpSet} -- a container for
+   the total copy number and genotype calls.}
+
+%    \item{corr}{\code{signature(object = "CNSet", allele =
+%	"character")}: ... }
+
+    \item{}{\code{corr(object)}: the correlation of the A and B
+    intensities within each genotype.}
+
+  %\item{flags}{\code{signature(object="CNSet")}: SNP flags }
+  \item{}{\code{flags(object)}:  flags to indicate possible problems with
+  the copy number estimation.  Not fully implemented at this point.}
+
+   \item{}{\code{new("CNSet")}: instantiating a \code{CNSet} object.}
+
+   \item{}{\code{nu(object, allele)}: accessor for the intercept
+   (background) for the A and B alleles.  The value of \code{allele}
+   must be 'A' or 'B'.}
+
+  \item{}{\code{open(object)} open file connections for all \code{ff}
+    objects stored in the \code{CNSet} object.}
+
+   \item{}{\code{nu(object, allele)}: accessor for the slope for the A
+    and B alleles.  The value of \code{allele} must be 'A' or 'B'.}
+
+   \item{}{\code{sigma2(object, allele)}: accessor for the within
+   genotype variance}
+
+   \item{}{\code{tau2(object, allele)}: accessor for background variance}
+ }
+ }
 
 \author{
 R. Scharpf
 }
 
-\seealso{ }
 \examples{
- 	if(require("genomewidesnp6Crlmm")){
-		require("genomewidesnp6Crlmm")
-		fns <- c("SNP_A-2131660", "SNP_A-1967418", "SNP_A-1969580", "SNP_A-4263484",
-			 "SNP_A-1978185", "SNP_A-4264431", "SNP_A-1980898", "SNP_A-1983139",
-			 "SNP_A-4265735", "SNP_A-1995832")
-		theCalls <- matrix(2, nc=2, nrow=10)
-		A <- matrix(sample(1:1000, 20), 10,2)
-		B <- matrix(sample(1:1000, 20), 10,2)
-		p <- matrix(runif(20), nc=2)
-		theConfs <- round(-1000*log2(1-p))
-		## Batch can be defined by the scan date of the array
-		##or the 96 well chemistry plate from which the
-		##samples were derived.  Here we indicate that the two
-		##samples were from the same batch.
-		batch <- rep(factor(1), ncol(A))
-		## each parameter is a R x C matrix, where the number
-		## of rows (R) corresponds to the number of features
-		## and the number of columns (C) corresponds to the
-		## number of batches.  In this toy example, the
-		## samples were assumed to be from the same batch.
-		## Ordinarily, one would have 50+ samples in a given
-		## batch.
-		dns <- list(fns, batch="1")
-		obj <- new("CNSet",
-			   alleleA=A,
-			   alleleB=B,
-			   call=theCalls,
-			   callProbability=theConfs,
-			   batch=as.character(rep(1, ncol(A))),
-			   annotation="genomewidesnp6")
-		assayDataElementNames(batchStatistics(obj))
-		featureNames(obj) <- fns
-		## Accessors
-		calls(obj)
-		confs(obj)
-		A(obj)
-		B(obj)
-		featureData(obj) <- addFeatureAnnotation(obj)
-		isSnp(obj)
-		chromosome(obj)
-		position(obj)
-	}
-
+	new("CNSet")
 }
 \keyword{classes}
