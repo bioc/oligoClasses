@@ -62,3 +62,4 @@ chromosomePositionOrder <- function(object, ...){
 	}
 	return(object)
 }
+
