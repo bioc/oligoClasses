@@ -214,20 +214,34 @@ setMethod("updateObject", signature(object="CNSet"),
 			  ## must supply batch for batchStatistics to be added
 			  if(is(calls(object), "ffdf") | is(calls(object), "ff_matrix"))
 				  stopifnot(isPackageLoaded("ff"))
-			  obj <- new("CNSet",
-				     assayData = updateObject(assayData(object),
-				     ...., verbose=verbose),
-				     phenoData = phenoData(object),
-			             experimentData = experimentData(object),
-				     annotation = updateObject(annotation(object),
-				     ..., verbose=verbose),
-				     featureData=updateObject(featureData(object), ..., verbose=verbose),
-				     batch=as.character(batch(object)),
-				     batchStatistics=batchStatistics(object),
-				     mixtureParams=matrix(NA, 4, ncol(object)))
+			  if(.hasSlot(object, "mixtureParams")){
+				  obj <- new("CNSet",
+					     assayData = updateObject(assayData(object),
+					     ...., verbose=verbose),
+					     phenoData = phenoData(object),
+					     experimentData = experimentData(object),
+					     annotation = updateObject(annotation(object),
+					     ..., verbose=verbose),
+					     featureData=updateObject(featureData(object), ..., verbose=verbose),
+					     batch=as.character(batch(object)),
+					     batchStatistics=batchStatistics(object),
+					     mixtureParams=object@mixtureParams)
+			  } else {
+				  obj <- new("CNSet",
+					     assayData = updateObject(assayData(object),
+					     ...., verbose=verbose),
+					     phenoData = phenoData(object),
+					     experimentData = experimentData(object),
+					     annotation = updateObject(annotation(object),
+					     ..., verbose=verbose),
+					     featureData=updateObject(featureData(object), ..., verbose=verbose),
+					     batch=as.character(batch(object)),
+					     batchStatistics=batchStatistics(object),
+					     mixtureParams=matrix(NA, 4, ncol(object)))
+			  }
+			  if (isCurrent(obj)["CNSet"]) return(obj)
+			  return(obj)
 		  }
-		  if (isCurrent(obj)["CNSet"]) return(obj)
-		  obj
           })
 
 

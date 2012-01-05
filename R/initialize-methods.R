@@ -220,12 +220,6 @@ setMethod("initialize", "CNSet",
 		   batch=character(ncol(alleleA)),
 		   batchStatistics=initializeLmFrom2(alleleA, batch),
 		   mixtureParams=matrix(), ...){
-		  ##.Object@batchStatistics <- assayDataNew()
-		  ##.Object@mixtureParams <- mixtureParams
-##		  if(missing(batch)){
-##			  ##stop("Must specify factor 'batch'. See ?CNSet-class for details.")
-##			  batch <- character(ncol
-##		  } else .Object@batch <- batch
 		  .Object <- callNextMethod(.Object,
 					    assayData=assayData,
 					    phenoData=phenoData,
@@ -236,13 +230,10 @@ setMethod("initialize", "CNSet",
 					    batchStatistics=batchStatistics,
 					    mixtureParams=mixtureParams,
 					    batch=batch, ...)
-##		  if(missing(batchStatistics)){
-##			  batchStatistics(.Object) <- initializeLmFrom(.Object)
-##		  } else batchStatistics(.Object) <- batchStatistics
-		  bns <- unique(as.character(batch))
-		  if(length(bns) > 1){
-			  batchNames(.Object) <- c(bns, "grandMean")
-		  } else batchNames(.Object) <- bns
+##		  bns <- unique(as.character(batch))
+##		  if(length(bns) > 1){
+##			  batchNames(.Object) <- c(bns, "grandMean")
+##		  } else batchNames(.Object) <- bns
 		  return(.Object)
 })
 
