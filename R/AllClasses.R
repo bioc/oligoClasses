@@ -77,7 +77,12 @@ setClass("GenomeAnnotatedDataFrame", contains="AnnotatedDataFrame")
 
 setMethod("updateObject", signature(object="AnnotatedDataFrame"),
 	  function(object, ..., verbose=FALSE){
-		  as(object, "GenomeAnnotatedDataFrame")
+		  ##as(object, "GenomeAnnotatedDataFrame")
+		  new("GenomeAnnotatedDataFrame",
+		      isSnp=as.logical(object$isSnp),
+		      position=as.integer(object$position),
+		      chromosome=as.integer(object$chromosome),
+		      row.names=featureNames(object))
 	 })
 
 setMethod("coerce", signature(from="AnnotatedDataFrame", to="GenomeAnnotatedDataFrame"),
