@@ -1,6 +1,6 @@
 ## oligoClasses NAMESPACE
 ## Importing
-importClassesFrom(methods, ANY, character, data.frame, "function", integer, matrix, numeric, ordered, missing)
+## importClassesFrom(methods, ANY, character, data.frame, "function", integer, matrix, numeric, ordered, missing)
 importMethodsFrom(methods, initialize, show)
 importFrom(methods, "@<-", callNextMethod, new, validObject)
 
@@ -79,11 +79,8 @@ exportMethods(annotation, db, initialize, genomeBuild,
 
 ## Some general methods
 exportMethods(getM, getA, annotatedDataFrameFrom, open, close)
-
-##export(addFeatureAnnotation.pd)
 ##exportClasses(ffdf, ff_matrix)
-exportClasses(ff_matrix,ffdf)
-
+##exportClasses(ff_matrix, ffdf, ff_or_matrix)
 
 export(annotationPackages, checkExists)
 exportMethods(batch, batchNames, "batchNames<-", coerce, flags, show)
@@ -97,6 +94,7 @@ exportClasses(gSet,
 	      RangedDataHMM,
 	      CopyNumberSet,
 	      GenomeAnnotatedDataFrame)
+
 exportMethods(coverage2, featuresInRange, findOverlaps, state, openff,
 	      closeff, checkOrder, "sampleNames<-", mean, updateObject,
 	      GenomeAnnotatedDataFrameFrom)

@@ -131,6 +131,7 @@ setClass("CopyNumberSet", contains="gSet") ## total copy number (no genotypes av
 setOldClass("ffdf")
 setOldClass("ff_matrix")
 setClassUnion("list_or_ffdf", c("list", "ffdf"))
+setClassUnion("ff_or_matrix", c("ffdf", "ff_matrix", "matrix"))
 ## AssayData elements in AlleleSet are platform dependent.
 ##
 ## It is nontrivial to define an initialization method for AlleleSet that can then be extended by
@@ -195,7 +196,7 @@ setClass("CNSet", representation(batch="character",
 setClass("CNSet", contains="gSet",
 	 representation(batch="character",
 			batchStatistics="AssayData",
-			mixtureParams="matrix"),
+			mixtureParams="ff_or_matrix"),
 			##featureData="GenomeAnnotatedDataFrame"),
 	 prototype = prototype(
 	 new("VersionedBiobase",
