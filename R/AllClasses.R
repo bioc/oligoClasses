@@ -251,8 +251,3 @@ setClass("RangedDataCNV", contains="RangedDataCopyNumber")
 setClass("RangedDataCBS", contains="RangedDataCNV")
 setClass("RangedDataHMM", contains="RangedDataCNV")
 
-
-
-
-
-
