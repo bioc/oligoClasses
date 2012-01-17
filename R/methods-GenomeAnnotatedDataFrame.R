@@ -73,7 +73,7 @@ GenomeAnnotatedDataFrameFromAssayData <- function(object, annotationPkg, ...) {
 }
 
 setMethod("GenomeAnnotatedDataFrameFrom",
-	  signature(object="matrix"),
+	  signature(object="ff_or_matrix"),
 	  function(object, annotationPkg){
 		  GenomeAnnotatedDataFrameFromMatrix(object, annotationPkg)
 })

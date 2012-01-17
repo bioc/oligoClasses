@@ -209,6 +209,9 @@ initializeLmFrom2 <- function(object, batch){
 			   corrBB=initializeBigMatrix("corrBB", nr, nc, vmode="double"),
 			   corrAA=initializeBigMatrix("corrAA", nr, nc, vmode="double"),
 			   flags=initializeBigMatrix("flags", nr, nc))
+	if(nc > 1) {
+		sampleNames(lm) <- c(unique(batch), "grandMean")
+	} else sampleNames(lm) <- unique(batch)
 	return(lm)
 }
 

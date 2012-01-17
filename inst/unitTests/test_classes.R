@@ -57,6 +57,11 @@ test_CNSet_construction <- function(){
 	tmp2 <- tmp[1:3, 1:2]
 	checkTrue(validObject(tmp2))
 
+	tmp2 <- new("CNSet", alleleA=a, batch=c(rep("a", 3), "b", "b"))
+	checkTrue(validObject(tmp2))
+	checkTrue(identical(batchNames(tmp2), c("a", "b", "grandMean")))
+
+
 	require("genomewidesnp6Crlmm")
 	fns <- c("SNP_A-2131660", "SNP_A-1967418", "SNP_A-1969580", "SNP_A-4263484",
 		 "SNP_A-1978185", "SNP_A-4264431", "SNP_A-1980898", "SNP_A-1983139",
@@ -76,5 +81,24 @@ test_CNSet_construction <- function(){
 		   batch=batch,
 		   annotation="genomewidesnp6")
 	checkTrue(validObject(obj))
+	checkTrue(identical(sampleNames(batchStatistics(obj)), batchNames(obj)))
+	checkTrue(!is.null(batchNames(obj)))
 	checkTrue(all(chromosome(obj) == 1))
+}
+
+test_GenomeAnnotatedDataFrameWithFF <- function(){
+	## test instantiation from an object of class ff_matrix
+	data(oligoSetExample)
+	fdFromMatrix <- GenomeAnnotatedDataFrameFrom(locusLevelData[["genotypes"]],
+						     annotationPkg=locusLevelData[["platform"]])
+
+	if(require(ff)){
+		ldPath(tempdir())
+		gtMatrix <- locusLevelData[["genotypes"]]
+		gts <- initializeBigMatrix(name="genotypes", initdata=gtMatrix, nr=nrow(gtMatrix), nc=ncol(gtMatrix), vmode="integer")
+		rownames(gts) <- rownames(gtMatrix)
+		fdFromFF <- GenomeAnnotatedDataFrameFrom(gts,
+							 annotationPkg=locusLevelData[["platform"]])
+		checkTrue(identical(fdFromMatrix, fdFromFF))
+	}
 }

@@ -2,7 +2,7 @@
 \docType{methods}
 \alias{GenomeAnnotatedDataFrameFrom}
 \alias{GenomeAnnotatedDataFrameFrom,AssayData-method}
-\alias{GenomeAnnotatedDataFrameFrom,matrix-method}
+\alias{GenomeAnnotatedDataFrameFrom,ff_or_matrix-method}
 \alias{GenomeAnnotatedDataFrameFrom,NULL-method}
 
 \title{Methods for Function GenomeAnnotatedDataFrameFrom in Package oligoClasses}
