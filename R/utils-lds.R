@@ -85,6 +85,7 @@ initializeBigVector <- function(name=basename(tempfile()), n=0L, vmode="integer"
 createFF <- function(name, dim, vmode="double", initdata=NULL)
 	ff(initdata=initdata, vmode=vmode, dim=dim, pattern=file.path(ldPath(), basename(name)))
 
+## TODO: really safe to use :::?
 setMethod("annotatedDataFrameFrom", "ff_matrix",
           Biobase:::annotatedDataFrameFromMatrix)
 

@@ -1,7 +1,7 @@
 Package: oligoClasses
-Version: 1.17.15
+Version: 1.17.17
 Title: Classes for high-throughput arrays supported by oligo and crlmm
-Author: Benilton Carvalho <Benilton.Carvalho@cancer.org.uk> and Robert Scharpf <rscharpf@jhsph.edu>
+Author: Benilton Carvalho and Robert Scharpf
 Maintainer: Benilton Carvalho <Benilton.Carvalho@cancer.org.uk> and Robert Scharpf <rscharpf@jhsph.edu>
 Depends:  R (>= 2.10), methods, Biobase (>= 2.15.1)
 Imports:  methods, graphics, BiocGenerics (>= 0.1.0), IRanges (>= 1.13.4), Biostrings (>= 2.23.2), affyio (>= 1.19.2), ff
@@ -39,7 +39,7 @@ Collate:  AllClasses.R
 	  methods-RangedDataCNV.R
 	  methods-SnpSet.R
 	  methods-GenomeAnnotatedDataFrame.R
+	  methods-BeadStudioSet.R
           show-methods.R
 	  zzz.R
 biocViews: Infrastructure
-Packaged: 2011-05-16 16:50:34 UTC; biocbuild

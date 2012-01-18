@@ -49,9 +49,9 @@ GenomeAnnotatedDataFrameFromMatrix <- function(object,
 			stopifnot(isSupportedAnnotation(annotationPkg))
 			is.pd <- isPdAnnotationPkg(annotationPkg)
 			if(is.pd){
-				object <- addFeatureAnnotation.pd2(annotationPkg, rownames(object))
+				object <- addFeatureAnnotation.pd2(annotationPkg, rownames(object), ...)
 			} else {
-				object <- addFeatureAnnotation.crlmm2(annotationPkg, rownames(object))
+				object <- addFeatureAnnotation.crlmm2(annotationPkg, rownames(object), ...)
 			}
 		}
 	}
@@ -361,17 +361,23 @@ chromosome2integer <- function(chrom){
 ##	return(fD)
 ##}
 
-addFeatureAnnotation.crlmm2 <- function(object, featureNames, ...){
-	nm <- grep("Crlmm", object)
+addFeatureAnnotation.crlmm2 <- function(object, featureNames, universe="", ...){
+	nm <- grep("Crlmm", object, ignore.case=TRUE)
 	if(length(nm) == 0){
 		pkgname <- paste(object, "Crlmm", sep="")
 	} else pkgname <- object
 	path <- system.file("extdata", package=pkgname)
-	loader("cnProbes.rda", pkgname=pkgname, envir=.oligoClassesPkgEnv)
-	cnProbes <- get("cnProbes", envir=.oligoClassesPkgEnv)
-	loader("snpProbes.rda", pkgname=pkgname, envir=.oligoClassesPkgEnv)
-	snpProbes <- get("snpProbes", envir=.oligoClassesPkgEnv)
-
+	if(universe==""){
+		loader("cnProbes.rda", pkgname=pkgname, envir=.oligoClassesPkgEnv)
+		cnProbes <- get("cnProbes", envir=.oligoClassesPkgEnv)
+		loader("snpProbes.rda", pkgname=pkgname, envir=.oligoClassesPkgEnv)
+		snpProbes <- get("snpProbes", envir=.oligoClassesPkgEnv)
+	} else {
+		loader(paste("cnProbes_", universe, ".rda", sep=""), pkgname=pkgname, envir=.oligoClassesPkgEnv)
+		cnProbes <- get("cnProbes", envir=.oligoClassesPkgEnv)
+		loader(paste("snpProbes_", universe, ".rda", sep=""), pkgname=pkgname, envir=.oligoClassesPkgEnv)
+		snpProbes <- get("snpProbes", envir=.oligoClassesPkgEnv)
+	}
 	snpProbes <- snpProbes[rownames(snpProbes) %in% featureNames, ]
 	cnProbes <- cnProbes[rownames(snpProbes) %in% featureNames, ]
 	##Feature Data
@@ -455,7 +461,8 @@ annotationPackages <- function(){
 	  "human610quadv1bCrlmm",
 	  "human660quadv1aCrlmm",
 	  "human1mduov3bCrlmm",
-	  "humanomni1quadv1bCrlmm")
+	  "humanomni1quadv1bCrlmm",
+	  "gw6crlmm")
 }
 
 affyPlatforms <- function(){
