@@ -1,3 +1,17 @@
+setMethod("lrr", "BeadStudioSet", function(object)
+	  assayDataElement(object, "lrr"))
+setReplaceMethod("lrr", c("BeadStudioSet", "ANY"),
+		 function(object, value) {
+			 assayDataElementReplace(object, "lrr", value)
+	 })
+setMethod("baf", "BeadStudioSet",
+	  function(object) {
+		  assayDataElement(object, "baf")
+	 })
+setReplaceMethod("baf", c("BeadStudioSet", "ANY"),
+		 function(object, value) {
+			 assayDataElementReplace(object, "BAF", value)
+	 })
 setAs("BeadStudioSet", "data.frame",
       function(from, to){
 	      cn <- as.numeric(lrr(from))

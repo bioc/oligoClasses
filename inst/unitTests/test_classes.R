@@ -102,3 +102,7 @@ test_GenomeAnnotatedDataFrameWithFF <- function(){
 		checkTrue(identical(fdFromMatrix, fdFromFF))
 	}
 }
+
+test_BeadStudioSet <- function(){
+	checkTrue(validObject(new("BeadStudioSet")))
+}

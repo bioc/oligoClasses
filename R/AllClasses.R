@@ -124,7 +124,7 @@ setMethod("updateObject", signature(object="oligoSnpSet"),
           })
 
 setClass("CopyNumberSet", contains="gSet") ## total copy number (no genotypes available)
-
+setClass("BeadStudioSet", contains="gSet")
 ###########################################################################
 ##Summary-level classes - CNP
 ###########################################################################

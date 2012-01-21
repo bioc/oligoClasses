@@ -37,8 +37,10 @@ GenomeAnnotatedDataFrameFromMatrix <- function(object,
 		object <- GenomeAnnotatedDataFrameFrom(NULL, ...)
 	} else {
 		nms <- rownames(object)
-		if(any(is.na(nms))) warning("NA's in rownames")
-		if(length(annotationPkg)==0){
+		if(!is.null(nms)){
+			if(any(is.na(nms))) warning("NA's in rownames")
+		}
+		if(length(annotationPkg)==0 | is.null(nms)){
 			n <- dims[1]
 			data <- data.frame(position=integer(n),
 					   chromosome=integer(n),

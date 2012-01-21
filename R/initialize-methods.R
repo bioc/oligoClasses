@@ -285,3 +285,31 @@ initializeGenotypeSummaryFrom <- function(object){
 	return(list(numberGenotypes=numberGt, means=mns, mads=mads))
 }
 
+
+setMethod("initialize", "BeadStudioSet",
+	  function(.Object,
+		   assayData = assayDataNew(baf = baf, lrr = lrr, ...),
+		   phenoData = annotatedDataFrameFrom(assayData, byrow=FALSE),
+		   featureData = GenomeAnnotatedDataFrameFrom(assayData, annotation),
+		   experimentData = new("MIAME"),
+		   annotation = character(),
+		   protocolData = phenoData[,integer(0)],
+		   baf = new("matrix"),
+		   lrr = matrix(numeric(),
+                		   nrow=nrow(baf),
+		                   ncol=ncol(baf),
+                    		   dimnames=dimnames(baf)),
+		   ...) {
+	.Object <- callNextMethod(.Object,
+				  assayData = assayData,
+				  phenoData = phenoData,
+				  featureData = featureData,
+				  experimentData = experimentData,
+				  annotation = annotation,
+				  protocolData = protocolData)
+	return(.Object)
+})
+
+setValidity("BeadStudioSet", function(object) {
+	return(all(is.element(c("lrr","baf"), assayDataElementNames(object))))
+})

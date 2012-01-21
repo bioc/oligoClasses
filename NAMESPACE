@@ -60,7 +60,7 @@ exportClasses(ExpressionFeatureSet, SnpFeatureSet, SnpCnvFeatureSet,
               TilingFeatureSet, ExonFeatureSet, GeneFeatureSet)
 
 ##SNP-level Classes
-exportClasses(AlleleSet, oligoSnpSet, SnpSuperSet, CNSet)
+exportClasses(AlleleSet, BeadStudioSet, oligoSnpSet, SnpSuperSet, CNSet)
 
 export(chromosome2integer, i2p, p2i)
 
@@ -95,11 +95,10 @@ exportClasses(gSet,
 	      CopyNumberSet,
 	      GenomeAnnotatedDataFrame)
 
-exportMethods(coverage2, featuresInRange, findOverlaps, state, openff,
+exportMethods(baf, lrr, "baf<-", "lrr<-", coverage2, featuresInRange, findOverlaps, state, openff,
 	      closeff, checkOrder, "sampleNames<-", mean, updateObject,
 	      GenomeAnnotatedDataFrameFrom)
-export(baf, lrr,
-       chromosomePositionOrder,
+export(chromosomePositionOrder,
        findOverlaps,
        ##order, ## why is it necessary to export both the generic and method
        RangedDataCNV,
