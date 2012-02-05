@@ -6,6 +6,8 @@
 %\alias{chromosome<-,GenomeAnnotatedDataFrame,integer-method}
 \alias{coerce,AnnotatedDataFrame,GenomeAnnotatedDataFrame-method}
 \alias{initialize,GenomeAnnotatedDataFrame-method}
+\alias{position<-}
+\alias{position<-,GenomeAnnotatedDataFrame,integer-method}
 %\alias{isSnp,GenomeAnnotatedDataFrame,ANY-method}
 %\alias{position,GenomeAnnotatedDataFrame-method}
 \alias{updateObject,AnnotatedDataFrame-method}

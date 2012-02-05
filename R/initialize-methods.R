@@ -43,53 +43,6 @@ setAs("CNSet", "CopyNumberSet",
 		  protocolData=protocolData(from))
       })
 
-setAs("CNSet", "oligoSnpSet", function(from, to){
-	row.index <- 1:nrow(from)
-	col.index <- 1:ncol(from)
-	is.lds <- ifelse(is(calls(from), "ff_matrix") | is(calls(from), "ffdf"), TRUE, FALSE)
-	if(is.lds) stopifnot(isPackageLoaded("ff"))
-	if(is.lds){
-		## initialize a big matrix for raw copy number
-		message("creating an ff object for storing total copy number")
-
-		tcn <- initializeBigMatrix(name="total_cn", nrow(from), ncol(from), vmode="double")
-		for(j in 1:ncol(from)){
-			tcn[, j] <- totalCopynumber(from, i=row.index, j=j)
-		}
-	} else {
-		if(ncol(from) > 5){
-			##this can be memory intensive, so we try to be careful
-			col.index <- splitIndicesByLength(seq(length=ncol(from)), 5)
-			tcn <- matrix(NA, nrow(from), ncol(from))
-			dimnames(tcn) <- list(featureNames(from), sampleNames(from))
-			rows <- 1:nrow(from)
-			for(i in seq_along(col.index)){
-				cat(".")
-				j <- col.index[[i]]
-				cnSet <- from[, j]
-				tcn[, j] <- totalCopynumber(cnSet, i=row.index, j=1:ncol(cnSet))
-				rm(cnSet); gc()
-			}
-			cat("\n")
-		} else {
-			tcn <- totalCopynumber(from, i=row.index, j=col.index)
-		}
-	}
-	message("Transforming copy number to log2 scale")
-	tcn[tcn < 0.1] <- 0.1
-	tcn[tcn > 8] <- 8
-	log.tcn <- log2(tcn)
-	new("oligoSnpSet",
-	    copyNumber=log.tcn,
-	    call=calls(from),
-	    callProbability=snpCallProbability(from),
-	    annotation=annotation(from),
-	    featureData=featureData(from),
-	    phenoData=phenoData(from),
-	    experimentData=experimentData(from),
-	    protocolData=protocolData(from))
-})
-
 setMethod("initialize", "oligoSnpSet",
 	  function(.Object,
 		   call=new("matrix"),

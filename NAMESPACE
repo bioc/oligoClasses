@@ -1,17 +1,21 @@
 ## oligoClasses NAMESPACE
-## Importing
-## importClassesFrom(methods, ANY, character, data.frame, "function", integer, matrix, numeric, ordered, missing)
+##---------------------------------------------------------------------------
+## Import
+##---------------------------------------------------------------------------
+## methods
 importMethodsFrom(methods, initialize, show)
 importFrom(methods, "@<-", callNextMethod, new, validObject)
 
+## BiocGenerics
 importFrom(BiocGenerics, updateObject)
+
+## affyio
 importFrom(affyio, read.celfile.header, read.celfile)
+## Biostrings
 importClassesFrom(Biostrings, DNAStringSet)
-
-## Needed from graphics
+## graphics
 importFrom(graphics, plot)
-
-## Needed from Biobase
+## Biobase
 importClassesFrom(Biobase, AnnotatedDataFrame, AssayData, eSet, MIAME,
                   NChannelSet, Versions, VersionedBiobase, Versioned,
                   SnpSet)
@@ -26,7 +30,7 @@ importMethodsFrom(Biobase, annotatedDataFrameFrom, annotation,
 		  se.exprs, "se.exprs<-",
                   storageMode, "storageMode<-")
 
-
+## IRanges
 importClassesFrom(IRanges, RangedData, DataTable, List, DataTableORNULL, Vector, Annotated)
 importFrom(IRanges, IRanges, RangedData, RangedDataList,
 	   countOverlaps,
@@ -34,19 +38,12 @@ importFrom(IRanges, IRanges, RangedData, RangedDataList,
 	   matchMatrix, queryHits, subjectHits)
 importMethodsFrom(IRanges, findOverlaps)
 
-##importMethodsFrom(ff, pattern, filename, "pattern<-", "filename<-",
-##		  physical, "physical<-")
-
-## Exporting
-
-export(pdPkgFromBioC, requireAnnotation, affyPlatforms, celfileDate,
-       list.celfiles, is.ffmatrix, isPackageLoaded, ldStatus,
-       ldSetOptions, parStatus, ocProbesets, ocSamples, ldPath, getBar,
-       createFF, setCluster, delCluster, getCluster,
-       requireClusterPkgSet, requireClusterPkg, ocLapply,
-       splitIndicesByLength, splitIndicesByNode, initializeBigMatrix,
-       initializeBigVector, initializeBigArray)
-
+##---------------------------------------------------------------------------
+## Export
+##---------------------------------------------------------------------------
+##
+##            classes
+##
 ## PDInfo Classes
 exportClasses(AffyTilingPDInfo, AffyExpressionPDInfo, AffySNPPDInfo,
               AffySNPCNVPDInfo, AffyGenePDInfo, AffyExonPDInfo,
@@ -61,32 +58,6 @@ exportClasses(ExpressionFeatureSet, SnpFeatureSet, SnpCnvFeatureSet,
 
 ##SNP-level Classes
 exportClasses(AlleleSet, BeadStudioSet, oligoSnpSet, SnpSuperSet, CNSet)
-
-export(chromosome2integer, i2p, p2i)
-
-##SNP-level methods
-exportMethods(bothStrands, allele, calls, "calls<-", confs, "confs<-",
-              chromosome, "chromosome<-", copyNumber,
-              "copyNumber<-", cnConfidence, "cnConfidence<-", db, isSnp,
-              position, sampleNames, A, B, "A<-", "B<-")
-
-## FeatureSet methods
-exportMethods(exprs)
-
-## PDInfo methods
-exportMethods(annotation, db, initialize, genomeBuild,
-              geometry, kind, manufacturer)
-
-## Some general methods
-exportMethods(getM, getA, annotatedDataFrameFrom, open, close)
-##exportClasses(ffdf, ff_matrix)
-##exportClasses(ff_matrix, ffdf, ff_or_matrix)
-
-export(annotationPackages, checkExists)
-exportMethods(batch, batchNames, "batchNames<-", coerce, flags, show)
-exportMethods(nu, phi)
-exportMethods(batchStatistics, "batchStatistics<-")
-
 exportClasses(gSet,
 	      RangedDataCopyNumber,
 	      RangedDataCNV,
@@ -94,15 +65,41 @@ exportClasses(gSet,
 	      RangedDataHMM,
 	      CopyNumberSet,
 	      GenomeAnnotatedDataFrame)
-
+##
+##             methods
+##
+exportMethods(bothStrands, allele, calls, "calls<-", confs, "confs<-",
+              chromosome, "chromosome<-", copyNumber,
+              "copyNumber<-", cnConfidence, "cnConfidence<-", db, isSnp,
+              position, "position<-", sampleNames, A, B, "A<-", "B<-")
+## FeatureSet methods
+exportMethods(exprs)
+## PDInfo methods
+exportMethods(annotation, db, initialize, genomeBuild,
+              geometry, kind, manufacturer)
+## Some general methods
+exportMethods(getM, getA, annotatedDataFrameFrom, open, close)
+## CNSet methods
+exportMethods(batch, batchNames, "batchNames<-", coerce, flags, show)
+exportMethods(nu, phi)
+exportMethods(batchStatistics, "batchStatistics<-")
 exportMethods(baf, lrr, "baf<-", "lrr<-", coverage2, featuresInRange, findOverlaps, state, openff,
 	      closeff, checkOrder, "sampleNames<-", mean, updateObject,
 	      GenomeAnnotatedDataFrameFrom)
+##
+##             functions
+##
+export(pdPkgFromBioC, requireAnnotation, affyPlatforms, celfileDate,
+       list.celfiles, is.ffmatrix, isPackageLoaded, ldStatus,
+       ldSetOptions, parStatus, ocProbesets, ocSamples, ldPath, getBar,
+       createFF, setCluster, delCluster, getCluster,
+       requireClusterPkgSet, requireClusterPkg, ocLapply,
+       splitIndicesByLength, splitIndicesByNode, initializeBigMatrix,
+       initializeBigVector, initializeBigArray)
+export(chromosome2integer, i2p, p2i)
+export(annotationPackages, checkExists)
 export(chromosomePositionOrder,
        findOverlaps,
-       ##order, ## why is it necessary to export both the generic and method
        RangedDataCNV,
        RangedDataCBS,
        RangedDataHMM)
-
-

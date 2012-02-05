@@ -1,8 +1,15 @@
 setMethod("lrr", "BeadStudioSet", function(object)
 	  assayDataElement(object, "lrr"))
+setMethod("copyNumber", "BeadStudioSet", function(object)
+	  lrr(object))
 setReplaceMethod("lrr", c("BeadStudioSet", "ANY"),
 		 function(object, value) {
 			 assayDataElementReplace(object, "lrr", value)
+	 })
+setReplaceMethod("copyNumber", c("BeadStudioSet", "ANY"),
+		 function(object, value) {
+			 lrr(object) <- value
+			 object
 	 })
 setMethod("baf", "BeadStudioSet",
 	  function(object) {

@@ -1,14 +1,12 @@
-##setMethod("copyNumber", "oligoSnpSet", function(object) {
-##	cn <- assayDataElement(object, "copyNumber")
-####	if(is(cn, "numeric")) {
-####		return(cn)
-####	}
-####	if(is(cn, "integer")){
-####		cn <- cn/100
-####		return(cn)
-####	}
-##	return(cn)
-##})
+setReplaceMethod("baf", signature(object="oligoSnpSet"),
+		     function(object, value){
+			     if("baf" %in% assayDataElementNames(object)){
+				     object <- assayDataElementReplace(object, "baf", value)
+			     } else{
+				     warning("assay data element 'baf' does not exist in oligoSnpSet object")
+			     }
+			     return(object)
+		     })
 
 setMethod("copyNumber", "oligoSnpSet", function(object) {
 	cn <- assayDataElement(object, "copyNumber")

@@ -5,6 +5,8 @@
 \alias{baf,BeadStudioSet-method}
 \alias{baf<-,BeadStudioSet-method}
 \alias{baf<-}
+\alias{copyNumber,BeadStudioSet-method}
+\alias{copyNumber<-,BeadStudioSet,ANY-method}
 \alias{coerce,BeadStudioSet,data.frame-method}
 \alias{initialize,BeadStudioSet-method}
 \alias{lrr,BeadStudioSet-method}
@@ -45,6 +47,9 @@ Class \code{"\linkS4class{Versioned}"}, by class "gSet", distance 4.
 	"data.frame")}: coerce to data.frame with column headers 'lrr',
       'baf', 'x' (physical position with unit Mb), 'id', and 'is.snp'.
       Used for plotting with lattice.}
+    \item{}{\code{copyNumber(object)}:  accessor for the log R ratios.}
+    \item{}{\code{copyNumber(object) <- value}:  replacement method for
+      the log R ratios}
     \item{initialize}{\code{signature(.Object = "BeadStudioSet")}:
       constructs an instance of the class}
     \item{lrr}{\code{signature(object = "BeadStudioSet")}: accessor for
@@ -58,10 +63,6 @@ Class \code{"\linkS4class{Versioned}"}, by class "gSet", distance 4.
 R. Scharpf
 }
 
-%\seealso{
-%%%  ~~objects to See Also as \code{\link{~~fun~~}}, ~~~
-%%%  ~~or \code{\linkS4class{CLASSNAME}} for links to other classes ~~~
-%}
 \examples{
 new("BeadStudioSet")
 }

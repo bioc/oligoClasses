@@ -71,25 +71,25 @@ GenomeAnnotatedDataFrameFromAssayData <- function(object, annotationPkg, ...) {
     if (length(eltNames)==0)
 	    GenomeAnnotatedDataFrameFrom(NULL)
     else
-        GenomeAnnotatedDataFrameFrom(object[[eltNames[1]]], annotationPkg)
+        GenomeAnnotatedDataFrameFrom(object[[eltNames[1]]], annotationPkg, ...)
 }
 
 setMethod("GenomeAnnotatedDataFrameFrom",
 	  signature(object="ff_or_matrix"),
-	  function(object, annotationPkg){
-		  GenomeAnnotatedDataFrameFromMatrix(object, annotationPkg)
+	  function(object, annotationPkg, ...){
+		  GenomeAnnotatedDataFrameFromMatrix(object, annotationPkg, ...)
 })
 
 setMethod("GenomeAnnotatedDataFrameFrom",
 	  signature(object="NULL"),
-	  function(object){
+	  function(object, ...){
 		  GenomeAnnotatedDataFrameFromNULL(object)
 })
 
 setMethod("GenomeAnnotatedDataFrameFrom",
 	  signature(object="AssayData"),
-	  function(object, annotationPkg){
-		  GenomeAnnotatedDataFrameFromAssayData(object, annotationPkg)
+	  function(object, annotationPkg, ...){
+		  GenomeAnnotatedDataFrameFromAssayData(object, annotationPkg, ...)
 })
 
 setMethod("isSnp", signature(object="GenomeAnnotatedDataFrame"),
@@ -430,20 +430,25 @@ addFeatureAnnotation.crlmm2 <- function(object, featureNames, universe="", ...){
 ##	colnames(tmp.fd) <- c("chromosome", "position", "isSnp")
 	new("GenomeAnnotatedDataFrame",
 	    isSnp=as.logical(isSnp[I]),
-	    position=position[I],
-	    chromosome=chrom[I],
+	    position=as.integer(position[I]),
+	    chromosome=as.integer(chrom[I]),
 	    row.names=featureNames)
 }
 
 isSupportedAnnotation <- function(x){
 	validAnn <- annotationPackages()
-	L <- grep(x, validAnn)>=1
-	if(L==1) return(TRUE)
-	if(L > 1){
-		L <- grep(paste(x, "Crlmm", sep=""), validAnn)
-		res <- if(L==1) TRUE else FALSE
-		return(res)
+	validAnn <- validAnn[-grep(",", validAnn)]
+	x <- strsplit(x, ",")[[1]]
+	##L <- length(grep(x, validAnn))
+	istrue <- all(x%in%validAnn)
+	if(!istrue){
+		x <- paste(x, "Crlmm", sep="")
+		istrue <- all(x %in% validAnn)
+		##L <- grep(paste(x, "Crlmm", sep=""), validAnn)
+		##res <- if(L==1) TRUE else FALSE
+		##return(res)
 	}
+	istrue
 }
 
 annotationPackages <- function(){
@@ -486,8 +491,22 @@ checkAnnotation <- function(x){
 	if(length(x) == 0) return(FALSE)
 	x <- strsplit(x, ",")[[1]]
 	if(length(x) == 1){
-		return(isSupportedAnnotation(x))
+		istrue <- isSupportedAnnotation(x)
+	} else {
+		istrue <- sapply(x, isSupportedAnnotation)
+		istrue <- all(istrue)
 	}
-	if(length(x) == 2)
-		return(all(sapply(x, isSupportedAnnotation)))
+	return(istrue)
 }
+
+setReplaceMethod("position", signature(object="oligoSnpSet", value="integer"),
+		 function(object, value){
+			 position(featureData(object)) <- value
+			 object
+		 })
+
+setReplaceMethod("position", signature(object="GenomeAnnotatedDataFrame", value="integer"),
+		 function(object, value){
+			 object$position <- value
+			 object
+		 })

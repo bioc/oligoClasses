@@ -2,6 +2,8 @@
 \docType{methods}
 \alias{oligoSnpSet-class}
 \alias{initialize,oligoSnpSet-method}
+\alias{baf,oligoSnpSet-method}
+\alias{baf<-,oligoSnpSet-method}
 \alias{coerce,oligoSnpSet,data.frame-method}
 \alias{copyNumber,oligoSnpSet-method}
 \alias{copyNumber<-,oligoSnpSet,matrix-method}
@@ -11,6 +13,7 @@
 \alias{cnConfidence<-,oligoSnpSet,matrix-method}
 \alias{callsConfidence,oligoSnpSet-method}
 \alias{callsConfidence<-,oligoSnpSet,matrix-method}
+\alias{position<-,oligoSnpSet,integer-method}
 \alias{updateObject,oligoSnpSet-method}
 \title{Methods for oligoSnpSet class}
 \description{Methods for oligoSnpSet}
