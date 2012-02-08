@@ -86,8 +86,8 @@ R. Scharpf
 		data(oligoSetExample)
 		## Find markers in a oligoSnpSet object that overlap with the
 		## 2nd range:
-		rmatching <- findOverlaps(hmmResults[2, ], oligoSet)
-		index.in.range <- matchMatrix(rmatching)[,2]
+		rmatching <- findOverlaps(hmmResults[2, ], featureData(oligoSet))
+		index.in.range <- subjectHits(rmatching)
 		features.in.range <- featureNames(oligoSet)[index.in.range]
 		##
 		## For two RangedDataHMM objects, returns only the ranges

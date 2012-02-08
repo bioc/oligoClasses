@@ -35,8 +35,13 @@ importClassesFrom(IRanges, RangedData, DataTable, List, DataTableORNULL, Vector,
 importFrom(IRanges, IRanges, RangedData, RangedDataList,
 	   countOverlaps,
 	   ranges, values,
-	   matchMatrix, queryHits, subjectHits)
-importMethodsFrom(IRanges, findOverlaps)
+	   queryHits, subjectHits)
+importMethodsFrom(IRanges, findOverlaps, as.matrix)
+
+## ff
+## register open and close methods
+importFrom(ff, open.ff, close.ff)
+
 
 ##---------------------------------------------------------------------------
 ## Export

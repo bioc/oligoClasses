@@ -1,18 +1,19 @@
 setMethod("show", "CNSet", function(object){
 	is.ff <- is(calls(object), "ff_matrix") | is(calls(object), "ffdf")
 	if(is.ff){
+		if(!isPackageLoaded("ff")) warning("ff objects detected, but ff package is not loaded")
 		##to avoid warnings
 		if("SKW" %in% varLabels(object)) {
 			if(is(object$SKW, "ff"))
-				open(object$SKW)
+				open.ff(object$SKW)
 		}
 		if("SNR" %in% varLabels(object)){
 			if(is(object$SNR, "ff"))
-				open(object$SNR)
+				open.ff(object$SNR)
 		}
 		if("gender" %in% varLabels(object)){
 			if(is(object$gender, "ff"))
-				open(object$gender)
+				open.ff(object$gender)
 		}
 	}
 	ad.class <- class(A(object))[1]

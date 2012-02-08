@@ -108,23 +108,8 @@ setMethod("findOverlaps", signature(query="RangedDataCNV", subject="AnnotatedDat
 		  if(any(nachrom)){
 			  subject <- subject[!nachrom, ]
 		  }
-##		  start <- start(query)
-##		  end <- end(query)
 		  CHR <- chromosome(query)
-		  ##featuresInXlim(object, start=start(range), end=end(range), CHR=range$chrom, ...)
-##		  if("frame" %in% names(list(...))) {
-##			  frame <- list(...)[["frame"]]
-##		  } else frame <- rep(0, nrow(query))
-##		  if(any(frame > 0)){
-##			  data(chromosomeAnnotation, package="SNPchip")
-##			  chr.end <- chromosomeAnnotation[CHR, "chromosomeSize"]
-##			  start <- start-frame
-##			  start[start < 0] <- 0
-##			  end <- end+frame
-##			  end[end > chr.end] <- chr.end
-##		  }
 		  ir.query <- IRanges(start(query), end(query))
-		  ## depends on platform
 		  ir.subject <- IRanges(position(subject), position(subject))
 		  res <- findOverlaps(query=ir.query,
 				      subject=ir.subject,
@@ -132,7 +117,7 @@ setMethod("findOverlaps", signature(query="RangedDataCNV", subject="AnnotatedDat
 				      minoverlap=minoverlap,
 				      type=type,
 				      select=select, ...)
-		  mm <- matchMatrix(res)
+		  mm <- as.matrix(res)
 		  ## remove matches that are not the same chromosome
 		  subj.index <- mm[,2]
 		  quer.index <- mm[, 1]
@@ -143,6 +128,7 @@ setMethod("findOverlaps", signature(query="RangedDataCNV", subject="AnnotatedDat
 		  ##which(position(object) >= start & position(object) <= end & chromosome(object) == CHR)
 		  ##} else which(pos >= start & pos <= end & chrom == CHR)
 		  mm <- mm[same.chrom, , drop=FALSE]
+		  res <- res[same.chrom, ]
 		  ## Now, map the subject indices back to the indices in
 		  ## the original object
 		  if(any(nachrom)){
@@ -153,8 +139,9 @@ setMethod("findOverlaps", signature(query="RangedDataCNV", subject="AnnotatedDat
 			  index <- match(fns.subject, fns.subject2)
 			  stopifnot(all(!is.na(index)))
 			  mm[, 2] <- index
+			  res <- res[index, ]
 		  }
-		  res@matchMatrix <- mm
+		  ##res@as.matrix <- mm
 		  return(res)
 	  })
 
@@ -178,11 +165,12 @@ setMethod("findOverlaps", signature(query="AnnotatedDataFrame", subject="RangedD
 				      minoverlap=minoverlap,
 				      type=type,
 				      select=select, ...)
-		  mm <- matchMatrix(res)
+		  mm <- as.matrix(res)
 		  subj.index <- mm[,2]
 		  quer.index <- mm[, 1]
 		  same.chrom <- chromosome(query)[quer.index] == chromosome(subject)[subj.index]
 		  mm <- mm[same.chrom, , drop=FALSE]
+		  res <- res[same.chrom, ]
 		  if(any(nachrom)){
 			  query.index <- mm[, 1]
 			  fns.query <- sampleNames(query)[query.index]
@@ -190,8 +178,9 @@ setMethod("findOverlaps", signature(query="AnnotatedDataFrame", subject="RangedD
 			  index <- match(fns.query, fns.query2)
 			  stopifnot(all(!is.na(index)))
 			  mm[, 1] <- index
+			  res <- res[index, ]
 		  }
-		  res@matchMatrix <- mm
+		  ##res@as.matrix <- mm
 		  return(res)
 	  })
 
@@ -217,7 +206,7 @@ setMethod("findOverlaps", signature(query="RangedDataCNV",
 				      minoverlap=minoverlap,
 				      type=type,
 				      select=select,...)
-		  mm <- matchMatrix(res)
+		  mm <- as.matrix(res)
 		  chrq <- chrq[mm[,1]]
 		  chrs <- chrs[mm[,2]]
 		  if(match.id){
@@ -225,7 +214,8 @@ setMethod("findOverlaps", signature(query="RangedDataCNV",
 			  ids <- ids[mm[,2]]
 			  index <- chrq == chrs & idq == ids
 		  } else index <- chrq == chrs
-		  res@matchMatrix <- mm[index, , drop=FALSE]
+		  ##res@as.matrix <- mm[index, , drop=FALSE]
+		  res <- res[index, ]
 		  return(res)
 	  })
 
@@ -237,11 +227,12 @@ setMethod("findOverlaps", signature(query="RangedDataHMM",
 		  stateq <- state(query)
 		  states <- state(subject)
 		  res <- callNextMethod(...)
-		  mm <- matchMatrix(res)
+		  mm <- as.matrix(res)
 		  stateq <- stateq[mm[, 1]]
 		  states <- states[mm[, 2]]
 		  index <- which(stateq == states)
-		  res@matchMatrix <- mm[index, , drop=FALSE]
+		  ##res@as.matrix <- mm[index, , drop=FALSE]
+		  res <- res[index, ]
 		  return(res)
 	  })
 

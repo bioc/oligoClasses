@@ -1,10 +1,10 @@
 Package: oligoClasses
-Version: 1.17.21
+Version: 1.17.24
 Title: Classes for high-throughput arrays supported by oligo and crlmm
 Author: Benilton Carvalho and Robert Scharpf
 Maintainer: Benilton Carvalho <Benilton.Carvalho@cancer.org.uk> and Robert Scharpf <rscharpf@jhsph.edu>
 Depends:  R (>= 2.10), methods, Biobase (>= 2.15.1)
-Imports:  methods, graphics, BiocGenerics (>= 0.1.0), IRanges (>= 1.13.4), Biostrings (>= 2.23.2), affyio (>= 1.19.2), ff
+Imports:  methods, graphics, BiocGenerics (>= 0.1.0), IRanges (>= 1.13.22), Biostrings (>= 2.23.2), affyio (>= 1.19.2), ff
 Enhances: ff, snow
 Suggests: RSQLite, hapmapsnp5, hapmapsnp6,
           pd.genomewidesnp.6,
