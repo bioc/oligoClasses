@@ -2,7 +2,7 @@ THISPKG <- "oligoClasses"
 .oligoClassesPkgEnv <- new.env(parent=emptyenv())
 
 .onAttach <- function(libname, pkgname) {
-	version <- packageDescription("oligoClasses", field="Version")
+	version <- packageDescription("oligoClasses", fields="Version")
 	##message(getBar())
 	packageStartupMessage("Welcome to oligoClasses version ", version)
 	ldSetOptions()

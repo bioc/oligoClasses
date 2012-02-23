@@ -10,7 +10,7 @@
 \alias{position<-,GenomeAnnotatedDataFrame,integer-method}
 %\alias{isSnp,GenomeAnnotatedDataFrame,ANY-method}
 %\alias{position,GenomeAnnotatedDataFrame-method}
-\alias{updateObject,AnnotatedDataFrame-method}
+\alias{updateObject,GenomeAnnotatedDataFrame-method}
 
 \title{Class \code{"GenomeAnnotatedDataFrame"}}
 \description{
@@ -38,7 +38,9 @@ Class \code{"\linkS4class{Versioned}"}, by class "AnnotatedDataFrame", distance 
     \item{coerce}{\code{signature(from = "AnnotatedDataFrame", to = "GenomeAnnotatedDataFrame")}: coerce an AnnotatedDataFrame with chromosome, position, and isSnp varLabels to a GenomeAnnotatedDataFrame }
     \item{initialize}{\code{signature(.Object = "GenomeAnnotatedDataFrame")}: ... }
     \item{isSnp}{\code{signature(object = "GenomeAnnotatedDataFrame", pkgname = "ANY")}: Many platforms include polymorphic and nonpolymorphic markers.  isSnp evalutes to \code{TRUE} if the marker is polymorphic.}
-    \item{position}{\code{signature(object = "GenomeAnnotatedDataFrame")}: Physical position in the genome}
+    \item{position}{\code{signature(object =
+	"GenomeAnnotatedDataFrame")}: Physical position in the genome}
+    \item{updateObject}{\code{signature(object="GenomeAnnotatedDataFrame")}: creates a new \code{GenomeAnnotatedDataFrame}.}
 }
 }
 

@@ -75,7 +75,7 @@ setClass("SnpSuperSet", contains=c("AlleleSet", "SnpSet"))
 ###########################################################################
 setClass("GenomeAnnotatedDataFrame", contains="AnnotatedDataFrame")
 
-setMethod("updateObject", signature(object="AnnotatedDataFrame"),
+setMethod("updateObject", signature(object="GenomeAnnotatedDataFrame"),
 	  function(object, ..., verbose=FALSE){
 		  ##as(object, "GenomeAnnotatedDataFrame")
 		  new("GenomeAnnotatedDataFrame",
