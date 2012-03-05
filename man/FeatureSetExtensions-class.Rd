@@ -2,6 +2,7 @@
 \docType{class}
 \alias{show,FeatureSet-method}
 \alias{FeatureSet-class}
+\alias{FeatureSet}
 \alias{initialize,FeatureSet-method}
 \alias{GeneFeatureSet-class}
 \alias{ExpressionFeatureSet-class}
@@ -16,7 +17,7 @@
 \section{Objects from the Class}{
   The FeatureSet class is VIRTUAL. Therefore users are not able to
   create instances of such class.
-  
+
   Objects for FeatureSet-like classes can be created by calls of the form:
   \code{new(CLASSNAME, assayData, manufacturer, platform, exprs,
     phenoData, featureData, experimentData, annotation, ...)}.
