@@ -62,3 +62,4 @@ chromosomePositionOrder <- function(object, ...){
 	return(object)
 }
 
+setMethod("genomeBuild", signature(object="gSet"), function(object) object@genomeBuild)

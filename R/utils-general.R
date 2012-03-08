@@ -49,7 +49,7 @@ pdPkgFromBioC <- function(pkgname, lib=.libPaths()[1], verbose=TRUE) {
       return(FALSE)
     } else {
       install.packages(pkgname, lib=lib,
-                       repos=biocReposList(),
+                       repos=biocinstallRepos(),
                        dependencies=TRUE)
       status <- require(pkgname, character.only=TRUE, quietly=!verbose)
       if (status){

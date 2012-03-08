@@ -99,32 +99,16 @@ setMethod("coerce", signature(from="AnnotatedDataFrame", to="GenomeAnnotatedData
 ###########################################################################
 setClass("gSet", contains="eSet",
 	 representation(featureData="GenomeAnnotatedDataFrame",
+			genomeBuild="character",
 			"VIRTUAL"))
 
 setClass("oligoSnpSet", contains="SnpSet",
 	 representation(featureData="GenomeAnnotatedDataFrame")) ## total copy number and genotypes
 
-setMethod("updateObject", signature(object="oligoSnpSet"),
-          function(object, ..., verbose=FALSE) {
-		  if (verbose) message("updateObject(object = 'oligoSnpSet')")
-		  obj <- tryCatch(callNextMethod(object), error=function(e) NULL)
-		  if(is.null(obj)){
-			  obj <- new("oligoSnpSet",
-				     assayData = updateObject(assayData(object),
-				     ...., verbose=verbose),
-				     phenoData = phenoData(object),
-				     experimentData = updateObject(experimentData(object),
-				     ..., verbose=verbose),
-				     annotation = updateObject(annotation(object),
-				     ..., verbose=verbose),
-				     featureData=updateObject(featureData(object), ..., verbose=FALSE))
-		  }
-		  if (all(isCurrent(obj))) return(obj)
-		  obj
-          })
-
 setClass("CopyNumberSet", contains="gSet") ## total copy number (no genotypes available)
 setClass("BeadStudioSet", contains="gSet")
+
+
 ###########################################################################
 ##Summary-level classes - CNP
 ###########################################################################

@@ -104,7 +104,9 @@ export(pdPkgFromBioC, requireAnnotation, affyPlatforms, celfileDate,
 export(chromosome2integer, i2p, p2i)
 export(annotationPackages, checkExists)
 export(chromosomePositionOrder,
+       integerMatrix,
        findOverlaps,
        RangedDataCNV,
        RangedDataCBS,
        RangedDataHMM)
+

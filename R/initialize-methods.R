@@ -252,6 +252,7 @@ setMethod("initialize", "BeadStudioSet",
                 		   nrow=nrow(baf),
 		                   ncol=ncol(baf),
                     		   dimnames=dimnames(baf)),
+		   genomeBuild=character(),
 		   ...) {
 	.Object <- callNextMethod(.Object,
 				  assayData = assayData,
@@ -259,7 +260,8 @@ setMethod("initialize", "BeadStudioSet",
 				  featureData = featureData,
 				  experimentData = experimentData,
 				  annotation = annotation,
-				  protocolData = protocolData)
+				  protocolData = protocolData,
+				  genomeBuild=genomeBuild, ...)
 	return(.Object)
 })
 
