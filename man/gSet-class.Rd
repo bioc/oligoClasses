@@ -2,6 +2,7 @@
 \Rdversion{1.1}
 \docType{class}
 \alias{gSet-class}
+\alias{gSet}
 \alias{checkOrder,gSet-method}
 \alias{db,gSet-method}
 \alias{genomeBuild,gSet-method}

@@ -5,6 +5,10 @@
 \alias{RangedDataCNV-class}
 \alias{RangedDataCBS-class}
 \alias{RangedDataHMM-class}
+\alias{RangedDataCopyNumber}
+\alias{RangedDataCNV}
+\alias{RangedDataCBS}
+\alias{RangedDataHMM}
 \alias{coverage2,RangedDataCNV-method}
 \alias{mean,RangedDataCBS-method}
 \alias{featuresInRange,SnpSet,RangedDataCNV-method}

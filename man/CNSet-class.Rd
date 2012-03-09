@@ -2,6 +2,7 @@
 \Rdversion{1.1}
 \docType{class}
 \alias{CNSet-class}
+\alias{CNSet}
 \alias{[,CNSet-method}
 \alias{A,CNSet-method}
 \alias{A<-,CNSet-method}

@@ -2,6 +2,7 @@
 \Rdversion{1.1}
 \docType{class}
 \alias{AlleleSet-class}
+\alias{AlleleSet}
 \alias{allele}
 \alias{allele,AlleleSet-method}
 \alias{allele,SnpFeatureSet-method}

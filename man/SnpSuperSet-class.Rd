@@ -2,6 +2,7 @@
 \Rdversion{1.1}
 \docType{class}
 \alias{SnpSuperSet-class}
+\alias{SnpSuperSet}
 \alias{initialize,SnpSuperSet-method}
 
 \title{Class "SnpSuperSet"}

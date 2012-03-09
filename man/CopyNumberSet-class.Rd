@@ -2,6 +2,7 @@
 \Rdversion{1.1}
 \docType{class}
 \alias{CopyNumberSet-class}
+\alias{CopyNumberSet}
 \alias{cnConfidence,CopyNumberSet-method}
 \alias{cnConfidence<-,CopyNumberSet,matrix-method}
 \alias{copyNumber,CopyNumberSet-method}

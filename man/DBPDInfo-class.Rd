@@ -18,6 +18,22 @@
 \alias{ExpressionPDInfo-class}
 \alias{NgsExpressionPDInfo-class}
 
+\alias{DBPDInfo}
+\alias{AffySNPPDInfo}
+\alias{AffySNPCNVPDInfo}
+\alias{show,DBPDInfo-method}
+\alias{AffyExpressionPDInfo}
+\alias{AffyTilingPDInfo}
+\alias{AffyGenePDInfo}
+\alias{AffyExonPDInfo}
+\alias{AffySTPDInfo}
+\alias{SNPPDInfo}
+\alias{SNPCNVPDInfo}
+\alias{NgsTilingPDInfo}
+\alias{TilingPDInfo}
+\alias{ExpressionPDInfo}
+\alias{NgsExpressionPDInfo}
+
 \title{Class "DBPDInfo"}
 \description{A class for Platform Design Information objects, stored
   using a database approach}

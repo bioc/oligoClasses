@@ -2,6 +2,7 @@
 \Rdversion{1.1}
 \docType{class}
 \alias{GenomeAnnotatedDataFrame-class}
+\alias{GenomeAnnotatedDataFrame}
 %\alias{chromosome,GenomeAnnotatedDataFrame-method}
 %\alias{chromosome<-,GenomeAnnotatedDataFrame,integer-method}
 \alias{coerce,AnnotatedDataFrame,GenomeAnnotatedDataFrame-method}
