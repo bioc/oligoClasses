@@ -6,15 +6,17 @@
 \alias{RangedDataCBS-class}
 \alias{RangedDataHMM-class}
 \alias{RangedDataCopyNumber}
-\alias{RangedDataCNV}
-\alias{RangedDataCBS}
-\alias{RangedDataHMM}
 \alias{coverage2,RangedDataCNV-method}
+\alias{coverage2}
 \alias{mean,RangedDataCBS-method}
 \alias{featuresInRange,SnpSet,RangedDataCNV-method}
 \alias{sampleNames,RangedDataCNV-method}
 \alias{state,RangedDataCNV-method}
+\alias{state}
 \alias{todf,RangedDataCNV,ANY-method}
+\alias{coerce,RangedData,RangedDataCBS-method}
+\alias{coerce,RangedData,RangedDataHMM-method}
+\alias{sampleNames<-,RangedDataCNV,character-method}
 %\alias{trioNames,RangedDataCNV-method}
 
 \title{Classes in MinimumDistance for data on ranges}
@@ -62,18 +64,36 @@ Class \code{"\linkS4class{Annotated}"}, by class "RangedDataCNV", distance 6.
 }
 
 \section{Accessors for \code{RangedDataCNV}}{
+  In the following code descriptions, \code{object} is a class derived
+  from \code{RangedData}.
   \describe{
-    In the following code descriptions, \code{object} belongs to class
+
+    \item{}{\code{as(object, "RangedDataCBS")}: coerce an object of class
+      \code{RangedData} to \code{RangedDataCBS}.}
+
+    \item{}{\code{as(object, "RangedDataHMM")}: coerce an object of class
+    \code{RangedData} to \code{RangedDataHMM}.}
 
     \item{}{\code{coverage2(object)}: numeric vector indicating the
       number of markers in each range.  The length of the vector is the
       same as \code{nrow(object)}.}
 
+    \item{}{\code{mean(object)}: returns the mean copy number for each
+    segment in \code{object}.}
+
     \item{}{\code{sampleNames(object)}: character vector of sample ids
-    for each range.  The length of the vector is the same as \code{nrow(object)}.}
+    for each range.  The length of the vector is the same as
+    \code{nrow(object)}.}
 
-  }
+    \item{}{\code{sampleNames(object) <- value}: Assign the
+    \code{character} fector \code{value} to the sample identifiers in a
+    \code{RangedDataCNV}-derived object.}
 
+    \item{}{\code{state(object)}: For objects of class
+  \code{RangedDataHMM} derived by fitting a hidden Markov model, the
+  function \code{state} returns the index of the hidden state.}
+
+}
 }
 
 \section{Accessors for \code{RangedDataCBS} objects}{
@@ -114,7 +134,9 @@ R. Scharpf
 \seealso{
 
   See \code{\linkS4class{RangedData}} for a detailed description and
-  additional methods.
+  additional methods.  See the constructors \code{\link{RangedDataCNV}},
+  \code{\link{RangedDataCBS}}, and \code{\link{RangedDataHMM}} for
+  generating an object of the respective class.
 
 }
 \examples{showClass("RangedDataCNV")}

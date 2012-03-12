@@ -2,11 +2,6 @@
 \alias{RangedDataCBS}
 \alias{RangedDataHMM}
 \alias{RangedDataCNV}
-\alias{coverage2}
-\alias{state}
-\alias{coerce,RangedData,RangedDataCBS-method}
-\alias{coerce,RangedData,RangedDataHMM-method}
-\alias{sampleNames<-,RangedDataCNV,character-method}
 
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
@@ -23,15 +18,10 @@
 \usage{
 RangedDataCNV(ranges = IRanges(), values, start, end, chromosome, coverage, sampleId, startIndexInChromosome, endIndexInChromosome, ...)
 RangedDataCBS(ranges = IRanges(), seg.mean = vector("numeric",  length(ranges)), ...)
-RangedDataHMM(ranges=IRanges(), state=vector("integer",length(ranges)),...)
-%samplesNames(object) <- value
-coverage2(object)
-state(object)
-%trioNames(object)
+RangedDataHMM(ranges=IRanges(),  state=vector("integer",length(ranges)),...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{object}{ A \code{RangedDataHMM} or a \code{RangedDataCNV} object.}
   \item{ranges}{An instance of \code{IRanges} class.}
   \item{values}{A \code{DataFrame} object.}
   \item{start}{integer -- physical position indicating start of copy number
@@ -62,10 +52,7 @@ state(object)
 
 \value{
 
-  \code{coverage2} and \code{state} return a column (covariate) of the
-  \code{RangedData} object. Coverage refers to the number of markers in
-  the interval.  State is a method for \code{RangedDataHMM} objects and
-  returns the copy number state, typically estimated from a HMM.
+A \code{RangedDataCNV}-derived class
 
 }
 
