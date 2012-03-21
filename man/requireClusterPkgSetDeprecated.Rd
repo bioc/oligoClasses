@@ -1,8 +1,11 @@
 \name{requireClusterPkgSet}
 \alias{requireClusterPkg}
 \alias{requireClusterPkgSet}
+\alias{requireClusterPkg-deprecated}
+\alias{requireClusterPkgSet-deprecated}
 
 \title{
+  DEPRECATED FUNCTIONS.
   Package loaders for clusters.
 }
 \description{

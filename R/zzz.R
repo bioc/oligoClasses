@@ -3,11 +3,10 @@ THISPKG <- "oligoClasses"
 
 .onAttach <- function(libname, pkgname) {
 	version <- packageDescription("oligoClasses", fields="Version")
-	##message(getBar())
 	packageStartupMessage("Welcome to oligoClasses version ", version)
 	ldSetOptions()
-	bm <- ldStatus(TRUE)
-	snow <- ocParallelStatus()
+##	bm <- ldStatus(TRUE)
+##	snow <- ocParallelStatus()
 
 	setHook(packageEvent("ff", "attach"),
 		function(...){
@@ -15,7 +14,7 @@ THISPKG <- "oligoClasses"
 			ldStatus(TRUE)
 		})
 
-	setHook(packageEvent("snow", "attach"),
+	setHook(packageEvent("foreach", "attach"),
 		function(...){
 			ocParallelStatus()
 		})

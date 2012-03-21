@@ -1,8 +1,13 @@
-\name{ocSamples}
-\alias{ocSamples}
-\alias{ocProbesets}
+\name{setCluster}
+\alias{setCluster}
+\alias{getCluster}
+\alias{delCluster}
+\alias{setCluster-deprecated}
+\alias{getCluster-deprecated}
+\alias{delCluster-deprecated}
 
 \title{
+  DEPRECATED FUNCTIONS.
   Cluster and large dataset management utilities.
 }
 \description{
@@ -10,25 +15,27 @@
   dataset handling through the 'bigmemory' package.
 }
 \usage{
-ocSamples(n)
-ocProbesets(n)
+setCluster(...)
+getCluster()
+delCluster()
 }
 
 \arguments{
-  \item{n}{integer representing the maximum number of samples/probesets
-    to be processed simultaneously on a compute node.}
+  \item{\dots}{arguments to be passed to \code{makeCluster} in the
+    'snow' package.}
 }
 
 \details{
   Some methods in the oligo/crlmm packages, like \code{backgroundCorrect},
   \code{normalize}, \code{summarize} and \code{rma} can use a cluster
-  (set through the 'foreach' package). The use of cluster features is
-  conditioned on the availability of the 'ff' (used to
-  provide shared objects across compute nodes) and 'foreach' packages.
+  (set through 'snow' package). The use of cluster features is
+  conditioned on the availability of the 'bigmemory' (used to
+  provide shared objects across compute nodes) and 'snow' packages.
 
-  To use a cluster, 'oligo/crlmm' checks for three requirements: 1) 'ff'
-  is loaded; 2) an adaptor for the parallel backend (like 'doMPI',
-  'doSNOW', 'doMC') is loaded and registered.
+  To use a cluster, 'oligo/crlmm' checks for three requirements: 1)
+  'ff' is loaded; 2) 'snow' is loaded; and 3) the 'cluster'
+  option is set (e.g., via options(cluster=makeCluster(...)) or
+  setCluster(...)).
 
   If only the 'ff' package is available and loaded (in addition
   to the caller package - 'oligo' or 'crlmm'), these methods will allow
@@ -52,12 +59,6 @@ ocProbesets(n)
 
 \author{
   Benilton Carvalho
-}
-
-\examples{
-   library(doMC)
-   registerDoMC()
-   ## tasks like summarize()
 }
 \keyword{manip}
 

@@ -42,6 +42,11 @@ importMethodsFrom(IRanges, findOverlaps, as.matrix)
 ## register open and close methods
 importFrom(ff, open.ff, close.ff)
 
+## foreach
+import(foreach)
+
+## BiocInstaller
+importFrom(BiocInstaller, biocinstallRepos)
 
 ##---------------------------------------------------------------------------
 ## Export
@@ -52,53 +57,57 @@ importFrom(ff, open.ff, close.ff)
 ## PDInfo Classes
 exportClasses(AffyTilingPDInfo, AffyExpressionPDInfo, AffySNPPDInfo,
               AffySNPCNVPDInfo, AffyGenePDInfo, AffyExonPDInfo,
-              NgsExpressionPDInfo, NgsTilingPDInfo)
-
-## broke oligo without the exports below
-exportClasses(DBPDInfo, ExpressionPDInfo, FeatureSet, TilingPDInfo)
+              NgsExpressionPDInfo, NgsTilingPDInfo, DBPDInfo,
+              ExpressionPDInfo, TilingPDInfo)
 
 ##Feature-level Classes
-exportClasses(ExpressionFeatureSet, SnpFeatureSet, SnpCnvFeatureSet,
-              TilingFeatureSet, ExonFeatureSet, GeneFeatureSet)
+exportClasses(FeatureSet, ExpressionFeatureSet, SnpFeatureSet,
+              SnpCnvFeatureSet, TilingFeatureSet, ExonFeatureSet,
+              GeneFeatureSet)
 
 ##SNP-level Classes
-exportClasses(AlleleSet, BeadStudioSet, oligoSnpSet, SnpSuperSet, CNSet)
-exportClasses(gSet,
-	      RangedDataCopyNumber,
-	      RangedDataCNV,
-	      RangedDataCBS,
-	      RangedDataHMM,
-	      CopyNumberSet,
-	      GenomeAnnotatedDataFrame)
-##
+exportClasses(AlleleSet, BeadStudioSet, oligoSnpSet, SnpSuperSet, CNSet,
+	      gSet, RangedDataCopyNumber, RangedDataCNV, RangedDataCBS,
+	      RangedDataHMM, CopyNumberSet, GenomeAnnotatedDataFrame)
+
+
+## EXPORTING.....
 ##             methods
 ##
+
+## Methods ...
 exportMethods(bothStrands, allele, calls, "calls<-", confs, "confs<-",
               chromosome, "chromosome<-", copyNumber,
               "copyNumber<-", cnConfidence, "cnConfidence<-", db, isSnp,
               position, "position<-", sampleNames, A, B, "A<-", "B<-")
+
 ## FeatureSet methods
 exportMethods(exprs)
+
 ## PDInfo methods
 exportMethods(annotation, db, initialize, genomeBuild,
               geometry, kind, manufacturer)
+
 ## Some general methods
 exportMethods(getM, getA, annotatedDataFrameFrom, open, close)
+
 ## CNSet methods
-exportMethods(batch, batchNames, "batchNames<-", coerce, flags, show)
-exportMethods(nu, phi)
-exportMethods(batchStatistics, "batchStatistics<-")
-exportMethods(baf, lrr, "baf<-", "lrr<-", coverage2, featuresInRange, findOverlaps, state, openff,
-	      closeff, checkOrder, "sampleNames<-", mean, updateObject,
+exportMethods(batch, batchNames, "batchNames<-", coerce, flags, show,
+	      nu, phi, batchStatistics, "batchStatistics<-", baf, lrr,
+	      "baf<-", "lrr<-", coverage2, featuresInRange,
+	      findOverlaps, state, openff, closeff, checkOrder,
+	      "sampleNames<-", mean, updateObject,
 	      GenomeAnnotatedDataFrameFrom)
-##
+
+## EXPORTING....
 ##             functions
 ##
+
+## Functions for parallel operations
 export(pdPkgFromBioC, requireAnnotation, affyPlatforms, celfileDate,
        list.celfiles, is.ffmatrix, isPackageLoaded, ldStatus,
        ldSetOptions, parStatus, ocProbesets, ocSamples, ldPath, getBar,
-       createFF, setCluster, delCluster, getCluster,
-       requireClusterPkgSet, requireClusterPkg, ocLapply,
+       createFF, ocLapply,
        splitIndicesByLength, splitIndicesByNode, initializeBigMatrix,
        initializeBigVector, initializeBigArray)
 export(chromosome2integer, i2p, p2i)
@@ -110,3 +119,6 @@ export(chromosomePositionOrder,
        RangedDataCBS,
        RangedDataHMM)
 
+
+### Deprecated
+export(setCluster, getCluster, delCluster, requireClusterPkgSet, requireClusterPkg)

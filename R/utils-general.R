@@ -40,7 +40,7 @@ pdPkgFromBioC <- function(pkgname, lib=.libPaths()[1], verbose=TRUE) {
       return(FALSE)
     }
 
-    biocContribUrl <- sapply(biocReposList(), contrib.url)
+    biocContribUrl <- sapply(biocinstallRepos(), contrib.url)
     biocPkgs <- available.packages(biocContribUrl)
     if (! pkgname %in% biocPkgs[, "Package"]) {
       if (verbose)

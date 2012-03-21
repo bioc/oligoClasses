@@ -34,6 +34,6 @@ ocLapply(X, FUN, ..., neededPkgs)
   Benilton S Carvalho
 }
 
-\seealso{lapply, setCluster, parStatus}
+\seealso{lapply, parStatus}
 
 \keyword{manip}

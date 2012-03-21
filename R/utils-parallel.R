@@ -1,4 +1,10 @@
-## utilities for parallel computing (via snow)
+## utilities for parallel computing (now (20Mar2012) via foreach)
+##
+## NOTE: Using this framework, it is possible to allow for parallel
+## computing WITHOUT the ff package. The problem with this is to
+## overload the system as operations will pottentially copy the same
+## data over and over and over. Therefore, I chose to allow parallel
+## computing only when ff is loaded.
 ##
 ## Summary (useful when coding):
 ##   - parStatus: TRUE if requirements for parallel are met
@@ -7,41 +13,25 @@
 ##   - ocPath: path where ff objects are to be saved
 
 parStatus <- function()
-    is(getOption("cluster"), "cluster") && isPackageLoaded("snow")
+    getDoParRegistered() & isPackageLoaded('ff')
 
 ocParallelStatus <- function(verbose=TRUE){
-  sn <- isPackageLoaded("snow")
   cl <- parStatus()
-  ld <- isPackageLoaded("ff")
   if (verbose){
-    message("Parallel computing support for 'oligo/crlmm': ", appendLF=FALSE)
-    if (!ld){  
-      message("Disabled")
-      message("     - Load 'ff'")
-      if (!sn){
-        message("     - Load 'snow'")
-        message("     - Use options(cluster=makeCluster(...))")
-      } else {
-        if (!cl)
-          message("     - Use options(cluster=makeCluster(...))")
-      }
-    }else{
-      if (sn){
-        if (cl){
+      message("Parallel computing support for 'oligo/crlmm': ", appendLF=FALSE)
+      if (!cl){
+          message("Disabled")
+          message("     - Load 'ff'")
+          message("     - Load and register a 'foreach' adaptor")
+          message("        Example - Using 'multicore' for 2 cores:")
+          message("             library(doMC)")
+          message("             registerDoMC(2)")
+      }else{
           message("Enabled")
           ocProbesets(getOption('ocProbesets'))
           ocSamples(getOption('ocSamples'))
-        }else{
-          message("Disabled")
-          message("     - Use options(cluster=makeCluster(...))")
-        }
-      }else{
-        message("Disabled")
-        message("     - Load 'snow'")
-        message("     - Use options(cluster=makeCluster(...))")
       }
-    }
-    message(getBar())
+      message(getBar())
   }
   return(cl)
 }
@@ -51,8 +41,6 @@ ocProbesets <- function(n){
     return(getOption("ocProbesets"))
   }else{
     options(ocProbesets=n)
-    if (parStatus())
-        clusterCall(getCluster(), options, ocProbesets=n)
     invisible(TRUE)
   }
 }
@@ -62,58 +50,13 @@ ocSamples <- function(n){
     return(getOption("ocSamples"))
   }else{
     options(ocSamples=n)
-    if (parStatus())
-        clusterCall(getCluster(), options, ocSamples=n)
     invisible(TRUE)
   }
 }
 
-setCluster <- function(...){
-  pkg <- "snow"
-  require(pkg, character.only=TRUE)
-  options(cluster=makeCluster(...))
-}
-
-delCluster <- function(){
-  stopCluster(getOption("cluster"))
-  options(cluster=NULL)
-}
-
-getCluster <- function()
-  getOption("cluster")
-
-requireClusterPkgSet <- function(packages){
-  if (!parStatus())
-    stop("cluster is not ready. Use 'setCluster'.")
-  for (pkg in packages){
-    pkgOnCluster <- requireClusterPkg(pkg, character.only=TRUE)
-    if (!pkgOnCluster){
-      msg <- paste("Package '", pkg, "' not found on the cluster. ",
-                   "Install it or load it manually using ",
-                   "'clusterEvalQ(getCluster(), library(", pkg,
-                   ", lib.loc=<APPROPRIATE PATH>))'", sep="")
-      stop(msg)
-    }
-  }
-  TRUE
-}
-
-requireClusterPkg <- function(pkg, character.only=TRUE)
-  all(unlist(clusterCall(getCluster(), require, pkg, character.only=character.only)))
-
 ocLapply <- function(X, FUN, ..., neededPkgs){
-  if (parStatus()){
-    if (missing(neededPkgs)){
-      neededPkgs <- "ff"
-    }else{
-      neededPkgs <- unique(append(neededPkgs, "ff"))
-    }
-    ok <- requireClusterPkgSet(neededPkgs)
-    res <- parLapply(getCluster(), X, FUN, ...)
-  }else{
-    res <- lapply(X, FUN, ...)
-  }
-  return(res)
+    neededPkgs <- unique(c('ff', neededPkgs))
+    foreach(x=X, .packages=neededPackages) %dopar% FUN(x, ...)
 }
 
 splitIndicesByLength <- function(x, lg){
@@ -122,10 +65,31 @@ splitIndicesByLength <- function(x, lg){
 }
 
 splitIndicesByNode <- function(x){
-  if (parStatus()){
-    clusterSplit(getCluster(), x)
-  }else{
-    list(x)
-  }
+    split(x, sort(rep(1:getDoParWorkers(), length.out=length(x))))
 }
 
+## deprecated
+setCluster <- function(...){
+    msg <- paste('To set cluster for oligo/crlmm/friends,',
+                 'use the "foreach" package and one adaptor like "doMC" or "doMPI."',
+                 'Then, register the adaptor via registerDo*().')
+    .Deprecated(msg=msg)
+}
+
+delCluster <- function(){
+    msg <- paste('Use the recommendations used by the "foreach" package.')
+    .Deprecated(msg=msg)
+}
+
+
+getCluster <- function(){
+    .Deprecated('getDoParWorkers')
+}
+
+requireClusterPkgSet <- function(packages){
+    .Deprecated(msg='Function no longer needed. Replaced by proper argument of foreach')
+}
+
+requireClusterPkg <- function(pkg, character.only=TRUE){
+    .Deprecated(msg='Function no longer needed. Replaced by proper argument of foreach')
+}
