@@ -56,7 +56,7 @@ ocSamples <- function(n){
 
 ocLapply <- function(X, FUN, ..., neededPkgs){
     neededPkgs <- unique(c('ff', neededPkgs))
-    foreach(x=X, .packages=neededPackages) %dopar% FUN(x, ...)
+    foreach(x=X, .packages=neededPkgs) %dopar% FUN(x, ...)
 }
 
 splitIndicesByLength <- function(x, lg){
