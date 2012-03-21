@@ -7,7 +7,7 @@
 
 setMethod("manufacturer", signature(object="FeatureSet"),
           function(object) object@manufacturer)
-setReplaceMethod("manufacturer", signature(object="FeatureSet"), 
+setReplaceMethod("manufacturer", signature(object="FeatureSet"),
 		function(object, value){
                   object@manufacturer <- value
                   object
@@ -31,3 +31,8 @@ setMethod("kind", "FeatureSet",
           function(object){
             kind(get(annotation(object)))
           })
+
+setMethod("geometry", "FeatureSet",
+          function(object)
+          geometry(getPD(object))
+          )

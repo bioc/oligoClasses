@@ -1,6 +1,7 @@
 \name{geometry}
 \alias{geometry}
 \alias{geometry,DBPDInfo-method}
+\alias{geometry,FeatureSet-method}
 
 \title{Array Geometry Information}
 \description{
@@ -10,7 +11,7 @@
 geometry(object)
 }
 \arguments{
-  \item{object}{\code{PDInfo} object}
+  \item{object}{\code{PDInfo} or \code{FeatureSet} object}
 }
 \examples{
 if (require(pd.mapping50k.xba240))
