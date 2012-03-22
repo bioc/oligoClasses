@@ -55,9 +55,10 @@ ocProbesets(n)
 }
 
 \examples{
-   library(doMC)
-   registerDoMC()
-   ## tasks like summarize()
+   if(require(doMC)) {
+       registerDoMC()
+       ## tasks like summarize()
+   }
 }
 \keyword{manip}
 
