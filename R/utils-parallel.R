@@ -55,7 +55,8 @@ ocSamples <- function(n){
 }
 
 ocLapply <- function(X, FUN, ..., neededPkgs){
-    neededPkgs <- unique(c('ff', neededPkgs))
+    if(missing(neededPkgs)) neededPkgs <- 'ff'
+    else neededPkgs <- unique(c('ff', neededPkgs))
     foreach(x=X, .packages=neededPkgs) %dopar% FUN(x, ...)
 }
 
