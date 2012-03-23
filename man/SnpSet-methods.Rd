@@ -94,7 +94,7 @@ confs(object) <- value
 	obj <- new("SnpSet", call=theCalls, callProbability=integerRepresentation)
 	calls(obj)
         confs(obj)  ## coerces to probability scale
-        int <- snpCallProbability(obj) ## not necessarily a probability
+        int <- Biobase::snpCallProbability(obj) ## not necessarily a probability
         p3 <- i2p(int)  ## to convert back to a probability
 
 }

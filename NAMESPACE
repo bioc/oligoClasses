@@ -4,31 +4,40 @@
 ##---------------------------------------------------------------------------
 ## methods
 importMethodsFrom(methods, initialize, show)
-importFrom(methods, "@<-", callNextMethod, new, validObject)
+importFrom(methods, "@<-", callNextMethod, new, validObject, coerce)
 
 ## BiocGenerics
 importFrom(BiocGenerics, updateObject)
 
 ## affyio
 importFrom(affyio, read.celfile.header, read.celfile)
+
 ## Biostrings
 importClassesFrom(Biostrings, DNAStringSet)
+
 ## graphics
 importFrom(graphics, plot)
+
 ## Biobase
 importClassesFrom(Biobase, AnnotatedDataFrame, AssayData, eSet, MIAME,
                   NChannelSet, Versions, VersionedBiobase, Versioned,
                   SnpSet)
+
 importFrom(Biobase, assayDataElement, assayDataElementReplace,
-           assayDataNew, biocReposList, assayDataValidMembers)
+           assayDataNew, biocReposList, assayDataValidMembers,
+           assayDataElementNames, varLabels, isCurrent,
+	   testBioCConnection)
+
 importMethodsFrom(Biobase, annotatedDataFrameFrom, annotation,
                   "annotation<-", assayData, "assayData<-", combine,
                   experimentData, "experimentData<-", exprs, "exprs<-",
-                  featureData, "featureData<-", featureNames,
+                  featureData, "featureData<-", featureNames, fData,
+		  "fData<-",
                   fvarLabels, pData, "pData<-", phenoData,
-                  "phenoData<-", sampleNames, "sampleNames<-",
-		  se.exprs, "se.exprs<-",
-                  storageMode, "storageMode<-")
+                  "phenoData<-", sampleNames, "sampleNames<-", se.exprs,
+                  "se.exprs<-", storageMode, "storageMode<-",
+                  classVersion, snpCall, snpCallProbability,
+                  'snpCall<-', 'snpCallProbability<-')
 
 ## IRanges
 importClassesFrom(IRanges, RangedData, DataTable, List, DataTableORNULL, Vector, Annotated)
@@ -40,13 +49,16 @@ importMethodsFrom(IRanges, findOverlaps, as.matrix)
 
 ## ff
 ## register open and close methods
-importFrom(ff, open.ff, close.ff)
+importFrom(ff, open.ff, close.ff, ff, ffdf)
 
 ## foreach
 import(foreach)
 
 ## BiocInstaller
 importFrom(BiocInstaller, biocinstallRepos)
+
+## utils
+importFrom(utils, packageDescription)
 
 ##---------------------------------------------------------------------------
 ## Export
@@ -69,6 +81,9 @@ exportClasses(FeatureSet, ExpressionFeatureSet, SnpFeatureSet,
 exportClasses(AlleleSet, BeadStudioSet, oligoSnpSet, SnpSuperSet, CNSet,
 	      gSet, RangedDataCopyNumber, RangedDataCNV, RangedDataCBS,
 	      RangedDataHMM, CopyNumberSet, GenomeAnnotatedDataFrame)
+
+##Misc
+exportClasses(ff_or_matrix)
 
 
 ## EXPORTING.....
@@ -110,14 +125,10 @@ export(pdPkgFromBioC, requireAnnotation, affyPlatforms, celfileDate,
        createFF, ocLapply,
        splitIndicesByLength, splitIndicesByNode, initializeBigMatrix,
        initializeBigVector, initializeBigArray)
-export(chromosome2integer, i2p, p2i)
-export(annotationPackages, checkExists)
-export(chromosomePositionOrder,
-       integerMatrix,
-       findOverlaps,
-       RangedDataCNV,
-       RangedDataCBS,
-       RangedDataHMM)
+
+export(chromosome2integer, i2p, p2i, annotationPackages, checkExists,
+       chromosomePositionOrder, integerArray, integerMatrix, findOverlaps,
+       RangedDataCNV, RangedDataCBS, RangedDataHMM, library2)
 
 
 ### Deprecated

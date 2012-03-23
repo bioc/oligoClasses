@@ -67,6 +67,6 @@ Class \code{"\linkS4class{Versioned}"}, by class "eSet", distance 3.
 \examples{
 showClass("CopyNumberSet")
 cnset <- new("CopyNumberSet")
-ls(assayData(cnset))
+ls(Biobase::assayData(cnset))
 }
 \keyword{classes}

@@ -1,22 +1,24 @@
 \name{integerMatrix}
 \alias{integerMatrix}
+\alias{integerArray}
 \title{
-  Coerce numeric matrix to matrix of integers, retaining dimnames.
+  Coerce numeric matrix (or array) to a matrix (array) of integers, retaining dimnames.
 }
 \description{
   Coerce numeric matrix to matrix of integers, retaining dimnames.
 }
 \usage{
 integerMatrix(x, scale = 100)
+integerArray(x, scale=100)
 }
 \arguments{
-  \item{x}{a matrix}
+  \item{x}{a \code{matrix} or \code{array}}
   \item{scale}{scalar (numeric).  If not 1, \code{x} is multiplied by
     \code{scale} prior to coercing to a matrix of integers.}
 }
 
 \value{
-  \code{matrix} of integers.
+  A \code{matrix} or \code{array} of integers.
 }
 
 \author{

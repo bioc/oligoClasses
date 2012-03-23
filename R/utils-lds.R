@@ -101,7 +101,8 @@ ldPath <- function(path){
   if (missing(path)){
     return(getOption("ldPath"))
   }else{
-    stopifnot(is.character(path))
+	  if(!is.character(path)) stop("path is not a character string")
+##    stopifnot(is.character(path))
     options(ldPath=path)
   }
 }
@@ -134,25 +135,6 @@ ldStatus <- function(verbose=FALSE){
   }
   return(ld)
 }
-
-##The requirement of assayData is that all of the elements must be the
-##same class.
-##initializeLMObject <- function(dimnames){
-##	nr <- length(dimnames[[1]])
-##	nc <- length(dimnames[[2]])
-##	name <- paramNames()
-##	ll <- vector("list", length(name))
-##	if(isPackageLoaded("ff")){
-##		for(i in seq(along=ll)) ll[[i]] <- createFF(name=name[i], dim=c(nr, nc), vmode="double")            ##ff(vmode="double", dim=c(nr, nc), pattern=file.path(ldPath(), name[i]), dimnames=dimnames, overwrite=TRUE)
-##		names(ll) <- name
-##		ll <- do.call(ffdf, ll)
-##	} else {
-##		for(i in seq(along=ll)) ll[[i]] <- matrix(NA, nr, nc, dimnames=dimnames)
-##		names(ll) <- name
-##	}
-##	return(ll)
-##}
-
 
 ## does nothing if not an ff object
 setMethod("open", "numeric", function(con, ...) return(NULL))

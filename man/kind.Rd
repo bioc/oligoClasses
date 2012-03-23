@@ -26,7 +26,7 @@ kind(object)
 \examples{
 if (require(pd.mapping50k.xba240)){
  data(sfsExample)
- annotation(sfsExample) <- "pd.mapping50k.xba240"
+ Biobase::annotation(sfsExample) <- "pd.mapping50k.xba240"
  kind(sfsExample)
 }
 }

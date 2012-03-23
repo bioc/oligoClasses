@@ -60,7 +60,7 @@ independently to the A and B alleles.
 
 \seealso{
 
-	\code{\link{CNSet-class}}	
+	\code{\link{CNSet-class}}
 
 }
 
@@ -69,8 +69,8 @@ independently to the A and B alleles.
 x <- matrix(runif(250*96*2, 0, 2), 250, 96*2)
 test1 <- new("CNSet", alleleA=x, alleleB=x, call=x, callProbability=x,
 	     batch=as.character(rep(letters[1:2], each=96)))
-isCurrent(test1)
-assayDataElementNames(batchStatistics(test1))
+Biobase::isCurrent(test1)
+Biobase::assayDataElementNames(batchStatistics(test1))
 ## Accessors for linear model parameters
 ## -- Included here primarily as a check that accessors are working
 ## -- Values are all NA until CN estimation is performed using the crlmm package

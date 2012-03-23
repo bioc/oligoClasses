@@ -1,5 +1,8 @@
 ## from xmapcore package
 if( require( "RUnit", quietly=TRUE ) ) {
+        ## loading Biobase below b/c we're simply Import:ing it, rather than Depend:ing on it
+        ## then functions from there are not visible downstream
+        library(Biobase)
 	pkg <- "oligoClasses"
 
 	if( Sys.getenv( "RCMDCHECK" ) == "FALSE" ) {

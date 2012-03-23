@@ -107,13 +107,13 @@ setReplaceMethod("chromosome", signature(object="GenomeAnnotatedDataFrame",
 setReplaceMethod("isSnp", signature(object="GenomeAnnotatedDataFrame",
 				    value="logical"),
 		 function(object, value){
-			 fData(object)$isSnp <-  value
+			 Biobase::fData(object)$isSnp <-  value
 			 object
 		 })
 setReplaceMethod("position", signature(object="GenomeAnnotatedDataFrame",
 				       value="integer"),
 		 function(object, value){
-			 fData(object)$position <-  value
+			 Biobase::fData(object)$position <-  value
 			 object
 		 })
 

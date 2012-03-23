@@ -177,7 +177,9 @@ checkExists <- function(.name, .path=".", .FUN, .FUN2, .save.it=TRUE, .load.it, 
 	}
 }
 
-
+library2 <- function(...){
+	suppressPackageStartupMessages(library(...))
+}
 
 
 
