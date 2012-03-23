@@ -380,8 +380,8 @@ addFeatureAnnotation.crlmm2 <- function(object, featureNames, universe="", ...){
 		loader(paste("snpProbes_", universe, ".rda", sep=""), pkgname=pkgname, envir=.oligoClassesPkgEnv)
 		snpProbes <- get("snpProbes", envir=.oligoClassesPkgEnv)
 	}
-	snpProbes <- snpProbes[rownames(snpProbes) %in% featureNames, ]
-	cnProbes <- cnProbes[rownames(snpProbes) %in% featureNames, ]
+	snpProbes <- snpProbes[rownames(snpProbes) %in% featureNames, , drop=FALSE]
+	cnProbes <- cnProbes[rownames(cnProbes) %in% featureNames, , drop=FALSE]
 	##Feature Data
 	isSnp <- 1L-as.integer(featureNames %in% rownames(cnProbes))
 	names(isSnp) <- featureNames
