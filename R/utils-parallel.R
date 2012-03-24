@@ -58,7 +58,12 @@ ocLapply <- function(X, FUN, ..., neededPkgs){
     if(missing(neededPkgs)) neededPkgs <- 'ff'
     else neededPkgs <- unique(c('ff', neededPkgs))
     x <- NULL ## to make NOTE go away in R's package checker
-    foreach(x=X, .packages=neededPkgs) %dopar% FUN(x, ...)
+    if (parStatus()){
+       res <- foreach(x=X, .packages=neededPkgs) %dopar% FUN(x, ...)
+    }else{
+       res <- lapply(X, FUN, ...)
+    }                                                                                                                                                    
+  return(res)
 }
 
 splitIndicesByLength <- function(x, lg){
