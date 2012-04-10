@@ -228,7 +228,6 @@ setMethod("updateObject", signature(object="CNSet"),
 
 ##---------------------------------------------------------------------------
 ## classes for ranges
-
 setClass("RangedDataCopyNumber", contains="RangedData",
 	 representation("VIRTUAL"))
 setClass("RangedDataCNV", contains="RangedDataCopyNumber")
