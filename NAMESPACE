@@ -24,7 +24,7 @@ importClassesFrom(Biobase, AnnotatedDataFrame, AssayData, eSet, MIAME,
                   SnpSet)
 
 importFrom(Biobase, assayDataElement, assayDataElementReplace,
-           assayDataNew, biocReposList, assayDataValidMembers,
+           assayDataNew, assayDataValidMembers,
            assayDataElementNames, varLabels, isCurrent,
 	   testBioCConnection)
 
