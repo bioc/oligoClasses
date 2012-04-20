@@ -80,7 +80,9 @@ exportClasses(FeatureSet, ExpressionFeatureSet, SnpFeatureSet,
 ##SNP-level Classes
 exportClasses(AlleleSet, BeadStudioSet, oligoSnpSet, SnpSuperSet, CNSet,
 	      gSet, RangedDataCopyNumber, RangedDataCNV, RangedDataCBS,
-	      RangedDataHMM, CopyNumberSet, GenomeAnnotatedDataFrame)
+	      RangedDataHMM, CopyNumberSet, GenomeAnnotatedDataFrame,
+	      BeadStudioSetList,
+	      oligoSetList)
 
 ##Misc
 exportClasses(ff_or_matrix)

@@ -226,6 +226,18 @@ setMethod("updateObject", signature(object="CNSet"),
           })
 
 
+## SetList classes
+setClass("eSetList",
+	 representation(assayDataList="AssayData",
+			phenoData="AnnotatedDataFrame",
+			featureDataList="list",
+			chromosome="integer",
+			annotation="character",
+			genomeBuild="character", "VIRTUAL"))
+setClass("BeadStudioSetList", contains="eSetList")
+setClass("oligoSetList", contains="eSetList")
+
+
 ##---------------------------------------------------------------------------
 ## classes for ranges
 setClass("RangedDataCopyNumber", contains="RangedData",
