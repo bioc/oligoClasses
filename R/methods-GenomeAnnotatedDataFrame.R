@@ -403,17 +403,21 @@ addFeatureAnnotation.crlmm2 <- function(object, featureNames, genome="", ...){
 		pkgname <- paste(object, "Crlmm", sep="")
 	} else pkgname <- object
 	path <- system.file("extdata", package=pkgname)
-##	if(universe==""){
-##		loader("cnProbes.rda", pkgname=pkgname, envir=.oligoClassesPkgEnv)
-##		cnProbes <- get("cnProbes", envir=.oligoClassesPkgEnv)
-##		loader("snpProbes.rda", pkgname=pkgname, envir=.oligoClassesPkgEnv)
-##		snpProbes <- get("snpProbes", envir=.oligoClassesPkgEnv)
-##	} else {
-	loader(paste("cnProbes_", genome, ".rda", sep=""), pkgname=pkgname, envir=.oligoClassesPkgEnv)
-	cnProbes <- get("cnProbes", envir=.oligoClassesPkgEnv)
-	loader(paste("snpProbes_", genome, ".rda", sep=""), pkgname=pkgname, envir=.oligoClassesPkgEnv)
-	snpProbes <- get("snpProbes", envir=.oligoClassesPkgEnv)
-##}
+
+	## Most of our annotation packages have only hg19 build
+	multiple.builds <-  length(grep("hg19", dir(path))) > 0
+	if(multiple.builds){
+		loader(paste("cnProbes_", genome, ".rda", sep=""), pkgname=pkgname, envir=.oligoClassesPkgEnv)
+		cnProbes <- get("cnProbes", envir=.oligoClassesPkgEnv)
+		loader(paste("snpProbes_", genome, ".rda", sep=""), pkgname=pkgname, envir=.oligoClassesPkgEnv)
+		snpProbes <- get("snpProbes", envir=.oligoClassesPkgEnv)
+	} else {
+		## hg19 is implicit
+		loader(paste("cnProbes.rda", sep=""), pkgname=pkgname, envir=.oligoClassesPkgEnv)
+		cnProbes <- get("cnProbes", envir=.oligoClassesPkgEnv)
+		loader(paste("snpProbes.rda", sep=""), pkgname=pkgname, envir=.oligoClassesPkgEnv)
+		snpProbes <- get("snpProbes", envir=.oligoClassesPkgEnv)
+	}
 	snpProbes <- snpProbes[rownames(snpProbes) %in% featureNames, , drop=FALSE]
 	cnProbes <- cnProbes[rownames(cnProbes) %in% featureNames, , drop=FALSE]
 	##Feature Data
