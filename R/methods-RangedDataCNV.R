@@ -397,5 +397,6 @@ coerceToGRanges <- function(range, build="hg18"){
 			      seqlengths=setSequenceLengths(build, names=chrlevels))
 	}
 	metadata(gr) <- list(genome=build)
-	sort(gr)
+	gr
+	##sort(gr)
 }

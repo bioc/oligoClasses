@@ -45,6 +45,7 @@ cnConfidence(object) <- value
 \keyword{manip}
 
 \examples{
+	library(Biobase)
 	data(locusLevelData)
 	path <- system.file("extdata", package="oligoClasses")
 	fd <- readRDS(file.path(path, "genomeAnnotatedDataFrameExample.rds"))
