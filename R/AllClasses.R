@@ -235,7 +235,7 @@ setClass("eSetList",
 	 representation(assayDataList="AssayData",
 			phenoData="AnnotatedDataFrame",
 			featureDataList="list",
-			chromosome="integer",
+			chromosome="vector",
 			annotation="character",
 			genomeBuild="character", "VIRTUAL"))
 setClass("BeadStudioSetList", contains="eSetList")
