@@ -295,9 +295,12 @@ setMethod("genomeBuild", signature(object="GRanges"),
 setMethod("makeFeatureGRanges", signature(object="GenomeAnnotatedDataFrame"),
 	  function(object, genome, ...){
 		  sl <- getSequenceLengths(genome)
-		  gr <- GRanges(paste("chr", chromosome(object), sep=""),
+		  chrom <- integer2chromosome(chromosome(object))
+		  gr <- GRanges(paste("chr", chrom, sep=""),
 				IRanges(position(object), width=1))
-		  seqlengths(gr) <- sl[match(unique(seqnames(gr)), names(sl))]
+		  nms <- names(seqlengths(gr))
+		  sl <- sl[match(nms, names(sl))]
+		  seqlengths(gr) <- sl
 		  return(gr)
 	  })
 
