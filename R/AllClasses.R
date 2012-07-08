@@ -121,8 +121,9 @@ setClass("gSetList",
 			annotation="character",
 			genome="character", "VIRTUAL"))
 setClass("BeadStudioSetList", contains="gSetList")
-setClass("oligoSetList", contains="gSetList")
+setClass("BafLrrSetList", contains="BeadStudioSetList")
 
+setClass("oligoSetList", contains="gSetList")
 
 ##---------------------------------------------------------------------------
 ## classes for ranges
