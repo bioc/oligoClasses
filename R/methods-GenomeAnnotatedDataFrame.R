@@ -59,6 +59,7 @@ setValidity("GenomeAnnotatedDataFrame",
 
 GenomeAnnotatedDataFrameFromMatrix <- function(object,
 					       annotationPkg,
+					       genome,
 					       ...){
 	dims <- dim(object)
 	if (is.null(dims) || all(dims==0)){
@@ -79,9 +80,9 @@ GenomeAnnotatedDataFrameFromMatrix <- function(object,
 			stopifnot(isSupportedAnnotation(annotationPkg))
 			is.pd <- isPdAnnotationPkg(annotationPkg)
 			if(is.pd){
-				object <- addFeatureAnnotation.pd2(annotationPkg, rownames(object), ...)
+				object <- addFeatureAnnotation.pd2(annotationPkg, featureNames=rownames(object), genome=genome,...)
 			} else {
-				object <- addFeatureAnnotation.crlmm2(annotationPkg, rownames(object), ...)
+				object <- addFeatureAnnotation.crlmm2(annotationPkg, featureNames=rownames(object), genome=genome, ...)
 			}
 		}
 	}
@@ -104,7 +105,7 @@ GenomeAnnotatedDataFrameFromAssayData <- function(object, annotationPkg, ...) {
 
 setMethod("GenomeAnnotatedDataFrameFrom",
 	  signature(object="ff_or_matrix"),
-	  function(object, annotationPkg, genome, ...){
+	  function(object, annotationPkg, genome="hg19", ...){
 		  GenomeAnnotatedDataFrameFromMatrix(object=object, annotationPkg=annotationPkg, genome=genome, ...)
 })
 
@@ -116,7 +117,7 @@ setMethod("GenomeAnnotatedDataFrameFrom",
 
 setMethod("GenomeAnnotatedDataFrameFrom",
 	  signature(object="AssayData"),
-	  function(object, annotationPkg, genome, ...){
+	  function(object, annotationPkg, genome="hg19", ...){
 		  GenomeAnnotatedDataFrameFromAssayData(object=object, annotationPkg=annotationPkg, genome=genome, ...)
 })
 
