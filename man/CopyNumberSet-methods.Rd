@@ -48,6 +48,10 @@ cnConfidence(object) <- value
 	data(locusLevelData)
 	path <- system.file("extdata", package="oligoClasses")
 	fd <- readRDS(file.path(path, "genomeAnnotatedDataFrameExample.rds"))
+	## the following command creates an 'oligoSnpSet' object, storing
+	## an integer representation of the log2 copy number in the 'copyNumber' element
+	## of the assayData.  Genotype calls and genotype confidence scores are also stored
+	## in the assayData.
 	oligoSet <- new("oligoSnpSet",
 			copyNumber=integerMatrix(log2(locusLevelData[["copynumber"]]/100), 100),
 			call=locusLevelData[["genotypes"]],
@@ -55,6 +59,8 @@ cnConfidence(object) <- value
 			annotation=locusLevelData[["platform"]],
 			featureData=fd,
 			genome="hg19")
+
+	## There are several accessors for the oligoSnpSet class.
 	icn <- copyNumber(oligoSet)
 	range(icn) ## integer scale
 	lcn <- icn/100
@@ -74,5 +80,11 @@ cnConfidence(object) <- value
 	## probability scale
 	pr2 <- confs(oligoSet)
 	all.equal(pr, pr2)
+
+	## To extract information on the annotation of the SNPs, one can use
+	position(oligoSet)
+	chromosome(oligoSet)
+	## the position and chromosome coordinates were extracted from build hg19
+	genomeBuild(oligoSet)
 }
 
