@@ -74,3 +74,16 @@ setMethod("phi", c("AssayData", "character"),
 ##	  })
 
 setMethod("flags", signature(object="AssayData"), function(object) assayDataElement(object, "flags"))
+
+AssayDataList <- function(storage.mode = c("lockedEnvironment", "environment", "list"), ...) {
+	storage.mode <- match.arg(storage.mode) ## defaults to "lockedEnvironment"
+	assayData <- switch(storage.mode,
+			    lockedEnvironment =,
+			    environment = new.env(parent=emptyenv()),
+			    list = list())
+	arglist <- list(...)
+	for (nm in names(arglist)) assayData[[nm]] <- arglist[[nm]]
+	## FIX:  ::: not safe
+	if (storage.mode == "lockedEnvironment") Biobase:::assayDataEnvLock(assayData)
+	assayData
+}
