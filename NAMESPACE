@@ -85,7 +85,7 @@ exportClasses(FeatureSet, ExpressionFeatureSet, SnpFeatureSet,
 exportClasses(AlleleSet, BeadStudioSet, oligoSnpSet, SnpSuperSet, CNSet,
 	      gSet, gSetList, RangedDataCopyNumber, RangedDataCNV, RangedDataCBS,
 	      RangedDataHMM, CopyNumberSet, GenomeAnnotatedDataFrame,
-	      BeadStudioSetList, BafLrrSetList,
+	      BeadStudioSetList, BafLrrSetList, BafLrrSet,
 	      oligoSetList, SnpSet2)
 
 ## Ranged-Data methods

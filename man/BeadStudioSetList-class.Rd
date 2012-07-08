@@ -2,6 +2,7 @@
 \Rdversion{1.1}
 \docType{class}
 \alias{BeadStudioSetList-class}
+\alias{BafLrrSetList-class}
 \alias{oligoSetList-class}
 \title{BeadStudioSetList class}
 

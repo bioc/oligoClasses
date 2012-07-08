@@ -2,6 +2,7 @@
 \Rdversion{1.1}
 \docType{class}
 \alias{BeadStudioSet-class}
+\alias{BafLrrSet-class}
 \alias{BeadStudioSet}
 \alias{baf,BeadStudioSet-method}
 \alias{baf<-,BeadStudioSet-method}

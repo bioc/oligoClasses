@@ -28,18 +28,6 @@ setMethod("initialize", "SnpSet2",
 				 protocolData = protocolData, ...)
           })
 
-##setValidity("SnpSet2", function(object) {
-##  assayDataValidMembers(assayData(object), c("call", "callProbability"))
-##})
-
-##setMethod("exprs", c("SnpSet2"), function(object) assayDataElement(object, "call"))
-##
-##setReplaceMethod("exprs", c("SnpSet2", "matrix"), function(object, value) {
-##  assayDataElementReplace(object, "call", value)
-##})
-
-
-
 setMethod(snpCall, "SnpSet2", function(object, ...) {
     assayDataElement(object, "call")
 })
@@ -141,11 +129,6 @@ setReplaceMethod("confs", signature(object="SnpSet", value="matrix"),
 
 
 
-
-##setMethod("callsConfidence", "SnpSet2", function(object) confs(object))
-##setReplaceMethod("callsConfidence", signature(object="SnpSet2", value="matrix"),
-##                 function(object, value) confs(object) <- value)
-
 setMethod("combine", signature=signature(x="SnpSet2", y="SnpSet2"),
           function(x, y, ...){
 		  ##Check that both x and y are valid objects
@@ -181,112 +164,4 @@ setMethod("featuresInRange", signature(object="SnpSet2", range="RangedDataCNV"),
 	  function(object, range, FRAME=0, FRAME.LEFT, FRAME.RIGHT, ...){
 		  .Defunct("featuresInRange has been deprecated. Use findOverlaps.")
 	  })
-## need this to work for a RangedData object with multiple ranges
-##setMethod("featuresInRange", signature(object="SnpSet2", range="RangedDataCNV"),
-##	  function(object, range, FRAME=0, FRAME.LEFT, FRAME.RIGHT, ...){
-##		  start <- start(range)
-##		  end <- end(range)
-##		  CHR <- chromosome(range)
-##		  ##featuresInXlim(object, start=start(range), end=end(range), CHR=range$chrom, ...)
-##		  if(missing(FRAME.LEFT)) FRAME.LEFT <- FRAME
-##		  if(missing(FRAME.RIGHT)) FRAME.RIGHT <- FRAME
-##		  data(chromosomeAnnotation, package="SNPchip")
-##		  chr.end <- chromosomeAnnotation[CHR, "chromosomeSize"]
-##		  start <- max(start-FRAME.LEFT, 0)
-##		  end <- min(end+FRAME.RIGHT, chr.end)
-##		  which(position(object) >= start & position(object) <= end & chromosome(object) == CHR)
-##	  })
-
-##setMethod("checkOrder", signature(object="SnpSet2"),
-##	  function(object, verbose=FALSE){
-##		  .checkOrder(object, verbose)
-##	  })
-
-
-##setMethod("annotate", "eSet", function(object){
-##	annotation <- object@annotation
-##	featureData <- object@featureData
-##	position <- grep("position", varLabels(featureData))
-##	chromosome <- grep("chromosome", varLabels(featureData))
-##	isSnp <- grep("isSnp", varLabels(featureData))
-##	if(length(annotation) < 1){
-##		if((length(position) < 1| length(chromosome) <1 | length(isSnp) <1)){
-##			stop("must specify annotation if 'chromosome', 'position', and 'isSnp' are missing")
-##		} else {
-##			pData(featureData)$chromosome <- chromosome
-##			pData(featureData)$position <- position
-##			pData(featureData)$isSnp <- isSnp
-##		}
-##	} else{
-##		if((length(position) < 1| length(chromosome) < 1| length(isSnp) < 1)){
-##			if(!isSupportedAnnotation(annotation)){
-##				stop("The annotation is not supported. Arguments 'chromosome', 'position', and 'isSnp' can be omitted from the initialization only if the annotation is supported (see oligoClasses:::supportedAnnotation()).")
-##			}
-##		} else {
-##			pData(featureData)$chromosome <- chromosome
-##			pData(featureData)$position <- position
-##			pData(featureData)$isSnp <- isSnp
-##		}
-##		object@featureData <- featureData
-##	}
-##	## Do after annotation has been assigned
-##	if(!(all(c("chromosome", "position", "isSnp") %in% varLabels(featureData))) & isSupportedAnnotation(annotation)){
-##		object@featureData <- addFeatureAnnotation(object)
-##	}
-##	return(object)
-##})
-
-##setMethod("isSnp", signature(object="SnpSet2"),
-##	  function(object, pkgname) {
-##		  labels <- fvarLabels(object)
-##		  if("isSnp" %in% labels){
-##			  res <- fData(object)[, "isSnp"]
-##		  } else{
-##			  nm <- grep("Crlmm", annotation(object))
-##			  if(length(nm)==0){
-##				  pkgname <- paste(annotation(object), "Crlmm", sep="")
-##			  } else pkgname <- annotation(object)
-##			  res <- isSnp(featureNames(object), pkgname)
-##		  }
-##		  ##return(res==1)
-##		  return(res)
-##	  })
-
-##setMethod("db", "SnpSet2",
-##          function(object) {
-##		  requireAnnotation(annotation(object)) || stop(paste(annotation(object), "package not available"))
-##		  get(annotation(object))@getdb()
-##	  })
-
-##setMethod("chromosome", "SnpSet2",
-##	  function(object, na.rm=FALSE, ...){
-##		  if(!("chromosome" %in% fvarLabels(object))){
-##			  stop("chromosome not in fvarLabels")
-##		  }
-##		  chrom <- chromosome(featureData(object), na.rm)
-##		  return(chrom)
-##	  })
-##
-##setReplaceMethod("chromosome", signature(object="SnpSet2", value="integer"),
-##		 function(object, value){
-##			 fData(object)$chromosome <-  value
-##			 object
-##		 })
-##
-##
-##setMethod("position", "SnpSet2",
-##          function(object, na.rm=FALSE, ...){
-##		  if(!("position" %in% fvarLabels(object))){
-##			  stop("position not in fvarLabels")
-##		  }
-##		  pos <- position(featureData(object), na.rm)
-##		  return(pos)
-##          })
-##setMethod("show", signature(object="SnpSet2"),
-##	  function(object){
-##		  callNextMethod(object)
-##		  cat("genome:", genomeBuild(object), "\n")
-##	  })
-##setMethod("genomeBuild", signature(object="SnpSet2"), function(object) object@genome)
-
 
