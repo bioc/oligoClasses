@@ -21,8 +21,9 @@ test_oligoSnpSet_construction <- function(){
 	data(locusLevelData)
 	require(pd.mapping50k.hind240)
 	require(pd.mapping50k.xba240)
+	cn <- integerMatrix(log2(locusLevelData[["copynumber"]]/100), 100)
 	oligoSet <- new("oligoSnpSet",
-			copyNumber=log2(locusLevelData[["copynumber"]]/100),
+			copyNumber=cn,
 			call=locusLevelData[["genotypes"]],
 			callProbability=locusLevelData[["crlmmConfidence"]],
 			annotation=locusLevelData[["platform"]])
@@ -32,7 +33,7 @@ test_oligoSnpSet_construction <- function(){
 	b <- integerMatrix(b, 1000)
 	## with BAFs
 	oligoSet <- new("oligoSnpSet",
-			copyNumber=log2(locusLevelData[["copynumber"]]/100),
+			copyNumber=integerMatrix(log2(locusLevelData[["copynumber"]]/100),100),
 			call=locusLevelData[["genotypes"]],
 			callProbability=locusLevelData[["crlmmConfidence"]],
 			baf=b,
@@ -40,7 +41,7 @@ test_oligoSnpSet_construction <- function(){
 	checkTrue(validObject(oligoSet))
 	## instantiate oligoSnpSet with 0-row featureData
 	oligoSet <- new("oligoSnpSet",
-			copyNumber=log2(locusLevelData[["copynumber"]]/100),
+			copyNumber=integerMatrix(log2(locusLevelData[["copynumber"]]/100),100),
 			call=locusLevelData[["genotypes"]],
 			callProbability=locusLevelData[["crlmmConfidence"]])
 	checkTrue(validObject(oligoSet))
@@ -52,12 +53,12 @@ test_CopyNumberSet_construction <- function(){
 	require(pd.mapping50k.xba240)
 	data(locusLevelData)
 	cnset <- new("CopyNumberSet",
-		     copyNumber=log2(locusLevelData[["copynumber"]]/100),
+		     copyNumber=integerMatrix(log2(locusLevelData[["copynumber"]]/100),100),
 		     annotation=locusLevelData[["platform"]])
 	checkTrue(validObject(cnset))
 	## instantiate oligoSnpSet with 0-row featureData
 	cnset <- new("CopyNumberSet",
-		     copyNumber=log2(locusLevelData[["copynumber"]]/100))
+		     copyNumber=integerMatrix(log2(locusLevelData[["copynumber"]]/100), 100))
 	checkTrue(validObject(cnset))
 }
 
