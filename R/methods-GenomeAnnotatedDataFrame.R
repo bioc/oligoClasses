@@ -104,20 +104,20 @@ GenomeAnnotatedDataFrameFromAssayData <- function(object, annotationPkg, ...) {
 
 setMethod("GenomeAnnotatedDataFrameFrom",
 	  signature(object="ff_or_matrix"),
-	  function(object, annotationPkg, ...){
-		  GenomeAnnotatedDataFrameFromMatrix(object, annotationPkg, ...)
+	  function(object, annotationPkg, genome, ...){
+		  GenomeAnnotatedDataFrameFromMatrix(object=object, annotationPkg=annotationPkg, genome=genome, ...)
 })
 
 setMethod("GenomeAnnotatedDataFrameFrom",
 	  signature(object="NULL"),
-	  function(object, ...){
+	  function(object, annotationPkg, genome, ...){
 		  GenomeAnnotatedDataFrameFromNULL(object)
 })
 
 setMethod("GenomeAnnotatedDataFrameFrom",
 	  signature(object="AssayData"),
-	  function(object, annotationPkg, ...){
-		  GenomeAnnotatedDataFrameFromAssayData(object, annotationPkg, ...)
+	  function(object, annotationPkg, genome, ...){
+		  GenomeAnnotatedDataFrameFromAssayData(object=object, annotationPkg=annotationPkg, genome=genome, ...)
 })
 
 setMethod("isSnp", signature(object="GenomeAnnotatedDataFrame"),
@@ -222,27 +222,27 @@ addFeatureAnnotation.crlmm2 <- function(object, featureNames, genome="", ...){
 
 	## Most of our annotation packages have only hg19 build
 	snpBuilds <- list.files(path, pattern="snpProbes")
-	multiple.builds <-  length(grep("hg19", snpBuilds)) > 0
+	multiple.builds <-  length(grep("_hg1[89].rda", snpBuilds)) > 1
+	if(!multiple.builds & length(snpBuilds) > 1) snpBuilds <- "snpProbes.rda"
+	hgbuild <- length(grep("_hg1[89].rda", snpBuilds)) > 0
 	if(multiple.builds){
 		loader(paste("cnProbes_", genome, ".rda", sep=""), pkgname=pkgname, envir=.oligoClassesPkgEnv)
 		cnProbes <- get("cnProbes", envir=.oligoClassesPkgEnv)
 		loader(paste("snpProbes_", genome, ".rda", sep=""), pkgname=pkgname, envir=.oligoClassesPkgEnv)
 		snpProbes <- get("snpProbes", envir=.oligoClassesPkgEnv)
 	} else {
-		requestedBuild <- if(genome=="") "snpProbes.rda" else paste("snpProbes_", genome, ".rda", sep="")
+		if(genome=="hg19" & !hgbuild) genome <- ""
+		if(genome=="hg18" & !hgbuild) stop("hg18 build requested but only hg19 build is available")
+		if(genome %in% c("hg18","hg19")) genome <- paste("_", genome, sep="")
+		requestedBuild <- paste("snpProbes", genome, ".rda", sep="")
 		match.arg(requestedBuild, snpBuilds)
 		loader(requestedBuild, pkgname=pkgname, envir=.oligoClassesPkgEnv)
 
 		cnBuilds <- list.files(path, pattern="cnProbes")
-		cnRequestedBuild <- if(genome=="") "cnProbes.rda" else paste("cnProbes_", genome, ".rda", sep="")
+		cnRequestedBuild <- paste("cnProbes", genome, ".rda", sep="")
 		match.arg(cnRequestedBuild, cnBuilds)
 		loader(cnRequestedBuild, pkgname=pkgname, envir=.oligoClassesPkgEnv)
-		##if(genome != "hg19" | genome != "")
-		##	stop(paste("genome build ", genome, " was requested, but only UCSC build hg19 is currently available with this annotation package.", sep=""))
-		## hg19 is implicit
-		##loader(paste("cnProbes.rda", sep=""), pkgname=pkgname, envir=.oligoClassesPkgEnv)
 		cnProbes <- get("cnProbes", envir=.oligoClassesPkgEnv)
-		##loader(paste("snpProbes.rda", sep=""), pkgname=pkgname, envir=.oligoClassesPkgEnv)
 		snpProbes <- get("snpProbes", envir=.oligoClassesPkgEnv)
 	}
 	snpProbes <- snpProbes[rownames(snpProbes) %in% featureNames, , drop=FALSE]

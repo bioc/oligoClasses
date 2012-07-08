@@ -12,7 +12,7 @@
 }
 \section{Methods}{
   Use the method with \code{GenomeAnnotatedDataFrameFrom(object,
-    annotationPkg, ...)}; the argument \code{annotationPkg} \emph{must}
+    annotationPkg, genome, ...)}; the argument \code{annotationPkg} \emph{must}
   be specified for \code{matrix} and \code{AssayData} classes.
 \describe{
   \item{\code{signature(object="assayData")}}{This method creates an
@@ -26,5 +26,16 @@
 }}
 
 \author{R Scharpf}
+
+\examples{
+	x <- matrix(1:25, 5, 5, dimnames=list(c("rs10000092","rs1000055", "rs100016", "rs10003241", "rs10004197"), NULL))
+	## preferred
+	trace(oligoClasses:::addFeatureAnnotation.crlmm2, browser)
+	gd <- GenomeAnnotatedDataFrameFrom(x, annotationPkg="human370v1cCrlmm",
+					   genome="hg19")
+
+}
+
+}
 
 \keyword{methods}
