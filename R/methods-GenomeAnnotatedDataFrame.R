@@ -16,6 +16,21 @@ setMethod("initialize", signature(.Object="GenomeAnnotatedDataFrame"),
 		  .Object <- callNextMethod(.Object, data=data, varMetadata=varMetadata)
 	  })
 
+setMethod("updateObject", signature(object="GenomeAnnotatedDataFrame"),
+	  function(object, ..., verbose=FALSE){
+		  ##as(object, "GenomeAnnotatedDataFrame")
+		  ADF2GDF(object)
+	 })
+
+setMethod("coerce", signature(from="AnnotatedDataFrame", to="GenomeAnnotatedDataFrame"),
+	  function(from, to){
+		  new("GenomeAnnotatedDataFrame",
+		      isSnp=as.logical(from$isSnp),
+		      position=as.integer(from$position),
+		      chromosome=as.integer(from$chromosome),
+		      row.names=featureNames(from))
+	  })
+
 ADF2GDF <- function(object){
 	new("GenomeAnnotatedDataFrame",
 	    isSnp=as.logical(object$isSnp),
@@ -209,7 +224,7 @@ isPdAnnotationPkg <- function(object) length(grep("pd.", object)) >= 1
 ##	return(featureData)
 ##}
 
-addFeatureAnnotation.pd2 <- function(annotation, featureNames){
+addFeatureAnnotation.pd2 <- function(annotation, featureNames, genome){
 	##message("Adding required feature annotation (chromosome, position, isSnp) to featureData slot")
 	fs <- featureNames
 	tmp <- paste("('", paste(fs, collapse="', '"), "')", sep="")
@@ -224,6 +239,12 @@ addFeatureAnnotation.pd2 <- function(annotation, featureNames){
 		annotation <- pkgs[i]
 		requireAnnotation(annotation)
 		annoObject <- get(annotation)
+		gb <- tolower(genomeBuild(annoObject))
+		if(gb != genome){
+			stop(paste("Genome build in package ",
+				   annotation, " is ", gb, ", but build ",
+				   genome, " is requested.", sep=""))
+		}
                 snps[[i]] <- dbGetQuery(annoObject@getdb(), sql)
 		snp.index[[i]] <- match(snps[[i]]$man_fsetid, rownames(fD))
 		if("featureSetCNV" %in% dbListTables(annoObject@getdb())){

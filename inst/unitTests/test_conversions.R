@@ -4,3 +4,8 @@ test_conversions <- function(){
 	int2 <- p2i(p)
 	checkTrue(all.equal(integerRepresentation, int2))
 }
+
+test_oligoSnpSet <- function(){
+	data(oligoSetExample)
+	checkTrue(validObject(as(oligoSet, "SnpSet2")))
+}

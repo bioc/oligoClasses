@@ -34,26 +34,15 @@ setMethod("copyNumber", "oligoSnpSet", function(object) {
 	return(cn)
 })
 
-setMethod("genomeBuild", "oligoSnpSet", function(object) object@genome)
-setReplaceMethod("genomeBuild", signature(object="oligoSnpSet", value="character"),
-		 function(object, value){
-			 object@genome <- value
-			 return(object)
-		 })
 
 setReplaceMethod("copyNumber", signature(object="oligoSnpSet", value="matrix"),
                  function(object, value){
-			 ##value <- matrix(as.integer(value*100), nrow(value), ncol(value), dimnames=dimnames(value))
 			 assayDataElementReplace(object, "copyNumber", value)
 		 })
 
 setMethod("cnConfidence", "oligoSnpSet", function(object) assayData(object)[["cnConfidence"]])
 setReplaceMethod("cnConfidence", signature(object="oligoSnpSet", value="matrix"),
                  function(object, value){
-##			 conf <- value
-##			 dns <- dimnames(conf)
-##			 X <- matrix(as.integer(conf*100), nrow(conf), ncol(conf))
-##			 dimnames(X) <- dns
 			 assayDataElementReplace(object, "cnConfidence", value)
                  })
 
@@ -91,3 +80,46 @@ setAs("oligoSnpSet", "data.frame",
 	      return(df)
       })
 
+##setAs("oligoSnpSet", "SnpSet2", function(from, to){
+##	new("SnpSet2",
+##	    call=calls(from),
+##	    callProbability=snpCallProbability(from),
+##	    genome=genomeBuild(from),
+##	    phenoData=phenoData(from),
+##	    protocolData=protocolData(from),
+##	    annotation=annotation(from),
+##	    experimentData=experimentData(from),
+##	    featureData=featureData(from))
+##
+##})
+
+## ideally, oligoSnpSet would inherit from SnpSet2, but currently problems with GenomeAnnotatedDataFrame
+
+##setMethod(snpCall, "oligoSnpSet", function(object, ...) {
+##    assayDataElement(object, "call")
+##})
+##
+##setMethod(snpCallProbability, "oligoSnpSet", function(object, ...) {
+##    assayDataElement(object, "callProbability")
+##})
+##
+##setReplaceMethod("snpCall", c("oligoSnpSet", "matrix"),
+##                 function(object, ..., value)
+##{
+##    assayDataElementReplace(object, "call", value)
+##})
+##
+##setReplaceMethod("snpCallProbability", c("oligoSnpSet", "matrix"),
+##                 function(object, ..., value)
+##{
+##    assayDataElementReplace(object, "callProbability", value)
+##})
+##
+####-----------------------
+#### new methods for oligoSnpSet
+####
+##
+##setMethod("calls", "oligoSnpSet", function(object) assayData(object)$call)
+##setReplaceMethod("calls", signature(object="oligoSnpSet", value="matrix"),
+##                 function(object, value)
+##                 assayDataElementReplace(object, "call", value))

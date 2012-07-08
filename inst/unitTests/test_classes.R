@@ -8,8 +8,11 @@ test_GenomeAnnotatedDataFrame_construction <- function(){
 	checkTrue(validObject(GenomeAnnotatedDataFrameFrom(NULL)))
 	data(locusLevelData)
 	require(pd.mapping50k.hind240)
+	checkException(GenomeAnnotatedDataFrameFrom(locusLevelData[["genotypes"]],
+						    annotationPkg=locusLevelData[["platform"]]))
 	tmp <- GenomeAnnotatedDataFrameFrom(locusLevelData[["genotypes"]],
-					    annotationPkg=locusLevelData[["platform"]])
+					    annotationPkg=locusLevelData[["platform"]],
+					    genome="hg19")
 	checkTrue(validObject(tmp))
 }
 
@@ -51,6 +54,7 @@ test_oligoSnpSet_construction <- function(){
 test_CopyNumberSet_construction <- function(){
 	checkTrue(validObject(new("CopyNumberSet")))
 	data(locusLevelData)
+	trace(oligoClasses:::addFeatureAnnotation.pd2, browser)
 	cnset <- new("CopyNumberSet",
 		     copyNumber=integerMatrix(log2(locusLevelData[["copynumber"]]/100),100),
 		     annotation=locusLevelData[["platform"]],
@@ -63,7 +67,29 @@ test_CopyNumberSet_construction <- function(){
 	checkTrue(validObject(cnset))
 }
 
+test_GenomeAnnotatedDataFrameWithFF <- function(){
+	## test instantiation from an object of class ff_matrix
+	data(oligoSetExample)
+	data(locusLevelData)
+	fdFromMatrix <- GenomeAnnotatedDataFrameFrom(locusLevelData[["genotypes"]],
+						     annotationPkg=locusLevelData[["platform"]],
+						     genome="hg19")
+
+	if(require(ff)){
+		ldPath(tempdir())
+		gtMatrix <- locusLevelData[["genotypes"]]
+		gts <- initializeBigMatrix(name="genotypes", initdata=gtMatrix, nr=nrow(gtMatrix), nc=ncol(gtMatrix), vmode="integer")
+		rownames(gts) <- rownames(gtMatrix)
+		fdFromFF <- GenomeAnnotatedDataFrameFrom(gts,
+							 annotationPkg=locusLevelData[["platform"]],
+							 genome="hg19")
+		checkTrue(identical(fdFromMatrix, fdFromFF))
+	}
+}
+
+
 test_CNSet_construction <- function(){
+	library(oligoClasses);library(RUnit)
 	checkTrue(validObject(new("CNSet")))
 	a <- matrix(1:25, 5, 5, dimnames=list(letters[1:5], LETTERS[1:5]))
 	tmp <- new("CNSet", alleleA=a, batch=rep("a", 5))
@@ -102,23 +128,7 @@ test_CNSet_construction <- function(){
 	checkTrue(all(chromosome(obj) == 1))
 }
 
-test_GenomeAnnotatedDataFrameWithFF <- function(){
-	## test instantiation from an object of class ff_matrix
-	data(oligoSetExample)
-	data(locusLevelData)
-	fdFromMatrix <- GenomeAnnotatedDataFrameFrom(locusLevelData[["genotypes"]],
-						     annotationPkg=locusLevelData[["platform"]])
 
-	if(require(ff)){
-		ldPath(tempdir())
-		gtMatrix <- locusLevelData[["genotypes"]]
-		gts <- initializeBigMatrix(name="genotypes", initdata=gtMatrix, nr=nrow(gtMatrix), nc=ncol(gtMatrix), vmode="integer")
-		rownames(gts) <- rownames(gtMatrix)
-		fdFromFF <- GenomeAnnotatedDataFrameFrom(gts,
-							 annotationPkg=locusLevelData[["platform"]])
-		checkTrue(identical(fdFromMatrix, fdFromFF))
-	}
-}
 
 test_BeadStudioSet <- function(){
 	checkTrue(validObject(new("BeadStudioSet")))

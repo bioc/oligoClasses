@@ -282,22 +282,22 @@ setMethod("initialize", "CNSet",
 		   batch=character(ncol(alleleA)),
 		   batchStatistics=initializeLmFrom2(alleleA, batch),
 		   genome=c("hg19", "hg18"),
-		   mixtureParams=matrix(), ...){
+		   mixtureParams=new("matrix"), ...){
 		  genome <- match.arg(genome)
 		  if(missing(featureData))
 			  featureData <- GenomeAnnotatedDataFrameFrom(assayData, annotation, genome=genome)
 		  .Object@genome <- genome
+		  .Object@mixtureParams <- mixtureParams
+		  .Object@batch <- batch
+		  .Object@batchStatistics <- batchStatistics
 		  .Object <- callNextMethod(.Object,
 					    assayData=assayData,
 					    phenoData=phenoData,
 					    featureData=featureData,
 					    experimentData=experimentData,
 					    annotation=annotation,
-					    protocolData=protocolData,
-					    batchStatistics=batchStatistics,
-					    mixtureParams=mixtureParams,
-					    batch=batch, genome=genome, ...)
-		  if(nrow(.Object)==0) .Object@genome <- ""
+					    protocolData=protocolData, ...)
+		  if(nrow(.Object)==0) .Object@genome <- character()
 		  return(.Object)
 })
 

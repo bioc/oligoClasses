@@ -58,7 +58,8 @@ new("GenomeAnnotatedDataFrame")
 if(require("pd.mapping50k.hind240") && require("pd.mapping50k.xba240")){
 	data(locusLevelData)
 	object <- GenomeAnnotatedDataFrameFrom(locusLevelData[["genotypes"]],
-					       annotationPkg=locusLevelData[["platform"]])
+					       annotationPkg=locusLevelData[["platform"]],
+					       genome="hg19")
 }
 }
 \keyword{classes}

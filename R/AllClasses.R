@@ -75,36 +75,20 @@ setClass("SnpSuperSet", contains=c("AlleleSet", "SnpSet"))
 ###########################################################################
 setClass("GenomeAnnotatedDataFrame", contains="AnnotatedDataFrame")
 
-setMethod("updateObject", signature(object="GenomeAnnotatedDataFrame"),
-	  function(object, ..., verbose=FALSE){
-		  ##as(object, "GenomeAnnotatedDataFrame")
-		  ADF2GDF(object)
-	 })
-
-setMethod("coerce", signature(from="AnnotatedDataFrame", to="GenomeAnnotatedDataFrame"),
-	  function(from, to){
-		  new("GenomeAnnotatedDataFrame",
-		      isSnp=as.logical(from$isSnp),
-		      position=as.integer(from$position),
-		      chromosome=as.integer(from$chromosome),
-		      row.names=featureNames(from))
-	  })
-
 ###########################################################################
 ##SNP-level classes
 ###########################################################################
 setClass("gSet", contains="eSet",
-	 representation(featureData="GenomeAnnotatedDataFrame",
+	 representation(##featureData="GenomeAnnotatedDataFrame",
 			genome="character",
 			"VIRTUAL"))
-##setClass("SnpSet2", contains="SnpSet",
-##	 representation(featureData="GenomeAnnotatedDataFrame",
-##			genome="character"))
 setClass("SnpSet2", contains="gSet")
+##setClass("SnpSet2", contains="SnpSet")
 setClass("oligoSnpSet", contains="SnpSet2") ##representation(featureData="GenomeAnnotatedDataFrame"))
 setClass("CopyNumberSet", contains="gSet") ## total copy number (no genotypes available)
 setClass("BeadStudioSet", contains="gSet")
 
+#setClass("SomeClass", contains="SnpSet2") ## why will this not work??
 
 ###########################################################################
 ##Summary-level classes - CNP
@@ -113,10 +97,6 @@ setOldClass("ffdf")
 setOldClass("ff_matrix")
 setClassUnion("list_or_ffdf", c("list", "ffdf"))
 setClassUnion("ff_or_matrix", c("ffdf", "ff_matrix", "matrix"))
-##setClass("CNSetLM", contains="CNSet", representation(lM="list_or_ffdf"))
-##setMethod("initialize", "CNSetLM", function(.Object, lM=new("list"), ...){
-##	.Defunct(msg="The CNSetLM class is defunct")
-##})
 setClass("CNSet", contains="gSet",
 	 representation(batch="character",
 			batchStatistics="AssayData",
@@ -125,45 +105,10 @@ setClass("CNSet", contains="gSet",
 	 new("VersionedBiobase",
 	     versions=c(classVersion("SnpSet"), CNSet="1.0.6"))))
 
-
-setMethod("updateObject", signature(object="CNSet"),
-          function(object, ..., verbose=FALSE) {
-		  if (verbose) message("updateObject(object = 'CNSet')")
-		  obj <- tryCatch(callNextMethod(batch=batch(object)), error=function(e) NULL)
-		  if(is.null(obj)){
-			  ## must supply batch for batchStatistics to be added
-			  if(is(calls(object), "ffdf") | is(calls(object), "ff_matrix"))
-				  stopifnot(isPackageLoaded("ff"))
-			  if(.hasSlot(object, "mixtureParams")){
-				  obj <- new("CNSet",
-					     assayData = updateObject(assayData(object),
-					     ...., verbose=verbose),
-					     phenoData = phenoData(object),
-					     experimentData = experimentData(object),
-					     annotation = updateObject(annotation(object),
-					     ..., verbose=verbose),
-					     featureData=updateObject(featureData(object), ..., verbose=verbose),
-					     batch=as.character(batch(object)),
-					     batchStatistics=batchStatistics(object),
-					     mixtureParams=object@mixtureParams)
-			  } else {
-				  obj <- new("CNSet",
-					     assayData = updateObject(assayData(object),
-					     ...., verbose=verbose),
-					     phenoData = phenoData(object),
-					     experimentData = experimentData(object),
-					     annotation = updateObject(annotation(object),
-					     ..., verbose=verbose),
-					     featureData=updateObject(featureData(object), ..., verbose=verbose),
-					     batch=as.character(batch(object)),
-					     batchStatistics=batchStatistics(object),
-					     mixtureParams=matrix(NA, 4, ncol(object)))
-			  }
-			  if (isCurrent(obj)["CNSet"]) return(obj)
-			  return(obj)
-		  }
-          })
-
+setClass("CNSetLM")
+setMethod("initialize", "CNSetLM", function(.Object, ...){
+	.Defunct(msg="The CNSetLM class is defunct")
+})
 
 ## SetList classes
 setClass("eSetList",

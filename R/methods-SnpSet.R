@@ -28,9 +28,9 @@ setMethod("initialize", "SnpSet2",
 				 protocolData = protocolData, ...)
           })
 
-setValidity("SnpSet2", function(object) {
-  assayDataValidMembers(assayData(object), c("call", "callProbability"))
-})
+##setValidity("SnpSet2", function(object) {
+##  assayDataValidMembers(assayData(object), c("call", "callProbability"))
+##})
 
 setMethod("exprs", c("SnpSet2"), function(object) assayDataElement(object, "call"))
 

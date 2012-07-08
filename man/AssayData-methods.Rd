@@ -65,24 +65,23 @@ independently to the A and B alleles.
 }
 
 \examples{
-
-x <- matrix(runif(250*96*2, 0, 2), 250, 96*2)
-test1 <- new("CNSet", alleleA=x, alleleB=x, call=x, callProbability=x,
-	     batch=as.character(rep(letters[1:2], each=96)))
-Biobase::isCurrent(test1)
-Biobase::assayDataElementNames(batchStatistics(test1))
+library(crlmm)
+data(cnSetExample, package="crlmm")
+cnSet <- cnSetExample
+Biobase::isCurrent(cnSet)
+Biobase::assayDataElementNames(batchStatistics(cnSet))
 ## Accessors for linear model parameters
 ## -- Included here primarily as a check that accessors are working
 ## -- Values are all NA until CN estimation is performed using the crlmm package
 ##
 ## subsetting
-test1[1:10, 1:5]
+cnSet[1:10, ]
 ## names of elements in the object
 ## accessors for parameters
-nu(test1, "A")[1:10, ]
-nu(test1, "B")[1:10, ]
-phi(test1, "A")[1:10, ]
-phi(test1, "B")[1:10, ]
+nu(cnSet, "A")[1:10, ]
+nu(cnSet, "B")[1:10, ]
+phi(cnSet, "A")[1:10, ]
+phi(cnSet, "B")[1:10, ]
 }
 
 \keyword{classes}

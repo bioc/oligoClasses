@@ -54,3 +54,13 @@ setMethod("as.GRangesHMM", "RangedDataHMM",
 ##			       state=state(from),
 ##			       numberProbes=coverage2(from))
 ##      })
+
+stack2 <- function(object){
+	##browser()
+	f <- function(x, id){
+		elementMetadata(x)$sampleId <- id
+		return(x)
+	}
+	xx <- Map(f, x=object, id=as.list(names(object))) ## now a list...
+	stack(xx)
+}

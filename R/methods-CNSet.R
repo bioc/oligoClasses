@@ -26,9 +26,48 @@ setMethod("show", "CNSet", function(object){
 	freq <- freq[index]
 	cat("batch:   ", paste(bns, ":", freq, sep="", collapse=", "), "\n")
 	adim <- list(nrow(object), length(batchNames(object)))
-	cat("batchStatistics: ", length(ls(batchStatistics(object))), " elements, ", nrow(object), " features, ", length(unique(batch(object))), " batches\n")
-	cat("genome:   ", genomeBuild(object), "\n")
+	if(adim[[1]] > 0){
+		cat("batchStatistics: ", length(ls(batchStatistics(object))), " elements, ", nrow(object), " features, ", length(unique(batch(object))), " batches\n")
+	}
 })
+
+setMethod("updateObject", signature(object="CNSet"),
+          function(object, ..., verbose=FALSE) {
+		  if (verbose) message("updateObject(object = 'CNSet')")
+		  obj <- tryCatch(callNextMethod(batch=batch(object)), error=function(e) NULL)
+		  if(is.null(obj)){
+			  ## must supply batch for batchStatistics to be added
+			  if(is(calls(object), "ffdf") | is(calls(object), "ff_matrix"))
+				  stopifnot(isPackageLoaded("ff"))
+			  if(.hasSlot(object, "mixtureParams")){
+				  obj <- new("CNSet",
+					     assayData = updateObject(assayData(object),
+					     ...., verbose=verbose),
+					     phenoData = phenoData(object),
+					     experimentData = experimentData(object),
+					     annotation = updateObject(annotation(object),
+					     ..., verbose=verbose),
+					     featureData=updateObject(featureData(object), ..., verbose=verbose),
+					     batch=as.character(batch(object)),
+					     batchStatistics=batchStatistics(object),
+					     mixtureParams=object@mixtureParams)
+			  } else {
+				  obj <- new("CNSet",
+					     assayData = updateObject(assayData(object),
+					     ...., verbose=verbose),
+					     phenoData = phenoData(object),
+					     experimentData = experimentData(object),
+					     annotation = updateObject(annotation(object),
+					     ..., verbose=verbose),
+					     featureData=updateObject(featureData(object), ..., verbose=verbose),
+					     batch=as.character(batch(object)),
+					     batchStatistics=batchStatistics(object),
+					     mixtureParams=matrix(NA, 4, ncol(object)))
+			  }
+			  if (isCurrent(obj)["CNSet"]) return(obj)
+			  return(obj)
+		  }
+          })
 
 setMethod("[", "CNSet", function(x, i, j, ..., drop=FALSE){
 	##isff <- is(A(x), "ff") | is(A(x), "ffdf")

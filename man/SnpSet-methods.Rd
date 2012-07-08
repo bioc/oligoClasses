@@ -91,7 +91,7 @@ confs(object) <- value
 	theCalls <- matrix(sample(1:3, 20, rep=TRUE), nc=2)
 	p <- matrix(runif(20), nc=2)
 	integerRepresentation <- matrix(as.integer(round(-1000*log(1-p))), 10, 2)
-	obj <- new("SnpSet", call=theCalls, callProbability=integerRepresentation)
+	obj <- new("SnpSet2", call=theCalls, callProbability=integerRepresentation)
 	calls(obj)
         confs(obj)  ## coerces to probability scale
         int <- Biobase::snpCallProbability(obj) ## not necessarily a probability
