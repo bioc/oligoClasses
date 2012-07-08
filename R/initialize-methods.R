@@ -52,7 +52,7 @@ setMethod("initialize", "oligoSnpSet",
 		   assayData=assayDataNew(call=call,
                        		          callProbability=callProbability,
 		                          copyNumber=copyNumber,
-		                          cnConfidence=cnConfidence),
+		                          cnConfidence=cnConfidence, ...),
 		   annotation=character(),
 		   featureData, ##=GenomeAnnotatedDataFrameFrom(call, annotation),
 		   ...){

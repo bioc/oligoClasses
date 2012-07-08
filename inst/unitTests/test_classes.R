@@ -17,6 +17,7 @@ test_GenomeAnnotatedDataFrame_construction <- function(){
 
 test_oligoSnpSet_construction <- function(){
 	checkTrue(validObject(new("oligoSnpSet")))
+	library(Biobase)
 	data(locusLevelData)
 	require(pd.mapping50k.hind240)
 	require(pd.mapping50k.xba240)
@@ -24,6 +25,17 @@ test_oligoSnpSet_construction <- function(){
 			copyNumber=log2(locusLevelData[["copynumber"]]/100),
 			call=locusLevelData[["genotypes"]],
 			callProbability=locusLevelData[["crlmmConfidence"]],
+			annotation=locusLevelData[["platform"]])
+	checkTrue(validObject(oligoSet))
+	b <- matrix(dunif(nrow(oligoSet)*ncol(oligoSet)), nrow(oligoSet), ncol(oligoSet))
+	dimnames(b) <- list(featureNames(oligoSet), sampleNames(oligoSet))
+	b <- integerMatrix(b, 1000)
+	## with BAFs
+	oligoSet <- new("oligoSnpSet",
+			copyNumber=log2(locusLevelData[["copynumber"]]/100),
+			call=locusLevelData[["genotypes"]],
+			callProbability=locusLevelData[["crlmmConfidence"]],
+			baf=b,
 			annotation=locusLevelData[["platform"]])
 	checkTrue(validObject(oligoSet))
 	## instantiate oligoSnpSet with 0-row featureData
