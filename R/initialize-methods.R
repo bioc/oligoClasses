@@ -54,15 +54,27 @@ setMethod("initialize", "oligoSnpSet",
 		                          copyNumber=copyNumber,
 		                          cnConfidence=cnConfidence, ...),
 		   annotation=character(),
+		   phenoData,
 		   featureData, ##=GenomeAnnotatedDataFrameFrom(call, annotation),
+		   experimentData,
+		   protocolData,
 		   ...){
 		  if(missing(featureData)){
 			  featureData <- GenomeAnnotatedDataFrameFrom(assayData, annotation)
 		  }
+		  if(missing(phenoData))
+			  phenoData <- Biobase::annotatedDataFrameFrom(call, byrow=FALSE)
+		  if(missing(experimentData))
+			  experimentData <- new("MIAME")
+		  if(missing(protocolData))
+			  protocolData <- phenoData[, integer(0)]
 		  .Object <- callNextMethod(.Object,
 					    assayData=assayData,
 					    annotation=annotation,
 					    featureData=featureData,
+					    experimentData=experimentData,
+					    phenoData=phenoData,
+					    protocolData=protocolData,
 					    ... )
 		  return(.Object)
 	  })
