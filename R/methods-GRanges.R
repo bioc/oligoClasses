@@ -62,7 +62,7 @@
 ## convenience functions for GRanges
 ##
 ##---------------------------------------------------------------------------
-setMethod("chromosome", "GRanges", function(object) seqnames(object))
+setMethod("chromosome", "GRanges", function(object) as.character(seqnames(object)))
 setMethod("coverage2", "GRanges", function(object) elementMetadata(object)$numberProbes)
 setMethod("numberProbes", "GRanges", function(object) elementMetadata(object)$numberProbes)
 setMethod("sampleNames", "GRanges", function(object) as.character(elementMetadata(object)$sample))
