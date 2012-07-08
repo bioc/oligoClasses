@@ -53,6 +53,8 @@ if(require("GenomicRanges")){
 			GC = seq(1, 0, length=10),
 			seqlengths=sl)
 	metadata(gr) <- list(genome="hg18")
+	gr
+	metadata(gr)
 }
 
 
