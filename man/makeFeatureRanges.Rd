@@ -38,7 +38,8 @@ R. Scharpf
 \examples{
 	if(require("VanillaICE")){
 		library(oligoClasses)
-		library(IRanges)
+		library(GenomicRanges)
+		library(Biobase)
 		data(oligoSetExample, package="oligoClasses")
 		oligoSet <- oligoSet[chromosome(oligoSet) == 1, ]
 		hmmResults <- hmm(oligoSet)
@@ -46,7 +47,7 @@ R. Scharpf
 		(frange <- makeFeatureGRanges(oligoSet))
 		## which features overlap with the second range in sample NA06993
 		olaps <- findOverlaps(hmmResults[["NA06993"]], frange)
-		Biobase::featureNames(oligoSet)[subjectHits(olaps)[queryHits(olaps)==2]]
+		featureNames(oligoSet)[subjectHits(olaps)[queryHits(olaps)==2]]
 
                 gr <- makeFeatureGRanges(featureData(oligoSet), genome="hg19")
 	}
