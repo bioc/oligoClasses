@@ -68,6 +68,11 @@ setReplaceMethod("calls", signature(object="SnpSet2", value="matrix"),
                  function(object, value)
                  assayDataElementReplace(object, "call", value))
 
+setMethod("calls", "SnpSet", function(object) assayData(object)$call)
+setReplaceMethod("calls", signature(object="SnpSet", value="matrix"),
+                 function(object, value)
+                 assayDataElementReplace(object, "call", value))
+
 
 p2i <- function(p)
   as.integer(-1000*log(1-p))
@@ -99,6 +104,30 @@ setMethod("confs", "SnpSet2", function(object, transform=TRUE) {
 })
 
 setReplaceMethod("confs", signature(object="SnpSet2", value="matrix"),
+		 function(object, value){
+			 ##convert probability to integer
+			 if(max(value) > 1){
+				 X <- matrix(p2i(value), nrow(X), ncol(X),
+					     dimnames=dimnames(value))
+			 } else {
+				 X <- value
+			 }
+			 assayDataElementReplace(object, "callProbability", X)
+		 })
+
+setMethod("confs", "SnpSet", function(object, transform=TRUE) {
+	X <- snpCallProbability(object)
+	if(is(X, "ff_matrix") | is(X, "ffdf")){
+		warningMsg(X)
+		return(X)
+	}
+	if (transform){
+		X <- i2p(X)
+	}
+	return(X)
+})
+
+setReplaceMethod("confs", signature(object="SnpSet", value="matrix"),
 		 function(object, value){
 			 ##convert probability to integer
 			 if(max(value) > 1){

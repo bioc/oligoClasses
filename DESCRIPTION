@@ -42,9 +42,8 @@ Collate:  AllClasses.R
 	  methods-GenomeAnnotatedDataFrame.R
 	  methods-BeadStudioSet.R
 	  methods-BeadStudioSetList.R
-	  methods-eSetList.R
-	  methods-GRangesHMM.R
-	  methods-GRangesHMMList.R
+	  methods-gSetList.R
+	  methods-GRanges.R
           show-methods.R
 	  functions.R
 	  zzz.R
