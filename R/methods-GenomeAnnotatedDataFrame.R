@@ -413,12 +413,16 @@ setReplaceMethod("position", signature(object="GenomeAnnotatedDataFrame", value=
 
 setMethod("makeFeatureGRanges", signature(object="GenomeAnnotatedDataFrame"),
 	  function(object, genome, ...){
+		  chr.names <- c(paste("chr", 1:22, sep=""), "chrX", "chrY")
 		  sl <- getSequenceLengths(genome)
-		  chrom <- integer2chromosome(chromosome(object))
-		  gr <- GRanges(paste("chr", chrom, sep=""),
-				IRanges(position(object), width=1))
-		  nms <- names(seqlengths(gr))
-		  sl <- sl[match(nms, names(sl))]
-		  seqlengths(gr) <- sl
+		  sl <- sl[chr.names]
+		  chrom <- paste("chr", integer2chromosome(chromosome(object)), sep="")
+		  if(!all(chrom %in% chr.names)) stop("chromosomes must be chr1, ... chr22, chrX, or chrY")
+		  gr <- GRanges(chrom,
+				IRanges(position(object), width=1),
+				seqlengths=sl)
+		  ##nms <- names(seqlengths(gr))
+		  ##sl <- sl[match(nms, names(sl))]
+		  ##seqlengths(gr) <- sl
 		  return(gr)
 	  })

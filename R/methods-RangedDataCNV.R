@@ -280,29 +280,12 @@ setReplaceMethod("sampleNames", signature(object="RangedDataCNV",
 ##	x
 ##}
 
-setMethod("makeFeatureGRanges", signature(object="gSet"),
-	  function(object, ...){
-		  sl <- getSequenceLengths(genomeBuild(object))
-		  gr <- GRanges(paste("chr", chromosome(object), sep=""),
-				IRanges(position(object), width=1))
-		  seqlengths(gr) <- sl[match(unique(seqnames(gr)), names(sl))]
-		  return(gr)
-	  })
+
 
 setMethod("genomeBuild", signature(object="GRanges"),
 	  function(object) metadata(object)[["genome"]])
 
-setMethod("makeFeatureGRanges", signature(object="GenomeAnnotatedDataFrame"),
-	  function(object, genome, ...){
-		  sl <- getSequenceLengths(genome)
-		  chrom <- integer2chromosome(chromosome(object))
-		  gr <- GRanges(paste("chr", chrom, sep=""),
-				IRanges(position(object), width=1))
-		  nms <- names(seqlengths(gr))
-		  sl <- sl[match(nms, names(sl))]
-		  seqlengths(gr) <- sl
-		  return(gr)
-	  })
+
 
 
 GRangesListFromRangedDataHMM <- function(object, build, ...){
