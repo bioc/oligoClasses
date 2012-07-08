@@ -5,6 +5,7 @@
 \alias{GenomeAnnotatedDataFrameFrom,ff_or_matrix-method}
 \alias{GenomeAnnotatedDataFrameFrom,NULL-method}
 \alias{GenomeAnnotatedDataFrameFrom,array-method}
+\alias{GenomeAnnotatedDataFrameFrom,list-method}
 
 \title{Methods for Function GenomeAnnotatedDataFrameFrom in Package oligoClasses}
 \description{
