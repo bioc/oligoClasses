@@ -7,6 +7,7 @@
 \alias{numberProbes,GRangesList-method}
 \alias{findOverlaps,GRanges,gSet-method}
 \alias{findOverlaps,GRangesList,gSet-method}
+\alias{genomeBuild,GRanges-method}
 \alias{sampleNames,GRanges-method}
 \alias{sampleNames,GRangesList-method}
 \alias{state,GRanges-method}
@@ -48,6 +49,13 @@
       When \code{object} is an instance of the \code{GRanges} class, the
       value returned is an integer vector.  When \code{object} is a
       \code{GRangesList}, the value returned has a run length encoding.
+
+    }
+
+    \item{}{
+      \code{genomeBuild(object)}:
+
+      Accessor for the UCSC genome build.
 
     }
 

@@ -3,14 +3,11 @@
 \docType{class}
 \alias{GenomeAnnotatedDataFrame-class}
 \alias{GenomeAnnotatedDataFrame}
-%\alias{chromosome,GenomeAnnotatedDataFrame-method}
-%\alias{chromosome<-,GenomeAnnotatedDataFrame,integer-method}
 \alias{coerce,AnnotatedDataFrame,GenomeAnnotatedDataFrame-method}
 \alias{initialize,GenomeAnnotatedDataFrame-method}
+\alias{makeFeatureRanges,GenomeAnnotatedDataFrame-method}
 \alias{position<-}
 \alias{position<-,GenomeAnnotatedDataFrame,integer-method}
-%\alias{isSnp,GenomeAnnotatedDataFrame,ANY-method}
-%\alias{position,GenomeAnnotatedDataFrame-method}
 \alias{updateObject,GenomeAnnotatedDataFrame-method}
 
 \title{Class \code{"GenomeAnnotatedDataFrame"}}
@@ -32,17 +29,63 @@ Class \code{"\linkS4class{AnnotatedDataFrame}"}, directly.
 Class \code{"\linkS4class{Versioned}"}, by class "AnnotatedDataFrame", distance 2.
 }
 
-\section{Methods}{
+\section{Coercion to or from other classes}{
   \describe{
-    \item{chromosome}{\code{signature(object = "GenomeAnnotatedDataFrame")}: the chromosome (coded as integers) }
-    \item{chromosome<-}{\code{signature(object = "GenomeAnnotatedDataFrame", value = "integer")}: replacement method for chromosome}
-    \item{coerce}{\code{signature(from = "AnnotatedDataFrame", to = "GenomeAnnotatedDataFrame")}: coerce an AnnotatedDataFrame with chromosome, position, and isSnp varLabels to a GenomeAnnotatedDataFrame }
-    \item{initialize}{\code{signature(.Object = "GenomeAnnotatedDataFrame")}: ... }
-    \item{isSnp}{\code{signature(object = "GenomeAnnotatedDataFrame", pkgname = "ANY")}: Many platforms include polymorphic and nonpolymorphic markers.  isSnp evalutes to \code{TRUE} if the marker is polymorphic.}
-    \item{position}{\code{signature(object =
-	"GenomeAnnotatedDataFrame")}: Physical position in the genome}
-    \item{updateObject}{\code{signature(object="GenomeAnnotatedDataFrame")}: creates a new \code{GenomeAnnotatedDataFrame}.}
+    \item{}{
+
+      \code{as(from, "GenomeAnnotatedDataFrame")}:
+
+      Coerce an object of class \code{AnnotatedDataFrame} to a
+      \code{GenomeAnnotatedDataFrame}.
+
+    }
+
+    \item{}{
+      \code{makeFeatureRanges(object, ...)}:
+
+      Construct a \code{GRanges} instance from a
+      \code{GenomeAnnotatedDataFrame}.  Users can specify the genome
+      build by passing \code{genome="hg18"} or \code{genome="hg19"}.
+
+
+    }
+
+  \item{}{
+    \code{updateObject(object)}:
+
+    For updating a \code{GenomeAnnotatedDataFrame}
+
+  }
+
+  }
 }
+
+\section{Accessors}{
+  \describe{
+    \item{}{
+      \code{chromosome(object)}, \code{chromosome(object) <- value}
+
+      Get or set chromosome.
+
+    }
+
+    \item{}{
+      \code{isSnp(object)}:
+
+      Many platforms include polymorphic and nonpolymorphic markers.  isSnp
+      evalutes to \code{TRUE} if the marker is polymorphic.
+
+    }
+
+
+    \item{}{
+      \code{position(ojbect)}:
+
+      Physical position in the genome}
+
+  }
+
+
 }
 
 \author{

@@ -8,6 +8,7 @@
 \alias{genomeBuild,gSet-method}
 \alias{genomeBuild<-,gSet,character-method}
 \alias{initialize,gSet-method}
+\alias{makeFeatureRanges,gSet-method}
 \alias{show,gSet-method}
 
 \title{Container for objects with genomic annotation on SNPs}
@@ -54,6 +55,14 @@ Class \code{"\linkS4class{Versioned}"}, by class "eSet", distance 3.
     }
     \item{}{\code{isSnp(object)}: whether the marker is
       polymorphic. Returns a \code{logical} vector.}
+
+    \item{}{
+
+      \code{makeFeatureRanges(object)}:  Construct an instance of the
+      \code{GRanges} class from a \code{GenomeAnnotatedDataFrame}.
+
+    }
+
     \item{}{\code{position(object)}: \code{integer} vector of the
       genomic position}
     \item{}{
