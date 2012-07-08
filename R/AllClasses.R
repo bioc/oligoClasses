@@ -111,15 +111,17 @@ setMethod("initialize", "CNSetLM", function(.Object, ...){
 })
 
 ## SetList classes
-setClass("eSetList",
+setClass("gSetList",
 	 representation(assayDataList="AssayData",
 			phenoData="AnnotatedDataFrame",
-			featureDataList="list",
+			protocolData="AnnotatedDataFrame",
+			experimentData="MIAME",
+			featureDataList="list",  ## could be GRangesList...
 			chromosome="vector",
 			annotation="character",
 			genome="character", "VIRTUAL"))
-setClass("BeadStudioSetList", contains="eSetList")
-setClass("oligoSetList", contains="eSetList")
+setClass("BeadStudioSetList", contains="gSetList")
+setClass("oligoSetList", contains="gSetList")
 
 
 ##---------------------------------------------------------------------------

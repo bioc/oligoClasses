@@ -1,9 +1,11 @@
-setMethod("initialize", signature(.Object="eSetList"),
+setMethod("initialize", signature(.Object="gSetList"),
 	  function(.Object,
 		   assayDataList=AssayDataList(...),
 		   featureDataList=GenomeAnnotatedDataFrameFromList(assayDataList),
 		   chromosome=integer(),
 		   phenoData=annotatedDataFrameFrom(assayDataList, byrow=FALSE),
+		   protocolData=phenoData[, integer(0)],
+		   experimentData=new("MIAME"),
 		   annotation=character(),
 		   genome=character(),
 		   ...){
@@ -13,7 +15,10 @@ setMethod("initialize", signature(.Object="eSetList"),
 				 phenoData=phenoData,
 				 chromosome=chromosome,
 				 annotation=annotation,
-				 genome=genome, ...)
+				 genome=genome,
+				 protocolData=protocolData,
+				 experimentData=experimentData,
+				 ...)
 	  })
-setMethod("annotation", signature(object="eSetList"), function(object) object@annotation)
-setMethod("genomeBuild", signature(object="eSetList"), function(object) object@genome)
+setMethod("annotation", signature(object="gSetList"), function(object) object@annotation)
+setMethod("genomeBuild", signature(object="gSetList"), function(object) object@genome)

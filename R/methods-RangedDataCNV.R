@@ -284,8 +284,81 @@ stack2 <- function(x){
 	x
 }
 
+makeFeatureRanges <- function(object){
+	sl <- getSequenceLengths(genomeBuild(object))
+	gr <- GRanges(paste("chr", chromosome(object), sep=""),
+		      IRanges(position(object), width=1))
+	seqlengths(gr) <- sl[match(unique(seqnames(gr)), names(sl))]
+	return(gr)
+}
 
+GRangesListFromRangedDataHMM <- function(object, build, ...){
+	index <- split(seq_len(nrow(object)), sampleNames(object))
+	notmissingbuild <- !missing(build)
+	if(notmissingbuild) sl <- getSequenceLengths(build)
+	grl <- vector("list", length(index))
+	for(i in seq_along(index)){
+		j <- index[[i]]
+		gr <- GRanges(paste("chr", chromosome(object)[j], sep=""),
+			      IRanges(start(object)[j], end(object)[j]))
+		if(notmissingbuild) seqlengths(gr) <- sl[match(unique(seqnames(gr)), names(sl))]
+		elementMetadata(gr)$state <- state(object)[j]
+		elementMetadata(gr)$numberProbes <- coverage2(object)[j]
+		elementMetadata(gr)$LLR <- object$LLR[j]
+		grl[[i]] <- gr
+	}
+	grl <- GRangesList(grl)
+	names(grl) <- names(index)
+	grl
+}
 
+setAs("RangedDataHMM", "GRangesList", function(from, to){
+	GRangesListFromRangedDataHMM(from)
+})
 
+setAs("RangedDataCNV", "GRangesList", function(from, to){
+	GRangesListFromRangedDataCNV(from)
+})
 
+GRangesListFromRangedDataCNV <- function(object, build, ...){
+	index <- split(seq_len(nrow(object)), sampleNames(object))
+	notmissingbuild <- !missing(build)
+	if(notmissingbuild) sl <- getSequenceLengths(build)
+	grl <- vector("list", length(index))
+	for(i in seq_along(index)){
+		j <- index[[i]]
+		gr <- GRanges(paste("chr", chromosome(object)[j], sep=""),
+			      IRanges(start(object)[j], end(object)[j]))
+		if(notmissingbuild) seqlengths(gr) <- sl[match(unique(seqnames(gr)), names(sl))]
+		elementMetadata(gr)$numberProbes <- coverage2(object)[j]
+		grl[[i]] <- gr
+	}
+	grl <- GRangesList(grl)
+	names(grl) <- names(index)
+	grl
+}
 
+setMethod("findOverlaps", signature(query="GRangesList", subject="gSet"),
+	  function (query, subject,
+		    maxgap = 0L, minoverlap = 1L,
+		    type = c("any", "start", "end", "within", "equal"),
+		    select = c("all", "first", "last", "arbitrary"), ...){
+		  frange <- makeFeatureRanges(subject)
+		  findOverlaps(query, frange, maxgap=maxgap,
+			       minoverlap=minoverlap,
+			       type=match.arg(type),
+			       select=match.arg(select),
+			       ...)
+	  })
+setMethod("findOverlaps", signature(query="GRanges", subject="gSet"),
+	  function (query, subject,
+		    maxgap = 0L, minoverlap = 1L,
+		    type = c("any", "start", "end", "within", "equal"),
+		    select = c("all", "first", "last", "arbitrary"), ...){
+		  frange <- makeFeatureRanges(subject)
+		  findOverlaps(query, frange, maxgap=maxgap,
+			       minoverlap=minoverlap,
+			       type=match.arg(type),
+			       select=match.arg(select),
+			       ...)
+	  })

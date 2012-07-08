@@ -9,3 +9,13 @@ test_oligoSnpSet <- function(){
 	data(oligoSetExample)
 	checkTrue(validObject(as(oligoSet, "SnpSet2")))
 }
+
+test_RangedDataHMM2GRanges <- function(){
+	if(require(VanillaICE)){
+		data(hmmResults, package="VanillaICE")
+		checkTrue(validObject(as(hmmResults, "GRanges")))
+		obj <- as(hmmResults, "GRangesList")
+		checkTrue(validObject(obj))
+		checkEquals(names(obj), unique(sampleNames(hmmResults)))
+	}
+}

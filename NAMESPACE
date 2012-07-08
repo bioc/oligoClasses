@@ -137,7 +137,7 @@ export(pdPkgFromBioC, requireAnnotation, affyPlatforms, celfileDate,
 export(chromosome2integer, i2p, p2i, annotationPackages, checkExists,
        chromosomePositionOrder, integerArray, integerMatrix, findOverlaps,
        RangedDataCNV, RangedDataCBS, RangedDataHMM, library2, AssayDataList,
-       getSequenceLengths, makeFeatureRanges, stack2)
+       getSequenceLengths, stack2, makeFeatureRanges)
 
 
 ### Deprecated
