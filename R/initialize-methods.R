@@ -48,20 +48,18 @@ setMethod("initialize", "oligoSnpSet",
 		   call=new("matrix"),
 		   callProbability=matrix(numeric(), nrow=nrow(call), ncol=ncol(call), dimnames=dimnames(call)),
 		   copyNumber=matrix(numeric(), nrow=nrow(call), ncol=ncol(call),  dimnames=dimnames(call)),
-		   cnConfidence=matrix(numeric(), nrow=nrow(call), ncol=ncol(call), dimnames=dimnames(call)),
+		   ##cnConfidence=matrix(numeric(), nrow=nrow(call), ncol=ncol(call), dimnames=dimnames(call)),
 		   assayData=assayDataNew(call=call,
                        		          callProbability=callProbability,
-		                          copyNumber=copyNumber,
-		                          cnConfidence=cnConfidence, ...),
+		                          copyNumber=copyNumber, ...),
 		   annotation=character(),
 		   phenoData,
 		   featureData, ##=GenomeAnnotatedDataFrameFrom(call, annotation),
 		   experimentData,
 		   protocolData,
 		   ...){
-		  if(missing(featureData)){
+		  if(missing(featureData))
 			  featureData <- GenomeAnnotatedDataFrameFrom(assayData, annotation)
-		  }
 		  if(missing(phenoData))
 			  phenoData <- Biobase::annotatedDataFrameFrom(call, byrow=FALSE)
 		  if(missing(experimentData))
@@ -75,12 +73,13 @@ setMethod("initialize", "oligoSnpSet",
 					    experimentData=experimentData,
 					    phenoData=phenoData,
 					    protocolData=protocolData,
-					    ... )
+					    ...)
 		  return(.Object)
 	  })
 
 setValidity("oligoSnpSet", function(object){
-	assayDataValidMembers(assayData(object), c("call", "callProbability", "copyNumber", "cnConfidence"))
+	##nms <- ls(assayData(object))
+	Biobase::assayDataValidMembers(assayData(object), c("call", "callProbability", "copyNumber"))
 	msg <- isValidGenomeAnnotatedDataFrame(featureData(object))
 	if(is.character(msg)) return(msg)
 	validObject(phenoData(object))

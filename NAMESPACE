@@ -113,7 +113,8 @@ exportMethods(batch, batchNames, "batchNames<-", coerce, flags, show,
 	      nu, phi, batchStatistics, "batchStatistics<-", baf, lrr,
 	      "baf<-", "lrr<-", coverage2, featuresInRange,
 	      findOverlaps, state, openff, closeff, checkOrder,
-	      "sampleNames<-", mean, updateObject,
+	      mean, updateObject,
+	      "sampleNames<-",
 	      GenomeAnnotatedDataFrameFrom)
 
 ## EXPORTING....
