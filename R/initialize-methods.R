@@ -278,7 +278,7 @@ initializeGenotypeSummaryFrom <- function(object){
 
 setMethod("initialize", "BeadStudioSet",
 	  function(.Object,
-		   assayData = assayDataNew(baf = baf, lrr = lrr, ...),
+		   assayData=assayDataNew(baf = baf, lrr = lrr, ...),
 		   phenoData = annotatedDataFrameFrom(assayData, byrow=FALSE),
 		   featureData = GenomeAnnotatedDataFrameFrom(assayData, annotation),
 		   experimentData = new("MIAME"),
@@ -291,12 +291,15 @@ setMethod("initialize", "BeadStudioSet",
                     		   dimnames=dimnames(baf)),
 		   genomeBuild=character(),
 		   ...) {
-		  if(nrow(lrr)>0){
-			  if(!is(lrr[, 1], "integer")) stop("lrr should be supplied as a matrix of integers (original scale * 100). See integerMatrix in the oligoClasses package for the conversion to integer matrices")
-		  }
-		  if(nrow(baf)>0){
-			  if(!is(baf[, 1], "integer")) stop("baf should be supplied as a matrix of integers (original scale * 100). See integerMatrix in the oligoClasses package for the conversion to integer matrices")
-		  }
+##		  if(missing(assayData)){
+##			  ## do in setValidity
+##			  if(nrow(lrr)>0){
+##				  if(!is(lrr[, 1], "integer")) stop("lrr should be supplied as a matrix of integers (original scale * 100). See integerMatrix in the oligoClasses package for the conversion to integer matrices")
+##			  }
+##			  if(nrow(baf)>0){
+##				  if(!is(baf[, 1], "integer")) stop("baf should be supplied as a matrix of integers (original scale * 100). See integerMatrix in the oligoClasses package for the conversion to integer matrices")
+##			  }
+##		  }
 		  .Object <- callNextMethod(.Object,
 					    assayData = assayData,
 					    phenoData = phenoData,
@@ -309,11 +312,13 @@ setMethod("initialize", "BeadStudioSet",
 })
 
 setValidity("BeadStudioSet", function(object) {
-	if(nrow(lrr(object)) > 0)
-		if(!is.integer(lrr(object)[,1])) return("lrr should be a matrix of integers (original scale * 100). Use integerMatrix(x, 100) for converting 'x' to a matrix of integers.")
-	if(nrow(baf(object)) > 0){
-		b <- baf(object)[,1]
-		if(!is.integer(b)) return("B allele frequencies should be a matrix of integers (original scale * 1000). See integerMatrix(x, 1000) for converting 'x' to a matrix of integers.")
+	if(!is.null(lrr(object))){
+		if(nrow(lrr(object)) > 0)
+			if(!is.integer(lrr(object)[,1])) return("lrr should be a matrix of integers (original scale * 100). Use integerMatrix(x, 100) for converting 'x' to a matrix of integers.")
+		if(nrow(baf(object)) > 0){
+			b <- baf(object)[,1]
+			if(!is.integer(b)) return("B allele frequencies should be a matrix of integers (original scale * 1000). See integerMatrix(x, 1000) for converting 'x' to a matrix of integers.")
+		}
 	}
 	return(all(is.element(c("lrr","baf"), assayDataElementNames(object))))
 })
