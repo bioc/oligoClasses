@@ -1,5 +1,5 @@
 Package: oligoClasses
-Version: 1.19.7
+Version: 1.19.8
 Title: Classes for high-throughput arrays supported by oligo and crlmm
 Author: Benilton Carvalho and Robert Scharpf
 Maintainer: Benilton Carvalho <Benilton.Carvalho@cancer.org.uk> and Robert Scharpf <rscharpf@jhsph.edu>
@@ -41,6 +41,7 @@ Collate:  AllClasses.R
 	  methods-GenomeAnnotatedDataFrame.R
 	  methods-BeadStudioSet.R
 	  methods-BeadStudioSetList.R
+	  methods-eSetList.R
           show-methods.R
 	  functions.R
 	  zzz.R
