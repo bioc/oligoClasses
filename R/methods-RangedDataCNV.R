@@ -377,11 +377,24 @@ setMethod("findOverlaps", signature(query="GRanges", subject="gSet"),
 
 coerceToGRanges <- function(range, build="hg18"){
 	chrlevels <- paste("chr", 1:22, sep="")
-	gr <- GRanges(factor(paste("chr", chromosome(range), sep=""), levels=chrlevels),
-		      IRanges(start(range), end(range)),
-		      sample=sampleNames(range),
-		      state=range$state,
-		      numberProbes=coverage2(range),
-		      seqlengths=setSequenceLengths(build, names=chrlevels))
+	chrom <- paste("chr", chromosome(range), sep="")
+	chrlevels <- chrlevels[chrlevels %in% chrom]
+	if(is(range, "RangedDataHMM")){
+		gr <- GRanges(factor(chrom, levels=chrlevels),
+			      IRanges(start(range), end(range)),
+			      sample=sampleNames(range),
+			      state=range$state,
+			      numberProbes=coverage2(range),
+			      seqlengths=setSequenceLengths(build, names=chrlevels))
+	}
+	if(is(range, "RangedDataCBS")){
+		gr <- GRanges(factor(chrom, levels=chrlevels),
+			      IRanges(start(range), end(range)),
+			      sample=sampleNames(range),
+			      seg.mean=range$seg.mean,
+			      numberProbes=coverage2(range),
+			      seqlengths=setSequenceLengths(build, names=chrlevels))
+	}
+	metadata(gr) <- list(genome=build)
 	sort(gr)
 }
