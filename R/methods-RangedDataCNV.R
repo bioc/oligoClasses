@@ -376,7 +376,8 @@ setMethod("findOverlaps", signature(query="GRanges", subject="gSet"),
 	  })
 
 coerceToGRanges <- function(range, build="hg18"){
-	chrlevels <- paste("chr", 1:22, sep="")
+	##chrlevels <- paste("chr", 1:22, sep="")
+	chrlevels <- names(getSequenceLengths(build))
 	chrom <- paste("chr", chromosome(range), sep="")
 	chrlevels <- chrlevels[chrlevels %in% chrom]
 	if(is(range, "RangedDataHMM")){
