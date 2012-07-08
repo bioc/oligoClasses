@@ -88,6 +88,9 @@ exportClasses(AlleleSet, BeadStudioSet, oligoSnpSet, SnpSuperSet, CNSet,
 	      BeadStudioSetList,
 	      oligoSetList, SnpSet2)
 
+## Ranged-Data methods
+exportMethods(numberProbes)
+
 ##Misc
 exportClasses(ff_or_matrix)
 
@@ -116,7 +119,7 @@ exportMethods(getM, getA, annotatedDataFrameFrom, open, close)
 ## CNSet methods
 exportMethods(batch, batchNames, "batchNames<-", coerce, flags, show,
 	      nu, phi, batchStatistics, "batchStatistics<-", baf, lrr,
-	      "baf<-", "lrr<-", coverage2, featuresInRange,
+	      "baf<-", "lrr<-", coverage2,
 	      findOverlaps, state, openff, closeff, checkOrder,
 	      mean, updateObject,
 	      "sampleNames<-",
@@ -137,8 +140,9 @@ export(pdPkgFromBioC, requireAnnotation, affyPlatforms, celfileDate,
 export(chromosome2integer, i2p, p2i, annotationPackages, checkExists,
        chromosomePositionOrder, integerArray, integerMatrix, findOverlaps,
        RangedDataCNV, RangedDataCBS, RangedDataHMM, library2, AssayDataList,
-       getSequenceLengths, stack2, makeFeatureRanges)
+       getSequenceLengths, makeFeatureRanges)
 
 
 ### Deprecated
 export(setCluster, getCluster, delCluster, requireClusterPkgSet, requireClusterPkg)
+exportMethods(featuresInRange)

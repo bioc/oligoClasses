@@ -11,6 +11,8 @@
 \alias{chromosome<-,SnpSet,integer-method}
 \alias{chromosome<-,gSet,integer-method}
 \alias{chromosome<-,GenomeAnnotatedDataFrame,integer-method}
+\alias{chromosome,GRanges-method}
+\alias{chromosome,GRangesList-method}
 \title{ Methods for function chromosome in package oligoClasses}
 \description{
  Methods for function \code{chromosome} in package \pkg{oligoClasses} ~~

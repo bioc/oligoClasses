@@ -22,3 +22,7 @@ setMethod("initialize", signature(.Object="gSetList"),
 	  })
 setMethod("annotation", signature(object="gSetList"), function(object) object@annotation)
 setMethod("genomeBuild", signature(object="gSetList"), function(object) object@genome)
+setReplaceMethod("genomeBuild", signature(object="gSetList", value="character"), function(object, value){
+	object@genome <- value
+	object
+})

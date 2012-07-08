@@ -6,6 +6,9 @@
 \alias{checkOrder,gSet-method}
 \alias{db,gSet-method}
 \alias{genomeBuild,gSet-method}
+\alias{genomeBuild<-,gSet,character-method}
+\alias{initialize,gSet-method}
+\alias{show,gSet-method}
 
 \title{Container for objects with genomic annotation on SNPs}
 \description{
@@ -42,12 +45,23 @@ Class \code{"\linkS4class{Versioned}"}, by class "eSet", distance 3.
       \code{GenomeAnnotatedDataFrame} slot. \code{value} must be an
       \code{integer} vector.}
     \item{db}{\code{signature(object = "gSet")}: ... }
-    \item{}{\code{genomeBuild(object)}: genome build used to construct
-      the \code{GenomeAnnotatedDataFrame}.}
+    \item{}{
+
+      \code{genomeBuild(object)}, \code{genomeBuild(object) <- value}:
+
+      Get or set the UCSC genome build. Supported builds are hg18 and hg19.
+
+    }
     \item{}{\code{isSnp(object)}: whether the marker is
       polymorphic. Returns a \code{logical} vector.}
     \item{}{\code{position(object)}: \code{integer} vector of the
       genomic position}
+    \item{}{
+      \code{show(object)}:
+
+      Print a concise summary of \code{object}.
+
+    }
   }
 }
 

@@ -32,11 +32,13 @@ setMethod("initialize", "SnpSet2",
 ##  assayDataValidMembers(assayData(object), c("call", "callProbability"))
 ##})
 
-setMethod("exprs", c("SnpSet2"), function(object) assayDataElement(object, "call"))
+##setMethod("exprs", c("SnpSet2"), function(object) assayDataElement(object, "call"))
+##
+##setReplaceMethod("exprs", c("SnpSet2", "matrix"), function(object, value) {
+##  assayDataElementReplace(object, "call", value)
+##})
 
-setReplaceMethod("exprs", c("SnpSet2", "matrix"), function(object, value) {
-  assayDataElementReplace(object, "call", value)
-})
+
 
 setMethod(snpCall, "SnpSet2", function(object, ...) {
     assayDataElement(object, "call")
@@ -46,26 +48,27 @@ setMethod(snpCallProbability, "SnpSet2", function(object, ...) {
     assayDataElement(object, "callProbability")
 })
 
+
+
 setReplaceMethod("snpCall", c("SnpSet2", "matrix"),
-                 function(object, ..., value)
-{
-    assayDataElementReplace(object, "call", value)
-})
+                 function(object, ..., value){
+			 assayDataElementReplace(object, "call", value)
+		 })
 
 setReplaceMethod("snpCallProbability", c("SnpSet2", "matrix"),
-                 function(object, ..., value)
-{
-    assayDataElementReplace(object, "callProbability", value)
-})
+                 function(object, ..., value){
+			 assayDataElementReplace(object, "callProbability", value)
+		 })
 
 ##-----------------------
 ## new methods for SnpSet2
 ##
-
 setMethod("calls", "SnpSet2", function(object) assayData(object)$call)
 setReplaceMethod("calls", signature(object="SnpSet2", value="matrix"),
                  function(object, value)
                  assayDataElementReplace(object, "call", value))
+
+
 p2i <- function(p)
   as.integer(-1000*log(1-p))
 
@@ -107,6 +110,9 @@ setReplaceMethod("confs", signature(object="SnpSet2", value="matrix"),
 			 assayDataElementReplace(object, "callProbability", X)
 		 })
 
+
+
+
 ##setMethod("callsConfidence", "SnpSet2", function(object) confs(object))
 ##setReplaceMethod("callsConfidence", signature(object="SnpSet2", value="matrix"),
 ##                 function(object, value) confs(object) <- value)
@@ -141,21 +147,26 @@ setMethod("combine", signature=signature(x="SnpSet2", y="SnpSet2"),
 		  x
           })
 
-## need this to work for a RangedData object with multiple ranges
+
 setMethod("featuresInRange", signature(object="SnpSet2", range="RangedDataCNV"),
 	  function(object, range, FRAME=0, FRAME.LEFT, FRAME.RIGHT, ...){
-		  start <- start(range)
-		  end <- end(range)
-		  CHR <- chromosome(range)
-		  ##featuresInXlim(object, start=start(range), end=end(range), CHR=range$chrom, ...)
-		  if(missing(FRAME.LEFT)) FRAME.LEFT <- FRAME
-		  if(missing(FRAME.RIGHT)) FRAME.RIGHT <- FRAME
-		  data(chromosomeAnnotation, package="SNPchip")
-		  chr.end <- chromosomeAnnotation[CHR, "chromosomeSize"]
-		  start <- max(start-FRAME.LEFT, 0)
-		  end <- min(end+FRAME.RIGHT, chr.end)
-		  which(position(object) >= start & position(object) <= end & chromosome(object) == CHR)
+		  .Defunct("featuresInRange has been deprecated. Use findOverlaps.")
 	  })
+## need this to work for a RangedData object with multiple ranges
+##setMethod("featuresInRange", signature(object="SnpSet2", range="RangedDataCNV"),
+##	  function(object, range, FRAME=0, FRAME.LEFT, FRAME.RIGHT, ...){
+##		  start <- start(range)
+##		  end <- end(range)
+##		  CHR <- chromosome(range)
+##		  ##featuresInXlim(object, start=start(range), end=end(range), CHR=range$chrom, ...)
+##		  if(missing(FRAME.LEFT)) FRAME.LEFT <- FRAME
+##		  if(missing(FRAME.RIGHT)) FRAME.RIGHT <- FRAME
+##		  data(chromosomeAnnotation, package="SNPchip")
+##		  chr.end <- chromosomeAnnotation[CHR, "chromosomeSize"]
+##		  start <- max(start-FRAME.LEFT, 0)
+##		  end <- min(end+FRAME.RIGHT, chr.end)
+##		  which(position(object) >= start & position(object) <= end & chromosome(object) == CHR)
+##	  })
 
 ##setMethod("checkOrder", signature(object="SnpSet2"),
 ##	  function(object, verbose=FALSE){

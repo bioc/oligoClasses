@@ -271,18 +271,14 @@ setReplaceMethod("sampleNames", signature(object="RangedDataCNV",
 			 return(object)
 		 })
 
-setMethod("chromosome", signature(object="GRangesList"), function(object) seqnames(object))
-setMethod("state", signature(object="GRangesList"), function(object){
-	new2("CompressedRleList", unlistData=Rle(elementMetadata(object@unlistData)$state), partitioning=object@partitioning, check=FALSE)
-	##unlist(lapply(object, function(x) elementMetadata(x)$state), use.names=FALSE)
-})
 
-stack2 <- function(x){
-	ids <- rep(names(x), elementLengths(x))
-	x <- stack(x)
-	elementMetadata(x)$sampleId <- ids
-	x
-}
+
+##stack2 <- function(x){
+##	ids <- rep(names(x), elementLengths(x))
+##	x <- stack(x)
+##	elementMetadata(x)$id <- ids
+##	x
+##}
 
 makeFeatureRanges <- function(object){
 	sl <- getSequenceLengths(genomeBuild(object))

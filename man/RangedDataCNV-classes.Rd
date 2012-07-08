@@ -16,6 +16,8 @@
 \alias{todf,RangedDataCNV,ANY-method}
 \alias{coerce,RangedData,RangedDataCBS-method}
 \alias{coerce,RangedData,RangedDataHMM-method}
+\alias{coerce,RangedDataHMM,GRangesList-method}
+\alias{coerce,RangedDataCNV,GRangesList-method}
 \alias{sampleNames<-,RangedDataCNV,character-method}
 %\alias{trioNames,RangedDataCNV-method}
 
@@ -68,11 +70,23 @@ Class \code{"\linkS4class{Annotated}"}, by class "RangedDataCNV", distance 6.
   from \code{RangedData}.
   \describe{
 
-    \item{}{\code{as(object, "RangedDataCBS")}: coerce an object of class
-      \code{RangedData} to \code{RangedDataCBS}.}
+    \item{}{
 
-    \item{}{\code{as(object, "RangedDataHMM")}: coerce an object of class
-    \code{RangedData} to \code{RangedDataHMM}.}
+      \code{as(object, "RangedDataCBS")}, \code{as(object, "RangedDataHMM")}:
+
+      coerce an object of class \code{RangedData} to
+      \code{RangedDataCBS} or \code{RangedDataHMM}, respectively.
+
+    }
+
+    \item{}{
+
+      \code{as(object, "GRangesList")}:
+
+      coerce an object of class \code{RangedDataHMM} or
+      \code{RangedDataCNV} to a \code{GRangesList}.
+
+    }
 
     \item{}{\code{coverage2(object)}: numeric vector indicating the
       number of markers in each range.  The length of the vector is the
@@ -115,17 +129,14 @@ Class \code{"\linkS4class{Annotated}"}, by class "RangedDataCNV", distance 6.
   }
 }
 
-\section{Coercion methods}{
+\section{Coercion to data.frame}{
   \describe{
-    In the following code descriptions, \code{object} belongs to class
 
-    \item{}{\code{todf(object)}: coersion to a \code{data.frame} }
+    \item{}{\code{todf(object)}: coersion of a \code{RangedDataCNV} to a
+    \code{data.frame}.  Not intended to be called directly by the user. }
 
   }
 }
-
-
-
 
 \author{
 R. Scharpf

@@ -132,8 +132,8 @@ setClass("RangedDataCNV", contains="RangedDataCopyNumber")
 setClass("RangedDataCBS", contains="RangedDataCNV")
 setClass("RangedDataHMM", contains="RangedDataCNV")
 
-setClass("GRangesHMM", contains="GRanges")
-setClass("GRangesHMMList", contains="GRangesList")
+##setClass("GRangesHMM", contains="GRanges")
+##setClass("GRangesHMMList", contains="GRangesList")
 
 
 ##setClass("GRangesList",
