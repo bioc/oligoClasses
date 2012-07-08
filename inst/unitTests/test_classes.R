@@ -1,6 +1,19 @@
 test_dataExamples <- function(){
+	library(Biobase)
 	data(oligoSetExample)
 	checkTrue(validObject(oligoSet))
+	obj <- new("oligoSnpSet",
+		   copyNumber=copyNumber(oligoSet),
+		   call=calls(oligoSet),
+		   featureData=featureData(oligoSet),
+		   phenoData=phenoData(oligoSet))
+	obj <- new("oligoSnpSet",
+		   copyNumber=copyNumber(oligoSet),
+		   call=calls(oligoSet),
+		   featureData=featureData(oligoSet),
+		   phenoData=phenoData(oligoSet),
+		   genome="hg18")
+	checkIdentical(genomeBuild(obj), "hg18")
 }
 
 test_GenomeAnnotatedDataFrame_construction <- function(){
