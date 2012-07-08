@@ -100,10 +100,10 @@ setClassUnion("ff_or_matrix", c("ffdf", "ff_matrix", "matrix"))
 setClass("CNSet", contains="gSet",
 	 representation(batch="character",
 			batchStatistics="AssayData",
-			mixtureParams="ff_or_matrix"),
-	 prototype = prototype(
-	 new("VersionedBiobase",
-	     versions=c(classVersion("SnpSet"), CNSet="1.0.6"))))
+			mixtureParams="ff_or_matrix"))##,
+##	 prototype = prototype(
+##	 new("VersionedBiobase",
+##	     versions=c(classVersion("SnpSet"), CNSet="1.0.6"))))
 
 setClass("CNSetLM")
 setMethod("initialize", "CNSetLM", function(.Object, ...){
