@@ -75,14 +75,18 @@ setClass("SnpSuperSet", contains=c("AlleleSet", "SnpSet"))
 ###########################################################################
 setClass("GenomeAnnotatedDataFrame", contains="AnnotatedDataFrame")
 
+ADF2GDF <- function(object){
+	new("GenomeAnnotatedDataFrame",
+	    isSnp=as.logical(object$isSnp),
+	    position=as.integer(object$position),
+	    chromosome=as.integer(object$chromosome),
+	    row.names=featureNames(object))
+}
+
 setMethod("updateObject", signature(object="GenomeAnnotatedDataFrame"),
 	  function(object, ..., verbose=FALSE){
 		  ##as(object, "GenomeAnnotatedDataFrame")
-		  new("GenomeAnnotatedDataFrame",
-		      isSnp=as.logical(object$isSnp),
-		      position=as.integer(object$position),
-		      chromosome=as.integer(object$chromosome),
-		      row.names=featureNames(object))
+		  ADF2GDF(object)
 	 })
 
 setMethod("coerce", signature(from="AnnotatedDataFrame", to="GenomeAnnotatedDataFrame"),
