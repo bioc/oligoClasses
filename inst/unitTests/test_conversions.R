@@ -13,7 +13,9 @@ test_oligoSnpSet <- function(){
 test_makeFeatureRanges <- function(){
 	data(oligoSetExample)
 	gr <- makeFeatureGRanges(featureData(oligoSet), genome=genomeBuild(oligoSet))
-
+	checkTrue(validObject(gr))
+	gr2 <- makeFeatureGRanges(oligoSet)
+	checkIdentical(gr, gr2)
 }
 
 test_RangedDataHMM2GRanges <- function(){
