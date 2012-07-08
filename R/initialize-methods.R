@@ -12,6 +12,9 @@ setMethod("initialize", signature(.Object="CopyNumberSet"),
                                             dimnames=dimnames(copyNumber)),
 		   featureData=GenomeAnnotatedDataFrameFrom(assayData, annotation),
                    ...) {
+		  if(nrow(copyNumber)>0){
+			  if(!is(copyNumber[, 1], "integer")) stop("copyNumber should be supplied as a matrix of integers (original scale * 100). See integerMatrix in the oligoClasses package for the conversion to integer matrices")
+		  }
 		  .Object <- callNextMethod(.Object,
 					    assayData = assayData,
 					    phenoData = phenoData,
@@ -49,15 +52,28 @@ setMethod("initialize", "oligoSnpSet",
 		   callProbability=matrix(numeric(), nrow=nrow(call), ncol=ncol(call), dimnames=dimnames(call)),
 		   copyNumber=matrix(numeric(), nrow=nrow(call), ncol=ncol(call),  dimnames=dimnames(call)),
 		   ##cnConfidence=matrix(numeric(), nrow=nrow(call), ncol=ncol(call), dimnames=dimnames(call)),
-		   assayData=assayDataNew(call=call,
-                       		          callProbability=callProbability,
-		                          copyNumber=copyNumber, ...),
+		   assayData=Biobase::assayDataNew(call=call,
+		   callProbability=callProbability,
+		   copyNumber=copyNumber, ...),
 		   annotation=character(),
 		   phenoData,
 		   featureData, ##=GenomeAnnotatedDataFrameFrom(call, annotation),
 		   experimentData,
 		   protocolData,
+		   genomeBuild=character(),
 		   ...){
+		  if(nrow(copyNumber)>0){
+			  if(!is(copyNumber[, 1], "integer")) stop("copyNumber should be supplied as a matrix of integers (original scale * 100). See integerMatrix in the oligoClasses package for the conversion to integer matrices")
+		  }
+		  nms <- names(list(...))
+		  if(length(nms) > 0){
+			  ## check that each element in ... is a matrix of integers
+			  for(i in seq_along(nms)){
+				  elt <- list(...)[[nms[i]]]
+				  if(nrow(elt) > 0)
+					  if(!is(elt[,1], "integer")) stop("all assay data elements must be integers. For copy number, use original scale * 100 and for B allele frequencies use original scale * 1000. See integerMatrix in the oligoClasses package for the conversion to integer matrices")
+			  }
+		  }
 		  if(missing(featureData))
 			  featureData <- GenomeAnnotatedDataFrameFrom(assayData, annotation)
 		  if(missing(phenoData))
@@ -73,6 +89,7 @@ setMethod("initialize", "oligoSnpSet",
 					    experimentData=experimentData,
 					    phenoData=phenoData,
 					    protocolData=protocolData,
+					    genomeBuild=genomeBuild,
 					    ...)
 		  return(.Object)
 	  })
@@ -81,6 +98,15 @@ setValidity("oligoSnpSet", function(object){
 	##nms <- ls(assayData(object))
 	Biobase::assayDataValidMembers(assayData(object), c("call", "callProbability", "copyNumber"))
 	msg <- isValidGenomeAnnotatedDataFrame(featureData(object))
+	if(nrow(copyNumber(object)) > 0){
+		if(!is.integer(copyNumber(object)[,1])) return("copyNumber should be a matrix of integers (original scale * 100). Use integerMatrix(x, 100) for converting 'x' to a matrix of integers.")
+	}
+	if("baf" %in% ls(assayData(object))){
+		b <- assayData(object)[["baf"]]
+		if(nrow(b) > 0){
+			if(!is.integer(b[,1])) return("B allele frequencies should be a matrix of integers (original scale * 1000). See integerMatrix(x, 1000) for converting 'x' to a matrix of integers.")
+		}
+	}
 	if(is.character(msg)) return(msg)
 	validObject(phenoData(object))
 })
@@ -265,17 +291,29 @@ setMethod("initialize", "BeadStudioSet",
                     		   dimnames=dimnames(baf)),
 		   genomeBuild=character(),
 		   ...) {
-	.Object <- callNextMethod(.Object,
-				  assayData = assayData,
-				  phenoData = phenoData,
-				  featureData = featureData,
-				  experimentData = experimentData,
-				  annotation = annotation,
-				  protocolData = protocolData,
-				  genomeBuild=genomeBuild, ...)
+		  if(nrow(lrr)>0){
+			  if(!is(lrr[, 1], "integer")) stop("lrr should be supplied as a matrix of integers (original scale * 100). See integerMatrix in the oligoClasses package for the conversion to integer matrices")
+		  }
+		  if(nrow(baf)>0){
+			  if(!is(baf[, 1], "integer")) stop("baf should be supplied as a matrix of integers (original scale * 100). See integerMatrix in the oligoClasses package for the conversion to integer matrices")
+		  }
+		  .Object <- callNextMethod(.Object,
+					    assayData = assayData,
+					    phenoData = phenoData,
+					    featureData = featureData,
+					    experimentData = experimentData,
+					    annotation = annotation,
+					    protocolData = protocolData,
+					    genomeBuild=genomeBuild, ...)
 	return(.Object)
 })
 
 setValidity("BeadStudioSet", function(object) {
+	if(nrow(lrr(object)) > 0)
+		if(!is.integer(lrr(object)[,1])) return("lrr should be a matrix of integers (original scale * 100). Use integerMatrix(x, 100) for converting 'x' to a matrix of integers.")
+	if(nrow(baf(object)) > 0){
+		b <- baf(object)[,1]
+		if(!is.integer(b)) return("B allele frequencies should be a matrix of integers (original scale * 1000). See integerMatrix(x, 1000) for converting 'x' to a matrix of integers.")
+	}
 	return(all(is.element(c("lrr","baf"), assayDataElementNames(object))))
 })

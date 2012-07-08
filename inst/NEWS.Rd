@@ -1,5 +1,28 @@
 \name{NEWS}
 \title{News for Package 'oligoClasses'}
+\section{Changes in version 1.18}{
+  \subsection{New class: GenomeAnnotatedDataFrame}{
+  \itemize{
+    \item GenomeAnnotatedDataFrame extends AnnotatedDataFrame but requires
+    columns 'isSnp', 'chromosome', and 'position'.
+
+    \item Accessors for the SNP indicator, chromosome, and position are
+    defined for the GenomeAnnotatedDataFrame class
+
+    \item The assayData elements must all be integers. Copy number or
+      relative copy number should be multipled by 100 and stored as an
+      integer. Use integerMatrix(x, 100), where x is a matrix of copy number
+      on the original scale.  B allele frequencies should be multipled by
+      1000 and saved as an integer. Use integerMatrix(b, 1000), where 'b' is
+      a matrix of B allele frequencies.
+
+      \item The featureData in these classes should have the class
+      "GenomeAnnotatedDataFrame".
+
+    }
+  }
+}
+
 
 \section{Changes in version 1.14}{
   \subsection{NEW FEATURES}{
@@ -25,7 +48,6 @@
       \item Added ff utilities used by both oligo and crlmm packages
     }
   }
-
   \subsection{NEW FEATURES}{
     \itemize{
       \item bothStrands() methods for AlleleSet and SnpFeatureSet.
