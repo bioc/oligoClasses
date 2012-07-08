@@ -7,13 +7,18 @@ test_GenomeAnnotatedDataFrame_construction <- function(){
 	checkTrue(validObject(new("GenomeAnnotatedDataFrame")))
 	checkTrue(validObject(GenomeAnnotatedDataFrameFrom(NULL)))
 	data(locusLevelData)
-	require(pd.mapping50k.hind240)
-	checkException(GenomeAnnotatedDataFrameFrom(locusLevelData[["genotypes"]],
-						    annotationPkg=locusLevelData[["platform"]]))
-	tmp <- GenomeAnnotatedDataFrameFrom(locusLevelData[["genotypes"]],
-					    annotationPkg=locusLevelData[["platform"]],
-					    genome="hg19")
-	checkTrue(validObject(tmp))
+	if(require(pd.mapping50k.hind240)){
+		## might be an exception in the future
+		GenomeAnnotatedDataFrameFrom(locusLevelData[["genotypes"]],
+					     annotationPkg=locusLevelData[["platform"]])
+		tmp <- GenomeAnnotatedDataFrameFrom(locusLevelData[["genotypes"]],
+						    annotationPkg=locusLevelData[["platform"]],
+						    genome="hg19")
+		checkException(GenomeAnnotatedDataFrameFrom(locusLevelData[["genotypes"]],
+							    annotationPkg=locusLevelData[["platform"]],
+							    genome="hg18"), silent=TRUE)
+		checkTrue(validObject(tmp))
+	}
 }
 
 test_oligoSnpSet_construction <- function(){
