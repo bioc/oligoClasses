@@ -309,18 +309,8 @@ isSupportedAnnotation <- function(x){
 	stripCrlmm <- sapply(validAnn, cleancdfname)
 	validAnn <- unique(c(validAnn, stripCrlmm))
 	x <- strsplit(x, ",")[[1]]
-	match.arg(x, validAnn)
-	TRUE
-	##L <- length(grep(x, validAnn))
-##	istrue <- all(x%in%validAnn)
-##	if(!istrue){
-##		x <- paste(x, "Crlmm", sep="")
-##		istrue <- all(x %in% validAnn)
-##		##L <- grep(paste(x, "Crlmm", sep=""), validAnn)
-##		##res <- if(L==1) TRUE else FALSE
-##		##return(res)
-##	}
-##	istrue
+	for(i in seq_along(x)) match.arg(x[i], validAnn)
+	return(TRUE)
 }
 
 annotationPackages <- function(){
