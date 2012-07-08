@@ -208,10 +208,8 @@ addFeatureAnnotation.pd2 <- function(annotation, featureNames, genome){
 	return(featureData)
 }
 
-chromosome2integer <- function(chrom){
-	chrom[chrom == "X"] <- 23; chrom[chrom == "Y"] <- 24; chrom[chrom == "XY"] <- 25; chrom[chrom=="M" | chrom == "MT" | chrom == "Mt"] <- 26
-	as.integer(chrom)
-}
+
+
 
 addFeatureAnnotation.crlmm2 <- function(object, featureNames, genome="", ...){
 	nm <- grep("Crlmm", object, ignore.case=TRUE)

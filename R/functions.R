@@ -34,3 +34,15 @@ setSequenceLengths <- function(build, names){ ## names are unique(seqnames(objec
 	sl <- getSequenceLengths(build)
 	sl[match(unique(names), names(sl))]
 }
+
+chromosome2integer <- function(chrom){
+	chrom[chrom == "X"] <- 23; chrom[chrom == "Y"] <- 24; chrom[chrom == "XY"] <- 25; chrom[chrom=="M" | chrom == "MT" | chrom == "Mt"] <- 26
+	as.integer(chrom)
+}
+integer2chromosome <- function(intChrom){
+	charChrom <- as.character(intChrom)
+	charChrom[charChrom=="23"] <- "X"
+	charChrom[charChrom=="24"] <- "Y"
+	charChrom[charChrom %in% c("MT", "Mt")] <- "M"
+	charChrom
+}
