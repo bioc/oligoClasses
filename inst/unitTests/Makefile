@@ -1,8 +1,7 @@
-#!/bin/bash
 TOP=../..
 PKG=${shell cd ${TOP};pwd}
 SUITE=doRUnit.R
-#R="${R_HOME}/bin/R"
+#R=${R_HOME}/bin/R
 
 all: inst test
 
@@ -30,3 +29,4 @@ devel:
 	export RUNITFILEPATTERN="$(file)";\
 	cd ${TOP}/tests;\
 	R_LIBS_USER=~/Library/R/2.15-bioc-devel/library R --vanilla --slave < ${SUITE}
+
