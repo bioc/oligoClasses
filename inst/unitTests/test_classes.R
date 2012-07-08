@@ -8,8 +8,6 @@ test_GenomeAnnotatedDataFrame_construction <- function(){
 	checkTrue(validObject(GenomeAnnotatedDataFrameFrom(NULL)))
 	data(locusLevelData)
 	require(pd.mapping50k.hind240)
-
-
 	tmp <- GenomeAnnotatedDataFrameFrom(locusLevelData[["genotypes"]],
 					    annotationPkg=locusLevelData[["platform"]])
 	checkTrue(validObject(tmp))
@@ -26,7 +24,8 @@ test_oligoSnpSet_construction <- function(){
 			copyNumber=cn,
 			call=locusLevelData[["genotypes"]],
 			callProbability=locusLevelData[["crlmmConfidence"]],
-			annotation=locusLevelData[["platform"]])
+			annotation=locusLevelData[["platform"]],
+			genome="hg19")
 	checkTrue(validObject(oligoSet))
 	b <- matrix(dunif(nrow(oligoSet)*ncol(oligoSet)), nrow(oligoSet), ncol(oligoSet))
 	dimnames(b) <- list(featureNames(oligoSet), sampleNames(oligoSet))
@@ -37,28 +36,30 @@ test_oligoSnpSet_construction <- function(){
 			call=locusLevelData[["genotypes"]],
 			callProbability=locusLevelData[["crlmmConfidence"]],
 			baf=b,
-			annotation=locusLevelData[["platform"]])
+			annotation=locusLevelData[["platform"]],
+			genome="hg19")
 	checkTrue(validObject(oligoSet))
 	## instantiate oligoSnpSet with 0-row featureData
 	oligoSet <- new("oligoSnpSet",
 			copyNumber=integerMatrix(log2(locusLevelData[["copynumber"]]/100),100),
 			call=locusLevelData[["genotypes"]],
-			callProbability=locusLevelData[["crlmmConfidence"]])
+			callProbability=locusLevelData[["crlmmConfidence"]],
+			genome=genomeBuild(oligoSet))
 	checkTrue(validObject(oligoSet))
 }
 
 test_CopyNumberSet_construction <- function(){
 	checkTrue(validObject(new("CopyNumberSet")))
-	require(pd.mapping50k.hind240)
-	require(pd.mapping50k.xba240)
 	data(locusLevelData)
 	cnset <- new("CopyNumberSet",
 		     copyNumber=integerMatrix(log2(locusLevelData[["copynumber"]]/100),100),
-		     annotation=locusLevelData[["platform"]])
+		     annotation=locusLevelData[["platform"]],
+		     genome="hg19")
 	checkTrue(validObject(cnset))
 	## instantiate oligoSnpSet with 0-row featureData
 	cnset <- new("CopyNumberSet",
-		     copyNumber=integerMatrix(log2(locusLevelData[["copynumber"]]/100), 100))
+		     copyNumber=integerMatrix(log2(locusLevelData[["copynumber"]]/100), 100),
+		     genome=genomeBuild(cnset))
 	checkTrue(validObject(cnset))
 }
 
@@ -86,13 +87,15 @@ test_CNSet_construction <- function(){
 	theConfs <- round(-1000*log2(1-p))
 	rownames(A) <- rownames(B) <- rownames(theConfs) <- fns
 	batch <- rep("a", ncol(A))
+	##trace("initialize", signature="CNSet", browser)
 	obj <- new("CNSet",
 		   alleleA=A,
 		   alleleB=B,
 		   call=theCalls,
 		   callProbability=theConfs,
 		   batch=batch,
-		   annotation="genomewidesnp6")
+		   annotation="genomewidesnp6",
+		   genome="hg19")
 	checkTrue(validObject(obj))
 	checkTrue(identical(sampleNames(batchStatistics(obj)), batchNames(obj)))
 	checkTrue(!is.null(batchNames(obj)))
@@ -102,6 +105,7 @@ test_CNSet_construction <- function(){
 test_GenomeAnnotatedDataFrameWithFF <- function(){
 	## test instantiation from an object of class ff_matrix
 	data(oligoSetExample)
+	data(locusLevelData)
 	fdFromMatrix <- GenomeAnnotatedDataFrameFrom(locusLevelData[["genotypes"]],
 						     annotationPkg=locusLevelData[["platform"]])
 
@@ -119,3 +123,4 @@ test_GenomeAnnotatedDataFrameWithFF <- function(){
 test_BeadStudioSet <- function(){
 	checkTrue(validObject(new("BeadStudioSet")))
 }
+

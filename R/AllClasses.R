@@ -75,14 +75,6 @@ setClass("SnpSuperSet", contains=c("AlleleSet", "SnpSet"))
 ###########################################################################
 setClass("GenomeAnnotatedDataFrame", contains="AnnotatedDataFrame")
 
-ADF2GDF <- function(object){
-	new("GenomeAnnotatedDataFrame",
-	    isSnp=as.logical(object$isSnp),
-	    position=as.integer(object$position),
-	    chromosome=as.integer(object$chromosome),
-	    row.names=featureNames(object))
-}
-
 setMethod("updateObject", signature(object="GenomeAnnotatedDataFrame"),
 	  function(object, ..., verbose=FALSE){
 		  ##as(object, "GenomeAnnotatedDataFrame")
@@ -103,12 +95,13 @@ setMethod("coerce", signature(from="AnnotatedDataFrame", to="GenomeAnnotatedData
 ###########################################################################
 setClass("gSet", contains="eSet",
 	 representation(featureData="GenomeAnnotatedDataFrame",
-			genomeBuild="character",
+			genome="character",
 			"VIRTUAL"))
-
-setClass("oligoSnpSet", contains="SnpSet",
-	 representation(featureData="GenomeAnnotatedDataFrame")) ## total copy number and genotypes
-
+##setClass("SnpSet2", contains="SnpSet",
+##	 representation(featureData="GenomeAnnotatedDataFrame",
+##			genome="character"))
+setClass("SnpSet2", contains="gSet")
+setClass("oligoSnpSet", contains="SnpSet2") ##representation(featureData="GenomeAnnotatedDataFrame"))
 setClass("CopyNumberSet", contains="gSet") ## total copy number (no genotypes available)
 setClass("BeadStudioSet", contains="gSet")
 
@@ -120,72 +113,14 @@ setOldClass("ffdf")
 setOldClass("ff_matrix")
 setClassUnion("list_or_ffdf", c("list", "ffdf"))
 setClassUnion("ff_or_matrix", c("ffdf", "ff_matrix", "matrix"))
-## AssayData elements in AlleleSet are platform dependent.
-##
-## It is nontrivial to define an initialization method for AlleleSet that can then be extended by
-## classes that inherit methods from it.
-##
-## Easier just to extend SnpSet directly and define accessors for CNSet
-##setIs("LinearModelParameter", "AssayData")
-##setClass("LinearModelParameter", contains="AssayData")
-##setClassUnion("LinearModelParameter", c("AssayData", "environment", "list"))
-##setClassUnion("NumberGenotype", c("AssayData", "environment", "list"))
-
-setClass("CNSet", contains = "SnpSuperSet",
-	 prototype = prototype(new("VersionedBiobase", versions=c(classVersion("eSet"), CNSet="1.0.0"))))
-
-##setClass("GenotypeSummary",
-##	 representation(numberGenotype="AssayData",
-##			means="AssayData",
-##			mads="AssayData"))
-####	 prototype=prototype(new("VersionedBiobase", versions=c(GenotypeSummary="1.0.0"))))
-
-
-setClass("CNSetLM", contains="CNSet", representation(lM="list_or_ffdf"))
-setMethod("initialize", "CNSetLM", function(.Object, lM=new("list"), ...){
-	.Defunct(msg="The CNSetLM class is defunct")
-})
-
-setClass("CNSet", representation(batch="factor",
-				 lM="AssayData"),
-	 contains="SnpSet",
-	 prototype = prototype(
-	                       new("VersionedBiobase",
-				   versions=c(classVersion("SnpSet"), CNSet="1.0.1"))))
-setClass("CNSet", representation(batch="factor",
-				 lM="AssayData",
-				 numberGenotype="AssayData"),
-	 contains="SnpSet",
-	 prototype = prototype(
-	                       new("VersionedBiobase",
-				   versions=c(classVersion("SnpSet"), CNSet="1.0.2"))))
-setClass("CNSet", representation(batch="factor",
-				 batchStatistics="AssayData"),
-	 contains="SnpSet",
-	 prototype = prototype(
-	                       new("VersionedBiobase",
-				   versions=c(classVersion("SnpSet"), CNSet="1.0.3"))))
-
-setClass("CNSet", representation(batch="character",
-				 batchStatistics="AssayData"),
-	 contains="SnpSet",
-	 prototype = prototype(
-	                       new("VersionedBiobase",
-				   versions=c(classVersion("SnpSet"), CNSet="1.0.4"))))
-
-setClass("CNSet", representation(batch="character",
-				 batchStatistics="AssayData",
-				 mixtureParams="matrix"),
-	 contains="SnpSet",
-	 prototype = prototype(
-	                       new("VersionedBiobase",
-				   versions=c(classVersion("SnpSet"), CNSet="1.0.5"))))
-
+##setClass("CNSetLM", contains="CNSet", representation(lM="list_or_ffdf"))
+##setMethod("initialize", "CNSetLM", function(.Object, lM=new("list"), ...){
+##	.Defunct(msg="The CNSetLM class is defunct")
+##})
 setClass("CNSet", contains="gSet",
 	 representation(batch="character",
 			batchStatistics="AssayData",
 			mixtureParams="ff_or_matrix"),
-			##featureData="GenomeAnnotatedDataFrame"),
 	 prototype = prototype(
 	 new("VersionedBiobase",
 	     versions=c(classVersion("SnpSet"), CNSet="1.0.6"))))
@@ -237,7 +172,7 @@ setClass("eSetList",
 			featureDataList="list",
 			chromosome="vector",
 			annotation="character",
-			genomeBuild="character", "VIRTUAL"))
+			genome="character", "VIRTUAL"))
 setClass("BeadStudioSetList", contains="eSetList")
 setClass("oligoSetList", contains="eSetList")
 
@@ -249,4 +184,19 @@ setClass("RangedDataCopyNumber", contains="RangedData",
 setClass("RangedDataCNV", contains="RangedDataCopyNumber")
 setClass("RangedDataCBS", contains="RangedDataCNV")
 setClass("RangedDataHMM", contains="RangedDataCNV")
+
+setClass("GRangesHMM", contains="GRanges")
+setClass("GRangesHMMList", contains="GRangesList")
+
+
+##setClass("GRangesList",
+##    contains=c("CompressedList", "GenomicRangesList"),
+##    representation(
+##        unlistData="GRanges",
+##        elementMetadata="DataFrame"
+##    ),
+##    prototype(
+##        elementType="GRanges"
+##    )
+##)
 

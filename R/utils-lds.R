@@ -27,7 +27,7 @@ initializeBigArray <- function(name=basename(tempfile()), dim=c(0L,0L,0L), vmode
 
 
 initializeBigMatrix <- function(name=basename(tempfile()), nr=0L, nc=0L, vmode="integer", initdata=NA){
-  if(isPackageLoaded("ff")){
+  if(isPackageLoaded("ff") & (nr > 0 | nc > 0)){
     if(prod(nr, nc) > 2^31){
       ##Need multiple matrices
       ## -- use ffdf

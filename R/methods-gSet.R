@@ -1,3 +1,28 @@
+setMethod("initialize", signature(.Object="gSet"),
+          function(.Object,
+                   assayData = assayDataNew(...),
+                   phenoData = annotatedDataFrameFrom(assayData, byrow=FALSE),
+                   experimentData = new("MIAME"),
+                   annotation = character(),
+                   protocolData = phenoData[,integer(0)],
+		   genome=c("hg19", "hg18"),
+		   featureData,
+                   ...) {
+		  genome <- match.arg(genome)
+		  if(missing(featureData))
+			  featureData <- GenomeAnnotatedDataFrameFrom(assayData, annotation, genome=genome)
+		  .Object@genome <- genome
+		  .Object <- callNextMethod(.Object,
+					    assayData = assayData,
+					    phenoData = phenoData,
+					    featureData = featureData,
+					    experimentData = experimentData,
+					    annotation = annotation,
+					    protocolData = protocolData)
+		  return(.Object)
+          })
+
+
 setMethod("isSnp", signature(object="gSet"),
 	  function(object, ...) {
 		  isSnp(featureData(object))
@@ -62,4 +87,15 @@ chromosomePositionOrder <- function(object, ...){
 	return(object)
 }
 
-setMethod("genomeBuild", signature(object="gSet"), function(object) object@genomeBuild)
+setMethod("genomeBuild", signature(object="gSet"), function(object) object@genome)
+setReplaceMethod("genomeBuild", signature(object="gSet", value="character"),
+		 function(object, value){
+			 object@genome <- value
+			 return(object)
+		 })
+
+setMethod("show", signature(object="gSet"),
+	  function(object){
+		  callNextMethod(object)
+		  cat("genome: ", genomeBuild(object), "\n")
+	  })

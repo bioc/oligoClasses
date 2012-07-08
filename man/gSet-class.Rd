@@ -21,7 +21,7 @@
     \item{\code{annotation}:}{Object of class \code{"character"} ~~ }
     \item{\code{protocolData}:}{Object of class
       \code{"AnnotatedDataFrame"} ~~ }
-    \item{\code{genomeBuild}:}{Object of class \code{"character"} ~~ }
+    \item{\code{genome}:}{Object of class \code{"character"} ~~ }
     \item{\code{.__classVersion__}:}{Object of class \code{"Versions"} ~~ }
   }
 }

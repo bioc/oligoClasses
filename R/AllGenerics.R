@@ -38,6 +38,7 @@ setGeneric("isSnp<-", function(object, value) standardGeneric("isSnp<-"))
 
 
 setGeneric("genomeBuild", function(object) standardGeneric("genomeBuild"))
+setGeneric("genomeBuild<-", function(object,value) standardGeneric("genomeBuild<-"))
 setGeneric("geometry", function(object) standardGeneric("geometry"))
 
 

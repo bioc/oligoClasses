@@ -15,10 +15,11 @@
 		## 'oligoSetExample' created by the following
 		data(locusLevelData)
 		oligoSet <- new("oligoSnpSet",
-				copyNumber=log2(locusLevelData[["copynumber"]]/100),
+				copyNumber=integerMatrix(log2(locusLevelData[["copynumber"]]/100), 100),
 				call=locusLevelData[["genotypes"]],
 				callProbability=locusLevelData[["crlmmConfidence"]],
-				annotation=locusLevelData[["platform"]])
+				annotation=locusLevelData[["platform"]],
+				genome="hg19")
 		oligoSet <- oligoSet[!is.na(chromosome(oligoSet)), ]
 		oligoSet <- oligoSet[chromosome(oligoSet) < 3, ]
 	}

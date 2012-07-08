@@ -13,15 +13,16 @@ setMethod("initialize", signature(.Object="GenomeAnnotatedDataFrame"),
 			  nms <- names(list(...))
 			  varMetadata <- data.frame(labelDescription=c("SNP indicator", "physical position", "chromosome", nms))
 		  }
-##		  if(length(list(...)) > 0){
-##			  nms <- names(list(...))
-##			  varMetadata <- data.frame(labelDescription=c("SNP indicator", "physical position", "chromosome", nms))
-##			  rownames(varMetadata) <- c("isSnp", "position", "chromosome", nms)
-##		  } else {
-##			  rownames(varMetadata) <- c("isSnp", "position", "chromosome")
-##		  }
 		  .Object <- callNextMethod(.Object, data=data, varMetadata=varMetadata)
 	  })
+
+ADF2GDF <- function(object){
+	new("GenomeAnnotatedDataFrame",
+	    isSnp=as.logical(object$isSnp),
+	    position=as.integer(object$position),
+	    chromosome=as.integer(object$chromosome),
+	    row.names=featureNames(object))
+}
 
 
 isValidGenomeAnnotatedDataFrame <- function(object){
@@ -375,23 +376,23 @@ chromosome2integer <- function(chrom){
 ##	return(fD)
 ##}
 
-addFeatureAnnotation.crlmm2 <- function(object, featureNames, universe="", ...){
+addFeatureAnnotation.crlmm2 <- function(object, featureNames, genome="", ...){
 	nm <- grep("Crlmm", object, ignore.case=TRUE)
 	if(length(nm) == 0){
 		pkgname <- paste(object, "Crlmm", sep="")
 	} else pkgname <- object
 	path <- system.file("extdata", package=pkgname)
-	if(universe==""){
-		loader("cnProbes.rda", pkgname=pkgname, envir=.oligoClassesPkgEnv)
-		cnProbes <- get("cnProbes", envir=.oligoClassesPkgEnv)
-		loader("snpProbes.rda", pkgname=pkgname, envir=.oligoClassesPkgEnv)
-		snpProbes <- get("snpProbes", envir=.oligoClassesPkgEnv)
-	} else {
-		loader(paste("cnProbes_", universe, ".rda", sep=""), pkgname=pkgname, envir=.oligoClassesPkgEnv)
-		cnProbes <- get("cnProbes", envir=.oligoClassesPkgEnv)
-		loader(paste("snpProbes_", universe, ".rda", sep=""), pkgname=pkgname, envir=.oligoClassesPkgEnv)
-		snpProbes <- get("snpProbes", envir=.oligoClassesPkgEnv)
-	}
+##	if(universe==""){
+##		loader("cnProbes.rda", pkgname=pkgname, envir=.oligoClassesPkgEnv)
+##		cnProbes <- get("cnProbes", envir=.oligoClassesPkgEnv)
+##		loader("snpProbes.rda", pkgname=pkgname, envir=.oligoClassesPkgEnv)
+##		snpProbes <- get("snpProbes", envir=.oligoClassesPkgEnv)
+##	} else {
+	loader(paste("cnProbes_", genome, ".rda", sep=""), pkgname=pkgname, envir=.oligoClassesPkgEnv)
+	cnProbes <- get("cnProbes", envir=.oligoClassesPkgEnv)
+	loader(paste("snpProbes_", genome, ".rda", sep=""), pkgname=pkgname, envir=.oligoClassesPkgEnv)
+	snpProbes <- get("snpProbes", envir=.oligoClassesPkgEnv)
+##}
 	snpProbes <- snpProbes[rownames(snpProbes) %in% featureNames, , drop=FALSE]
 	cnProbes <- cnProbes[rownames(cnProbes) %in% featureNames, , drop=FALSE]
 	##Feature Data

@@ -17,7 +17,8 @@
     \item{\code{featureDataList}:}{Object of class \code{"list"} ~~ }
     \item{\code{chromosome}:}{Object of class \code{"integer"} ~~ }
     \item{\code{annotation}:}{Object of class \code{"character"} ~~ }
-    \item{\code{genomeBuild}:}{Object of class \code{"character"} ~~ }
+    \item{\code{genome}:}{Object of class \code{"character"} indicating
+  the genome build. Valid entries are "hg18" and "hg19". }
   }
 }
 

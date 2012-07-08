@@ -24,3 +24,9 @@ integerArray <- function(x, scale=100){
 	return(x)
 }
 
+getSequenceLengths <- function(build){
+	path <- system.file("extdata", package="oligoClasses")
+	load(file.path(path, paste("seqlengths_", build, ".rda", sep="")))
+	return(seqlengths)
+}
+

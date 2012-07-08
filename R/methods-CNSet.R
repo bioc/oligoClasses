@@ -27,6 +27,7 @@ setMethod("show", "CNSet", function(object){
 	cat("batch:   ", paste(bns, ":", freq, sep="", collapse=", "), "\n")
 	adim <- list(nrow(object), length(batchNames(object)))
 	cat("batchStatistics: ", length(ls(batchStatistics(object))), " elements, ", nrow(object), " features, ", length(unique(batch(object))), " batches\n")
+	cat("genome:   ", genomeBuild(object), "\n")
 })
 
 setMethod("[", "CNSet", function(x, i, j, ..., drop=FALSE){
@@ -292,3 +293,9 @@ setReplaceMethod("confs", signature(object="CNSet", value="matrix"),
 			 assayDataElementReplace(object, "callProbability", X)
 		 })
 
+##setMethod("genomeBuild", "CNSet", function(object) object@genome)
+##setReplaceMethod("genomeBuild", signature(object="CNSet", value="character"),
+##		 function(object, value){
+##			 object@genome <- value
+##			 return(object)
+##		 })

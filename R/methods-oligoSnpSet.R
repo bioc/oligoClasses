@@ -11,7 +11,9 @@ setMethod("updateObject", signature(object="oligoSnpSet"),
 				     ..., verbose=verbose),
 				     annotation = updateObject(annotation(object),
 				     ..., verbose=verbose),
-				     featureData=updateObject(featureData(object), ..., verbose=FALSE))
+				     featureData=updateObject(featureData(object), ...,
+				     genome=genomeBuild(object),
+				     verbose=FALSE))
 		  }
 		  if (all(isCurrent(obj))) return(obj)
 		  obj
@@ -32,6 +34,12 @@ setMethod("copyNumber", "oligoSnpSet", function(object) {
 	return(cn)
 })
 
+setMethod("genomeBuild", "oligoSnpSet", function(object) object@genome)
+setReplaceMethod("genomeBuild", signature(object="oligoSnpSet", value="character"),
+		 function(object, value){
+			 object@genome <- value
+			 return(object)
+		 })
 
 setReplaceMethod("copyNumber", signature(object="oligoSnpSet", value="matrix"),
                  function(object, value){

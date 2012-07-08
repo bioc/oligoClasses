@@ -1,5 +1,69 @@
-setMethod("calls", "SnpSet", function(object) assayData(object)$call)
-setReplaceMethod("calls", signature(object="SnpSet", value="matrix"),
+##
+## Directly from Biobase
+##
+setMethod("initialize", "SnpSet2",
+          function(.Object,
+                   assayData = assayDataNew(call = call,
+                                            callProbability = callProbability, ...),
+                   phenoData = annotatedDataFrameFrom(assayData, byrow=FALSE),
+                   featureData,## = annotatedDataFrameFrom(assayData, byrow=TRUE),
+                   experimentData = new("MIAME"),
+                   annotation = character(),
+                   protocolData = phenoData[,integer(0)],
+                   call = new("matrix"),
+                   callProbability = matrix(numeric(),
+                                            nrow=nrow(call), ncol=ncol(call),
+                                            dimnames=dimnames(call)),
+		   genome=c("hg19", "hg18"),
+                   ...) {
+		  genome <- match.arg(genome)
+		  if(missing(featureData))
+			  featureData <- GenomeAnnotatedDataFrameFrom(assayData, annotation, genome=genome)
+		  callNextMethod(.Object,
+				 assayData = assayData,
+				 phenoData = phenoData,
+				 featureData = featureData,
+				 experimentData = experimentData,
+				 annotation = annotation,
+				 protocolData = protocolData, ...)
+          })
+
+setValidity("SnpSet2", function(object) {
+  assayDataValidMembers(assayData(object), c("call", "callProbability"))
+})
+
+setMethod("exprs", c("SnpSet2"), function(object) assayDataElement(object, "call"))
+
+setReplaceMethod("exprs", c("SnpSet2", "matrix"), function(object, value) {
+  assayDataElementReplace(object, "call", value)
+})
+
+setMethod(snpCall, "SnpSet2", function(object, ...) {
+    assayDataElement(object, "call")
+})
+
+setMethod(snpCallProbability, "SnpSet2", function(object, ...) {
+    assayDataElement(object, "callProbability")
+})
+
+setReplaceMethod("snpCall", c("SnpSet2", "matrix"),
+                 function(object, ..., value)
+{
+    assayDataElementReplace(object, "call", value)
+})
+
+setReplaceMethod("snpCallProbability", c("SnpSet2", "matrix"),
+                 function(object, ..., value)
+{
+    assayDataElementReplace(object, "callProbability", value)
+})
+
+##-----------------------
+## new methods for SnpSet2
+##
+
+setMethod("calls", "SnpSet2", function(object) assayData(object)$call)
+setReplaceMethod("calls", signature(object="SnpSet2", value="matrix"),
                  function(object, value)
                  assayDataElementReplace(object, "call", value))
 p2i <- function(p)
@@ -19,7 +83,7 @@ warningMsg <- function(X){
 	message("> p <- i2p(x)")
 }
 
-setMethod("confs", "SnpSet", function(object, transform=TRUE) {
+setMethod("confs", "SnpSet2", function(object, transform=TRUE) {
 	X <- snpCallProbability(object)
 	if(is(X, "ff_matrix") | is(X, "ffdf")){
 		warningMsg(X)
@@ -31,7 +95,7 @@ setMethod("confs", "SnpSet", function(object, transform=TRUE) {
 	return(X)
 })
 
-setReplaceMethod("confs", signature(object="SnpSet", value="matrix"),
+setReplaceMethod("confs", signature(object="SnpSet2", value="matrix"),
 		 function(object, value){
 			 ##convert probability to integer
 			 if(max(value) > 1){
@@ -43,11 +107,11 @@ setReplaceMethod("confs", signature(object="SnpSet", value="matrix"),
 			 assayDataElementReplace(object, "callProbability", X)
 		 })
 
-##setMethod("callsConfidence", "SnpSet", function(object) confs(object))
-##setReplaceMethod("callsConfidence", signature(object="SnpSet", value="matrix"),
+##setMethod("callsConfidence", "SnpSet2", function(object) confs(object))
+##setReplaceMethod("callsConfidence", signature(object="SnpSet2", value="matrix"),
 ##                 function(object, value) confs(object) <- value)
 
-setMethod("combine", signature=signature(x="SnpSet", y="SnpSet"),
+setMethod("combine", signature=signature(x="SnpSet2", y="SnpSet2"),
           function(x, y, ...){
 		  ##Check that both x and y are valid objects
 		  if(!validObject(x)) stop("x is not a valid object")
@@ -78,7 +142,7 @@ setMethod("combine", signature=signature(x="SnpSet", y="SnpSet"),
           })
 
 ## need this to work for a RangedData object with multiple ranges
-setMethod("featuresInRange", signature(object="SnpSet", range="RangedDataCNV"),
+setMethod("featuresInRange", signature(object="SnpSet2", range="RangedDataCNV"),
 	  function(object, range, FRAME=0, FRAME.LEFT, FRAME.RIGHT, ...){
 		  start <- start(range)
 		  end <- end(range)
@@ -93,10 +157,10 @@ setMethod("featuresInRange", signature(object="SnpSet", range="RangedDataCNV"),
 		  which(position(object) >= start & position(object) <= end & chromosome(object) == CHR)
 	  })
 
-setMethod("checkOrder", signature(object="SnpSet"),
-	  function(object, verbose=FALSE){
-		  .checkOrder(object, verbose)
-	  })
+##setMethod("checkOrder", signature(object="SnpSet2"),
+##	  function(object, verbose=FALSE){
+##		  .checkOrder(object, verbose)
+##	  })
 
 
 ##setMethod("annotate", "eSet", function(object){
@@ -132,49 +196,57 @@ setMethod("checkOrder", signature(object="SnpSet"),
 ##	return(object)
 ##})
 
-setMethod("isSnp", signature(object="SnpSet"),
-	  function(object, pkgname) {
-		  labels <- fvarLabels(object)
-		  if("isSnp" %in% labels){
-			  res <- fData(object)[, "isSnp"]
-		  } else{
-			  nm <- grep("Crlmm", annotation(object))
-			  if(length(nm)==0){
-				  pkgname <- paste(annotation(object), "Crlmm", sep="")
-			  } else pkgname <- annotation(object)
-			  res <- isSnp(featureNames(object), pkgname)
-		  }
-		  ##return(res==1)
-		  return(res)
-	  })
+##setMethod("isSnp", signature(object="SnpSet2"),
+##	  function(object, pkgname) {
+##		  labels <- fvarLabels(object)
+##		  if("isSnp" %in% labels){
+##			  res <- fData(object)[, "isSnp"]
+##		  } else{
+##			  nm <- grep("Crlmm", annotation(object))
+##			  if(length(nm)==0){
+##				  pkgname <- paste(annotation(object), "Crlmm", sep="")
+##			  } else pkgname <- annotation(object)
+##			  res <- isSnp(featureNames(object), pkgname)
+##		  }
+##		  ##return(res==1)
+##		  return(res)
+##	  })
 
-setMethod("db", "SnpSet",
-          function(object) {
-		  requireAnnotation(annotation(object)) || stop(paste(annotation(object), "package not available"))
-		  get(annotation(object))@getdb()
-	  })
+##setMethod("db", "SnpSet2",
+##          function(object) {
+##		  requireAnnotation(annotation(object)) || stop(paste(annotation(object), "package not available"))
+##		  get(annotation(object))@getdb()
+##	  })
 
-setMethod("chromosome", "SnpSet",
-	  function(object, na.rm=FALSE, ...){
-		  if(!("chromosome" %in% fvarLabels(object))){
-			  stop("chromosome not in fvarLabels")
-		  }
-		  chrom <- chromosome(featureData(object), na.rm)
-		  return(chrom)
-	  })
+##setMethod("chromosome", "SnpSet2",
+##	  function(object, na.rm=FALSE, ...){
+##		  if(!("chromosome" %in% fvarLabels(object))){
+##			  stop("chromosome not in fvarLabels")
+##		  }
+##		  chrom <- chromosome(featureData(object), na.rm)
+##		  return(chrom)
+##	  })
+##
+##setReplaceMethod("chromosome", signature(object="SnpSet2", value="integer"),
+##		 function(object, value){
+##			 fData(object)$chromosome <-  value
+##			 object
+##		 })
+##
+##
+##setMethod("position", "SnpSet2",
+##          function(object, na.rm=FALSE, ...){
+##		  if(!("position" %in% fvarLabels(object))){
+##			  stop("position not in fvarLabels")
+##		  }
+##		  pos <- position(featureData(object), na.rm)
+##		  return(pos)
+##          })
+##setMethod("show", signature(object="SnpSet2"),
+##	  function(object){
+##		  callNextMethod(object)
+##		  cat("genome:", genomeBuild(object), "\n")
+##	  })
+##setMethod("genomeBuild", signature(object="SnpSet2"), function(object) object@genome)
 
-setReplaceMethod("chromosome", signature(object="SnpSet", value="integer"),
-		 function(object, value){
-			 fData(object)$chromosome <-  value
-			 object
-		 })
 
-
-setMethod("position", "SnpSet",
-          function(object, na.rm=FALSE, ...){
-		  if(!("position" %in% fvarLabels(object))){
-			  stop("position not in fvarLabels")
-		  }
-		  pos <- position(featureData(object), na.rm)
-		  return(pos)
-          })

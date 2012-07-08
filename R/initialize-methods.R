@@ -10,10 +10,16 @@ setMethod("initialize", signature(.Object="CopyNumberSet"),
                    cnConfidence = matrix(numeric(),
                                             nrow=nrow(copyNumber), ncol=ncol(copyNumber),
                                             dimnames=dimnames(copyNumber)),
-		   featureData=GenomeAnnotatedDataFrameFrom(assayData, annotation),
+		   featureData=GenomeAnnotatedDataFrameFrom(assayData, annotation, genome=genome),
+		   genome=c("hg19", "hg18"),
                    ...) {
 		  if(nrow(copyNumber)>0){
 			  if(!is(copyNumber[, 1], "integer")) stop("copyNumber should be supplied as a matrix of integers (original scale * 100). See integerMatrix in the oligoClasses package for the conversion to integer matrices")
+		  }
+		  if(nrow(assayData[["copyNumber"]]) == 0){
+			  .Object@genome <- ""
+		  } else{
+			  .Object@genome <- match.arg(genome)
 		  }
 		  .Object <- callNextMethod(.Object,
 					    assayData = assayData,
@@ -22,8 +28,6 @@ setMethod("initialize", signature(.Object="CopyNumberSet"),
 					    experimentData = experimentData,
 					    annotation = annotation,
 					    protocolData = protocolData)
-##		  if(checkAnnotation(annotation))
-##			  .Object <- annotate(.Object)
 		  return(.Object)
           })
 
@@ -46,6 +50,55 @@ setAs("CNSet", "CopyNumberSet",
 		  protocolData=protocolData(from))
       })
 
+##setMethod("initialize", "oligoSnpSet",
+##	  function(.Object,
+##		   call=new("matrix"),
+##		   callProbability=matrix(numeric(), nrow=nrow(call), ncol=ncol(call), dimnames=dimnames(call)),
+##		   copyNumber=matrix(numeric(), nrow=nrow(call), ncol=ncol(call),  dimnames=dimnames(call)),
+##		   ##cnConfidence=matrix(numeric(), nrow=nrow(call), ncol=ncol(call), dimnames=dimnames(call)),
+##		   assayData=Biobase::assayDataNew(call=call,
+##		   callProbability=callProbability,
+##		   copyNumber=copyNumber, ...),
+##		   annotation=character(),
+##		   phenoData,
+##		   featureData, ##=GenomeAnnotatedDataFrameFrom(call, annotation),
+##		   experimentData,
+##		   protocolData,
+##		   genome=c("hg19", "hg18"),
+##		   ...){
+##		  if(nrow(copyNumber)>0){
+##			  if(!is(copyNumber[, 1], "integer")) stop("copyNumber should be supplied as a matrix of integers (original scale * 100). See integerMatrix in the oligoClasses package for the conversion to integer matrices")
+##		  }
+##		  nms <- names(list(...))
+##		  if(length(nms) > 0){
+##			  ## check that each element in ... is a matrix of integers
+##			  for(i in seq_along(nms)){
+##				  elt <- list(...)[[nms[i]]]
+##				  if(nrow(elt) > 0)
+##					  if(!is(elt[,1], "integer")) stop("all assay data elements must be integers. For copy number, use original scale * 100 and for B allele frequencies use original scale * 1000. See integerMatrix in the oligoClasses package for the conversion to integer matrices")
+##			  }
+##		  }
+##		  if(missing(featureData))
+##			  featureData <- GenomeAnnotatedDataFrameFrom(assayData, annotation)
+##		  if(missing(phenoData))
+##			  phenoData <- Biobase::annotatedDataFrameFrom(call, byrow=FALSE)
+##		  if(missing(experimentData))
+##			  experimentData <- new("MIAME")
+##		  if(missing(protocolData))
+##			  protocolData <- phenoData[, integer(0)]
+##		  .Object@genome <- match.arg(genome)
+##		  .Object <- callNextMethod(.Object,
+##					    assayData=assayData,
+##					    annotation=annotation,
+##					    featureData=featureData,
+##					    experimentData=experimentData,
+##					    phenoData=phenoData,
+##					    protocolData=protocolData,
+##					    ...)
+##		  return(.Object)
+##	  })
+
+
 setMethod("initialize", "oligoSnpSet",
 	  function(.Object,
 		   call=new("matrix"),
@@ -60,7 +113,7 @@ setMethod("initialize", "oligoSnpSet",
 		   featureData, ##=GenomeAnnotatedDataFrameFrom(call, annotation),
 		   experimentData,
 		   protocolData,
-		   genomeBuild=character(),
+		   genome=c("hg19", "hg18"),
 		   ...){
 		  if(nrow(copyNumber)>0){
 			  if(!is(copyNumber[, 1], "integer")) stop("copyNumber should be supplied as a matrix of integers (original scale * 100). See integerMatrix in the oligoClasses package for the conversion to integer matrices")
@@ -74,14 +127,16 @@ setMethod("initialize", "oligoSnpSet",
 					  if(!is(elt[,1], "integer")) stop("all assay data elements must be integers. For copy number, use original scale * 100 and for B allele frequencies use original scale * 1000. See integerMatrix in the oligoClasses package for the conversion to integer matrices")
 			  }
 		  }
+		  genome <- match.arg(genome)
 		  if(missing(featureData))
-			  featureData <- GenomeAnnotatedDataFrameFrom(assayData, annotation)
+			  featureData <- GenomeAnnotatedDataFrameFrom(assayData, annotation, genome=genome)
 		  if(missing(phenoData))
 			  phenoData <- Biobase::annotatedDataFrameFrom(call, byrow=FALSE)
 		  if(missing(experimentData))
 			  experimentData <- new("MIAME")
 		  if(missing(protocolData))
 			  protocolData <- phenoData[, integer(0)]
+		  .Object@genome <- genome
 		  .Object <- callNextMethod(.Object,
 					    assayData=assayData,
 					    annotation=annotation,
@@ -89,7 +144,6 @@ setMethod("initialize", "oligoSnpSet",
 					    experimentData=experimentData,
 					    phenoData=phenoData,
 					    protocolData=protocolData,
-					    genomeBuild=genomeBuild,
 					    ...)
 		  return(.Object)
 	  })
@@ -106,6 +160,10 @@ setValidity("oligoSnpSet", function(object){
 		if(nrow(b) > 0){
 			if(!is.integer(b[,1])) return("B allele frequencies should be a matrix of integers (original scale * 1000). See integerMatrix(x, 1000) for converting 'x' to a matrix of integers.")
 		}
+	}
+	if(nrow(object) > 0){
+		genome <- genomeBuild(object)
+		if(!genome %in% c("hg18", "hg19")) return("Supported values for genome are hg18 and hg19")
 	}
 	if(is.character(msg)) return(msg)
 	validObject(phenoData(object))
@@ -220,10 +278,15 @@ setMethod("initialize", "CNSet",
 		   protocolData=phenoData[, integer(0)],
 		   experimentData=new("MIAME"),
 		   annotation=character(),
-		   featureData=GenomeAnnotatedDataFrameFrom(assayData, annotation),
+		   featureData,
 		   batch=character(ncol(alleleA)),
 		   batchStatistics=initializeLmFrom2(alleleA, batch),
+		   genome=c("hg19", "hg18"),
 		   mixtureParams=matrix(), ...){
+		  genome <- match.arg(genome)
+		  if(missing(featureData))
+			  featureData <- GenomeAnnotatedDataFrameFrom(assayData, annotation, genome=genome)
+		  .Object@genome <- genome
 		  .Object <- callNextMethod(.Object,
 					    assayData=assayData,
 					    phenoData=phenoData,
@@ -233,11 +296,8 @@ setMethod("initialize", "CNSet",
 					    protocolData=protocolData,
 					    batchStatistics=batchStatistics,
 					    mixtureParams=mixtureParams,
-					    batch=batch, ...)
-##		  bns <- unique(as.character(batch))
-##		  if(length(bns) > 1){
-##			  batchNames(.Object) <- c(bns, "grandMean")
-##		  } else batchNames(.Object) <- bns
+					    batch=batch, genome=genome, ...)
+		  if(nrow(.Object)==0) .Object@genome <- ""
 		  return(.Object)
 })
 
@@ -249,6 +309,10 @@ setValidity("CNSet", function(object){
 	if(length(batch(object)) != ncol(object)){
  		return("'batch' must be the same length as the number of samples.  ")
  	}
+	if(nrow(object) > 0){
+		genome <- genomeBuild(object)
+		if(!genome %in% c("hg18", "hg19")) print("Supported entries for genome are hg18 and hg19")
+	}
 	msg <- isValidGenomeAnnotatedDataFrame(featureData(object))
 	if(is.character(msg)) return(msg) else TRUE
 })
@@ -289,7 +353,7 @@ setMethod("initialize", "BeadStudioSet",
                 		   nrow=nrow(baf),
 		                   ncol=ncol(baf),
                     		   dimnames=dimnames(baf)),
-		   genomeBuild=character(),
+		   genome=character(),
 		   ...) {
 ##		  if(missing(assayData)){
 ##			  ## do in setValidity

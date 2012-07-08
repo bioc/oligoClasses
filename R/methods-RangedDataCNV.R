@@ -270,3 +270,12 @@ setReplaceMethod("sampleNames", signature(object="RangedDataCNV",
 			 object$id <- value
 			 return(object)
 		 })
+
+
+makeFeatureRanges <- function(object){
+	ranges <- GRanges(paste("chr", chromosome(object), sep=""),
+			  IRanges(position(object), width=1))
+	sl <- getSequenceLengths("hg19")
+	seqlengths(ranges) <- sl[match(unique(as.character(seqnames(ranges))), names(sl))]
+	ranges
+}

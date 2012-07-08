@@ -5,7 +5,7 @@ setMethod("initialize", signature(.Object="eSetList"),
 		   chromosome=integer(),
 		   phenoData=annotatedDataFrameFrom(assayDataList, byrow=FALSE),
 		   annotation=character(),
-		   genomeBuild=character(),
+		   genome=character(),
 		   ...){
 		  callNextMethod(.Object,
 				 assayDataList=assayDataList,
@@ -13,5 +13,7 @@ setMethod("initialize", signature(.Object="eSetList"),
 				 phenoData=phenoData,
 				 chromosome=chromosome,
 				 annotation=annotation,
-				 genomeBuild=genomeBuild)
+				 genome=genome, ...)
 	  })
+setMethod("annotation", signature(object="eSetList"), function(object) object@annotation)
+setMethod("genomeBuild", signature(object="eSetList"), function(object) object@genome)

@@ -20,8 +20,7 @@ importFrom(graphics, plot)
 
 ## Biobase
 importClassesFrom(Biobase, AnnotatedDataFrame, AssayData, eSet, MIAME,
-                  NChannelSet, Versions, VersionedBiobase, Versioned,
-                  SnpSet)
+                  NChannelSet, Versions, VersionedBiobase, Versioned, SnpSet)
 
 importFrom(Biobase, assayDataElement, assayDataElementReplace,
            assayDataNew, assayDataValidMembers,
@@ -36,16 +35,21 @@ importMethodsFrom(Biobase, annotatedDataFrameFrom, annotation,
                   fvarLabels, pData, "pData<-", phenoData,
                   "phenoData<-", sampleNames, "sampleNames<-", se.exprs,
                   "se.exprs<-", storageMode, "storageMode<-",
-                  classVersion, snpCall, snpCallProbability,
-                  'snpCall<-', 'snpCallProbability<-')
+                  classVersion)
+##		  snpCall, snpCallProbability,
+##                  'snpCall<-', 'snpCallProbability<-')
 
 ## IRanges
-importClassesFrom(IRanges, RangedData, DataTable, List, DataTableORNULL, Vector, Annotated)
-importFrom(IRanges, IRanges, RangedData, RangedDataList,
-	   countOverlaps,
-	   ranges, values,
-	   queryHits, subjectHits)
-importMethodsFrom(IRanges, findOverlaps, as.matrix)
+##importClassesFrom(IRanges, RangedData, DataTable, List, DataTableORNULL, Vector, Annotated)
+##importFrom(IRanges, IRanges, RangedData, RangedDataList,
+##	   countOverlaps,
+##	   ranges, values,
+##	   queryHits, subjectHits)
+##importMethodsFrom(IRanges, findOverlaps, as.matrix)
+
+##importClassesFrom(GenomicRanges, GRanges)
+import(IRanges)
+import(GenomicRanges)
 
 ## ff
 ## register open and close methods
@@ -82,7 +86,7 @@ exportClasses(AlleleSet, BeadStudioSet, oligoSnpSet, SnpSuperSet, CNSet,
 	      gSet, RangedDataCopyNumber, RangedDataCNV, RangedDataCBS,
 	      RangedDataHMM, CopyNumberSet, GenomeAnnotatedDataFrame,
 	      BeadStudioSetList,
-	      oligoSetList)
+	      oligoSetList, SnpSet2)
 
 ##Misc
 exportClasses(ff_or_matrix)
@@ -96,7 +100,8 @@ exportClasses(ff_or_matrix)
 exportMethods(bothStrands, allele, calls, "calls<-", confs, "confs<-",
               chromosome, "chromosome<-", copyNumber,
               "copyNumber<-", cnConfidence, "cnConfidence<-", db, isSnp,
-              position, "position<-", sampleNames, A, B, "A<-", "B<-")
+              position, "position<-", sampleNames, A, B, "A<-", "B<-",
+	      "genomeBuild<-")
 
 ## FeatureSet methods
 exportMethods(exprs)
@@ -131,7 +136,8 @@ export(pdPkgFromBioC, requireAnnotation, affyPlatforms, celfileDate,
 
 export(chromosome2integer, i2p, p2i, annotationPackages, checkExists,
        chromosomePositionOrder, integerArray, integerMatrix, findOverlaps,
-       RangedDataCNV, RangedDataCBS, RangedDataHMM, library2, AssayDataList)
+       RangedDataCNV, RangedDataCBS, RangedDataHMM, library2, AssayDataList,
+       getSequenceLengths, makeFeatureRanges)
 
 
 ### Deprecated
