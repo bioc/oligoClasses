@@ -412,6 +412,8 @@ addFeatureAnnotation.crlmm2 <- function(object, featureNames, genome="", ...){
 		loader(paste("snpProbes_", genome, ".rda", sep=""), pkgname=pkgname, envir=.oligoClassesPkgEnv)
 		snpProbes <- get("snpProbes", envir=.oligoClassesPkgEnv)
 	} else {
+		if(genome != "hg19")
+			stop(paste("genome build ", genome, " was requested, but only UCSC build hg19 is currently available with this annotation package.", sep=""))
 		## hg19 is implicit
 		loader(paste("cnProbes.rda", sep=""), pkgname=pkgname, envir=.oligoClassesPkgEnv)
 		cnProbes <- get("cnProbes", envir=.oligoClassesPkgEnv)
