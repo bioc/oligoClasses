@@ -8,7 +8,7 @@
 \alias{genomeBuild,gSet-method}
 \alias{genomeBuild<-,gSet,character-method}
 \alias{initialize,gSet-method}
-\alias{makeFeatureRanges,gSet-method}
+\alias{makeFeatureGRanges,gSet-method}
 \alias{show,gSet-method}
 
 \title{Container for objects with genomic annotation on SNPs}
@@ -58,7 +58,7 @@ Class \code{"\linkS4class{Versioned}"}, by class "eSet", distance 3.
 
     \item{}{
 
-      \code{makeFeatureRanges(object)}:  Construct an instance of the
+      \code{makeFeatureGRanges(object)}:  Construct an instance of the
       \code{GRanges} class from a \code{GenomeAnnotatedDataFrame}.
 
     }

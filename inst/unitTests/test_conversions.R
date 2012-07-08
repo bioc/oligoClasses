@@ -10,6 +10,12 @@ test_oligoSnpSet <- function(){
 	checkTrue(validObject(as(oligoSet, "SnpSet2")))
 }
 
+test_makeFeatureRanges <- function(){
+	data(oligoSetExample)
+	gr <- makeFeatureGRanges(featureData(oligoSet), genome=genomeBuild(oligoSet))
+
+}
+
 test_RangedDataHMM2GRanges <- function(){
 	if(require(VanillaICE)){
 		data(hmmResults, package="VanillaICE")

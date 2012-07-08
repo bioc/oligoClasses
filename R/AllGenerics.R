@@ -65,4 +65,4 @@ setGeneric("checkOrder", function(object, verbose=FALSE) standardGeneric("checkO
 ##setGeneric("order2", function(object)  standardGeneric("order2"))
 setGeneric("GenomeAnnotatedDataFrameFrom", function(object, annotationPkg, ...) standardGeneric("GenomeAnnotatedDataFrameFrom"))
 setGeneric("numberProbes", function(object) standardGeneric("numberProbes"))
-setGeneric("makeFeatureRanges", function(object, ...) standardGeneric("makeFeatureRanges"))
+setGeneric("makeFeatureGRanges", function(object, ...) standardGeneric("makeFeatureGRanges"))

@@ -1,5 +1,5 @@
-\name{makeFeatureRanges}
-\alias{makeFeatureRanges}
+\name{makeFeatureGRanges}
+\alias{makeFeatureGRanges}
 
 \title{
   Construct a GRanges object from several possible feature-level classes
@@ -10,13 +10,17 @@
   such as \code{findOverlaps}, \code{countOverlaps}, etc.
 }
 \usage{
-makeFeatureRanges(object)
+makeFeatureGRanges(object, ...)
 }
 
 \arguments{
   \item{object}{
     A \code{gSet}-derived object containing chromosome and physical
   position for the markers on the array.
+}
+
+\item{\dots}{
+  See the \code{makeFeatureGRanges} method for \code{GenomeAnnotatedDataFrame}.
   }
 }
 
@@ -29,7 +33,7 @@ R. Scharpf
 }
 
 \seealso{
- \code{\link{findOverlaps}}, \code{\linkS4class{GRanges}}
+ \code{\link{findOverlaps}}, \code{\linkS4class{GRanges}}, \code{\linkS4class{GenomeAnnotatedDataFrame}}
 }
 \examples{
 	if(require("VanillaICE")){
@@ -39,10 +43,12 @@ R. Scharpf
 		oligoSet <- oligoSet[chromosome(oligoSet) == 1, ]
 		hmmResults <- hmm(oligoSet)
 
-		(frange <- makeFeatureRanges(oligoSet))
+		(frange <- makeFeatureGRanges(oligoSet))
 		## which features overlap with the second range in sample NA06993
 		olaps <- findOverlaps(hmmResults[["NA06993"]], frange)
 		Biobase::featureNames(oligoSet)[subjectHits(olaps)[queryHits(olaps)==2]]
+
+                gr <- makeFeatureGRanges(featureData(oligoSet), genome="hg19")
 	}
 }
 \keyword{manip}

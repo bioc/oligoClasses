@@ -5,7 +5,7 @@
 \alias{GenomeAnnotatedDataFrame}
 \alias{coerce,AnnotatedDataFrame,GenomeAnnotatedDataFrame-method}
 \alias{initialize,GenomeAnnotatedDataFrame-method}
-\alias{makeFeatureRanges,GenomeAnnotatedDataFrame-method}
+\alias{makeFeatureGRanges,GenomeAnnotatedDataFrame-method}
 \alias{position<-}
 \alias{position<-,GenomeAnnotatedDataFrame,integer-method}
 \alias{updateObject,GenomeAnnotatedDataFrame-method}
@@ -41,11 +41,13 @@ Class \code{"\linkS4class{Versioned}"}, by class "AnnotatedDataFrame", distance 
     }
 
     \item{}{
-      \code{makeFeatureRanges(object, ...)}:
+      \code{makeFeatureGRanges(object, genome, ...)}:
 
       Construct a \code{GRanges} instance from a
-      \code{GenomeAnnotatedDataFrame}.  Users can specify the genome
-      build by passing \code{genome="hg18"} or \code{genome="hg19"}.
+      \code{GenomeAnnotatedDataFrame} object.  \code{genome} is a
+      character string indicating the UCSC build. Supported builds are
+      "hg18" and "hg19", but are platform specific.  In particular, some
+      platforms only support build hg19 at this time.
 
 
     }

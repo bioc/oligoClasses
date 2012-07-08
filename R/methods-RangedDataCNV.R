@@ -280,7 +280,7 @@ setReplaceMethod("sampleNames", signature(object="RangedDataCNV",
 ##	x
 ##}
 
-setMethod("makeFeatureRanges", signature(object="gSet"),
+setMethod("makeFeatureGRanges", signature(object="gSet"),
 	  function(object, ...){
 		  sl <- getSequenceLengths(genomeBuild(object))
 		  gr <- GRanges(paste("chr", chromosome(object), sep=""),
@@ -292,7 +292,7 @@ setMethod("makeFeatureRanges", signature(object="gSet"),
 setMethod("genomeBuild", signature(object="GRanges"),
 	  function(object) metadata(object)[["genome"]])
 
-setMethod("makeFeatureRanges", signature(object="GenomeAnnotatedDataFrame"),
+setMethod("makeFeatureGRanges", signature(object="GenomeAnnotatedDataFrame"),
 	  function(object, genome, ...){
 		  sl <- getSequenceLengths(genome)
 		  gr <- GRanges(paste("chr", chromosome(object), sep=""),
@@ -355,7 +355,7 @@ setMethod("findOverlaps", signature(query="GRangesList", subject="gSet"),
 		    maxgap = 0L, minoverlap = 1L,
 		    type = c("any", "start", "end", "within", "equal"),
 		    select = c("all", "first", "last", "arbitrary"), ...){
-		  frange <- makeFeatureRanges(subject)
+		  frange <- makeFeatureGRanges(subject)
 		  findOverlaps(query, frange, maxgap=maxgap,
 			       minoverlap=minoverlap,
 			       type=match.arg(type),
@@ -367,7 +367,7 @@ setMethod("findOverlaps", signature(query="GRanges", subject="gSet"),
 		    maxgap = 0L, minoverlap = 1L,
 		    type = c("any", "start", "end", "within", "equal"),
 		    select = c("all", "first", "last", "arbitrary"), ...){
-		  frange <- makeFeatureRanges(subject)
+		  frange <- makeFeatureGRanges(subject)
 		  findOverlaps(query, frange, maxgap=maxgap,
 			       minoverlap=minoverlap,
 			       type=match.arg(type),

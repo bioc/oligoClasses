@@ -353,25 +353,20 @@ setMethod("initialize", "BeadStudioSet",
                 		   nrow=nrow(baf),
 		                   ncol=ncol(baf),
                     		   dimnames=dimnames(baf)),
-		   genome=character(),
+		   genome=c("hg19", "hg18"),
 		   ...) {
-##		  if(missing(assayData)){
-##			  ## do in setValidity
-##			  if(nrow(lrr)>0){
-##				  if(!is(lrr[, 1], "integer")) stop("lrr should be supplied as a matrix of integers (original scale * 100). See integerMatrix in the oligoClasses package for the conversion to integer matrices")
-##			  }
-##			  if(nrow(baf)>0){
-##				  if(!is(baf[, 1], "integer")) stop("baf should be supplied as a matrix of integers (original scale * 100). See integerMatrix in the oligoClasses package for the conversion to integer matrices")
-##			  }
-##		  }
+		  if(nrow(assayData[["baf"]]) == 0){
+			  .Object@genome <- ""
+		  } else{
+			  .Object@genome <- match.arg(genome)
+		  }
 		  .Object <- callNextMethod(.Object,
 					    assayData = assayData,
 					    phenoData = phenoData,
 					    featureData = featureData,
 					    experimentData = experimentData,
 					    annotation = annotation,
-					    protocolData = protocolData,
-					    genome=genome, ...)
+					    protocolData = protocolData, ...)
 	return(.Object)
 })
 
