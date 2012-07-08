@@ -87,6 +87,7 @@ setClass("SnpSet2", contains="gSet")
 setClass("oligoSnpSet", contains="SnpSet2") ##representation(featureData="GenomeAnnotatedDataFrame"))
 setClass("CopyNumberSet", contains="gSet") ## total copy number (no genotypes available)
 setClass("BeadStudioSet", contains="gSet")
+setClass("BafLrrSet", contains="BeadStudioSet")
 
 #setClass("SomeClass", contains="SnpSet2") ## why will this not work??
 
