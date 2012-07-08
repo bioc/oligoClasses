@@ -138,7 +138,7 @@ export(pdPkgFromBioC, requireAnnotation, affyPlatforms, celfileDate,
        splitIndicesByLength, splitIndicesByNode, initializeBigMatrix,
        initializeBigVector, initializeBigArray)
 
-export(chromosome2integer, i2p, p2i, annotationPackages, checkExists,
+export(chromosome2integer, integer2chromosome, i2p, p2i, annotationPackages, checkExists,
        chromosomePositionOrder, integerArray, integerMatrix, findOverlaps,
        RangedDataCNV, RangedDataCBS, RangedDataHMM, library2, AssayDataList,
        getSequenceLengths)
