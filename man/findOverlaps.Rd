@@ -69,7 +69,7 @@ findOverlaps(query, subject, maxgap = 0L, minoverlap = 1L, type = c("any", "star
   If \code{subject} is a \code{\linkS4class{SnpSet}},
   \code{\linkS4class{CNSet}}, or \code{\linkS4class{AnnotatedDataFrame}}
   with 'chromosome', and 'position' \code{varLabels}, the method returns
-  a \code{\linkS4class{RangesMatching}} object indicating which markers
+  a \code{\linkS4class{Hits}} object indicating which markers
   in \code{subject} overlap with the \code{query} ranges.  This method
   can be useful for finding the set of markers in \code{subject} that
   reside within a given genomic interval in the \code{query}.

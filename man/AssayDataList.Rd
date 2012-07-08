@@ -12,8 +12,7 @@ AssayDataList(storage.mode = c("lockedEnvironment", "environment", "list"), ...)
   \item{storage.mode}{See \code{assayDataNew}.}
   \item{\dots}{Named lists of matrices}
 }
-\details{
-}
+
 \value{
   environment
 }
