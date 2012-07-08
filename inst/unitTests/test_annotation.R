@@ -13,4 +13,15 @@ test_annotation <- function(){
 		  isSnp=TRUE,
 		  arm=1)
 	checkTrue(validObject(gd))
+	## other approach
+	library(Biobase)
+	pD <- pData(gd)
+	mD <- varMetadata(gd)
+	gd <- new("GenomeAnnotatedDataFrame",
+		  data=pD,
+		  varMetadata=mD)
+	checkTrue(validObject(gd))
+
+	gd <- gd[1:5, ]
+	checkTrue(validObject(gd))
 }

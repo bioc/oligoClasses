@@ -4,16 +4,22 @@ setMethod("initialize", signature(.Object="GenomeAnnotatedDataFrame"),
 		   isSnp=vector("logical", length(position)),
 		   chromosome=vector("integer", length(position)),
 		   row.names=NULL,
-		   data=data.frame(isSnp=isSnp, position=position, chromosome=chromosome, ..., row.names=row.names),
-		   varMetadata=data.frame(labelDescription=c("SNP indicator", "physical position", "chromosome")),
+		   data,
+		   varMetadata,
 		   ...){
-		  if(length(list(...)) > 0){
+		  if(missing(data))
+			  data <- data.frame(isSnp=isSnp, position=position, chromosome=chromosome, ..., row.names=row.names)
+		  if(missing(varMetadata)){
 			  nms <- names(list(...))
 			  varMetadata <- data.frame(labelDescription=c("SNP indicator", "physical position", "chromosome", nms))
-			  rownames(varMetadata) <- c("isSnp", "position", "chromosome", nms)
-		  } else {
-			  rownames(varMetadata) <- c("isSnp", "position", "chromosome")
 		  }
+##		  if(length(list(...)) > 0){
+##			  nms <- names(list(...))
+##			  varMetadata <- data.frame(labelDescription=c("SNP indicator", "physical position", "chromosome", nms))
+##			  rownames(varMetadata) <- c("isSnp", "position", "chromosome", nms)
+##		  } else {
+##			  rownames(varMetadata) <- c("isSnp", "position", "chromosome")
+##		  }
 		  .Object <- callNextMethod(.Object, data=data, varMetadata=varMetadata)
 	  })
 
