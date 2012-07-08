@@ -1,7 +1,8 @@
+#!/bin/bash
 TOP=../..
 PKG=${shell cd ${TOP};pwd}
 SUITE=doRUnit.R
-#R=${R_HOME}/bin/R
+#R="${R_HOME}/bin/R"
 
 all: inst test
 
@@ -15,3 +16,17 @@ test: # Run unit tests
 	export RUNITFILEPATTERN="$(file)";\
 	cd ${TOP}/tests;\
 	R --vanilla --slave < ${SUITE}
+
+release:
+	R_LIBS_USER=~/Library/R/2.15-bioc-release/library R CMD INSTALL --no-lock ${PKG}
+	export RCMDCHECK=FALSE;\
+	export RUNITFILEPATTERN="$(file)";\
+	cd ${TOP}/tests;\
+	R_LIBS_USER=~/Library/R/2.15-bioc-release/library R --vanilla --slave < ${SUITE}
+
+devel:
+	R_LIBS_USER=~/Library/R/2.15-bioc-devel/library R CMD INSTALL --no-lock ${PKG}
+	export RCMDCHECK=FALSE;\
+	export RUNITFILEPATTERN="$(file)";\
+	cd ${TOP}/tests;\
+	R_LIBS_USER=~/Library/R/2.15-bioc-devel/library R --vanilla --slave < ${SUITE}
