@@ -46,6 +46,7 @@
 \author{R Scharpf}
 
 \examples{
+	require(Biobase)
 	x <- matrix(1:25, 5, 5, dimnames=list(c("rs10000092","rs1000055", "rs100016", "rs10003241", "rs10004197"), NULL))
 	## preferred
 	gd <- GenomeAnnotatedDataFrameFrom(x, annotationPkg="human370v1cCrlmm",
