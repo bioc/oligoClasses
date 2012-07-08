@@ -280,13 +280,27 @@ setReplaceMethod("sampleNames", signature(object="RangedDataCNV",
 ##	x
 ##}
 
-makeFeatureRanges <- function(object){
-	sl <- getSequenceLengths(genomeBuild(object))
-	gr <- GRanges(paste("chr", chromosome(object), sep=""),
-		      IRanges(position(object), width=1))
-	seqlengths(gr) <- sl[match(unique(seqnames(gr)), names(sl))]
-	return(gr)
-}
+setMethod("makeFeatureRanges", signature(object="gSet"),
+	  function(object, ...){
+		  sl <- getSequenceLengths(genomeBuild(object))
+		  gr <- GRanges(paste("chr", chromosome(object), sep=""),
+				IRanges(position(object), width=1))
+		  seqlengths(gr) <- sl[match(unique(seqnames(gr)), names(sl))]
+		  return(gr)
+	  })
+
+setMethod("genomeBuild", signature(object="GRanges"),
+	  function(object) metadata(object)[["genome"]])
+
+setMethod("makeFeatureRanges", signature(object="GenomeAnnotatedDataFrame"),
+	  function(object, genome, ...){
+		  sl <- getSequenceLengths(genome)
+		  gr <- GRanges(paste("chr", chromosome(object), sep=""),
+				IRanges(position(object), width=1))
+		  seqlengths(gr) <- sl[match(unique(seqnames(gr)), names(sl))]
+		  return(gr)
+	  })
+
 
 GRangesListFromRangedDataHMM <- function(object, build, ...){
 	index <- split(seq_len(nrow(object)), sampleNames(object))
@@ -315,6 +329,8 @@ setAs("RangedDataHMM", "GRangesList", function(from, to){
 setAs("RangedDataCNV", "GRangesList", function(from, to){
 	GRangesListFromRangedDataCNV(from)
 })
+
+
 
 GRangesListFromRangedDataCNV <- function(object, build, ...){
 	index <- split(seq_len(nrow(object)), sampleNames(object))
@@ -358,3 +374,14 @@ setMethod("findOverlaps", signature(query="GRanges", subject="gSet"),
 			       select=match.arg(select),
 			       ...)
 	  })
+
+coerceToGRanges <- function(range, build="hg18"){
+	chrlevels <- paste("chr", 1:22, sep="")
+	gr <- GRanges(factor(paste("chr", chromosome(range), sep=""), levels=chrlevels),
+		      IRanges(start(range), end(range)),
+		      sample=sampleNames(range),
+		      state=range$state,
+		      numberProbes=coverage2(range),
+		      seqlengths=setSequenceLengths(build, names=chrlevels))
+	sort(gr)
+}

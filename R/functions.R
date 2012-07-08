@@ -30,3 +30,7 @@ getSequenceLengths <- function(build){
 	return(seqlengths)
 }
 
+setSequenceLengths <- function(build, names){ ## names are unique(seqnames(object))
+	sl <- getSequenceLengths(build)
+	sl[match(unique(names), names(sl))]
+}

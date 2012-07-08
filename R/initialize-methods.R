@@ -371,7 +371,7 @@ setMethod("initialize", "BeadStudioSet",
 					    experimentData = experimentData,
 					    annotation = annotation,
 					    protocolData = protocolData,
-					    genomeBuild=genomeBuild, ...)
+					    genome=genome, ...)
 	return(.Object)
 })
 

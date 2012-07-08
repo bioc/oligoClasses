@@ -63,6 +63,6 @@ setAs("BeadStudioSet", "data.frame",
 
 setMethod("show", signature(object="BeadStudioSet"), function(object){
 	callNextMethod(object)
-	cat("Genome Build: ", genomeBuild(object), "\n")
+	##cat("Genome Build: ", genomeBuild(object), "\n")
 	##cat("Integer representation of BAF/LRR: ", isInteger(object), "\n")
 })

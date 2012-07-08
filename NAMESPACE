@@ -123,7 +123,8 @@ exportMethods(batch, batchNames, "batchNames<-", coerce, flags, show,
 	      findOverlaps, state, openff, closeff, checkOrder,
 	      mean, updateObject,
 	      "sampleNames<-",
-	      GenomeAnnotatedDataFrameFrom)
+	      GenomeAnnotatedDataFrameFrom,
+	      makeFeatureRanges)
 
 ## EXPORTING....
 ##             functions
@@ -140,7 +141,7 @@ export(pdPkgFromBioC, requireAnnotation, affyPlatforms, celfileDate,
 export(chromosome2integer, i2p, p2i, annotationPackages, checkExists,
        chromosomePositionOrder, integerArray, integerMatrix, findOverlaps,
        RangedDataCNV, RangedDataCBS, RangedDataHMM, library2, AssayDataList,
-       getSequenceLengths, makeFeatureRanges)
+       getSequenceLengths, setSequenceLengths)
 
 
 ### Deprecated
