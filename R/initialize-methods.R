@@ -16,11 +16,6 @@ setMethod("initialize", signature(.Object="CopyNumberSet"),
 		  if(nrow(copyNumber)>0){
 			  if(!is(copyNumber[, 1], "integer")) stop("copyNumber should be supplied as a matrix of integers (original scale * 100). See integerMatrix in the oligoClasses package for the conversion to integer matrices")
 		  }
-		  if(nrow(assayData[["copyNumber"]]) == 0){
-			  .Object@genome <- ""
-		  } else{
-			  .Object@genome <- match.arg(genome)
-		  }
 		  .Object <- callNextMethod(.Object,
 					    assayData = assayData,
 					    phenoData = phenoData,
@@ -28,6 +23,11 @@ setMethod("initialize", signature(.Object="CopyNumberSet"),
 					    experimentData = experimentData,
 					    annotation = annotation,
 					    protocolData = protocolData)
+		  if(nrow(assayData[["copyNumber"]]) == 0){
+			  .Object@genome <- ""
+		  } else{
+			  .Object@genome <- match.arg(genome)
+		  }
 		  return(.Object)
           })
 
@@ -98,6 +98,14 @@ setAs("CNSet", "CopyNumberSet",
 ##		  return(.Object)
 ##	  })
 
+##harmomonizeAssayData <- function(assayData){
+##	nms <- names(ls(assayData))
+##	nr <- rep(NA, length(nms))
+##	for(i in seq_along(nms)){
+##		elt <- assayData[[nms[i]]]
+##		nr[i] <- nrow(elt)
+##	}
+##}
 
 setMethod("initialize", "oligoSnpSet",
 	  function(.Object,
@@ -136,7 +144,6 @@ setMethod("initialize", "oligoSnpSet",
 			  experimentData <- new("MIAME")
 		  if(missing(protocolData))
 			  protocolData <- phenoData[, integer(0)]
-		  .Object@genome <- genome
 		  .Object <- callNextMethod(.Object,
 					    assayData=assayData,
 					    annotation=annotation,
@@ -145,6 +152,7 @@ setMethod("initialize", "oligoSnpSet",
 					    phenoData=phenoData,
 					    protocolData=protocolData,
 					    ...)
+		  .Object@genome <- genome
 		  return(.Object)
 	  })
 
@@ -286,7 +294,6 @@ setMethod("initialize", "CNSet",
 		  genome <- match.arg(genome)
 		  if(missing(featureData))
 			  featureData <- GenomeAnnotatedDataFrameFrom(assayData, annotation, genome=genome)
-		  .Object@genome <- genome
 		  .Object@mixtureParams <- mixtureParams
 		  .Object@batch <- batch
 		  .Object@batchStatistics <- batchStatistics
@@ -297,6 +304,7 @@ setMethod("initialize", "CNSet",
 					    experimentData=experimentData,
 					    annotation=annotation,
 					    protocolData=protocolData, ...)
+		  .Object@genome <- genome
 		  if(nrow(.Object)==0) .Object@genome <- character()
 		  return(.Object)
 })
@@ -355,11 +363,7 @@ setMethod("initialize", "BeadStudioSet",
                     		   dimnames=dimnames(baf)),
 		   genome=c("hg19", "hg18"),
 		   ...) {
-		  if(nrow(assayData[["baf"]]) == 0){
-			  .Object@genome <- ""
-		  } else{
-			  .Object@genome <- match.arg(genome)
-		  }
+
 		  .Object <- callNextMethod(.Object,
 					    assayData = assayData,
 					    phenoData = phenoData,
@@ -367,6 +371,11 @@ setMethod("initialize", "BeadStudioSet",
 					    experimentData = experimentData,
 					    annotation = annotation,
 					    protocolData = protocolData, ...)
+		  if(nrow(assayData[["baf"]]) == 0){
+			  .Object@genome <- ""
+		  } else{
+			  .Object@genome <- match.arg(genome)
+		  }
 	return(.Object)
 })
 
