@@ -43,7 +43,6 @@ R. Scharpf
 		data(oligoSetExample, package="oligoClasses")
 		oligoSet <- oligoSet[chromosome(oligoSet) == 1, ]
 		hmmResults <- hmm(oligoSet)
-
 		(frange <- makeFeatureGRanges(oligoSet))
 		## which features overlap with the second range in sample NA06993
 		olaps <- findOverlaps(hmmResults[["NA06993"]], frange)

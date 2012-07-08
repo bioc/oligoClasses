@@ -410,3 +410,15 @@ setReplaceMethod("position", signature(object="GenomeAnnotatedDataFrame", value=
 			 object$position <- value
 			 object
 		 })
+
+setMethod("makeFeatureGRanges", signature(object="GenomeAnnotatedDataFrame"),
+	  function(object, genome, ...){
+		  sl <- getSequenceLengths(genome)
+		  chrom <- integer2chromosome(chromosome(object))
+		  gr <- GRanges(paste("chr", chrom, sep=""),
+				IRanges(position(object), width=1))
+		  nms <- names(seqlengths(gr))
+		  sl <- sl[match(nms, names(sl))]
+		  seqlengths(gr) <- sl
+		  return(gr)
+	  })

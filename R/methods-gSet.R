@@ -107,3 +107,14 @@ setMethod("show", signature(object="gSet"),
 		  callNextMethod(object)
 		  cat("genome: ", genomeBuild(object), "\n")
 	  })
+
+
+setMethod("makeFeatureGRanges", signature(object="gSet"),
+	  function(object, ...){
+		  makeFeatureGRanges(featureData(object), genomeBuild(object))
+##		  sl <- getSequenceLengths(genomeBuild(object))
+##		  gr <- GRanges(paste("chr", chromosome(object), sep=""),
+##				IRanges(position(object), width=1))
+##		  seqlengths(gr) <- sl[match(unique(seqnames(gr)), names(sl))]
+##		  return(gr)
+	  })
