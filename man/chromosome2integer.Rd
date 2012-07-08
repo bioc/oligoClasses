@@ -7,12 +7,12 @@
 }
 \usage{
 	chromosome2integer(chrom)
-        integer2chromosome(iChrom)
+        integer2chromosome(intChrom)
 }
 \arguments{
   \item{chrom}{A one or 2 letter character string (e.g, "1", "X", "Y",
     "MT", "XY") }
-  \item{iChrom}{An integer vector with values 1-25 possible}
+  \item{intChrom}{An integer vector with values 1-25 possible}
 }
 \details{
   This is useful when sorting SNPs in an object by chromosome and
@@ -22,7 +22,7 @@
 \value{
   \code{integer2chromosome} returns a vector of character string
   indicating the chromosome the same length
-  as \code{iChrom}.  \code{chromosome2integer} returns a vector of
+  as \code{intChrom}.  \code{chromosome2integer} returns a vector of
   integers the same length as the number of elements in the \code{chrom} vector.
 }
 \examples{

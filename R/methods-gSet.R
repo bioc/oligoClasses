@@ -22,6 +22,14 @@ setMethod("initialize", signature(.Object="gSet"),
 		  return(.Object)
           })
 
+##setValidity("gSet", function(object){
+##	if(nrow(object) == 0) return(TRUE)
+##	sl <- getSequenceLengths(genomeBuild(object))
+##	charChrom <- unique(integer2chromosome(chromosome(object)))
+##	fr <- makeFeatureGRanges(object, seqlengths=sl[charChrom])
+##	fr2 <-
+##})
+
 
 setMethod("isSnp", signature(object="gSet"),
 	  function(object, ...) {

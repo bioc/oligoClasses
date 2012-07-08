@@ -75,6 +75,12 @@ setMethod("GenomeAnnotatedDataFrameFrom",
 })
 
 setMethod("GenomeAnnotatedDataFrameFrom",
+	  signature(object="list"),
+	  function(object, annotationPkg, genome="hg19", ...){
+		  GenomeAnnotatedDataFrameFromList(object, annotationPkg, genome, ...)
+	  })
+
+setMethod("GenomeAnnotatedDataFrameFrom",
 	  signature(object="AssayData"),
 	  function(object, annotationPkg, genome="hg19", ...){
 		  GenomeAnnotatedDataFrameFromAssayData(object=object, annotationPkg=annotationPkg, genome=genome, ...)
@@ -127,12 +133,14 @@ GenomeAnnotatedDataFrameFromArray <- function(object, annotationPkg, ...){
 	res
 }
 
-GenomeAnnotatedDataFrameFromList <- function(object, annotationPkg){
+GenomeAnnotatedDataFrameFromList <- function(object, annotationPkg, genome){
+	##if(length(object)==0) return(GenomeAnnotatedDataFrameFromNULL(NULL))
+	if(length(object)==0) return(object)
 	nms <- ls(object)
 	elt <- object[[nms[1]]]
 	fdlist <- vector("list", length(elt))
 	for(i in seq_along(elt)){
-		fdlist[[i]] <- GenomeAnnotatedDataFrameFrom(elt[[i]], annotationPkg)
+		fdlist[[i]] <- GenomeAnnotatedDataFrameFrom(elt[[i]], annotationPkg, genome)
 	}
 	return(fdlist)
 }
