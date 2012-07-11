@@ -1,5 +1,5 @@
 Package: oligoClasses
-Version: 1.19.34
+Version: 1.19.35
 Title: Classes for high-throughput arrays supported by oligo and crlmm
 Author: Benilton Carvalho and Robert Scharpf
 Maintainer: Benilton Carvalho <Benilton.Carvalho@cancer.org.uk> and Robert Scharpf <rscharpf@jhsph.edu>
@@ -17,7 +17,8 @@ Suggests: RSQLite, hapmapsnp5, hapmapsnp6,
 	  genomewidesnp5Crlmm,
 	  crlmm,
 	  VanillaICE,
-	  RUnit
+	  RUnit,
+	  human370v1cCrlmm
 Description: This package contains class definitions, validity checks, and initialization methods for classes used by the oligo and crlmm packages.
 License: GPL (>= 2)
 LazyLoad: yes
