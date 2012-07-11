@@ -258,7 +258,6 @@ addFeatureAnnotation.crlmm2 <- function(object, featureNames, genome="", ...){
 	} else pkgname <- object
 	path <- system.file("extdata", package=pkgname)
 	if(path=="") stop("Are you sure ", pkgname, " is installed?")
-
 	## Most of our annotation packages have only hg19 build
 	snpBuilds <- list.files(path, pattern="snpProbes")
 	multiple.builds <-  length(grep("_hg1[89].rda", snpBuilds)) > 1
@@ -298,7 +297,6 @@ addFeatureAnnotation.crlmm2 <- function(object, featureNames, genome="", ...){
 		chr.snp <- snpProbes[index, J]
 	} else{
 		warning("None of the featureNames in the object match SNP probes for the indicated annotation package.  Either the annotation package is misspecified, or the featureNames of the object are incorrect")
-		##message("The first 5 featureNames are ", featureNames(object)[1:5])
 		message("The annotation for the object is ", object)
 		chr.snp <- position.snp <- integer()
 	}
@@ -328,10 +326,6 @@ addFeatureAnnotation.crlmm2 <- function(object, featureNames, genome="", ...){
 		##RS: fix this
 		I <- which(!is.na(names(position)))
 	}  else I <- seq(along=names(position))
-##	tmp.fd <- data.frame(cbind(chrom[I],
-##				   position[I],
-##				   isSnp[I]), row.names=featureNames)
-##	colnames(tmp.fd) <- c("chromosome", "position", "isSnp")
 	new("GenomeAnnotatedDataFrame",
 	    isSnp=as.logical(isSnp[I]),
 	    position=as.integer(position[I]),
