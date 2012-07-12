@@ -118,3 +118,7 @@ setMethod("makeFeatureGRanges", signature(object="gSet"),
 ##		  seqlengths(gr) <- sl[match(unique(seqnames(gr)), names(sl))]
 ##		  return(gr)
 	  })
+
+setMethod("getArm", signature(object="gSet"), function(object){
+	.getArm(chromosome(object), position(object), genomeBuild(object))
+})

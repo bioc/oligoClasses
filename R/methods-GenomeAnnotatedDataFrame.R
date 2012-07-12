@@ -420,3 +420,7 @@ setMethod("makeFeatureGRanges", signature(object="GenomeAnnotatedDataFrame"),
 		  ##seqlengths(gr) <- sl
 		  return(gr)
 	  })
+
+setMethod("getArm", signature(object="GenomeAnnotatedDataFrame"), function(object){
+	.getArm(chromosome(object), position(object), genomeBuild(object))
+})

@@ -104,7 +104,7 @@ exportMethods(bothStrands, allele, calls, "calls<-", confs, "confs<-",
               chromosome, "chromosome<-", copyNumber,
               "copyNumber<-", cnConfidence, "cnConfidence<-", db, isSnp,
               position, "position<-", sampleNames, A, B, "A<-", "B<-",
-	      "genomeBuild<-")
+	      "genomeBuild<-", getArm)
 
 ## FeatureSet methods
 exportMethods(exprs)

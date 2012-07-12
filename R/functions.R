@@ -46,3 +46,14 @@ integer2chromosome <- function(intChrom){
 	charChrom[charChrom %in% c("MT", "Mt")] <- "M"
 	charChrom
 }
+
+.getArm <- function(chrom, pos, genome){
+	if(is.integer(chrom)) chrom <- paste("chr", integer2chromosome(chrom), sep="")
+	path.gap <- system.file("extdata", package="SNPchip")
+	gaps <- readRDS(list.files(path.gap, pattern=paste("gap_", genome, ".rda", sep=""), full.names=TRUE))
+	centromere.starts <- start(gaps)
+	names(centromere.starts) <- seqnames(gaps)
+	centromere.starts <- centromere.starts[chrom]
+	arm <- ifelse(pos <= centromere.starts, "p", "q")
+	paste(chrom, arm, sep="")
+}
