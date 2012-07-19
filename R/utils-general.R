@@ -95,6 +95,19 @@ celfileDate <- function(filename) {
 	results
 }
 
+celfileName <- function(object){
+	if(!is(object, "CNSet")) stop("object must be CNSet")
+	vl <- varLabels(protocolData(object))
+	dirnames <- rep(object@datadir[[1]], object@datadir[[2]])
+	if("filename" %in% vl){
+		fns <- file.path(dirnames, protocolData(object)$filename)
+	} else {
+		fns <- file.path(dirnames, basename(sampleNames(object)))
+	}
+	if(!all(file.exists(fns))) stop("not all files exist")
+	fns
+}
+
 
 
 ## a bar that I like to use when sending messages to the user

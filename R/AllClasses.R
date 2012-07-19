@@ -101,7 +101,8 @@ setClassUnion("ff_or_matrix", c("ffdf", "ff_matrix", "matrix"))
 setClass("CNSet", contains="gSet",
 	 representation(batch="character",
 			batchStatistics="AssayData",
-			mixtureParams="ff_or_matrix"))##,
+			mixtureParams="ff_or_matrix",
+	                datadir="list"))##,
 ##	 prototype = prototype(
 ##	 new("VersionedBiobase",
 ##	     versions=c(classVersion("SnpSet"), CNSet="1.0.6"))))

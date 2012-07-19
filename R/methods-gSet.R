@@ -119,6 +119,6 @@ setMethod("makeFeatureGRanges", signature(object="gSet"),
 ##		  return(gr)
 	  })
 
-setMethod("getArm", signature(object="gSet"), function(object){
+setMethod("getArm", signature(object="gSet"), function(object, ...){
 	.getArm(chromosome(object), position(object), genomeBuild(object))
 })

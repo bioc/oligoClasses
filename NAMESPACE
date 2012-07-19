@@ -30,6 +30,7 @@ importFrom(Biobase, assayDataElement, assayDataElementReplace,
 importMethodsFrom(Biobase, annotatedDataFrameFrom, annotation,
                   "annotation<-", assayData, "assayData<-", combine,
                   experimentData, "experimentData<-", exprs, "exprs<-",
+		  protocolData,
                   featureData, "featureData<-", featureNames, fData,
 		  "fData<-",
                   fvarLabels, pData, "pData<-", phenoData,
@@ -131,7 +132,7 @@ exportMethods(batch, batchNames, "batchNames<-", coerce, flags, show,
 ##
 
 ## Functions for parallel operations
-export(pdPkgFromBioC, requireAnnotation, affyPlatforms, celfileDate,
+export(pdPkgFromBioC, requireAnnotation, affyPlatforms, celfileDate, celfileName,
        list.celfiles, is.ffmatrix, isPackageLoaded, ldStatus,
        ldSetOptions, parStatus, ocProbesets, ocSamples, ldPath, getBar,
        createFF, ocLapply,

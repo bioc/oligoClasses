@@ -62,13 +62,13 @@ ocLapply <- function(X, FUN, ..., neededPkgs){
        res <- foreach(x=X, .packages=neededPkgs) %dopar% FUN(x, ...)
     }else{
        res <- lapply(X, FUN, ...)
-    }                                                                                                                                                    
+    }
   return(res)
 }
 
-splitIndicesByLength <- function(x, lg){
-  lx <- length(x)
-  split(x, rep(1:lx, each=lg, length.out=lx))
+splitIndicesByLength <- function(x, lg, balance=FALSE){
+	lx <- length(x)
+	split(x, rep(seq(1,lx), each=lg, length.out=lx))
 }
 
 splitIndicesByNode <- function(x){

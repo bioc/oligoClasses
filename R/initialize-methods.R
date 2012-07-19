@@ -290,7 +290,8 @@ setMethod("initialize", "CNSet",
 		   batch=character(ncol(alleleA)),
 		   batchStatistics=initializeLmFrom2(alleleA, batch),
 		   genome=c("hg19", "hg18"),
-		   mixtureParams=new("matrix"), ...){
+		   mixtureParams=new("matrix"),
+		   datadir=list("", integer(), ""), ...){
 		  genome <- match.arg(genome)
 		  if(missing(featureData))
 			  featureData <- GenomeAnnotatedDataFrameFrom(assayData, annotation, genome=genome)
@@ -304,11 +305,11 @@ setMethod("initialize", "CNSet",
 					    experimentData=experimentData,
 					    annotation=annotation,
 					    protocolData=protocolData, ...)
+		  .Object@datadir <- datadir
 		  .Object@genome <- genome
 		  if(nrow(.Object)==0) .Object@genome <- character()
 		  return(.Object)
 })
-
 
 setValidity("CNSet", function(object){
 	if(!assayDataValidMembers(assayData(object), c("alleleA", "alleleB", "call", "callProbability"))){

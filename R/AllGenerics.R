@@ -35,7 +35,7 @@ setGeneric("position<-", function(object, value) standardGeneric("position<-"))
 setGeneric("isSnp", function(object, ...) standardGeneric("isSnp"))
 setGeneric("isSnp<-", function(object, value) standardGeneric("isSnp<-"))
 ##setGeneric("snpNames", function(object) standardGeneric("snpNames"))
-setGeneric("getArm", function(object) standardGeneric("getArm"))
+setGeneric("getArm", function(object, ...) standardGeneric("getArm"))
 
 setGeneric("genomeBuild", function(object) standardGeneric("genomeBuild"))
 setGeneric("genomeBuild<-", function(object,value) standardGeneric("genomeBuild<-"))

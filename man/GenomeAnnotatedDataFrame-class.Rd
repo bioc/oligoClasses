@@ -4,6 +4,7 @@
 \alias{GenomeAnnotatedDataFrame-class}
 \alias{GenomeAnnotatedDataFrame}
 \alias{coerce,AnnotatedDataFrame,GenomeAnnotatedDataFrame-method}
+\alias{getArm,GenomeAnnotatedDataFrame-method}
 \alias{initialize,GenomeAnnotatedDataFrame-method}
 \alias{makeFeatureGRanges,GenomeAnnotatedDataFrame-method}
 \alias{position<-}
@@ -83,10 +84,22 @@ Class \code{"\linkS4class{Versioned}"}, by class "AnnotatedDataFrame", distance 
     \item{}{
       \code{position(ojbect)}:
 
-      Physical position in the genome}
+      Physical position in the genome
+
+    }
+
+  \item{}{
+
+    \code{getArm(object, genome)}:
+
+    Retrieve character vector indicating the chromosome arm of each
+    marker in \code{object}.  \code{genome} should indicate which genome
+    build was used to define the chromosomal locations (currently, only
+    UCSC genome builds 'hg18' and 'hg19' supported for this function).
+
+    }
 
   }
-
 
 }
 
@@ -100,11 +113,12 @@ R. Scharpf
 
 \examples{
 new("GenomeAnnotatedDataFrame")
-if(require("pd.mapping50k.hind240") && require("pd.mapping50k.xba240")){
+if(require("pd.mapping50k.hind240") && require("pd.mapping50k.xba240") && require("SNPchip")){
 	data(locusLevelData)
-	object <- GenomeAnnotatedDataFrameFrom(locusLevelData[["genotypes"]],
+	gd <- GenomeAnnotatedDataFrameFrom(locusLevelData[["genotypes"]],
 					       annotationPkg=locusLevelData[["platform"]],
 					       genome="hg19")
+        arm <- getArm(gd, "hg19")
 }
 }
 \keyword{classes}

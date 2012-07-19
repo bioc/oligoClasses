@@ -70,6 +70,7 @@
     \item{\code{annotation}:}{Object of class \code{"character"} ~~ }
     \item{\code{protocolData}:}{Object of class
       \code{"AnnotatedDataFrame"} ~~ }
+    \item{\code{datadir}:}{Object of class \code{"list"}~~}
     \item{\code{mixtureParams}:}{Object of class \code{"matrix"}~~}
     \item{\code{.__classVersion__}:}{Object of class \code{"Versions"} ~~ }
   }

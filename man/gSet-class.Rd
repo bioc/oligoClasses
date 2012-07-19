@@ -7,6 +7,8 @@
 \alias{db,gSet-method}
 \alias{genomeBuild,gSet-method}
 \alias{genomeBuild<-,gSet,character-method}
+\alias{getArm}
+\alias{getArm,gSet-method}
 \alias{initialize,gSet-method}
 \alias{makeFeatureGRanges,gSet-method}
 \alias{show,gSet-method}
@@ -45,14 +47,25 @@ Class \code{"\linkS4class{Versioned}"}, by class "eSet", distance 3.
     \item{}{\code{chromosome(object) <- value}: replacement method for chromosome in the
       \code{GenomeAnnotatedDataFrame} slot. \code{value} must be an
       \code{integer} vector.}
-    \item{db}{\code{signature(object = "gSet")}: ... }
+    \item{}{
+      \code{db(object)}: database connection
+    }
     \item{}{
 
-      \code{genomeBuild(object)}, \code{genomeBuild(object) <- value}:
+       \code{genomeBuild(object)}, \code{genomeBuild(object) <- value}:
 
-      Get or set the UCSC genome build. Supported builds are hg18 and hg19.
+        Get or set the UCSC genome build. Supported builds are hg18 and hg19.
 
-    }
+      }
+
+      \item{}{
+
+	\code{getArm(object)}:  Character vector indicating the chromosomal arm for
+	each marker in \code{object}.
+
+      }
+
+
     \item{}{\code{isSnp(object)}: whether the marker is
       polymorphic. Returns a \code{logical} vector.}
 

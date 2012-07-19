@@ -11,13 +11,14 @@
 }
 
 \usage{
-splitIndicesByLength(x, lg)
+splitIndicesByLength(x, lg, balance=FALSE)
 splitIndicesByNode(x)
 }
 
 \arguments{
   \item{x}{object to be split}
   \item{lg}{length}
+  \item{balance}{logical. Currently ignored}
 }
 
 \details{
@@ -25,6 +26,7 @@ splitIndicesByNode(x)
 
   \code{splitIndicesByNode} splits \code{x} in N groups (where N is the
   number of compute nodes available).
+
 }
 
 \value{
@@ -41,6 +43,7 @@ splitIndicesByNode(x)
 \examples{
 x <- 1:100
 splitIndicesByLength(x, 8)
+splitIndicesByLength(x, 8, balance=TRUE)
 splitIndicesByNode(x)
 }
 

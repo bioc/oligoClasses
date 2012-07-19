@@ -421,6 +421,7 @@ setMethod("makeFeatureGRanges", signature(object="GenomeAnnotatedDataFrame"),
 		  return(gr)
 	  })
 
-setMethod("getArm", signature(object="GenomeAnnotatedDataFrame"), function(object){
-	.getArm(chromosome(object), position(object), genomeBuild(object))
+setMethod("getArm", signature(object="GenomeAnnotatedDataFrame"), function(object, genome){
+	genome <- match.arg(genome, c("hg18","hg19"))
+	.getArm(chromosome(object), position(object), genome)
 })
