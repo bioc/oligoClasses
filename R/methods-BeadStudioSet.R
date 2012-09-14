@@ -30,6 +30,11 @@ setReplaceMethod("lrr", c("BeadStudioSet", "ANY"),
 			 assayDataElementReplace(object, "lrr", value)
 	 })
 
+setReplaceMethod("lrr", c("BafLrrSet", "ANY"),
+		 function(object, value) {
+			 assayDataElementReplace(object, "lrr", value)
+	 })
+
 setReplaceMethod("copyNumber", c("BeadStudioSet", "ANY"),
 		 function(object, value) {
 			 lrr(object) <- value

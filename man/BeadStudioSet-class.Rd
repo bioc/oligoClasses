@@ -13,6 +13,7 @@
 \alias{initialize,BeadStudioSet-method}
 \alias{lrr,BeadStudioSet-method}
 \alias{lrr<-,BeadStudioSet-method}
+\alias{lrr<-,BafLrrSet-method}
 \alias{lrr<-}
 \alias{show,BeadStudioSet-method}
 \alias{updateObject,BeadStudioSet-method}

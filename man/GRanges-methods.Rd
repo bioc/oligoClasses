@@ -82,30 +82,31 @@
 
   \seealso{\code{\linkS4class{GRanges}}}
 
-\examples{
-library(GenomicRanges)
-gr1 <- GRanges(seqnames = "chr2", ranges = IRanges(3, 6),
-	       state=3L, numberProbes=100L)
-## convenience functions
-state(gr1)
-numberProbes(gr1)
+  \examples{
+	  library(IRanges)
+	  library(GenomicRanges)
+	  gr1 <- GRanges(seqnames = "chr2", ranges = IRanges(3, 6),
+			 state=3L, numberProbes=100L)
+	  ## convenience functions
+	  state(gr1)
+	  numberProbes(gr1)
 
-gr2 <- GRanges(seqnames = c("chr1", "chr1"),
-	       ranges = IRanges(c(7,13), width = 3),
-	       state=c(2L, 2L), numberProbes=c(200L, 250L))
-gr3 <- GRanges(seqnames = c("chr1", "chr2"),
-	       ranges = IRanges(c(1, 4), c(3, 9)),
-	       state=c(1L, 4L), numberProbes=c(300L, 350L))
-## Ranges organized by sample
-grl <- GRangesList("sample1" = gr1, "sample2" = gr2, "sample3" = gr3)
-sampleNames(grl) ## same as names(grl)
-numberProbes(grl)
-chromosome(grl)
-state(grl)
-gr <- stack(grl)
-sampleNames(gr)
-chromosome(gr)
-state(gr)
-}
+	  gr2 <- GRanges(seqnames = c("chr1", "chr1"),
+			 ranges = IRanges(c(7,13), width = 3),
+			 state=c(2L, 2L), numberProbes=c(200L, 250L))
+	  gr3 <- GRanges(seqnames = c("chr1", "chr2"),
+			 ranges = IRanges(c(1, 4), c(3, 9)),
+			 state=c(1L, 4L), numberProbes=c(300L, 350L))
+	  ## Ranges organized by sample
+	  grl <- GRangesList("sample1" = gr1, "sample2" = gr2, "sample3" = gr3)
+	  sampleNames(grl) ## same as names(grl)
+	  numberProbes(grl)
+	  chromosome(grl)
+	  state(grl)
+	  gr <- stack(grl)
+	  sampleNames(gr)
+	  chromosome(gr)
+	  state(gr)
+  }
 
 \keyword{methods}
