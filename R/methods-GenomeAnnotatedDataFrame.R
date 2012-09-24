@@ -251,7 +251,7 @@ addFeatureAnnotation.pd2 <- function(annotation, featureNames, genome){
 
 
 
-addFeatureAnnotation.crlmm2 <- function(object, featureNames, genome="", ...){
+addFeatureAnnotation.crlmm2 <- function(object, featureNames, genome="hg19", ...){
 	nm <- grep("Crlmm", object, ignore.case=TRUE)
 	if(length(nm) == 0){
 		pkgname <- paste(object, "Crlmm", sep="")
@@ -259,30 +259,24 @@ addFeatureAnnotation.crlmm2 <- function(object, featureNames, genome="", ...){
 	path <- system.file("extdata", package=pkgname)
 	if(path=="") stop("Are you sure ", pkgname, " is installed?")
 	## Most of our annotation packages have only hg19 build
-	snpBuilds <- list.files(path, pattern="snpProbes")
-	multiple.builds <-  length(grep("_hg1[89].rda", snpBuilds)) > 1
-	if(!multiple.builds & length(snpBuilds) > 1) snpBuilds <- "snpProbes.rda"
-	hgbuild <- length(grep("_hg1[89].rda", snpBuilds)) > 0
-	if(multiple.builds){
-		loader(paste("cnProbes_", genome, ".rda", sep=""), pkgname=pkgname, envir=.oligoClassesPkgEnv)
-		cnProbes <- get("cnProbes", envir=.oligoClassesPkgEnv)
-		loader(paste("snpProbes_", genome, ".rda", sep=""), pkgname=pkgname, envir=.oligoClassesPkgEnv)
-		snpProbes <- get("snpProbes", envir=.oligoClassesPkgEnv)
+	snpBuilds <- list.files(path, pattern="snpProbes_")
+	build <- gsub(".rda", "", gsub("snpProbes_", "", snpBuilds))
+	if(length(build) > 1){
+		if(!genome %in% build){
+			stop(paste("Builds", paste(build, collapse=","), "are available. Use genome=[build] to specify which build to use for annotation."))
+		} else {
+			build <- build[build %in% genome]
+		}
 	} else {
-		if(genome=="hg19" & !hgbuild) genome <- ""
-		if(genome=="hg18" & !hgbuild) stop("hg18 build requested but only hg19 build is available")
-		if(genome %in% c("hg18","hg19")) genome <- paste("_", genome, sep="")
-		requestedBuild <- paste("snpProbes", genome, ".rda", sep="")
-		match.arg(requestedBuild, snpBuilds)
-		loader(requestedBuild, pkgname=pkgname, envir=.oligoClassesPkgEnv)
-
-		cnBuilds <- list.files(path, pattern="cnProbes")
-		cnRequestedBuild <- paste("cnProbes", genome, ".rda", sep="")
-		match.arg(cnRequestedBuild, cnBuilds)
-		loader(cnRequestedBuild, pkgname=pkgname, envir=.oligoClassesPkgEnv)
-		cnProbes <- get("cnProbes", envir=.oligoClassesPkgEnv)
-		snpProbes <- get("snpProbes", envir=.oligoClassesPkgEnv)
+		if(genome != ""){
+			if(!genome %in% build)
+				stop(paste("Build", genome, "requested, but only build", build, "is available."))
+		}
 	}
+	loader(paste("cnProbes_", build, ".rda", sep=""), pkgname=pkgname, envir=.oligoClassesPkgEnv)
+	cnProbes <- get("cnProbes", envir=.oligoClassesPkgEnv)
+	loader(paste("snpProbes_", build, ".rda", sep=""), pkgname=pkgname, envir=.oligoClassesPkgEnv)
+	snpProbes <- get("snpProbes", envir=.oligoClassesPkgEnv)
 	snpProbes <- snpProbes[rownames(snpProbes) %in% featureNames, , drop=FALSE]
 	cnProbes <- cnProbes[rownames(cnProbes) %in% featureNames, , drop=FALSE]
 	##Feature Data
