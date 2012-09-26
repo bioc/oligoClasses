@@ -77,7 +77,7 @@ setMethod("GenomeAnnotatedDataFrameFrom",
 setMethod("GenomeAnnotatedDataFrameFrom",
 	  signature(object="list"),
 	  function(object, annotationPkg, genome="hg19", ...){
-		  GenomeAnnotatedDataFrameFromList(object, annotationPkg, genome, ...)
+		  GenomeAnnotatedDataFrameFromList(object, annotationPkg, genome=genome, ...)
 	  })
 
 setMethod("GenomeAnnotatedDataFrameFrom",
@@ -262,20 +262,25 @@ addFeatureAnnotation.crlmm2 <- function(object, featureNames, genome="hg19", ...
 	snpBuilds <- list.files(path, pattern="snpProbes_")
 	build <- gsub(".rda", "", gsub("snpProbes_", "", snpBuilds))
 	if(length(build) > 1){
-		if(!genome %in% build){
-			stop(paste("Builds", paste(build, collapse=","), "are available. Use genome=[build] to specify which build to use for annotation."))
-		} else {
-			build <- build[build %in% genome]
-		}
-	} else {
-		if(genome != ""){
-			if(!genome %in% build)
-				stop(paste("Build", genome, "requested, but only build", build, "is available."))
+		if(genome %in% build){
+			build <- genome
+		} else 	{ ## genome not in build
+			message(paste("Builds", paste(build, collapse=","), "are available. Use genome=[build] to specify which build to use for annotation."))
+			build <- build[1]
 		}
 	}
-	loader(paste("cnProbes_", build, ".rda", sep=""), pkgname=pkgname, envir=.oligoClassesPkgEnv)
+	if(length(build)==1){
+		if(build != genome){
+			message(paste("Build", genome, "requested, but only build", build, "is available."))
+		}
+		loader(paste("cnProbes_", build, ".rda", sep=""), pkgname=pkgname, envir=.oligoClassesPkgEnv)
+		loader(paste("snpProbes_", build, ".rda", sep=""), pkgname=pkgname, envir=.oligoClassesPkgEnv)
+	} else { ## length of build is zero
+		## file not found (older version of annotation packages).  allow processing to continue
+		loader("cnProbes.rda", pkgname=pkgname, envir=.oligoClassesPkgEnv)
+		loader("snpProbes.rda", pkgname=pkgname, envir=.oligoClassesPkgEnv)
+	}
 	cnProbes <- get("cnProbes", envir=.oligoClassesPkgEnv)
-	loader(paste("snpProbes_", build, ".rda", sep=""), pkgname=pkgname, envir=.oligoClassesPkgEnv)
 	snpProbes <- get("snpProbes", envir=.oligoClassesPkgEnv)
 	snpProbes <- snpProbes[rownames(snpProbes) %in% featureNames, , drop=FALSE]
 	cnProbes <- cnProbes[rownames(cnProbes) %in% featureNames, , drop=FALSE]

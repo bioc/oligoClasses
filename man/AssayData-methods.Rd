@@ -66,10 +66,11 @@ independently to the A and B alleles.
 
 \examples{
 library(crlmm)
+library(Biobase)
 data(cnSetExample, package="crlmm")
 cnSet <- cnSetExample
-Biobase::isCurrent(cnSet)
-Biobase::assayDataElementNames(batchStatistics(cnSet))
+isCurrent(cnSet)
+assayDataElementNames(batchStatistics(cnSet))
 ## Accessors for linear model parameters
 ## -- Included here primarily as a check that accessors are working
 ## -- Values are all NA until CN estimation is performed using the crlmm package
