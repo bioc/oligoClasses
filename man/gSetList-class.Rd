@@ -2,10 +2,25 @@
 \Rdversion{1.1}
 \docType{class}
 \alias{gSetList-class}
+\alias{$,gSetList-method}
+\alias{$<-,gSetList-method}
+\alias{[,gSetList-method}
+\alias{[[<-,gSetList,ANY,ANY,BafLrrSet-method}
 \alias{annotation,gSetList-method}
+\alias{assayDataList,gSetList-method}
+\alias{chromosome,gSetList-method}
+\alias{coerce,gSetList,list-method}
+\alias{dims,gSetList-method}
+\alias{featureDataList,gSetList-method}
 \alias{genomeBuild,gSetList-method}
 \alias{genomeBuild<-,gSetList,character-method}
 \alias{initialize,gSetList-method}
+\alias{length,gSetList-method}
+\alias{position,gSetList-method}
+\alias{sampleNames,gSetList-method}
+\alias{sampleNames<-,gSetList,character-method}
+\alias{show,gSetList-method}
+
 
 \title{Virtual Class for Lists of eSets}
 \description{

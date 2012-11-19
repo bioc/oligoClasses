@@ -27,8 +27,8 @@ importFrom(Biobase, assayDataElement, assayDataElementReplace,
            assayDataElementNames, varLabels, isCurrent,
 	   testBioCConnection)
 
-importMethodsFrom(Biobase, annotatedDataFrameFrom, assayData, 
-                  "assayData<-", combine, experimentData, 
+importMethodsFrom(Biobase, annotatedDataFrameFrom, assayData,
+                  "assayData<-", combine, dims, experimentData,
                   "experimentData<-", exprs, "exprs<-",
 		  protocolData,
                   featureData, "featureData<-", featureNames, fData,
@@ -88,6 +88,9 @@ exportClasses(AlleleSet, BeadStudioSet, oligoSnpSet, SnpSuperSet, CNSet,
 	      RangedDataHMM, CopyNumberSet, GenomeAnnotatedDataFrame,
 	      BeadStudioSetList, BafLrrSetList, BafLrrSet,
 	      oligoSetList, SnpSet2)
+
+## list methods
+exportMethods(assayDataList, dims, featureDataList)
 
 ## Ranged-Data methods
 exportMethods(numberProbes)

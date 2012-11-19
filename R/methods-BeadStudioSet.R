@@ -53,8 +53,8 @@ setReplaceMethod("baf", c("BeadStudioSet", "ANY"),
 
 setAs("BeadStudioSet", "data.frame",
       function(from, to){
-	      cn <- as.numeric(lrr(from))
-	      bf <- as.numeric(baf(from))
+	      cn <- as.numeric(lrr(from))/100
+	      bf <- as.numeric(baf(from))/1000
 	      x <- rep(position(from)/1e6, ncol(from))
 	      ##x <- rep(position(object)[marker.index], 4)/1e6
 	      is.snp <- rep(isSnp(from), ncol(from))

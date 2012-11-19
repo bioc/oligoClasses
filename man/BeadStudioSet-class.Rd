@@ -13,7 +13,9 @@
 \alias{initialize,BeadStudioSet-method}
 \alias{lrr,BeadStudioSet-method}
 \alias{lrr<-,BeadStudioSet-method}
+\alias{lrr<-,BeadStudioSet,ANY-method}
 \alias{lrr<-,BafLrrSet-method}
+\alias{lrr<-,BafLrrSet,ANY-method}
 \alias{lrr<-}
 \alias{show,BeadStudioSet-method}
 \alias{updateObject,BeadStudioSet-method}

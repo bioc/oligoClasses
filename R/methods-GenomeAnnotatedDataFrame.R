@@ -361,8 +361,7 @@ annotationPackages <- function(){
 	  "human610quadv1bCrlmm",
 	  "human660quadv1aCrlmm",
 	  "human1mduov3bCrlmm",
-	  "humanomni1quadv1bCrlmm",
-	  "gw6crlmm")
+	  "humanomni1quadv1bCrlmm")
 }
 
 affyPlatforms <- function(){

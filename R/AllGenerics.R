@@ -67,3 +67,7 @@ setGeneric("GenomeAnnotatedDataFrameFrom", function(object, annotationPkg, genom
 setGeneric("numberProbes", function(object) standardGeneric("numberProbes"))
 setGeneric("makeFeatureGRanges", function(object, ...) standardGeneric("makeFeatureGRanges"))
 
+## List classes
+setGeneric("assayDataList", function(object) standardGeneric("assayDataList"))
+setGeneric("featureDataList", function(object) standardGeneric("featureDataList"))
+
