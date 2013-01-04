@@ -4,7 +4,7 @@
 ##---------------------------------------------------------------------------
 ## methods
 importMethodsFrom(methods, initialize, show)
-importFrom(methods, "@<-", callNextMethod, new, validObject, coerce)
+importFrom(methods, callNextMethod, new, validObject, coerce)
 
 ## BiocGenerics
 importFrom(BiocGenerics, updateObject, annotation, "annotation<-")
