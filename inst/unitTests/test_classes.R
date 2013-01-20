@@ -72,7 +72,7 @@ test_oligoSnpSet_construction <- function(){
 test_CopyNumberSet_construction <- function(){
 	checkTrue(validObject(new("CopyNumberSet")))
 	data(locusLevelData)
-	trace(oligoClasses:::addFeatureAnnotation.pd2, browser)
+	##trace(oligoClasses:::addFeatureAnnotation.pd2, browser)
 	cnset <- new("CopyNumberSet",
 		     copyNumber=integerMatrix(log2(locusLevelData[["copynumber"]]/100),100),
 		     annotation=locusLevelData[["platform"]],
@@ -149,6 +149,10 @@ test_CNSet_construction <- function(){
 
 
 test_BeadStudioSet <- function(){
-	checkTrue(validObject(new("BeadStudioSet")))
+	checkTrue(validObject(new("BafLrrSet")))
+}
+
+test_BafLrrSetList <- function(){
+	checkTrue(validObject(new("BafLrrSetList")))
 }
 

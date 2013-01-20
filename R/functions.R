@@ -52,8 +52,14 @@ integer2chromosome <- function(intChrom){
 	path.gap <- system.file("extdata", package="SNPchip")
 	gaps <- readRDS(list.files(path.gap, pattern=paste("gap_", genome, ".rda", sep=""), full.names=TRUE))
 	centromere.starts <- start(gaps)
-	names(centromere.starts) <- seqnames(gaps)
+	centromere.ends <- end(gaps)
+	names(centromere.ends) <- names(centromere.starts) <- seqnames(gaps)
 	centromere.starts <- centromere.starts[chrom]
-	arm <- ifelse(pos <= centromere.starts, "p", "q")
-	paste(chrom, arm, sep="")
+	centromere.ends <- centromere.ends[chrom]
+	chr.arm <- arm <- rep(NA, length(pos))
+	arm[pos <= centromere.starts] <- "p"
+	arm[pos >= centromere.ends] <- "q"
+	##arm <- ifelse(pos <= centromere.starts, "p", "q")
+	chr.arm[!is.na(arm)] <- paste(chrom[!is.na(arm)], arm[!is.na(arm)], sep="")
+	chr.arm
 }

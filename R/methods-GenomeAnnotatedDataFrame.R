@@ -413,9 +413,8 @@ setMethod("makeFeatureGRanges", signature(object="GenomeAnnotatedDataFrame"),
 		  gr <- GRanges(chrom,
 				IRanges(position(object), width=1),
 				seqlengths=sl)
-		  ##nms <- names(seqlengths(gr))
-		  ##sl <- sl[match(nms, names(sl))]
-		  ##seqlengths(gr) <- sl
+		  names(gr) <- sampleNames(object)
+		  metadata(gr) <- list(genome=genome)
 		  return(gr)
 	  })
 

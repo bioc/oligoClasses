@@ -6,6 +6,7 @@
 importMethodsFrom(methods, initialize, show)
 importFrom(methods, callNextMethod, new, validObject, coerce)
 
+
 ## BiocGenerics
 importFrom(BiocGenerics, updateObject, annotation, "annotation<-")
 
@@ -46,7 +47,7 @@ importMethodsFrom(Biobase, annotatedDataFrameFrom, assayData,
 ##	   countOverlaps,
 ##	   ranges, values,
 ##	   queryHits, subjectHits)
-##importMethodsFrom(IRanges, findOverlaps, as.matrix)
+##importMethodsFrom(IRanges, findOverlaps, as.matrix, elementLengths)
 
 ##importClassesFrom(GenomicRanges, GRanges)
 import(IRanges)
@@ -106,7 +107,8 @@ exportClasses(ff_or_matrix)
 ## Methods ...
 exportMethods(bothStrands, allele, calls, "calls<-", confs, "confs<-",
               chromosome, "chromosome<-", copyNumber,
-              "copyNumber<-", cnConfidence, "cnConfidence<-", db, isSnp,
+              "copyNumber<-", cnConfidence, "cnConfidence<-", db,
+	      elementLengths, isSnp,
               position, "position<-", sampleNames, A, B, "A<-", "B<-",
 	      "genomeBuild<-", getArm)
 
@@ -129,6 +131,7 @@ exportMethods(batch, batchNames, "batchNames<-", coerce, flags, show,
 	      "sampleNames<-",
 	      GenomeAnnotatedDataFrameFrom,
 	      makeFeatureGRanges)
+
 
 ## EXPORTING....
 ##             functions

@@ -29,7 +29,7 @@ setMethod("[", signature(x="gSetList"),
 		  ## Use i to subset the list. example, x[1] is still a BeadStudioSetList, but is one chromosome
 		  ##
 		  if(!missing(i) & !missing(j)){
-			  browser()
+			  ##browser()
 			  ad <- assayDataList(x)
 			  nms <- ls(ad)
 			  for(k in seq_along(nms)){
@@ -108,8 +108,8 @@ setMethod("chromosome", signature(object="gSetList"),
 
 setMethod("dims", signature(object="gSetList"), function(object){
 	nchr <- length(chromosome(object))
-	nr <- sum(sapply(featureData(object), nrow))
-	ns <- ncol(object[[1]])
+	nr <- sum(elementLengths(object))
+	ns <- ncol(object)
 	ds <- c(nr, nchr, ns)
 	names(ds) <- c("features (total)", "list elements", "samples")
 	return(ds)
@@ -236,3 +236,30 @@ setMethod("storageMode", "gSetList", function(object) storageMode(assayData(obje
 
 setMethod("varLabels", signature(object="gSetList"),
 	  function(object) varLabels(phenoData(object)))
+
+setMethod("makeFeatureGRanges", signature(object="gSetList"),
+	  function(object, ...){
+		  fdl <- featureData(object)
+		  pos <- unlist(position(object))
+		  snp <- unlist(lapply(fdl, isSnp))
+		  chr <- unlist(lapply(fdl, chromosome))
+		  df <- data.frame(position=pos, isSnp=snp, chromosome=chr)
+		  rownames(df) <- unlist(featureNames(object))
+		  fd <- as(df, "AnnotatedDataFrame")
+		  fd2 <- as(fd, "GenomeAnnotatedDataFrame")
+		  makeFeatureGRanges(fd2, genomeBuild(object))
+	  })
+
+setMethod("elementLengths", signature(x="gSetList"),
+	  function(x){
+		  adl <- assayDataList(x)
+		  nm <- ls(adl)[[1]]
+		  sapply(assayDataList(x)[[nm]], nrow)
+	  })
+
+setMethod("ncol", signature(x="gSetList"),
+	  function(x){
+		  adl <- assayDataList(x)
+		  nm <- ls(adl)[[1]]
+		  ncol(assayDataList(x)[[nm]][[1]])
+	  })

@@ -364,7 +364,6 @@ setMethod("initialize", "BeadStudioSet",
                     		   dimnames=dimnames(baf)),
 		   genome=c("hg19", "hg18"),
 		   ...) {
-
 		  .Object <- callNextMethod(.Object,
 					    assayData = assayData,
 					    phenoData = phenoData,

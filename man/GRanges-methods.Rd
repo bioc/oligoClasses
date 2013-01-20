@@ -1,8 +1,12 @@
 \name{GRanges-methods}
 \docType{methods}
+%\alias{coverage2,GRanges-method}
+%\alias{coverage2,GRangesList-method}
+\alias{state}
+\alias{coverage2}
+\alias{numberProbes}
 \alias{coverage2,GRanges-method}
 \alias{coverage2,GRangesList-method}
-\alias{numberProbes}
 \alias{numberProbes,GRanges-method}
 \alias{numberProbes,GRangesList-method}
 \alias{findOverlaps,GRanges,gSet-method}
@@ -45,10 +49,13 @@
     \item{}{
       \code{coverage2(object)}:
 
-      The number of probes (markers) for each range in \code{object}.
-      When \code{object} is an instance of the \code{GRanges} class, the
-      value returned is an integer vector.  When \code{object} is a
-      \code{GRangesList}, the value returned has a run length encoding.
+      For the \code{GRanges} and \code{GRangesList} objects returned by
+      the hidden Markov model implemented in the "VanillaICE" package
+      and the segmentation algorithm in the "MinimumDistance" package,
+      the intervals are annotated by the number of probes (markers) for
+      SNPs and nonpolymorphic regions.  \code{coverage2} and
+      \code{numberProbes} are convenient accessors for these
+      annotations.
 
     }
 

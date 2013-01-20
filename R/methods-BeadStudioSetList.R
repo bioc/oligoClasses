@@ -174,9 +174,47 @@ setReplaceMethod("lrr", signature(object="BafLrrSetList", value="matrix"),
 		  return(object)
 	  })
 
-setMethod("ncol", signature(x="BeadStudioSetList"),
-	  function(x) ncol(x[[1]]))
+##setMethod("ncol", signature(x="BeadStudioSetList"),
+##	  function(x) ncol(assayDataList(x)[["lrr"]][[1]]))
+
 setMethod("snpCallProbability", signature(object="oligoSetList"),
 	  function(object) assayData(object)[["callProbability"]])
 
 
+duplicateBLList <- function(object, ids, prefix="waveAdj"){
+	##brList.copy <- object
+	## duplicate the lrr ff objects.  Then do wave correction on the
+	## duplicated files.
+	if(missing(ids)) ids <- sampleNames(object)
+	ids <- as.character(ids)
+	r <- lrr(object)
+	b <- baf(object)
+	rcopy.list <- list()
+	bcopy.list <- list()
+	for(i in seq_along(r)){
+		x <- r[[i]]
+		y <- b[[i]]
+		rcopy <- initializeBigMatrix(paste(prefix, "lrr", sep="-"), nrow(x), length(ids), vmode="integer")
+		bcopy <- initializeBigMatrix(paste(prefix, "baf", sep="-"), nrow(x), length(ids), vmode="integer")
+		dimnames(rcopy) <- list(rownames(x),
+					ids)
+		dimnames(bcopy) <- dimnames(rcopy)
+		J <- match(ids, colnames(x))
+		for(j in seq_along(J)){
+			k <- J[j]
+			rcopy[, j] <- x[, k]
+			bcopy[, j] <- y[, k]
+		}
+		rcopy.list[[i]] <- rcopy
+		bcopy.list[[i]] <- bcopy
+	}
+	adl <- AssayDataList(baf=bcopy.list, lrr=rcopy.list)
+	pd <- phenoData(object)[match(ids, sampleNames(object)), ]
+	tmp <- new("BafLrrSetList",
+		   assayDataList=adl,
+		   featureDataList=featureData(object),
+		   phenoData=pd,
+		   chromosome=chromosome(object),
+		   annotation=annotation(object),
+		   genome=genomeBuild(object))
+}

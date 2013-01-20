@@ -7,7 +7,7 @@
 \alias{chromosome,SnpSet-method}
 \alias{chromosome,gSet-method}
 \alias{chromosome,GenomeAnnotatedDataFrame-method}
-\alias{chromosome,RangedDataCNV-method}
+%\alias{chromosome,RangedDataCNV-method}
 \alias{chromosome<-,SnpSet,integer-method}
 \alias{chromosome<-,gSet,integer-method}
 \alias{chromosome<-,GenomeAnnotatedDataFrame,integer-method}

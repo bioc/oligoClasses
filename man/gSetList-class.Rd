@@ -11,11 +11,13 @@
 \alias{chromosome,gSetList-method}
 \alias{coerce,gSetList,list-method}
 \alias{dims,gSetList-method}
+\alias{elementLengths,gSetList-method}
 \alias{featureDataList,gSetList-method}
 \alias{genomeBuild,gSetList-method}
 \alias{genomeBuild<-,gSetList,character-method}
 \alias{initialize,gSetList-method}
 \alias{length,gSetList-method}
+\alias{makeFeatureGRanges,gSetList-method}
 \alias{position,gSetList-method}
 \alias{sampleNames,gSetList-method}
 \alias{sampleNames<-,gSetList,character-method}
@@ -53,11 +55,47 @@
     }
 
     \item{}{
+      \code{chromosome(object)}:
+
+      Returns the chromosome corresponding to each element in the
+      \code{gSetList} object
+
+    }
+
+    \item{}{
+      \code{elementLengths(object)}: Returns the number of rows for each
+      list of assays.  In most \code{gSetList}-derived classes, the
+      assays are organized by chromosome and \code{elementLengths}
+      returns the number of markers for each chromosome.
+    }
+
+
+    \item{}{
       \code{genomeBuild(object)}, \code{genomeBuild(object) <- value}:
 
       Get or set the UCSC genome build. Supported builds are hg18 and hg19.
 
     }
+
+  }
+
+}
+
+\section{Coercion}{
+  \code{object}  is an instance of a \code{gSetList}-derived class.
+
+  \describe{
+    \item{}{
+      \code{makeFeatureGRanges(object, ...)}:
+
+      Create a GRanges object for the featureData.  The featureData is
+      stored as a list.  This method stacks the featureData from each
+      list element.  Metadata columns in the GRanges object include
+      physical position ('position'), a SNP indicator ('isSnp'), and the
+      chromosome. The genome build is extracted from \code{object} using
+      the method \code{genomeBuild}.
+
+      }
 
   }
 

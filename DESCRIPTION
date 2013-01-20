@@ -1,5 +1,9 @@
 Package: oligoClasses
+<<<<<<< HEAD
 Version: 1.21.6
+=======
+Version: 1.21.12
+>>>>>>> collab
 Title: Classes for high-throughput arrays supported by oligo and crlmm
 Author: Benilton Carvalho and Robert Scharpf
 Maintainer: Benilton Carvalho <Benilton.Carvalho@cancer.org.uk> and Robert Scharpf <rscharpf@jhsph.edu>
@@ -13,8 +17,8 @@ Suggests: RSQLite, hapmapsnp5, hapmapsnp6,
 	  pd.mapping50k.xba240,
 	  pd.mapping250k.sty,
 	  pd.mapping250k.nsp,
-	  genomewidesnp6Crlmm,
-	  genomewidesnp5Crlmm,
+	  genomewidesnp6Crlmm (>= 1.0.7),
+	  genomewidesnp5Crlmm (>= 1.0.7),
 	  crlmm,
 	  SNPchip,
 	  VanillaICE,
@@ -46,6 +50,7 @@ Collate:  AllClasses.R
 	  methods-BeadStudioSetList.R
 	  methods-gSetList.R
 	  methods-GRanges.R
+	  methods-SummarizedExperiment.R
           show-methods.R
 	  functions.R
 	  zzz.R

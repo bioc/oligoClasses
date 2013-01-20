@@ -42,13 +42,12 @@ R. Scharpf
 		library(Biobase)
 		data(oligoSetExample, package="oligoClasses")
 		oligoSet <- oligoSet[chromosome(oligoSet) == 1, ]
-		hmmResults <- hmm(oligoSet)
+		grl <- hmm(oligoSet,TAUP=1e10)
+		class(grl)## GRangesList
+		gr <- grl[[1]]
 		(frange <- makeFeatureGRanges(oligoSet))
 		## which features overlap with the second range in sample NA06993
-		olaps <- findOverlaps(hmmResults[["NA06993"]], frange)
-		featureNames(oligoSet)[subjectHits(olaps)[queryHits(olaps)==2]]
-
-                gr <- makeFeatureGRanges(featureData(oligoSet), genome="hg19")
+		frange2 <- subsetByOverlaps(frange, gr[2,])
 	}
 }
 \keyword{manip}

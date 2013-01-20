@@ -5,7 +5,7 @@ setMethod("updateObject", signature(object="BeadStudioSet"),
 		  if(is.null(obj)){
 			  obj <- new("BeadStudioSet",
 				     assayData = updateObject(assayData(object),
-				     ...., verbose=verbose),
+				     ..., verbose=verbose),
 				     phenoData = phenoData(object),
 				     experimentData = updateObject(experimentData(object),
 				     ..., verbose=verbose),

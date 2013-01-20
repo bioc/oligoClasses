@@ -25,7 +25,7 @@
   A container for log R ratios and B allele frequencies from SNP arrays.
 }
 \section{Objects from the Class}{
-Objects can be created by calls of the form \code{new("BeadStudioSet", assayData, phenoData, featureData, experimentData, annotation, protocolData, baf, lrr, ...)}.
+  Objects can be created by calls of the form \code{new("BeadStudioSet", assayData, phenoData, featureData, experimentData, annotation, protocolData, baf, lrr, ...)}.
 }
 \section{Slots}{
   \describe{

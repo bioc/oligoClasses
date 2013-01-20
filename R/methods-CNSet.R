@@ -42,7 +42,7 @@ setMethod("updateObject", signature(object="CNSet"),
 			  if(.hasSlot(object, "mixtureParams")){
 				  obj <- new("CNSet",
 					     assayData = updateObject(assayData(object),
-					     ...., verbose=verbose),
+					     ..., verbose=verbose),
 					     phenoData = phenoData(object),
 					     experimentData = experimentData(object),
 					     annotation = updateObject(annotation(object),
@@ -54,7 +54,7 @@ setMethod("updateObject", signature(object="CNSet"),
 			  } else {
 				  obj <- new("CNSet",
 					     assayData = updateObject(assayData(object),
-					     ...., verbose=verbose),
+					     ..., verbose=verbose),
 					     phenoData = phenoData(object),
 					     experimentData = experimentData(object),
 					     annotation = updateObject(annotation(object),
@@ -207,73 +207,6 @@ setMethod("nu", c("CNSet", "character"), function(object, allele) nu(batchStatis
 setMethod("phi", c("CNSet", "character"), function(object, allele) phi(batchStatistics(object), allele))
 setMethod("sigma2", c("CNSet", "character"), function(object, allele) sigma2(batchStatistics(object), allele))
 setMethod("flags", signature(object="CNSet"), function(object) flags(batchStatistics(object)))
-
-setAs("CNSetLM", "CNSet", function(from){
-	if("batch" %in% varLabels(protocolData(from))){
-		btch <- as.character(protocolData(from)$batch)
-	} else {
-		stop("couldn't find batch in varLabels of protocolData.")
-	}
-	lm <- from@lM
-	is.ffdf <- is(lm, "ffdf")
-	if(is.ffdf){
-		##stopifnot(isPackageLoaded("ff"))
-		lm <- physical(lm)
-	}
-	lm.names <- c("tau2A", "tau2B", "sig2A", "sig2B", "nuA", "nuB", "phiA", "phiB", "phiPrimeA", "phiPrimeB", "corrAB", "corrAA", "corrBB")
-	if(!all(lm.names %in% names(lm))){
-		lm.names <- paste(lm.names, collapse=", ")
-		stop(paste("names(object@lM) must have the following names:", lm.names))
-	}
-	nr <- nrow(from)
-	nc <- length(unique(btch))
-	## mainly to avoid initializing new ff objects
-	tau2A.AA <- lm[["sig2A"]]
-	tau2A.BB <- lm[["tau2A"]]
-	tau2B.AA <- lm[["tau2B"]]
-	tau2B.BB <- lm[["sig2B"]]
-	tmp <- assayDataNew(N.AA=initializeBigMatrix("N.AA", nr, nc),
-			    N.AB=initializeBigMatrix("N.AB", nr, nc),
-			    N.BB=initializeBigMatrix("N.BB", nr, nc),
-			    medianA.AA=initializeBigMatrix("median.AA", nr, nc),
-			    medianA.AB=initializeBigMatrix("median.AB", nr, nc),
-			    medianA.BB=initializeBigMatrix("median.BB", nr, nc),
-			    medianB.AA=initializeBigMatrix("median.AA", nr, nc),
-			    medianB.AB=initializeBigMatrix("median.AB", nr, nc),
-			    medianB.BB=initializeBigMatrix("median.BB", nr, nc),
-			    madA.AA=initializeBigMatrix("mad.AA", nr, nc),
-			    madA.AB=initializeBigMatrix("mad.AB", nr, nc),
-			    madA.BB=initializeBigMatrix("mad.BB", nr, nc),
-			    madB.AA=initializeBigMatrix("mad.AA", nr, nc),
-			    madB.AB=initializeBigMatrix("mad.AB", nr, nc),
-			    madB.BB=initializeBigMatrix("mad.BB", nr, nc),
-			    tau2A.AA=tau2A.AA,
-			    tau2A.BB=tau2A.BB,
-			    tau2B.AA=tau2B.AA,
-			    tau2B.BB=tau2B.BB,
-			    nuA=lm[["nuA"]],
-			    nuB=lm[["nuB"]],
-			    phiA=lm[["phiA"]],
-			    phiB=lm[["phiB"]],
-			    phiPrimeA=lm[["phiPrimeA"]],
-			    phiPrimeB=lm[["phiPrimeB"]],
-			    corrAB=lm[["corrAB"]],
-			    corrAA=lm[["corrAA"]],
-			    corrBB=lm[["corrBB"]],
-			    flags=initializeBigMatrix("flags", nrow(from), length(unique(btch))))
-	obj <- new("CNSet",
-		   alleleA=assayData(from)[["alleleA"]],
-		   alleleB=assayData(from)[["alleleB"]],
-		   call=assayData(from)[["call"]],
-		   callProbability=assayData(from)[["callProbability"]],
-		   featureData=featureData(from),
-		   phenoData=phenoData(from),
-		   experimentData=experimentData(from),
-		   protocolData=protocolData(from),
-		   batch=btch,
-		   batchStatistics=tmp)
-	return(obj)
-})
 
 setMethod("batchStatistics", signature=signature(object="CNSet"), function(object) object@batchStatistics)
 setReplaceMethod("batchStatistics", signature=signature(object="CNSet", value="AssayData"),

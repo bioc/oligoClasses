@@ -16,7 +16,7 @@
 \alias{lrr<-,BafLrrSetList,matrix-method}
 \alias{updateObject,BeadStudioSetList-method}
 
-\title{BeadStudioSetList class}
+\title{List classes with assay data listed by chromosome}
 
 \description{
   Container for log R ratios and B allele frequencies stored by chromosome.
@@ -35,11 +35,7 @@
   }
 }
 
-\section{Methods}{
-  \describe{
 
-  }
-}
 
 \author{
 R. Scharpf
