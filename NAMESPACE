@@ -130,7 +130,8 @@ exportMethods(batch, batchNames, "batchNames<-", coerce, flags, show,
 	      mean, updateObject,
 	      "sampleNames<-",
 	      GenomeAnnotatedDataFrameFrom,
-	      makeFeatureGRanges)
+	      makeFeatureGRanges,
+	      clone)
 
 
 ## EXPORTING....

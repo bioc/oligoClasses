@@ -71,3 +71,5 @@ setGeneric("makeFeatureGRanges", function(object, ...) standardGeneric("makeFeat
 setGeneric("assayDataList", function(object) standardGeneric("assayDataList"))
 setGeneric("featureDataList", function(object) standardGeneric("featureDataList"))
 
+setGeneric("clone", function(object, id, prefix="",...) standardGeneric("clone"))
+

@@ -181,6 +181,10 @@ setMethod("snpCallProbability", signature(object="oligoSetList"),
 	  function(object) assayData(object)[["callProbability"]])
 
 
+setMethod(clone, "BafLrrSetList", function(object, id, prefix, ...){
+	duplicateBLList(object, ids=id, prefix=prefix, ...)
+})
+
 duplicateBLList <- function(object, ids, prefix="waveAdj"){
 	##brList.copy <- object
 	## duplicate the lrr ff objects.  Then do wave correction on the
@@ -210,11 +214,11 @@ duplicateBLList <- function(object, ids, prefix="waveAdj"){
 	}
 	adl <- AssayDataList(baf=bcopy.list, lrr=rcopy.list)
 	pd <- phenoData(object)[match(ids, sampleNames(object)), ]
-	tmp <- new("BafLrrSetList",
-		   assayDataList=adl,
-		   featureDataList=featureData(object),
-		   phenoData=pd,
-		   chromosome=chromosome(object),
-		   annotation=annotation(object),
-		   genome=genomeBuild(object))
+	new("BafLrrSetList",
+	    assayDataList=adl,
+	    featureDataList=featureData(object),
+	    phenoData=pd,
+	    chromosome=chromosome(object),
+	    annotation=annotation(object),
+	    genome=genomeBuild(object))
 }
