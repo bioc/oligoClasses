@@ -40,6 +40,8 @@ R. Scharpf
 		library(oligoClasses)
 		library(GenomicRanges)
 		library(Biobase)
+		library(foreach)
+		registerDoSEQ()
 		data(oligoSetExample, package="oligoClasses")
 		oligoSet <- oligoSet[chromosome(oligoSet) == 1, ]
 		grl <- hmm(oligoSet,TAUP=1e10)
@@ -47,7 +49,7 @@ R. Scharpf
 		gr <- grl[[1]]
 		(frange <- makeFeatureGRanges(oligoSet))
 		## which features overlap with the second range in sample NA06993
-		frange2 <- subsetByOverlaps(frange, gr[2,])
+		subsetByOverlaps(frange, gr[2,])
 	}
 }
 \keyword{manip}
