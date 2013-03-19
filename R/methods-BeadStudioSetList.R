@@ -185,7 +185,7 @@ setMethod(clone, "BafLrrSetList", function(object, id, prefix, ...){
 	duplicateBLList(object, ids=id, prefix=prefix, ...)
 })
 
-duplicateBLList <- function(object, ids, prefix="waveAdj"){
+duplicateBLList <- function(object, ids, prefix="waveAdj", empty=FALSE){
 	##brList.copy <- object
 	## duplicate the lrr ff objects.  Then do wave correction on the
 	## duplicated files.
@@ -204,10 +204,12 @@ duplicateBLList <- function(object, ids, prefix="waveAdj"){
 					ids)
 		dimnames(bcopy) <- dimnames(rcopy)
 		J <- match(ids, colnames(x))
-		for(j in seq_along(J)){
-			k <- J[j]
-			rcopy[, j] <- x[, k]
-			bcopy[, j] <- y[, k]
+		if(!empty){
+			for(j in seq_along(J)){
+				k <- J[j]
+				rcopy[, j] <- x[, k]
+				bcopy[, j] <- y[, k]
+			}
 		}
 		rcopy.list[[i]] <- rcopy
 		bcopy.list[[i]] <- bcopy
