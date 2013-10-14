@@ -1,5 +1,5 @@
 Package: oligoClasses
-Version: 1.23.0
+Version: 1.24.0
 Title: Classes for high-throughput arrays supported by oligo and crlmm
 Author: Benilton Carvalho and Robert Scharpf
 Maintainer: Benilton Carvalho <Benilton.Carvalho@cancer.org.uk> and Robert Scharpf <rscharpf@jhsph.edu>
