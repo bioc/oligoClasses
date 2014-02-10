@@ -17,6 +17,7 @@ setClass("TilingPDInfo", contains="DBPDInfo")
 setClass("stArrayDBPDInfo", contains="DBPDInfo")
 setClass("ExonPDInfo", contains="stArrayDBPDInfo")
 setClass("GenePDInfo", contains="stArrayDBPDInfo")
+setClass("HTAPDInfo", contains="stArrayDBPDInfo")
 
 ###########################################################################
 ## Manufacturer-specific PDInfo Classes
@@ -31,6 +32,7 @@ setClass("AffyGenePDInfo", contains="GenePDInfo",
 setClass("AffyExonPDInfo", contains="ExonPDInfo",
          prototype=list(manufacturer="Affymetrix"))
 setClass("AffySTPDInfo", contains="AffyExpressionPDInfo")
+setClass("AffyHTAPDInfo", contains="HTAPDInfo")
 
 setClass("AffySNPPDInfo", contains="SNPPDInfo",
          prototype=list(manufacturer="Affymetrix"))
@@ -60,6 +62,7 @@ setClass("SnpCnvFeatureSet", contains="SnpFeatureSet")
 setClass("TilingFeatureSet", contains="FeatureSet")
 setClass("ExonFeatureSet", contains="FeatureSet")
 setClass("GeneFeatureSet", contains="FeatureSet")
+setClass("HTAFeatureSet", contains="FeatureSet")
 
 
 setClass("AlleleSet", contains="eSet")
