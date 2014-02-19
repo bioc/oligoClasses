@@ -4,6 +4,7 @@
 \alias{CNSet-class}
 \alias{CNSet}
 \alias{[,CNSet-method}
+\alias{[,CNSet,ANY-method}
 \alias{A,CNSet-method}
 \alias{A<-,CNSet-method}
 \alias{allele,CNSet-method}
