@@ -39,8 +39,5 @@
   \code{\linkS4class{SummarizedExperiment}}
 }
 
-\examples{
-
-}
 
 \keyword{methods}

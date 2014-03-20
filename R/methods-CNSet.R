@@ -70,54 +70,50 @@ setMethod("updateObject", signature(object="CNSet"),
           })
 
 setMethod("[", "CNSet", function(x, i, j, ..., drop=FALSE){
-	##isff <- is(A(x), "ff") | is(A(x), "ffdf")
-	##if(isff) open(x)
-	openff(x)
-	x <- callNextMethod(x, i, j, ..., drop=FALSE)
-##	if(isff) close(x)
-##	x <- xx; rm(x)
-	## ensure that assayData elements are matrices after subset operation
-	isdf <- is(A(x), "data.frame")
-	if(isdf){
-		orig <- assayData(x)
-		storage.mode <- Biobase:::assayDataStorageMode(orig)
-		assayData(x) <-
-			switch(storage.mode,
-			       environment =,
-			       lockedEnvironment = {
-				       aData <- new.env(parent=emptyenv())
-				       for(nm in ls(orig)) aData[[nm]] <- as.matrix(orig[[nm]])##[i, j, ..., drop = drop]
-				       if ("lockedEnvironment" == storage.mode) Biobase:::assayDataEnvLock(aData)
-				       aData
-			       },
-			       list = {
-				       lapply(orig, as.matrix)
-			       })
-	}
-	if(missing(j)) j <- 1:ncol(x)
-	if(missing(i)) i <- 1:nrow(x)
-	x@batch <- batch(x)[j]
-	nms <- sampleNames(batchStatistics(x))
-	## need to subset columns of LinearModelParameter
-	## Adapted from the '[' method for eSet in Biobase
-	## redefine 'j'
-	j <- which(nms %in% unique(as.character(batch(x))))
-	storage.mode <- storageMode(batchStatistics(x))
-	## i (if defined) is already subset by callNextMethod
-	orig <- batchStatistics(x)
-	batchStatistics(x) <-
-		switch(storage.mode,
-		       environment =,
-		       lockedEnvironment = {
-			       aData <- new.env(parent=emptyenv())
-			       for(nm in ls(orig)) aData[[nm]] <- orig[[nm]][i, j, ..., drop = drop]
-			       if ("lockedEnvironment" == storage.mode) Biobase:::assayDataEnvLock(aData)
-			       aData
-		       },
-		       list = {
-			       lapply(orig, function(obj) obj[i, j, ..., drop = drop])
-		       })
-	return(x)
+  openff(x)
+  x <- callNextMethod(x, i, j, ..., drop=FALSE)
+  isdf <- is(A(x), "data.frame")
+  if(isdf){
+    orig <- assayData(x)
+    ##storage.mode <- Biobase:::assayDataStorageMode(orig)
+    storage.mode <- storageMode(orig)
+    assayData(x) <-
+      switch(storage.mode,
+             environment =,
+             lockedEnvironment = {
+               aData <- new.env(parent=emptyenv())
+               for(nm in ls(orig)) aData[[nm]] <- as.matrix(orig[[nm]])##[i, j, ..., drop = drop]
+               if ("lockedEnvironment" == storage.mode) Biobase:::assayDataEnvLock(aData)
+               aData
+             },
+             list = {
+               lapply(orig, as.matrix)
+             })
+  }
+  if(missing(j)) j <- 1:ncol(x)
+  if(missing(i)) i <- 1:nrow(x)
+  x@batch <- batch(x)[j]
+  nms <- sampleNames(batchStatistics(x))
+  ## need to subset columns of LinearModelParameter
+  ## Adapted from the '[' method for eSet in Biobase
+  ## redefine 'j'
+  j <- which(nms %in% unique(as.character(batch(x))))
+  storage.mode <- storageMode(batchStatistics(x))
+  ## i (if defined) is already subset by callNextMethod
+  orig <- batchStatistics(x)
+  batchStatistics(x) <-
+    switch(storage.mode,
+           environment =,
+           lockedEnvironment = {
+             aData <- new.env(parent=emptyenv())
+             for(nm in ls(orig)) aData[[nm]] <- orig[[nm]][i, j, ..., drop = drop]
+             if ("lockedEnvironment" == storage.mode) Biobase:::assayDataEnvLock(aData)
+             aData
+           },
+           list = {
+             lapply(orig, function(obj) obj[i, j, ..., drop = drop])
+           })
+  return(x)
 })
 
 setMethod("batch", "CNSet", function(object) object@batch)

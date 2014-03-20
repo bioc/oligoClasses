@@ -80,7 +80,7 @@ setAs("gSetList", "list", function(from){
 
 setMethod("$", signature(x="gSetList"),
 	  function(x, name){
-		  eval(substitute(phenoData(x)$NAME_ARG, list(NAME_ARG=name)))
+            eval(substitute(phenoData(x)$NAME_ARG, list(NAME_ARG=name)))
 	  })
 
 setReplaceMethod("$", "gSetList", function(x, name, value) {
