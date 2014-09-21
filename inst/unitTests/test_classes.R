@@ -149,9 +149,10 @@ test_CNSet_construction <- function(){
 
 
 test_BeadStudioSet <- function(){
-  checkTrue(validObject(new("BafLrrSet")))
+	checkTrue(validObject(new("BafLrrSet")))
 }
 
 test_BafLrrSetList <- function(){
-  checkTrue(validObject(new("BafLrrSetList")))
+	checkTrue(validObject(new("BafLrrSetList")))
 }
+

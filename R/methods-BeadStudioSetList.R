@@ -148,12 +148,6 @@ setMethod("baf", signature(object="BeadStudioSetList"),
 		  ##lapply(object, baf)
 		  assayDataList(object)[["baf"]]
 	  })
-
-setMethod(baf, signature(object="BafLrrSetList"),
-	  function(object){
-            assayDataList(object)[["baf"]]
-	  })
-
 setMethod("calls", signature(object="oligoSetList"),
 	  function(object) assayData(object)[["call"]])
 setMethod("copyNumber", signature(object="oligoSetList"),
@@ -164,13 +158,6 @@ setMethod("lrr", signature(object="BeadStudioSetList"),
 		  ##lapply(object, lrr)
 		  assayDataList(object)[["lrr"]]
 	  })
-
-setMethod("lrr", signature(object="BafLrrSetList"),
-	  function(object){
-            ##lapply(object, lrr)
-            assayDataList(object)[["lrr"]]
-	  })
-
 
 setReplaceMethod("lrr", signature(object="BafLrrSetList", value="matrix"),
 	  function(object, value){

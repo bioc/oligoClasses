@@ -8,7 +8,6 @@
 \alias{[[,BafLrrSetList,ANY,ANY-method}
 \alias{[[<-,BafLrrSetList,ANY,ANY,BafLrrSet-method}
 \alias{baf,BeadStudioSetList-method}
-\alias{baf,BafLrrSetList-method}
 \alias{baf,oligoSetList-method}
 \alias{calls,oligoSetList-method}
 \alias{clone}
@@ -16,7 +15,6 @@
 \alias{copyNumber,oligoSetList-method}
 \alias{initialize,BeadStudioSetList-method}
 \alias{lrr,BeadStudioSetList-method}
-\alias{lrr,BafLrrSetList-method}
 \alias{lrr<-,BafLrrSetList,matrix-method}
 \alias{updateObject,BeadStudioSetList-method}
 
@@ -57,26 +55,6 @@
 
   }
 }
-}
-
-\section{Accessors}{
-  \describe{
-    \item{}{\code{baf(object)}An accessor for the B allele frequencies
-  (BAFs).  The accessor returns a list where each element of the list is
-  a matrix of the BAFs for the corresponding element in the SetList
-  object.  While the BAFs have a range [0, 1], they are often saved
-  internally as integers by multiplying the original BAFs by 1000.
-  Users can restore the original scale by dividing by 1000.}
-
-  \item{}{\code{lrr(object)} An accessor for the log R ratios, an
-  estimate of the copy number (presumably relative to diploid copy
-  number) at each marker on a SNP array.  The accessor returns a list
-  where each element of the list is a matrix of the log R ratios for the
-  corresponding element in the SetList object.  The log R ratios are
-  often saved internally as integers by multiplying the original LRRs by
-  100 in order to reduce the memory footprint of large studies.  Users
-  can restore the original scale by dividing by 100.}
-  }
 }
 
 \author{

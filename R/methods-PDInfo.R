@@ -46,11 +46,6 @@ setMethod("kind", "AffyExonPDInfo",
             "exon"
           })
 
-setMethod("kind", "AffyHTAPDInfo",
-          function(object) {
-            "hta"
-          })
-
 setMethod("kind", "ExpressionPDInfo",
           function(object) {
             "expression"

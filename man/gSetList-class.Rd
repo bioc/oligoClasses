@@ -5,7 +5,6 @@
 \alias{$,gSetList-method}
 \alias{$<-,gSetList-method}
 \alias{[,gSetList-method}
-\alias{[,gSetList,ANY-method}
 \alias{[[<-,gSetList,ANY,ANY,BafLrrSet-method}
 \alias{annotation,gSetList-method}
 \alias{assayDataList,gSetList-method}

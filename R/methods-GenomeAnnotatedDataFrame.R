@@ -90,47 +90,47 @@ GenomeAnnotatedDataFrameFromMatrix <- function(object,
 					       annotationPkg,
 					       genome,
 					       ...){
-  dims <- dim(object)
-  if (is.null(dims) || all(dims==0)){
-    object <- GenomeAnnotatedDataFrameFrom(NULL, ...)
-  } else {
-    nms <- rownames(object)
-    if(!is.null(nms)){
-      if(any(is.na(nms))) warning("NA's in rownames")
-    }
-    if(length(annotationPkg)==0 | is.null(nms)){
-      n <- dims[1]
-      data <- data.frame(position=integer(n),
-                         chromosome=integer(n),
-                         isSnp=logical(n),
-                         row.names=nms)
-      object <- new("GenomeAnnotatedDataFrame", data=data)
-    } else {
-      stopifnot(isSupportedAnnotation(annotationPkg))
-      is.pd <- isPdAnnotationPkg(annotationPkg)
-      if(is.pd){
-        object <- addFeatureAnnotation.pd2(annotationPkg, featureNames=rownames(object), genome=genome,...)
-      } else {
-        object <- addFeatureAnnotation.crlmm2(annotationPkg, featureNames=rownames(object), genome=genome, ...)
-      }
-    }
-  }
-  return(object)
+	dims <- dim(object)
+	if (is.null(dims) || all(dims==0)){
+		object <- GenomeAnnotatedDataFrameFrom(NULL, ...)
+	} else {
+		nms <- rownames(object)
+		if(!is.null(nms)){
+			if(any(is.na(nms))) warning("NA's in rownames")
+		}
+		if(length(annotationPkg)==0 | is.null(nms)){
+			n <- dims[1]
+			data <- data.frame(position=integer(n),
+					   chromosome=integer(n),
+					   isSnp=logical(n),
+					   row.names=nms)
+			object <- new("GenomeAnnotatedDataFrame", data=data)
+		} else {
+			stopifnot(isSupportedAnnotation(annotationPkg))
+			is.pd <- isPdAnnotationPkg(annotationPkg)
+			if(is.pd){
+				object <- addFeatureAnnotation.pd2(annotationPkg, featureNames=rownames(object), genome=genome,...)
+			} else {
+				object <- addFeatureAnnotation.crlmm2(annotationPkg, featureNames=rownames(object), genome=genome, ...)
+			}
+		}
+	}
+	return(object)
 }
 
 
 
 GenomeAnnotatedDataFrameFromArray <- function(object, annotationPkg, ...){
-  ## coerce to matrix
-  dims <- dim(object)
-  is.array <- length(dims) == 3
-  if(is.array){
-    res <- GenomeAnnotatedDataFrameFromMatrix(object[, , 1], annotationPkg, ...)
-  } else {
-    ##dim(object) <- dim(object)[c(1,2)]
-    res <- GenomeAnnotatedDataFrameFromMatrix(object, annotationPkg, ...)
-  }
-  res
+	## coerce to matrix
+	dims <- dim(object)
+	is.array <- length(dims) == 3
+	if(is.array){
+		res <- oligoClasses:::GenomeAnnotatedDataFrameFromMatrix(object[, , 1], annotationPkg, ...)
+	} else {
+		##dim(object) <- dim(object)[c(1,2)]
+		res <- oligoClasses:::GenomeAnnotatedDataFrameFromMatrix(object, annotationPkg, ...)
+	}
+	res
 }
 
 GenomeAnnotatedDataFrameFromList <- function(object, annotationPkg, genome){
@@ -252,84 +252,84 @@ addFeatureAnnotation.pd2 <- function(annotation, featureNames, genome){
 
 
 addFeatureAnnotation.crlmm2 <- function(object, featureNames, genome="hg19", ...){
-  nm <- grep("Crlmm", object, ignore.case=TRUE)
-  if(length(nm) == 0){
-    pkgname <- paste(object, "Crlmm", sep="")
-  } else pkgname <- object
-  path <- system.file("extdata", package=pkgname)
-  if(path=="") stop("Are you sure ", pkgname, " is installed?")
-  ## Most of our annotation packages have only hg19 build
-  snpBuilds <- list.files(path, pattern="snpProbes_")
-  build <- gsub(".rda", "", gsub("snpProbes_", "", snpBuilds))
-  if(length(build) > 1){
-    if(genome %in% build){
-      build <- genome
-    } else 	{ ## genome not in build
-      message(paste("Builds", paste(build, collapse=","), "are available. Use genome=[build] to specify which build to use for annotation."))
-      build <- build[1]
-    }
-  }
-  if(length(build)==1){
-    if(build != genome){
-      message(paste("Build", genome, "requested, but only build", build, "is available."))
-    }
-    loader(paste("cnProbes_", build, ".rda", sep=""), pkgname=pkgname, envir=.oligoClassesPkgEnv)
-    loader(paste("snpProbes_", build, ".rda", sep=""), pkgname=pkgname, envir=.oligoClassesPkgEnv)
-  } else { ## length of build is zero
-    ## file not found (older version of annotation packages).  allow processing to continue
-    loader("cnProbes.rda", pkgname=pkgname, envir=.oligoClassesPkgEnv)
-    loader("snpProbes.rda", pkgname=pkgname, envir=.oligoClassesPkgEnv)
-  }
-  cnProbes <- get("cnProbes", envir=.oligoClassesPkgEnv)
-  snpProbes <- get("snpProbes", envir=.oligoClassesPkgEnv)
-  snpProbes <- snpProbes[rownames(snpProbes) %in% featureNames, , drop=FALSE]
-  cnProbes <- cnProbes[rownames(cnProbes) %in% featureNames, , drop=FALSE]
-  ##Feature Data
-  isSnp <- 1L-as.integer(featureNames %in% rownames(cnProbes))
-  names(isSnp) <- featureNames
-  if(any(isSnp)){
-    snps <- featureNames[isSnp == 1]
-    index <- match(snps, rownames(snpProbes))
-    position.snp <- snpProbes[index, "position"]
-    names(position.snp) <- snps
-    J <- grep("chr", colnames(snpProbes))
-    chr.snp <- snpProbes[index, J]
-  } else{
-    warning("None of the featureNames in the object match SNP probes for the indicated annotation package.  Either the annotation package is misspecified, or the featureNames of the object are incorrect")
-    message("The annotation for the object is ", object)
-    chr.snp <- position.snp <- integer()
-  }
-  if(any(!isSnp)){
-    nps <- featureNames[isSnp == 0]
-    index <- match(nps, rownames(cnProbes))
-    position.np <- cnProbes[index, "position"]
-    names(position.np) <- nps
-    chr.np <- cnProbes[index, J]
-  } else {
-    chr.np <- position.np <- integer()
-  }
-  position <- c(position.snp, position.np)
-  chrom <- c(chr.snp, chr.np)
-  ##We may not have annotation for all of the snps
-  if(!all(featureNames %in% names(position))){
-    warning("physical position not available for all featureNames")
-  }
-  ix <- match(featureNames, names(position))
-  position <- position[ix]
-  chrom <- chrom[ix]
-  ##require(SNPchip)
-  chrom <- chromosome2integer(chrom)
-  stopifnot(identical(names(position), featureNames))
-  if(sum(duplicated(names(position))) > 0){
-    warning("Removing rows with NA identifiers...")
-    ##RS: fix this
-    I <- which(!is.na(names(position)))
-  }  else I <- seq(along=names(position))
-  new("GenomeAnnotatedDataFrame",
-      isSnp=as.logical(isSnp[I]),
-      position=as.integer(position[I]),
-      chromosome=as.integer(chrom[I]),
-      row.names=featureNames)
+	nm <- grep("Crlmm", object, ignore.case=TRUE)
+	if(length(nm) == 0){
+		pkgname <- paste(object, "Crlmm", sep="")
+	} else pkgname <- object
+	path <- system.file("extdata", package=pkgname)
+	if(path=="") stop("Are you sure ", pkgname, " is installed?")
+	## Most of our annotation packages have only hg19 build
+	snpBuilds <- list.files(path, pattern="snpProbes_")
+	build <- gsub(".rda", "", gsub("snpProbes_", "", snpBuilds))
+	if(length(build) > 1){
+		if(genome %in% build){
+			build <- genome
+		} else 	{ ## genome not in build
+			message(paste("Builds", paste(build, collapse=","), "are available. Use genome=[build] to specify which build to use for annotation."))
+			build <- build[1]
+		}
+	}
+	if(length(build)==1){
+		if(build != genome){
+			message(paste("Build", genome, "requested, but only build", build, "is available."))
+		}
+		loader(paste("cnProbes_", build, ".rda", sep=""), pkgname=pkgname, envir=.oligoClassesPkgEnv)
+		loader(paste("snpProbes_", build, ".rda", sep=""), pkgname=pkgname, envir=.oligoClassesPkgEnv)
+	} else { ## length of build is zero
+		## file not found (older version of annotation packages).  allow processing to continue
+		loader("cnProbes.rda", pkgname=pkgname, envir=.oligoClassesPkgEnv)
+		loader("snpProbes.rda", pkgname=pkgname, envir=.oligoClassesPkgEnv)
+	}
+	cnProbes <- get("cnProbes", envir=.oligoClassesPkgEnv)
+	snpProbes <- get("snpProbes", envir=.oligoClassesPkgEnv)
+	snpProbes <- snpProbes[rownames(snpProbes) %in% featureNames, , drop=FALSE]
+	cnProbes <- cnProbes[rownames(cnProbes) %in% featureNames, , drop=FALSE]
+	##Feature Data
+	isSnp <- 1L-as.integer(featureNames %in% rownames(cnProbes))
+	names(isSnp) <- featureNames
+	if(any(isSnp)){
+		snps <- featureNames[isSnp == 1]
+		index <- match(snps, rownames(snpProbes))
+		position.snp <- snpProbes[index, "position"]
+		names(position.snp) <- snps
+		J <- grep("chr", colnames(snpProbes))
+		chr.snp <- snpProbes[index, J]
+	} else{
+		warning("None of the featureNames in the object match SNP probes for the indicated annotation package.  Either the annotation package is misspecified, or the featureNames of the object are incorrect")
+		message("The annotation for the object is ", object)
+		chr.snp <- position.snp <- integer()
+	}
+	if(any(!isSnp)){
+		nps <- featureNames[isSnp == 0]
+		index <- match(nps, rownames(cnProbes))
+		position.np <- cnProbes[index, "position"]
+		names(position.np) <- nps
+		chr.np <- cnProbes[index, J]
+	} else {
+		chr.np <- position.np <- integer()
+	}
+	position <- c(position.snp, position.np)
+	chrom <- c(chr.snp, chr.np)
+	##We may not have annotation for all of the snps
+	if(!all(featureNames %in% names(position))){
+		warning("physical position not available for all featureNames")
+	}
+	ix <- match(featureNames, names(position))
+	position <- position[ix]
+	chrom <- chrom[ix]
+	##require(SNPchip)
+	chrom <- chromosome2integer(chrom)
+	stopifnot(identical(names(position), featureNames))
+	if(sum(duplicated(names(position))) > 0){
+		warning("Removing rows with NA identifiers...")
+		##RS: fix this
+		I <- which(!is.na(names(position)))
+	}  else I <- seq(along=names(position))
+	new("GenomeAnnotatedDataFrame",
+	    isSnp=as.logical(isSnp[I]),
+	    position=as.integer(position[I]),
+	    chromosome=as.integer(chrom[I]),
+	    row.names=featureNames)
 }
 
 cleancdfname <- function(x) strsplit(x, "Crlmm")[[1]][[1]]
