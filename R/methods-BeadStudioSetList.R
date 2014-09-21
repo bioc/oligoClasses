@@ -194,7 +194,7 @@ setMethod("snpCallProbability", signature(object="oligoSetList"),
 	  function(object) assayData(object)[["callProbability"]])
 
 
-setMethod(clone, "BafLrrSetList", function(object, id, prefix, ...){
+setMethod(clone2, "BafLrrSetList", function(object, id, prefix, ...){
 	duplicateBLList(object, ids=id, prefix=prefix, ...)
 })
 

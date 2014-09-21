@@ -1,13 +1,10 @@
 Package: oligoClasses
-Version: 1.27.1
+Version: 1.27.2
 Title: Classes for high-throughput arrays supported by oligo and crlmm
 Author: Benilton Carvalho and Robert Scharpf
 Maintainer: Benilton Carvalho <beniltoncarvalho@gmail.com> and Robert Scharpf <rscharpf@jhsph.edu>
 Depends:  R (>= 2.14)
-Imports:  methods, utils, graphics, BiocGenerics (>= 0.3.2),
-          Biobase (>= 2.17.8), S4Vectors, IRanges (>= 1.13.30), GenomicRanges,
-          Biostrings (>= 2.23.6), affyio (>= 1.23.2), ff, foreach,
-          BiocInstaller
+Imports:  BiocGenerics (>= 0.3.2), Biobase (>= 2.17.8), methods, graphics, IRanges (>= 1.13.30), GenomicRanges, Biostrings (>= 2.23.6), affyio (>= 1.23.2), ff, foreach, BiocInstaller, utils, S4Vectors
 Enhances: doMC, doMPI, doSNOW, doParallel, doRedis
 Suggests: RSQLite, hapmapsnp5, hapmapsnp6,
           pd.genomewidesnp.6,
@@ -18,9 +15,6 @@ Suggests: RSQLite, hapmapsnp5, hapmapsnp6,
 	  pd.mapping250k.nsp,
 	  genomewidesnp6Crlmm (>= 1.0.7),
 	  genomewidesnp5Crlmm (>= 1.0.6),
-	  crlmm,
-	  SNPchip,
-	  VanillaICE,
 	  RUnit,
 	  human370v1cCrlmm
 Description: This package contains class definitions, validity checks, and initialization methods for classes used by the oligo and crlmm packages.
@@ -54,4 +48,6 @@ Collate:  AllClasses.R
 	  functions.R
 	  zzz.R
 biocViews: Infrastructure
-
+## Local Variables:
+## time-stamp-pattern: "8/Date: %3a %3b %2d %02H:%02M:%02S %Z %:y\n"
+## End:

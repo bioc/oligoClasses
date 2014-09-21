@@ -48,18 +48,18 @@ integer2chromosome <- function(intChrom){
 }
 
 .getArm <- function(chrom, pos, genome){
-	if(is.integer(chrom)) chrom <- paste("chr", integer2chromosome(chrom), sep="")
-	path.gap <- system.file("extdata", package="SNPchip")
-	gaps <- readRDS(list.files(path.gap, pattern=paste("gap_", genome, ".rda", sep=""), full.names=TRUE))
-	centromere.starts <- start(gaps)
-	centromere.ends <- end(gaps)
-	names(centromere.ends) <- names(centromere.starts) <- seqnames(gaps)
-	centromere.starts <- centromere.starts[chrom]
-	centromere.ends <- centromere.ends[chrom]
-	chr.arm <- arm <- rep(NA, length(pos))
-	arm[pos <= centromere.starts] <- "p"
-	arm[pos >= centromere.ends] <- "q"
-	##arm <- ifelse(pos <= centromere.starts, "p", "q")
-	chr.arm[!is.na(arm)] <- paste(chrom[!is.na(arm)], arm[!is.na(arm)], sep="")
-	chr.arm
+  if(is.integer(chrom)) chrom <- paste("chr", integer2chromosome(chrom), sep="")
+  path.gap <- system.file("extdata", package="SNPchip")
+  gaps <- readRDS(list.files(path.gap, pattern=paste("gap_", genome, ".rda", sep=""), full.names=TRUE))
+  centromere.starts <- start(gaps)
+  centromere.ends <- end(gaps)
+  names(centromere.ends) <- names(centromere.starts) <- seqnames(gaps)
+  centromere.starts <- centromere.starts[chrom]
+  centromere.ends <- centromere.ends[chrom]
+  chr.arm <- arm <- rep(NA, length(pos))
+  arm[pos <= centromere.starts] <- "p"
+  arm[pos >= centromere.ends] <- "q"
+  ##arm <- ifelse(pos <= centromere.starts, "p", "q")
+  chr.arm[!is.na(arm)] <- paste(chrom[!is.na(arm)], arm[!is.na(arm)], sep="")
+  chr.arm
 }

@@ -3,9 +3,7 @@
 ## Import
 ##---------------------------------------------------------------------------
 ## methods
-importMethodsFrom(methods, initialize, show)
-importFrom(methods, callNextMethod, new, validObject, coerce)
-
+import(methods)
 
 ## BiocGenerics
 importFrom(BiocGenerics, updateObject, annotation, "annotation<-")
@@ -50,7 +48,6 @@ importMethodsFrom(Biobase, annotatedDataFrameFrom, assayData,
 ##importMethodsFrom(IRanges, findOverlaps, as.matrix, elementLengths)
 
 ##importClassesFrom(GenomicRanges, GRanges)
-import(S4Vectors)
 import(IRanges)
 import(GenomicRanges)
 
@@ -132,7 +129,9 @@ exportMethods(batch, batchNames, "batchNames<-", coerce, flags, show,
 	      "sampleNames<-",
 	      GenomeAnnotatedDataFrameFrom,
 	      makeFeatureGRanges,
-	      clone)
+	      clone2)
+
+import(S4Vectors)
 
 
 ## EXPORTING....
