@@ -124,7 +124,7 @@ setMethod("findOverlaps", signature(query="GRangesList", subject="gSet"),
 		    maxgap = 0L, minoverlap = 1L,
 		    type = c("any", "start", "end", "within", "equal"),
 		    select = c("all", "first", "last", "arbitrary"),
-		    algorithm = c("intervaltree", "nclist"), ...){
+		    algorithm = c("nclist", "intervaltree"), ...){
 		  frange <- makeFeatureGRanges(subject)
 		  findOverlaps(query, frange, maxgap=maxgap,
 			       minoverlap=minoverlap,
@@ -138,7 +138,7 @@ setMethod("findOverlaps", signature(query="GRanges", subject="gSet"),
 		    maxgap = 0L, minoverlap = 1L,
 		    type = c("any", "start", "end", "within", "equal"),
 		    select = c("all", "first", "last", "arbitrary"),
-		    algorithm = c("intervaltree", "nclist"), ...){
+		    algorithm = c("nclist", "intervaltree"), ...){
 		  frange <- makeFeatureGRanges(subject)
 		  findOverlaps(query, frange, maxgap=maxgap,
 			       minoverlap=minoverlap,
