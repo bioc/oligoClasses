@@ -10,6 +10,8 @@ setClass("DBPDInfo",
            genomebuild="character",
            annotation="character"))
 
+setClass("GenericPDInfo", contains="DBPDInfo")
+
 setClass("SNPPDInfo", contains="DBPDInfo")
 setClass("SNPCNVPDInfo", contains="SNPPDInfo")
 setClass("ExpressionPDInfo", contains="DBPDInfo")
