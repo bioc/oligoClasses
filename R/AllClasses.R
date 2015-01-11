@@ -58,6 +58,7 @@ setClass("FeatureSet",
            manufacturer=NA_character_,
            intensityFile=NA_character_))
 
+setClass("GenericFeatureSet", contains="FeatureSet")
 setClass("ExpressionFeatureSet", contains="FeatureSet")
 setClass("SnpFeatureSet", contains="FeatureSet")
 setClass("SnpCnvFeatureSet", contains="SnpFeatureSet")

@@ -21,6 +21,11 @@ setMethod("geometry", "DBPDInfo",
 setMethod("db", signature(object="DBPDInfo"),
           function(object) object@getdb())
 
+setMethod("kind", "GenericPDInfo",
+          function(object){
+              "generic"
+          })
+
 setMethod("kind", "AffySNPPDInfo",
           function(object) {
             "SNP"
