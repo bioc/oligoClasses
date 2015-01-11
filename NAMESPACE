@@ -74,12 +74,12 @@ importFrom(utils, packageDescription)
 exportClasses(AffyTilingPDInfo, AffyExpressionPDInfo, AffySNPPDInfo,
               AffySNPCNVPDInfo, AffyGenePDInfo, AffyExonPDInfo,
               NgsExpressionPDInfo, NgsTilingPDInfo, DBPDInfo,
-              ExpressionPDInfo, TilingPDInfo)
+              ExpressionPDInfo, TilingPDInfo, GenericPDInfo)
 
 ##Feature-level Classes
 exportClasses(FeatureSet, ExpressionFeatureSet, SnpFeatureSet,
               SnpCnvFeatureSet, TilingFeatureSet, ExonFeatureSet,
-              GeneFeatureSet)
+              GeneFeatureSet, GenericFeatureSet)
 
 ##SNP-level Classes
 exportClasses(AlleleSet, BeadStudioSet, oligoSnpSet, SnpSuperSet, CNSet,
