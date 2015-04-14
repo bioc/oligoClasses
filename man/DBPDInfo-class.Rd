@@ -17,6 +17,7 @@
 \alias{TilingPDInfo-class}
 \alias{ExpressionPDInfo-class}
 \alias{NgsExpressionPDInfo-class}
+\alias{GenericPDInfo-class}
 
 \alias{DBPDInfo}
 \alias{AffySNPPDInfo}
@@ -33,6 +34,7 @@
 \alias{TilingPDInfo}
 \alias{ExpressionPDInfo}
 \alias{NgsExpressionPDInfo}
+\alias{GenericPDInfo}
 
 \title{Class "DBPDInfo"}
 \description{A class for Platform Design Information objects, stored

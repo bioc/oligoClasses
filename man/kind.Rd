@@ -8,6 +8,7 @@
 \alias{kind,AffyExpressionPDInfo-method}
 \alias{kind,AffyGenePDInfo-method}
 \alias{kind,AffyHTAPDInfo-method}
+\alias{kind,GenericPDInfo-method}
 \alias{kind,FeatureSet-method}
 
 \title{Array type}
