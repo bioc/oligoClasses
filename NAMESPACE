@@ -52,6 +52,7 @@ importMethodsFrom(RSQLite, dbGetQuery, dbListTables)
 ##importClassesFrom(GenomicRanges, GRanges)
 import(IRanges)
 import(GenomicRanges)
+import(SummarizedExperiment)
 
 ## ff
 ## register open and close methods
