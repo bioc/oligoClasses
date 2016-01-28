@@ -12,7 +12,7 @@
 \alias{chromosome,gSetList-method}
 \alias{coerce,gSetList,list-method}
 \alias{dims,gSetList-method}
-\alias{elementLengths,gSetList-method}
+\alias{elementNROWS,gSetList-method}
 \alias{featureDataList,gSetList-method}
 \alias{genomeBuild,gSetList-method}
 \alias{genomeBuild<-,gSetList,character-method}
@@ -64,9 +64,9 @@
     }
 
     \item{}{
-      \code{elementLengths(object)}: Returns the number of rows for each
+      \code{elementNROWS(object)}: Returns the number of rows for each
       list of assays.  In most \code{gSetList}-derived classes, the
-      assays are organized by chromosome and \code{elementLengths}
+      assays are organized by chromosome and \code{elementNROWS}
       returns the number of markers for each chromosome.
     }
 

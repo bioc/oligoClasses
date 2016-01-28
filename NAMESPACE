@@ -47,7 +47,7 @@ importMethodsFrom(RSQLite, dbGetQuery, dbListTables)
 ##	   countOverlaps,
 ##	   ranges, values,
 ##	   queryHits, subjectHits)
-##importMethodsFrom(IRanges, findOverlaps, as.matrix, elementLengths)
+##importMethodsFrom(IRanges, findOverlaps, as.matrix, elementNROWS)
 
 ##importClassesFrom(GenomicRanges, GRanges)
 import(IRanges)
@@ -109,7 +109,7 @@ exportClasses(ff_or_matrix)
 exportMethods(bothStrands, allele, calls, "calls<-", confs, "confs<-",
               chromosome, "chromosome<-", copyNumber,
               "copyNumber<-", cnConfidence, "cnConfidence<-", db,
-	      elementLengths, isSnp,
+	      elementNROWS, isSnp,
               position, "position<-", sampleNames, A, B, "A<-", "B<-",
 	      "genomeBuild<-", getArm)
 

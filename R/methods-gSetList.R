@@ -108,7 +108,7 @@ setMethod("chromosome", signature(object="gSetList"),
 
 setMethod("dims", signature(object="gSetList"), function(object){
 	nchr <- length(chromosome(object))
-	nr <- sum(elementLengths(object))
+	nr <- sum(elementNROWS(object))
 	ns <- ncol(object)
 	ds <- c(nr, nchr, ns)
 	names(ds) <- c("features (total)", "list elements", "samples")
@@ -250,7 +250,7 @@ setMethod("makeFeatureGRanges", signature(object="gSetList"),
 		  makeFeatureGRanges(fd2, genomeBuild(object))
 	  })
 
-setMethod("elementLengths", signature(x="gSetList"),
+setMethod("elementNROWS", signature(x="gSetList"),
 	  function(x){
 		  adl <- assayDataList(x)
 		  nm <- ls(adl)[[1]]

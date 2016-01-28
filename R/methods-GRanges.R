@@ -48,7 +48,7 @@
 ##            stop("all elements in '...' must be GRangeHMM objects")
 ##        unlistData <- suppressWarnings(do.call("c", unname(listData)))
 ##    }
-##    end <- cumsum(elementLengths(unname(listData)))
+##    end <- cumsum(elementNROWS(unname(listData)))
 ##    ans <- IRanges:::newCompressedList("GRangesHMMList",
 ##               unlistData,
 ##               end = end, NAMES = names(listData),
