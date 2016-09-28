@@ -36,7 +36,6 @@ R. Scharpf
  \code{\link{findOverlaps}}, \code{\linkS4class{GRanges}}, \code{\linkS4class{GenomeAnnotatedDataFrame}}
 }
 \examples{
-	if(require("VanillaICE")){
 		library(oligoClasses)
 		library(GenomicRanges)
 		library(Biobase)
@@ -44,12 +43,7 @@ R. Scharpf
 		registerDoSEQ()
 		data(oligoSetExample, package="oligoClasses")
 		oligoSet <- oligoSet[chromosome(oligoSet) == 1, ]
-		grl <- hmm(oligoSet,TAUP=1e10)
-		class(grl)## GRangesList
-		gr <- grl[[1]]
-		(frange <- makeFeatureGRanges(oligoSet))
-		## which features overlap with the second range in sample NA06993
-		subsetByOverlaps(frange, gr[2,])
+    makeFeatureGRanges(oligoSet)
 	}
 }
 \keyword{manip}
