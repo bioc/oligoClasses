@@ -36,15 +36,14 @@ R. Scharpf
  \code{\link{findOverlaps}}, \code{\linkS4class{GRanges}}, \code{\linkS4class{GenomeAnnotatedDataFrame}}
 }
 \examples{
-		library(oligoClasses)
-		library(GenomicRanges)
-		library(Biobase)
-		library(foreach)
-		registerDoSEQ()
-		data(oligoSetExample, package="oligoClasses")
-		oligoSet <- oligoSet[chromosome(oligoSet) == 1, ]
-    makeFeatureGRanges(oligoSet)
-	}
+  library(oligoClasses)
+	library(GenomicRanges)
+	library(Biobase)
+	library(foreach)
+	registerDoSEQ()
+	data(oligoSetExample, package="oligoClasses")
+	oligoSet <- oligoSet[chromosome(oligoSet) == 1, ]
+  makeFeatureGRanges(oligoSet)
 }
 \keyword{manip}
 
