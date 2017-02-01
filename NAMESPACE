@@ -42,7 +42,7 @@ importMethodsFrom(Biobase, annotatedDataFrameFrom, assayData,
 importMethodsFrom(RSQLite, dbGetQuery, dbListTables)
 
 ## IRanges
-##importClassesFrom(IRanges, RangedData, DataTable, List, DataTableORNULL, Vector, Annotated)
+##importClassesFrom(IRanges, RangedData, DataTable, List, DataTable_OR_NULL, Vector, Annotated)
 ##importFrom(IRanges, IRanges, RangedData, RangedDataList,
 ##	   countOverlaps,
 ##	   ranges, values,
