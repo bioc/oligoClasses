@@ -39,7 +39,7 @@ importMethodsFrom(Biobase, annotatedDataFrameFrom, assayData,
 		  snpCall, snpCallProbability,
                   'snpCall<-', 'snpCallProbability<-')
 
-importMethodsFrom(RSQLite, dbGetQuery, dbListTables)
+importMethodsFrom(DBI, dbGetQuery, dbListTables)
 
 ## IRanges
 ##importClassesFrom(IRanges, RangedData, DataTable, List, DataTable_OR_NULL, Vector, Annotated)
