@@ -8,7 +8,7 @@ loader <- function(theFile, envir, pkgname){
 
 requireAnnotation <- function(pkgname, lib=.libPaths()[1], verbose=TRUE){
 	stopifnot(is.character(pkgname), !missing(pkgname))
-	status <- require(pkgname, character.only=TRUE, quietly=!verbose)
+	status <- suppressWarnings(require(pkgname, character.only=TRUE, quietly=!verbose))
 	if (!status)
 		status <- pdPkgFromBioC(pkgname, lib=lib, verbose=verbose)
 	status
