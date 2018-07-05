@@ -6,7 +6,7 @@
 import(methods)
 
 ## BiocGenerics
-importFrom(BiocGenerics, updateObject, annotation, "annotation<-")
+importFrom(BiocGenerics, updateObject, annotation, "annotation<-", dims)
 
 ## affyio
 importFrom(affyio, read.celfile.header, read.celfile)
@@ -27,7 +27,7 @@ importFrom(Biobase, assayDataElement, assayDataElementReplace,
 	   testBioCConnection)
 
 importMethodsFrom(Biobase, annotatedDataFrameFrom, assayData,
-                  "assayData<-", combine, dims, experimentData,
+                  "assayData<-", combine, experimentData,
                   "experimentData<-", exprs, "exprs<-",
 		  protocolData,
                   featureData, "featureData<-", featureNames, fData,

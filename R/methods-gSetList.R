@@ -106,10 +106,10 @@ setMethod("chromosome", signature(object="gSetList"),
 		  if(!as.list) object@chromosome else chromosomeList(object)
 	  })
 
-setMethod("dims", signature(object="gSetList"), function(object){
-	nchr <- length(chromosome(object))
-	nr <- sum(elementNROWS(object))
-	ns <- ncol(object)
+setMethod("dims", signature(x="gSetList"), function(x){
+	nchr <- length(chromosome(x))
+	nr <- sum(elementNROWS(x))
+	ns <- ncol(x)
 	ds <- c(nr, nchr, ns)
 	names(ds) <- c("features (total)", "list elements", "samples")
 	return(ds)
