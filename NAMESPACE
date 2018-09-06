@@ -61,8 +61,8 @@ importFrom(ff, open.ff, close.ff, ff, ffdf)
 ## foreach
 import(foreach)
 
-## BiocInstaller
-importFrom(BiocInstaller, biocinstallRepos)
+## BiocManager
+importFrom(BiocManager, repositories)
 
 ## utils
 importFrom(utils, packageDescription)
