@@ -54,13 +54,14 @@ Class \code{"\linkS4class{Versioned}"}, by class "eSet", distance 3.
 \author{R. Scharpf}
 
 \seealso{
-	\code{\linkS4class{SnpSuperSet}}, \code{\linkS4class{CNSet}}
+    \code{\linkS4class{SnpSuperSet}}, \code{\linkS4class{CNSet}}
 }
 \examples{
 showClass("AlleleSet")
 ## an empty AlleleSet
 x <- new("matrix")
-new("AlleleSet", senseAlleleA=x, senseAlleleB=x, antisenseAlleleA=x, antisenseAlleleB=x)
+new("AlleleSet", senseAlleleA=x, senseAlleleB=x,
+    antisenseAlleleA=x, antisenseAlleleB=x)
 ##or
 new("AlleleSet", alleleA=x, alleleB=x)
 }

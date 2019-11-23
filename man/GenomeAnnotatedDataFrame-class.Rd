@@ -107,18 +107,3 @@ Class \code{"\linkS4class{Versioned}"}, by class "AnnotatedDataFrame", distance 
 R. Scharpf
 }
 
-\seealso{
-  \code{\linkS4class{AnnotatedDataFrame}}
-}
-
-\examples{
-new("GenomeAnnotatedDataFrame")
-if(require("pd.mapping50k.hind240") && require("pd.mapping50k.xba240") && require("SNPchip")){
-	data(locusLevelData)
-	gd <- GenomeAnnotatedDataFrameFrom(locusLevelData[["genotypes"]],
-					       annotationPkg=locusLevelData[["platform"]],
-					       genome="hg19")
-        arm <- getArm(gd, "hg19")
-}
-}
-\keyword{classes}

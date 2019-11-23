@@ -1,10 +1,10 @@
 Package: oligoClasses
-Version: 1.49.0
+Version: 1.49.1
 Title: Classes for high-throughput arrays supported by oligo and crlmm
 Author: Benilton Carvalho and Robert Scharpf
 Maintainer: Benilton Carvalho <beniltoncarvalho@gmail.com> and Robert Scharpf <rscharpf@jhsph.edu>
-Depends:  R (>= 2.14)
-Imports:  BiocGenerics (>= 0.27.1), Biobase (>= 2.17.8), methods, graphics, IRanges (>= 2.5.17), GenomicRanges (>= 1.23.7), SummarizedExperiment, Biostrings (>= 2.23.6), affyio (>= 1.23.2), ff, foreach, BiocManager, utils, S4Vectors (>= 0.9.25), RSQLite, DBI
+Depends: R (>= 2.14)
+Imports: BiocGenerics (>= 0.27.1), Biobase (>= 2.17.8), methods, graphics, IRanges (>= 2.5.17), GenomicRanges (>= 1.23.7), SummarizedExperiment, Biostrings (>= 2.23.6), affyio (>= 1.23.2), ff, foreach, BiocManager, utils, S4Vectors (>= 0.9.25), RSQLite, DBI
 Enhances: doMC, doMPI, doSNOW, doParallel, doRedis
 Suggests: hapmapsnp5, hapmapsnp6,
           pd.genomewidesnp.6,
@@ -16,12 +16,11 @@ Suggests: hapmapsnp5, hapmapsnp6,
 	  genomewidesnp6Crlmm (>= 1.0.7),
 	  genomewidesnp5Crlmm (>= 1.0.6),
 	  RUnit,
-	  human370v1cCrlmm,
-          SNPchip, VanillaICE, crlmm
+	  human370v1cCrlmm, VanillaICE, crlmm
 Description: This package contains class definitions, validity checks, and initialization methods for classes used by the oligo and crlmm packages.
 License: GPL (>= 2)
 LazyLoad: yes
-Collate:  AllClasses.R
+Collate: AllClasses.R
           AllGenerics.R
 	  utils-general.R
 	  utils-lds.R
@@ -49,6 +48,7 @@ Collate:  AllClasses.R
 	  functions.R
 	  zzz.R
 biocViews: Infrastructure
-## Local Variables:
+## Local Variables: 
 ## time-stamp-pattern: "8/Date: %3a %3b %2d %02H:%02M:%02S %Z %:y\n"
-## End:
+## End: 
+RoxygenNote: 6.1.1
