@@ -86,8 +86,7 @@ exportClasses(FeatureSet, ExpressionFeatureSet, SnpFeatureSet,
 
 ##SNP-level Classes
 exportClasses(AlleleSet, BeadStudioSet, oligoSnpSet, SnpSuperSet, CNSet,
-	      gSet, gSetList, RangedDataCopyNumber, RangedDataCNV, RangedDataCBS,
-	      RangedDataHMM, CopyNumberSet, GenomeAnnotatedDataFrame,
+	      gSet, gSetList, CopyNumberSet, GenomeAnnotatedDataFrame,
 	      BeadStudioSetList, BafLrrSetList, BafLrrSet,
 	      oligoSetList, SnpSet2)
 
@@ -151,7 +150,7 @@ export(pdPkgFromBioC, requireAnnotation, affyPlatforms, celfileDate, celfileName
 
 export(chromosome2integer, integer2chromosome, i2p, p2i, annotationPackages, checkExists,
        chromosomePositionOrder, integerArray, integerMatrix, findOverlaps,
-       RangedDataCNV, RangedDataCBS, RangedDataHMM, library2, AssayDataList,
+       library2, AssayDataList,
        getSequenceLengths)
 
 

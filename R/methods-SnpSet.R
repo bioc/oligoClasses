@@ -160,8 +160,8 @@ setMethod("combine", signature=signature(x="SnpSet2", y="SnpSet2"),
           })
 
 
-setMethod("featuresInRange", signature(object="SnpSet2", range="RangedDataCNV"),
-	  function(object, range, FRAME=0, FRAME.LEFT, FRAME.RIGHT, ...){
-		  .Defunct("featuresInRange has been deprecated. Use findOverlaps.")
-	  })
+## setMethod("featuresInRange", signature(object="SnpSet2", range="RangedDataCNV"),
+## 	  function(object, range, FRAME=0, FRAME.LEFT, FRAME.RIGHT, ...){
+## 		  .Defunct("featuresInRange has been deprecated. Use findOverlaps.")
+## 	  })
 
