@@ -135,11 +135,12 @@ setClass("oligoSetList", contains="gSetList")
 
 ##---------------------------------------------------------------------------
 ## classes for ranges
-setClass("RangedDataCopyNumber", contains="RangedData",
-	 representation("VIRTUAL"))
-setClass("RangedDataCNV", contains="RangedDataCopyNumber")
-setClass("RangedDataCBS", contains="RangedDataCNV")
-setClass("RangedDataHMM", contains="RangedDataCNV")
+## deprecated now
+## setClass("RangedDataCopyNumber", contains="RangedData",
+## 	 representation("VIRTUAL"))
+## setClass("RangedDataCNV", contains="RangedDataCopyNumber")
+## setClass("RangedDataCBS", contains="RangedDataCNV")
+## setClass("RangedDataHMM", contains="RangedDataCNV")
 
 ##setClass("GRangesHMM", contains="GRanges")
 ##setClass("GRangesHMMList", contains="GRangesList")

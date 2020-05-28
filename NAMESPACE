@@ -65,7 +65,7 @@ import(foreach)
 importFrom(BiocManager, repositories)
 
 ## utils
-importFrom(utils, packageDescription)
+importFrom(utils, packageDescription, available.packages, contrib.url, install.packages)
 
 ##---------------------------------------------------------------------------
 ## Export
