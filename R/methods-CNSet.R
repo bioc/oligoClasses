@@ -5,15 +5,15 @@ setMethod("show", "CNSet", function(object){
 		##to avoid warnings
 		if("SKW" %in% varLabels(object)) {
 			if(is(object$SKW, "ff"))
-				open.ff(object$SKW)
+				open(object$SKW)
 		}
 		if("SNR" %in% varLabels(object)){
 			if(is(object$SNR, "ff"))
-				open.ff(object$SNR)
+				open(object$SNR)
 		}
 		if("gender" %in% varLabels(object)){
 			if(is(object$gender, "ff"))
-				open.ff(object$gender)
+				open(object$gender)
 		}
 	}
 	ad.class <- class(A(object))[1]
