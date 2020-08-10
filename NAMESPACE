@@ -57,7 +57,7 @@ import(SummarizedExperiment)
 ## ff
 ## register open and close methods
 ##importFrom(ff, open.ff, close.ff, ff, ffdf)
-import(ff)
+##import(ff)
 
 ## foreach
 import(foreach)
